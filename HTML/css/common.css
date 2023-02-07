@@ -1,0 +1,478 @@
+/* 초기화 */
+* {
+    margin: 0;
+    padding: 0;
+    font: normal 12px "Noto Sans CJK KR";
+}
+
+ul, ol {list-style: none;}
+
+a {
+    text-decoration: none;
+    color: #111;
+}
+
+input, textarea {outline:  none;}
+
+#wrapper {width: 100%;}
+
+/* 헤더영역 */
+header {
+    width: 100%;
+    height: 197px;
+}
+
+header > div {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+header > .top {
+    height: 35px;
+    border-bottom: 1px solid #e9e9e9;
+}
+header > .top > div {
+    width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+    text-align: right;
+}
+header > .top > div > a {
+    display: inline-block;
+    height: 100%;
+    line-height: 35px;
+    border-left: 1px solid #e9e9e9;
+    padding: 0 10px;
+    color: #646464;
+}
+header > .top > div > a:last-child {border-right: 1px solid #e9e9e9;}
+header > .top > div > a:hover {
+    color: #333;
+    border-bottom: 1px solid #444;
+}
+
+header > .logo {
+    height: 115px;
+    border-bottom: 1px solid #e9e9e9;
+}
+header > .logo > div {
+    position: relative;
+    width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+}
+header > .logo > div > a {
+    display: inline-block;
+    margin-top: 30px;
+}
+header > .logo > div > form {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -185px;
+    margin-top: -22px;
+    display: inline-block;
+    width: 370px;
+    height: 45px;
+}
+header > .logo > div > form > input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #e9e9e9;
+    border-radius: 5px;
+    font-size: 20px;
+    padding-left: 10px;
+    padding-right: 30px;
+    box-sizing: border-box;
+}
+header > .logo > div > form > button {
+    position: absolute;
+    right: 6px;
+    top: 10px;
+    background: #fff;
+    border:  none;
+    font-size: 20px;
+    color: #333;
+    outline: none;
+}
+
+header > .menu {
+    height: 46px;
+    background: #f2f2f2;
+    border-bottom: 1px solid #ddd;
+    box-sizing: border-box;
+}
+header > .menu > div {
+    width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+}
+header > .menu > div > ul {
+    display: inline-block;
+    margin-top: 16px;
+}
+header > .menu > div > ul:nth-child(1) {float: left;}
+header > .menu > div > ul:nth-child(2) {float: right;}
+header > .menu > div > ul > li {float: left;}
+header > .menu > div > ul > li > a {
+    border-left: 1px solid #e9e9e9;
+    padding: 0 10px;
+}
+header > .menu > div > ul > li:last-child > a {border-right: 1px solid #e9e9e9;}
+
+/* 메인영역 */
+main {
+    width: 1200px;
+    height: auto;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* 왼쪽 카테고리 메뉴 */
+main > aside {
+    float: left;
+    width: 215px;
+    height: 100%;
+}
+main > aside > .category {
+    position: relative;
+    width: 100%;
+    height: 425px;
+    background: #333949;
+}
+main > aside > .category > li {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    color: #ccc;
+    font-size: 13px;
+    border-bottom: 1px solid #2b313f;
+    box-sizing: border-box;
+}
+main > aside > .category > li:first-child {
+    padding: 0 20px;
+    color: #fff;
+    line-height: 40px;
+}
+main > aside > .category > li > a {
+    display: block;
+    padding: 0 20px;
+    line-height: 40px;
+    color: #ccc;
+    text-decoration: none;
+    font-size: 1em;
+}
+main > aside > .category > li > a:hover {
+    background: #2b313f;
+    color: #fff;
+}
+
+/* 마우스를 올리는 카테고리 메뉴의 서브메뉴 출현 */
+main > aside > .category > li > a:hover + ol {display: block;}
+
+/* 서브메뉴에 마우스가 올라가면 계속 노출 */
+main > aside > .category ol:hover {display: block;}
+
+main > aside > .category i {
+    width: 22px;
+    font-size: 16px;
+    margin-right: 12px;
+}
+main > aside > .category > li i.fa-angle-right {
+    float: right;
+    width: auto;
+    margin-top: 10px;
+    margin-right: 0;
+}
+main > aside > .category ol {
+    position: absolute;
+    left: 215px;
+    top: 0;
+    display: none;
+    width: 215px;
+    height: 100%;
+    border: 1px solid #787f89;
+    background: #fff;
+    box-sizing: border-box;
+    z-index: 10000;
+}
+main > aside > .category ol > li {
+    width: 100%;
+    height: 24px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+main > aside > .category ol > li > a:hover {
+    color: #41ab47;
+    text-decoration: underline;
+}
+
+/* 베스트 배너 */
+main > aside > .best {
+    width: 215px;
+    height: auto;
+    border: 1px solid #dbdbdb;
+    box-sizing: border-box;
+    box-shadow: 0 0 5px rgba(55, 55, 5, 0.2);
+}
+main > aside > .best > h1 {
+    font-size: 14px;
+    font-weight: bold;
+    color: #111;
+    margin: 6px;
+}
+main > aside > .best > h1 > i {
+    margin-right: 6px;
+    font-size: 18px;
+}
+main > aside > .best > ol {width: 100%;}
+main > aside > .best > ol > li {
+    width: 100%;
+    height: 100%;
+    padding: 0 6px;
+    box-sizing: border-box;
+    margin-bottom: 16px;
+}
+main > aside > .best > ol > li > a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+main > aside > .best > ol > li > a:hover h2 {text-decoration: underline;}
+main > aside > .best > ol > li > a > .thumb {
+    float: left;
+    position: relative;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+main > aside > .best > ol > li:first-child > a > .thumb {
+    position: relative;
+    float: none;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin: 0 auto;
+}
+main > aside > .best > ol > li > a > .thumb > i {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: inline-block;
+    width: 16px;
+    height: 20px;
+    font-size: 14px;
+    padding: 0;
+    color: #ef3e42;
+    border-bottom: 1px solid #ef3e42;
+    font-weight: bold;
+    font-style: italic;
+    text-align: center;
+    line-height: 18px;
+}
+main > aside > .best > ol > li:first-child > a > .thumb > i {
+    width: 35px;
+    height: 26px;
+}
+main > aside > .best > ol > li > a > .thumb > img {width: 100%;}
+main > aside > .best > ol > li > a > article {
+    float: left;
+    width: 148px;
+    padding-left: 6px;
+    box-sizing: border-box;
+}
+main > aside > .best > ol > li > a h2 {
+    margin-top: 4px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+main > aside > .best > ol > li > a .org_price {}
+main > aside > .best > ol > li > a .org_price > del::after {content: "원";}
+main > aside > .best > ol > li > a .org_price > ins::after {content: "원";}
+main > aside > .best > ol > li > a .org_price > del {
+    font-size: 10px;
+    color: #aaa;
+}
+main > aside > .best > ol > li > a .org_price > span {
+    color: #eb000a;
+    font-size: 10px;
+}
+main > aside > .best > ol > li > a .org_price > span::after {content: "↓";}
+main > aside > .best > ol > li > a .dis_price {}
+main > aside > .best > ol > li > a .dis_price > ins {
+    font-size: 14px;
+    text-decoration: none;
+}
+main > aside > .best > ol > li > a .dis_price > ins::after {content: "원";}
+main > aside > .best > ol > li > a .dis_price > span {
+    display: inline-block;
+    font-size: 0;
+    vertical-align: text-bottom;
+    width: 55px;
+    height: 13px;
+    background: url("../img/ico_freeshipping.gif") no-repeat;
+}
+
+/* 메인 첫번째 섹션 */
+main > section {
+    float: right;
+    width: 985px;
+    height: auto;
+    box-sizing: border-box;
+}
+main > section > section {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+main > section > section > article {
+    float: left;
+    width: 25%;
+    height: 345px;
+}
+main > section > section > h3 > span {
+    display: inline-block;
+    margin: 10px;
+    border-bottom: 2px solid #111;
+    font-weight: bold;
+    font-size: 16px;
+}
+main > section > section > article > a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+main > section > section > article .thumb {
+    width: 100%;
+    height: 230px;
+    margin: 0px auto;
+    overflow: hidden;
+    text-align: center;
+}
+main > section > section > article h2 {
+    font-size: 15px;
+    font-weight: bold;
+    margin-top: 4px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+main > section > section > article p {
+    color: #222;
+    font-size: 12px;
+    line-height: 16px;
+    margin: 4px 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+main > section > section > article > a:hover > p {text-decoration: underline;}
+main > section > section > article del::after {content: "원";}
+main > section > section > article ins::after {content: "원";}
+main > section > section > article .org_price > del {color: #aaa;}
+main > section > section > article .org_price > span {color: #eb000a;}
+main > section > section > article .org_price > span::after {content: "↓";}
+main > section > section > article .dis_price {margin-top: 4px;}
+main > section > section > article .dis_price > ins {
+    font-size: 14px;
+    text-decoration: none;
+}
+main > section > section > article .dis_price > .free {
+    display: inline-block;
+    font-size: 0;
+    vertical-align: text-bottom;
+    width: 55px;
+    height: 13px;
+    background: url("../img/ico_freeshipping.gif") no-repeat;
+}
+
+/* 슬라이더 영역 */
+main > section > .slider {
+    width: 100%;
+    height: 425px;
+    overflow: hidden;
+}
+main > section > .slider > .bx-wrapper {
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: none;
+    background: #fff;
+}
+main > section > .hit {}
+main > section > .recommend {}
+main > section > .now {}
+main > section > .discount {}
+
+/* 푸터영역 */
+footer {
+    width: 100%;
+    height: 192px;
+    background: #f8f8f8;
+    border-top: 1px solid #e9e9e9;
+    box-sizing: border-box;
+}
+footer > ul {
+    width: 1200px;
+    height: 39px;
+    margin: 0 auto;
+    padding: 15px 0;
+    border-bottom: 1px solid #e9e9e9;
+    box-sizing: border-box;
+    text-align: center;
+}
+footer > ul > li {
+    display: inline-block;
+    font-weight: bold;
+    border-right: 1px solid #d7d7d7;
+    padding: 0 10px;
+}
+footer > ul > li:first-child {border-left: 1px solid #d7d7d7;}
+footer > div {
+    width: 1200px;
+    height: auto;
+    padding-top: 20px;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+footer p {
+    float: left;
+    height: 100%;
+    font-size: 11px;
+    line-height: 15px;
+    color: #676767;
+}
+footer p:nth-of-type(2) {
+    width: 300px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+footer p > strong {
+    display: inline-block;
+    padding: 6px 15px 7px 0;
+    color: #464646;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* 오른쪽 하단 상단 이동 버튼 */
+#top {
+    position: fixed;
+    left: 50%;
+    bottom: 10px;
+    margin-left: 600px;
+    width: 42px;
+    height: 42px;
+    background-image: url("../img/top.png");
+    border: none;
+    font-size: 0;
+    cursor: pointer;
+}
