@@ -4,6 +4,29 @@
   내용 : cs/index
 -->
 
+<!-- 헤더 푸터 확인용 스크립트 -->
+<div id="header"></div>
+
+<script>
+  function loadHTML(url, element) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", url, true);
+    xhr.onreadystatechange = function () {
+      if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+        element.innerHTML = this.responseText;
+      }
+    };
+    xhr.send();
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const header = document.getElementById("header");
+    const footer = document.getElementById("footer");
+    loadHTML("_header.html", header);
+    loadHTML("_footer.html", footer);
+  });
+</script>
+<!--헤더 확인용-->
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{/_header.html}"/>
 <section id="cs">
@@ -134,4 +157,5 @@
   </section>
 </section>
 <th:block th:replace="~{/_footer.html}"/>
-
+<!--푸터 확인용-->
+<div id="footer"></div>

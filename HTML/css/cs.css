@@ -593,3 +593,192 @@ footer p > strong {
     border-bottom: 1px solid #e9e9e9;
     box-sizing: border-box;
 }
+
+#cs > .faq > .view {}
+#cs > .faq > .view > article {}
+#cs > .faq > .view > article > nav {
+    width: 100%;
+    height: auto;
+    padding: 26px;
+    border-top: 2px solid #111;
+    border-bottom: 1px solid #e9e9e9;
+    box-sizing: border-box;
+}
+
+#cs > .faq > .view > article > nav > .title {
+    margin-bottom: 6px;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+#cs > .faq > .view > article > nav > .title > span {
+    font-family: sans-serif;
+    font-size: 32px;
+    font-weight: bold;
+    color: #006cff;
+    margin-right: 6px;
+}
+
+#cs > .faq > .view > article > nav > .date {
+    font-size: 14px;
+    color: #777;
+}
+
+#cs > .faq > .view > article > .content {
+    width: 100%;
+    height: 100%;
+    border-bottom: 1px solid #e9e9e9;
+    padding: 26px;
+    box-sizing: border-box;
+}
+
+#cs > .faq > .view > article > .content * {
+    font-size: 16px;
+    line-height: 32px;
+}
+
+
+/* cs qna 공통 */
+#cs > .qna {}
+#cs > .qna > nav {
+    width: 100%;
+    height: 60px;
+    border-bottom: 1px solid #e9e9e9;
+    box-sizing: border-box;
+}
+
+#cs > .qna > nav > div {
+    width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+#cs > .qna > nav p {
+    float: left;
+    margin-top: 16px;
+    font-size: 16px;
+}
+
+#cs > .qna > nav p > span {
+    font-size: 12px;
+    margin-left: 10px;
+    margin-right: 10px;
+    color: #777;
+}
+
+#cs > .qna > section {
+    position: relative;
+    width: 1200px;
+    height: auto;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+#cs > .qna > section > aside {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 220px;
+    height: 100%;
+    border-right: 1px solid #e9e9e9;
+    box-sizing: border-box;
+}
+
+#cs > .qna > section > article {
+    float: right;
+    width: 980px;
+    min-height: 600px;
+}
+
+#cs > .qna > section > aside > h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 26px 0;
+}
+
+#cs > .qna > section > aside > ul {}
+#cs > .qna > section > aside > ul > li {margin-bottom: 16px;}
+
+#cs > .qna > section > aside > ul > li > a {
+    font-size: 16px;
+    font-weight: bold;
+    color: #9e9e9e
+}
+
+#cs > .qna > section > aside > ul > li > a:hover {
+    color: #111;
+    text-decoration: underline;
+}
+
+#cs > .qna > section > aside > ul > .on > a {
+    color: #111;
+    text-decoration: underline;
+}
+
+#cs > .qna > section > article {
+    padding: 26px;
+    box-sizing: border-box;
+}
+
+
+/* qna - 글목록 */
+#cs > .qna > .list > article > table {
+    width: 100%;
+    border-collapse: collapse;
+    border-top: 2px solid #111;
+}
+
+#cs > .qna > list > article > table tr {
+    width: 100%;
+    height: 26px;
+}
+
+#cs > .qna > .list > article > table tr:hover {
+    background-color: #f7f7f7;
+}
+
+#cs > .qna > .list > article > table td {
+    padding: 16px;
+    border-bottom: 1px solid #ccc;
+}
+
+#cs > .qna > .list > article > table td:last-child {
+    text-align: center;
+    font-size: 14px;
+}
+
+#cs > .qna > .list > article > table a {font-size: 16px;}
+
+#cs > .qna > .list > article > .page {
+    text-align: center;
+    margin-top: 26px;
+}
+
+#cs > .qna > .list > article > .page > a {
+    display: inline-block;
+    width: 34px;
+    height: 34px;
+    box-sizing: border-box;
+    text-align: center;
+    line-height: 34px;
+    font-size: 13px;
+    font-weight: bold;
+    vertical-align: bottom;
+}
+
+#cs > .qna > .list > article > .page > .prev {
+    font-size: 0;
+    background-image: url("../img/cs_sprites.png");
+    background-position: -706px -652px;
+}
+
+#cs > .qna > .list > article > .page > .next {
+    font-size: 0;
+    background-image: url("../img/cs_sprites.png");
+    background-position: -628px -652px;
+}
+
+#cs > .qna > .list > article > .page > .num {}
+#cs > .qna > .list > article > .page > .on {
+    background: #006cff;
+}
