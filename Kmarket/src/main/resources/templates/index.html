@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>케이마켓::대한민국 1등 온라인 쇼핑몰</title>
@@ -42,8 +43,8 @@
     <header>
         <div class="top">
             <div>
-                <a href="#">로그인</a>
-                <a href="#">회원가입</a>
+                <a th:href="@{/member/login}">로그인</a>
+                <a th:href="@{/member/join}">회원가입</a>
                 <a href="#">마이페이지</a>
                 <a href="#">
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
