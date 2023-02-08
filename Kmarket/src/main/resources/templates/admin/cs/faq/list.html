@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>케이마켓::관리자</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://kit.fontawesome.com/20962f3e4b.js" crossorigin="anonymous"></script> 
+    <script src="../js/gnb.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../../../css/admin.css">
+</head>
+<body>
+    <div id="admin-wrapper">
+        <header>
+            <div>
+                <a href="#" class="logo">
+                    <img src="../img/admin_logo.png" alt="admin_logo">
+                </a>
+                <p>
+                    <span>홍길동님 반갑습니다.</span>
+                    <a href="#">HOME |</a>
+                    <a href="#">로그아웃 |</a>
+                    <a href="#">고객센터</a>
+                </p>
+            </div>
+        </header>
+        <main>
+            <aside>
+                <!--  -->
+                <ul id="gnb">
+                    <li>
+                        <a href="#"><i class="fa fa-cogs" aria-hidden="true"></i>환경설정</a>
+                        <ol>
+                            <li><a href="#">기본환경설정</a></li>
+                            <li><a href="#">배너관리</a></li>
+                        </ol>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-store" aria-hidden="true"></i>상점관리</a>
+                        <ol>
+                            <li><a href="#">판매자현황</a></li>
+                            <li><a href="#">재고관리</a></li>
+                        </ol>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-users" aria-hidden="true"></i>회원관리</a>
+                        <ol>
+                            <li><a href="#">회원현황</a></li>
+                            <li><a href="#">포인트관리</a></li>
+                            <li><a href="#">비회원관리</a></li>
+                            <li><a href="#">접속자집계</a></li>
+                        </ol>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-box-open" aria-hidden="true"></i>상품관리</a>
+                        <ol>
+                            <li><a href="#">상품현황</a></li>
+                            <li><a href="#">상품등록</a></li>
+                            <li><a href="#">재고관리</a></li>
+                        </ol>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-credit-card" aria-hidden="true"></i>주문관리</a>
+                        <ol>
+                            <li><a href="#">주문현황</a></li>
+                            <li><a href="#">매출현황</a></li>
+                            <li><a href="#">결제관리</a></li>
+                            <li><a href="#">배송관리</a></li>
+                        </ol>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>게시판관리</a>
+                        <ol>
+                            <li><a href="#">게시판현황</a></li>
+                            <li><a href="#">고객문의</a></li>
+                        </ol>
+                    </li>
+                </ul>
+            </aside>
+			<section id="admin-product-list">
+				<nav>
+					<h3>자주묻는질문 목록</h3>
+					<p>
+						HOME > 고객센터 > <strong>자주묻는질문</strong>
+					</p>
+				</nav>
+				<!-- 상품목록 컨텐츠 시작 -->                                
+				<section>
+				
+					<div>
+						<select name="cate1" class="w-btn-outline w-btn-indigo-outline">
+							<option value="">1차 선택</option>
+							
+							<option value="cate1">cate1Name</option>
+							
+						</select>
+						
+					</div>
+					<div>
+						<select name="cate2" class="w-btn-outline w-btn-indigo-outline">
+							<option value="">2차 선택</option>
+							<option value="cate2">cate2Name</option>
+						</select>
+					</div>
+					
+					
+					<table id="listTable">
+						<tr>
+							<th><input type="checkbox" id="cbx_chkAll"/></th>
+							<th>번호</th>
+							<th>1차유형</th>
+							<th>2차유형</th>
+							<th>제목</th>
+							<th>조회</th>
+							<th>날짜</th>
+							<th>관리</th>
+						</tr>
+						
+							
+						<tr>
+							<td><input type="checkbox" name="상품코드"/></td>
+							<td>213213</td>
+							<td>cate1</td>
+							<td>cate2</td>
+							<td><a href="#">제목</a></td>
+							<td>12323</td>
+							<td>2023-02-08</td>
+							<td>
+								<a href="#">[삭제]</a>
+								<a href="#">[수정]</a>
+							</td>
+						</tr>
+							
+							
+					</table>
+			
+					<div class="btn2ro">
+						<a href="#" class="w-btn w-btn-indigo deleteAll">선택삭제</a>  
+						<a href="#" class="w-btn w-btn-green">작성하기</a> 
+					</div>
+			
+				</section>
+			</section>
+		</main>
+		<footer>
+            <div>
+                <p>Copyright ©kmarket.co.kr All rights reserved. KMARKET ADMINISTRATOR Version 5.4.1.2</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
