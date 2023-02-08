@@ -1,5 +1,6 @@
 package kr.co.kmarket.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -11,8 +12,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfig {
 	
-	//@Autowired
-	//private SecurityUserService service;
+	@Autowired
+	private SecurityUserService service;
 	
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -22,7 +23,7 @@ public class SecurityConfig {
 		// 사이트 위변조 요청 방지
 		http.csrf().disable();
 
-		/*
+
 		// 로그인 페이지 설정
 		http.formLogin()
 		.loginPage("/user/login")
@@ -36,7 +37,7 @@ public class SecurityConfig {
 		.invalidateHttpSession(true)
 		.logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
 		.logoutSuccessUrl("/user/login?success=200");
-		*/
+
 
 		return http.build();
 	}
