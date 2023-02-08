@@ -1,5 +1,7 @@
 package kr.co.kmarket.security;
 
+import kr.co.kmarket.entity.UserEntity;
+import kr.co.kmarket.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

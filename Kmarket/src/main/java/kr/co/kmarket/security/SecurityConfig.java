@@ -17,13 +17,12 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		// 인가(접근권한) 설정
-		http.authorizeHttpRequests().antMatchers("/", "/user/**", "/index").permitAll();
-		http.authorizeHttpRequests().antMatchers("/**/write/").hasAnyRole("2","3","5");
+		http.authorizeHttpRequests().antMatchers("/", "/index").permitAll();
 
 		// 사이트 위변조 요청 방지
-		//http.csrf().disable();
+		http.csrf().disable();
 
-
+		/*
 		// 로그인 페이지 설정
 		http.formLogin()
 		.loginPage("/user/login")
@@ -37,7 +36,7 @@ public class SecurityConfig {
 		.invalidateHttpSession(true)
 		.logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
 		.logoutSuccessUrl("/user/login?success=200");
-
+		*/
 
 		return http.build();
 	}
