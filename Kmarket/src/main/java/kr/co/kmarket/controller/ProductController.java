@@ -24,6 +24,12 @@ public class ProductController {
         return "product/order";
     }
 
+    @GetMapping("product/cart")
+    public String cart(){
+
+        return "product/cart";
+    }
+
     @GetMapping("product/complete")
     public String complete(){
 
