@@ -1,0 +1,35 @@
+<!--
+  날짜 : 2023/02/08
+  이름 : 김재준
+  내용 : cs/header
+-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <meta charset="UTF-8">
+  <title>케이마켓 고객센터</title>
+  <link rel="shortcut icon" type="image/x-icon" th:href="@{/img/favicon.ico}"/>
+  <link rel="stylesheet" th:href="@{/css/cs.css}">
+</head>
+<body>
+<div id="wrapper">
+  <header>
+    <div class="top">
+      <div>
+        <p>
+          <a th:href="@{/member/login}">로그인</a>
+          <a th:href="@{/member/join}">회원가입</a>
+          <a href="#">마이페이지</a>
+          <a th:href="@{/product/cart}"><i class="fa fa-shopping-cart" aria-hidden="true"></i
+          >&nbsp;장바구니</a>
+        </p>
+      </div>
+    </div>
+    <div class="logo">
+      <div>
+        <a th:href="@{/}"><img th:src="@{/img/logo.png}" alt="로고"></a>
+        <a th:href="@{/cs/index}" alt="고객센터" style="display: inline-block; position: relative; top:-0.3em;">고객센터</a>
+      </div>
+    </div>
+  </header>
