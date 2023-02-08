@@ -6,7 +6,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://kit.fontawesome.com/20962f3e4b.js" crossorigin="anonymous"></script> 
-    <script src="../js/gnb.js"></script>
+    <script src="../../../js/gnb.js"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="../../../css/admin.css">
@@ -79,7 +79,7 @@
                     </li>
                 </ul>
             </aside>
-			<section id="admin-product-list">
+			<section id="admin-product-list" class="admin-cs-faq-list">
 				<nav>
 					<h3>자주묻는질문 목록</h3>
 					<p>
@@ -89,7 +89,7 @@
 				<!-- 상품목록 컨텐츠 시작 -->                                
 				<section>
 				
-					<div>
+					<div style="display: inline-block;">
 						<select name="cate1" class="w-btn-outline w-btn-indigo-outline">
 							<option value="">1차 선택</option>
 							
@@ -98,7 +98,7 @@
 						</select>
 						
 					</div>
-					<div>
+					<div style="display: inline-block;">
 						<select name="cate2" class="w-btn-outline w-btn-indigo-outline">
 							<option value="">2차 선택</option>
 							<option value="cate2">cate2Name</option>
@@ -108,14 +108,14 @@
 					
 					<table id="listTable">
 						<tr>
-							<th><input type="checkbox" id="cbx_chkAll"/></th>
-							<th>번호</th>
-							<th>1차유형</th>
-							<th>2차유형</th>
-							<th>제목</th>
-							<th>조회</th>
-							<th>날짜</th>
-							<th>관리</th>
+							<th style="width: 2%;"><input type="checkbox" id="cbx_chkAll"/></th>
+							<th style="width: 7%;">번호</th>
+							<th style="width: 7%;">1차유형</th>
+							<th style="width: 7%;">2차유형</th>
+							<th style="width: auto;">제목</th>
+							<th style="width: 7%;">조회</th>
+							<th style="width: 9%;">날짜</th>
+							<th style="width: 9%;">관리</th>
 						</tr>
 						
 							
@@ -123,7 +123,7 @@
 							<td><input type="checkbox" name="상품코드"/></td>
 							<td>213213</td>
 							<td>cate1</td>
-							<td>cate2</td>
+							<td style="text-align: center;">cate2</td>
 							<td><a href="#">제목</a></td>
 							<td>12323</td>
 							<td>2023-02-08</td>
@@ -135,11 +135,9 @@
 							
 							
 					</table>
-			
-					<div class="btn2ro">
-						<a href="#" class="w-btn w-btn-indigo deleteAll">선택삭제</a>  
-						<a href="#" class="w-btn w-btn-green">작성하기</a> 
-					</div>
+                    
+                    <input type="button" value="선택삭제">
+                    <a href="#" class="w-btn w-btn-green">작성하기</a>
 			
 				</section>
 			</section>
