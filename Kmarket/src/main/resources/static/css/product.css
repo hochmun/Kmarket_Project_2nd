@@ -29,7 +29,7 @@
 
 #product h6.rating {
     font-size: 11px;
-    background-image: url('/img/rating_star.png');
+    background-image: url('../img/rating_star.png');
     background-repeat: no-repeat;
     background-position: 36px 0px;
     background-size: auto 100%;
@@ -45,7 +45,7 @@
     width: 150px;
     height: 20px;
     font-size: 0px;
-    background-image: url(/img/ico_rating_star.png);
+    background-image: url('../img/ico_rating_star.png');
     background-repeat: no-repeat;
     background-position: 36px 0px;
     text-indent: 86px;
@@ -64,10 +64,10 @@
     background-repeat: no-repeat;
 }
 
-#product .badge.power {background-image: url('/img/ico_power_dealer.gif');}
-#product .badge.great {background-image: url('/img/ico_power_seller.gif');}
+#product .badge.power {background-image: url('../img/ico_power_dealer.gif');}
+#product .badge.great {background-image: url('../img/ico_power_seller.gif');}
 #product .badge.power.badge.great{
-    background: url('/img/ico_power_dealer.gif') no-repeat, url('/img/ico_great_seller.gif') no-repeat 63px;
+    background: url('../img/ico_power_dealer.gif') no-repeat, url('../img/ico_great_seller.gif') no-repeat 63px;
     width: 160px;
 }
 
@@ -155,7 +155,7 @@
     vertical-align: text-bottom;
     width: 55px;
     height: 13px;
-    background: url('/img/ico_free_delivery.gif') no-repeat;
+    background: url('../img/ico_free_delivery.gif') no-repeat;
     margin-top: 4px;
 }
 #product > .list > table .seller {
@@ -315,7 +315,7 @@
     width: 30px;
     height: 18px;
     top: 4px;
-    background-image: url('/img/sp_icon.png');
+    background-image: url('../img/sp_icon.png');
     font-size: 0;
     vertical-align: text-top;
     margin-right: 2px;
@@ -359,7 +359,7 @@
     width: 16px;
     height: 9px;
     margin-top: 10px;
-    background-image: url('/img/sp_icon.png');
+    background-image: url('../img/sp_icon.png');
     background-position: -196px 0;
     font-size: 0;
 }
@@ -453,7 +453,7 @@
     border: none;
     font-size: 0;
     background-color: transparent;
-    background-image: url('/img/sp_icon.png');
+    background-image: url('../img/sp_icon.png');
     cursor: pointer;
 }
 #product > .view > .info > .summary .items .title > button {
@@ -506,7 +506,7 @@
 	position: absolute;
   width: 21px;
   height: 21px;
-  background-image: url('/img/ico_sprites.png');
+  background-image: url('../img/ico_sprites.png');
   font-size: 0;
   background-color: transparent;
   border: none;
