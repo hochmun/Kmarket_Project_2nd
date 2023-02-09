@@ -404,3 +404,63 @@ button[type=submit] {
 }
 
 /* 자주묻는 질문 */
+#admin-product-list > section > a {
+    display: inline-block;
+    text-align: center;
+    line-height: 30px;
+    font-size: 13px;
+    height: 30px;
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 100px;
+    border: 1px solid #959595;
+    box-sizing: border-box;
+}
+
+#admin-product-list > section > div.aGroup {
+    margin-left: 400px;
+}
+
+#admin-product-list > section > div > a {
+    display: inline-block;
+    text-align: center;
+    line-height: 30px;
+    font-size: 13px;
+    height: 30px;
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 100px;
+    border: 1px solid #959595;
+    box-sizing: border-box;
+}
+
+#admin-product-list > section > form > div > a {
+    display: inline-block;
+    text-align: center;
+    line-height: 30px;
+    font-size: 13px;
+    height: 30px;
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 100px;
+    border: 1px solid #959595;
+    box-sizing: border-box;
+}
+
+
+
+#admin-product-list > section > form > div {margin-bottom: 10px;}
+#admin-product-list > section > form > table {border-top: 2px solid #8798a3;}
+#admin-product-list > section > form > table tr > th {
+    padding: 10px 0;
+    background: #f6f6f6;
+}
+#admin-product-list > section > form > table tr > td {
+    background: #fff;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+#admin-product-list > section > form > table tr > td:nth-child(1) {width: 15%;}
+
+#admin-product-list > section > form > table img.thumb {width: 60px;}

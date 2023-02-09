@@ -1,130 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>케이마켓::관리자</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script src="https://kit.fontawesome.com/20962f3e4b.js" crossorigin="anonymous"></script> 
-    <script src="../../../js/gnb.js"></script>
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="../../../css/admin.css">
+    <th:block th:replace="~{fragment/head_fragment::basicHead}"></th:block>
+    <th:block th:replace="~{fragment/head_fragment::adminHead}"></th:block>
 </head>
 <body>
     <div id="admin-wrapper">
-        <header>
-            <div>
-                <a href="#" class="logo">
-                    <img src="../img/admin_logo.png" alt="admin_logo">
-                </a>
-                <p>
-                    <span>홍길동님 반갑습니다.</span>
-                    <a href="#">HOME |</a>
-                    <a href="#">로그아웃 |</a>
-                    <a href="#">고객센터</a>
-                </p>
-            </div>
-        </header>
+        <header th:replace="~{fragment/header_fragment::adminHeader}"></header>
         <main>
-            <aside>
-                <!--  -->
-                <ul id="gnb">
-                    <li>
-                        <a href="#"><i class="fa fa-cogs" aria-hidden="true"></i>환경설정</a>
-                        <ol>
-                            <li><a href="#">기본환경설정</a></li>
-                            <li><a href="#">배너관리</a></li>
-                        </ol>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-store" aria-hidden="true"></i>상점관리</a>
-                        <ol>
-                            <li><a href="#">판매자현황</a></li>
-                            <li><a href="#">재고관리</a></li>
-                        </ol>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-users" aria-hidden="true"></i>회원관리</a>
-                        <ol>
-                            <li><a href="#">회원현황</a></li>
-                            <li><a href="#">포인트관리</a></li>
-                            <li><a href="#">비회원관리</a></li>
-                            <li><a href="#">접속자집계</a></li>
-                        </ol>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-box-open" aria-hidden="true"></i>상품관리</a>
-                        <ol>
-                            <li><a href="#">상품현황</a></li>
-                            <li><a href="#">상품등록</a></li>
-                            <li><a href="#">재고관리</a></li>
-                        </ol>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-credit-card" aria-hidden="true"></i>주문관리</a>
-                        <ol>
-                            <li><a href="#">주문현황</a></li>
-                            <li><a href="#">매출현황</a></li>
-                            <li><a href="#">결제관리</a></li>
-                            <li><a href="#">배송관리</a></li>
-                        </ol>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>게시판관리</a>
-                        <ol>
-                            <li><a href="#">게시판현황</a></li>
-                            <li><a href="#">고객문의</a></li>
-                        </ol>
-                    </li>
-                </ul>
-            </aside>
+            <aside th:replace="~{fragment/aside_fragment::adminAside}"></aside>
             <section id="admin-product-list">
-                <nav>
-                    <h3>문의하기 답변</h3>
-                    <p>
-                        HOME > 고객센터 > <strong>문의하기</strong>
-                    </p>
-                </nav>
- 	            <!-- 상품목록 컨텐츠 시작 -->                                
-                <section class="AdminContent">
-                    <form action="#" method="post">
-                        <table>
-                            <tr>
-                                <td><strong>유형</strong></td>
-                                <td>
-                                    카테고리1이름 - 카테고리2이름
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>제목</td>
-                                <td>
-                                문의하기 제목
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>내용</td>
-                                <td>
-                                문의하기 내용 
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>답변</td>
-                                <td>
-                                    <textarea 
-                                    name="AdminContent" 
-                                    placeholder=""
-                                    style="width: 80%; height: 200px;"></textarea>
-                                </td>
-                            </tr>
-                        </table>
-                        <div class="btn3ro" style="margin-left: 400px;">
-                            <a href="./delete.do?qnaNo=${vo.qnaNo}" class="w-btn w-btn-indigo btnDelete" id="delete">삭제</a>
-                            <a href="#" class="w-btn w-btn-green btnSubmit">답변등록</a>
-                            <a href="./list.do?cate1=${ param.cate1 }&cate2=${ param.cate2 }&pg=${param.pg}" class="w-btn w-btn-indigo btnList">목록</a>
-                        </div>
-                    </form>
-                </section>                
+                <nav th:replace="~{fragment/admin_cs_fragment::adminCsNav(cate = ${cate}, title = '답변')}"></nav>
+ 	            <!-- 컨텐츠 시작 -->
+                <section th:replace="~{fragment/admin_cs_fragment::${cate + 'Reply'}}"></section>
                 <p class="ico info">
                     <strong>Tip!</strong>
                     전자상거래 등에서의 상품 등의 정보제공에 관한 고시에 따라 총 35개 상품군에 대해 상품 특성 등을 양식에 따라 입력할 수 있습니다.
@@ -132,11 +20,7 @@
        
             </section>
         </main>
-        <footer>
-            <div>
-                <p>Copyright ©kmarket.co.kr All rights reserved. KMARKET ADMINISTRATOR Version 5.4.1.2</p>
-            </div>
-        </footer>
+        <footer th:replace="~{fragment/footer_fragment::adminFooter}"></footer>
     </div>
 </body>
 </html>

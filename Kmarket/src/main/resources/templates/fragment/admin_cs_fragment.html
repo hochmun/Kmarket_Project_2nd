@@ -1,10 +1,504 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+    <!-- 2023/02/09 // 심규영 // 표지 -->
+    <nav th:fragment="adminCsNav(cate, title)">
+        <th:block th:switch="${cate}">
+            <th:block th:case="faq">
+                <h3>자주묻는질문 [[${title}]]</h3>
+                <p>
+                    HOME > 고객센터 > <strong>자주묻는질문</strong>
+                </p>
+            </th:block>
+            <th:block th:case="qna">
+                <h3>문의하기 [[${title}]]</h3>
+                <p>
+                    HOME > 고객센터 > <strong>문의하기</strong>
+                </p>
+            </th:block>
+            <th:block th:case="notice">
+                <h3>공지사항 [[${title}]]</h3>
+                <p>
+                    HOME > 고객센터 > <strong>공지사항</strong>
+                </p>
+            </th:block>
+        </th:block>
+    </nav>
 
+    <!-- 2023/02/09 // 심규영 // 자주하는 질문 목록 -->
+    <section th:fragment="faqList">
+
+        <div style="display: inline-block;">
+            <select name="cate1" class="w-btn-outline w-btn-indigo-outline">
+                <option value="">1차 선택</option>
+
+                <option value="cate1">cate1Name</option>
+
+            </select>
+
+        </div>
+        <div style="display: inline-block;">
+            <select name="cate2" class="w-btn-outline w-btn-indigo-outline">
+                <option value="">2차 선택</option>
+                <option value="cate2">cate2Name</option>
+            </select>
+        </div>
+
+
+        <table id="listTable">
+            <tr>
+                <th style="width: 2%;"><input type="checkbox" id="cbx_chkAll"/></th>
+                <th style="width: 7%;">번호</th>
+                <th style="width: 7%;">1차유형</th>
+                <th style="width: 7%;">2차유형</th>
+                <th style="width: auto;">제목</th>
+                <th style="width: 7%;">조회</th>
+                <th style="width: 9%;">날짜</th>
+                <th style="width: 9%;">관리</th>
+            </tr>
+
+
+            <tr>
+                <td><input type="checkbox" name="상품코드"/></td>
+                <td>213213</td>
+                <td>cate1</td>
+                <td style="text-align: center;">cate2</td>
+                <td><a href="#">제목</a></td>
+                <td>12323</td>
+                <td>2023-02-08</td>
+                <td>
+                    <a href="#">[삭제]</a>
+                    <a href="#">[수정]</a>
+                </td>
+            </tr>
+
+
+        </table>
+
+        <input type="button" value="선택삭제">
+        <a href="#" class="w-btn w-btn-green">작성하기</a>
+
+    </section>
+
+    <!-- 2023/02/09 // 심규영 // 공지사항 목록 -->
+    <section th:fragment="noticeList">
+        <div>
+            <select name="type" class="w-btn-outline w-btn-indigo-outline" >
+                <option value="">유형 선택</option>
+                <option value="10">고객서비스</option>
+                <option value="11">안전거래</option>
+                <option value="12">위해상품</option>
+                <option value="13">이벤트상품</option>
+            </select>
+
+        </div>
+        <table class="VOStableList">
+            <tr>
+                <th style="width: 5%;"><input type="checkbox" id="cbx_chkAll"/></th>
+                <th style="width: 5%;">번호</th>
+                <th style="width: 11%;">유형</th>
+                <th style="width: auto;">제목</th>
+                <th style="width: 5%;">조회</th>
+                <th style="width: 9%;">날짜</th>
+                <th style="width: 5%;">관리</th>
+            </tr>
+
+            <tr>
+                <td><input type="checkbox" name="상품코드"/></td>
+                <td>1230123</td>
+
+                <td>고객서비스</td>
+
+                <td><a href="#">공지사항 제목</a></td>
+                <td>32132</td>
+                <td>23-02-09</td>
+                <td>
+                    <a href="#" class="deleteSingle">[삭제]</a>
+                    <a href="#">[수정]</a>
+                </td>
+            </tr>
+
+        </table>
+
+        <div class="btn2ro">
+            <a href="#" class="w-btn w-btn-indigo deleteAll">선택삭제</a>
+            <a href="#" class="w-btn w-btn-green">작성하기</a>
+        </div>
+
+        <div class="paging" th:replace="~{fragment/paging_fragment::adminPaging}"></div>
+
+    </section>
+
+    <!-- 2023/02/09 // 심규영 // 문의하기 목록 -->
+    <section th:fragment="qnaList">
+        <div style="display: inline-block;">
+            <select name="cate1" class="w-btn-outline w-btn-indigo-outline">
+                <option value="" >1차 선택</option>
+                <option value="cate11">카테고리1 이름</option>
+
+            </select>
+
+        </div>
+        <div style="display: inline-block;">
+            <select name="cate2" class="w-btn-outline w-btn-indigo-outline">
+                <option value="">2차 선택</option>
+            </select>
+        </div>
+
+        <table id="listTable">
+            <tr>
+                <th style="width: 3%;"><input type="checkbox" id="cbx_chkAll"/></th>
+                <th style="width: 3%;">번호</th>
+                <th style="width: 10%;">1차유형</th>
+                <th style="width: 10%;">2차유형</th>
+                <th>제목</th>
+                <th style="width: 10%;">작성자</th>
+                <th style="width: 7%;">작성일</th>
+                <th style="width: 7%;">상태</th>
+            </tr>
+            <tr>
+                <td><input type="checkbox" name="상품코드"/></td>
+                <td>1231323</td>
+                <td>카테고리1이름</td>
+                <td>카테고리2이름</td>
+                <td><a href="#">문의하기 제목</a></td>
+                <td>작성자 이름</td>
+                <td>23-02-09</td>
+                <td>검토중</td>
+            </tr>
+        </table>
+
+        <div class="btn1ro">
+            <a href="#" class="deleteAll">선택삭제</a>
+        </div>
+
+        <div class="paging" th:replace="~{fragment/paging_fragment::adminPaging}"></div>
+
+    </section>
+
+    <!-- 2023/02/09 // 심규영 // 자주하는질문 수정 -->
+    <section th:fragment="faqModify">
+
+        <table>
+            <tr>
+                <td>유형</td>
+                <td>
+                    <select class="w-btn-outline w-btn-indigo-outline" name="cate1">
+
+                        <option value="cate1">cate1이름</option>
+
+                    </select>
+
+                    <select class="w-btn-outline w-btn-indigo-outline" name="cate2">
+
+                        <option value="카테2 번호">카테2 이름</option>
+
+                    </select>
+
+                </td>
+            </tr>
+            <tr>
+                <td>제목</td>
+                <td>
+                    <input type="text" name="title"
+                           class="w-btn-outline w-btn-indigo-outline"
+                           placeholder="제목을 입력하세요."
+                           value="제목 내용"
+                           style="width: 100%;">
+                </td>
+            </tr>
+            <tr>
+                <td>내용</td>
+                <td>
+                                <pre style="display: grid; width: 100%;">
+                                	<textarea name="content"
+                                              class="w-btn-outline w-btn-indigo-outline"
+                                              placeholder="내용을 입력하세요."
+                                              style="height: 400px;">컨텐츠 내용</textarea>
+                                </pre>
+                </td>
+            </tr>
+        </table>
+        <div class="btn2ro" style="margin-left: 500px;">
+            <a href="#" class="w-btn w-btn-indigo">취소하기</a>
+            <a href="#" class="w-btn w-btn-green">수정하기</a>
+        </div>
+    </section>
+
+    <!-- 2023/02/09 // 심규영 // 공지사항 수정 -->
+    <section th:fragment="noticeModify">
+
+        <table>
+            <tr>
+                <td>유형</td>
+                <td>
+                    <select name="cate" class="w-btn-outline w-btn-indigo-outline">
+                        <option value="10">고객서비스</option>
+                        <option value="11">안전거래</option>
+                        <option value="12">위해상품</option>
+                        <option value="13">이벤트상품</option>
+                    </select>
+
+                </td>
+            </tr>
+            <tr>
+                <td>제목</td>
+                <td>
+                    <input type="text" name="title"
+                           class="w-btn-outline w-btn-indigo-outline"
+                           placeholder="제목을 입력하세요."
+                           value="수정하는 공지사항 게시글 제목"
+                           style="width: 100%;">
+                </td>
+            </tr>
+            <tr>
+                <td>내용</td>
+                <td>
+                            	<pre style="display: grid;">
+                                	<textarea name="content"
+                                              class="w-btn-outline w-btn-indigo-outline"
+                                              placeholder="내용을 입력하세요."
+                                              style="display: block; height: 400px;">수정하는 공지사항 게시물 내용</textarea>
+                                </pre>
+                </td>
+            </tr>
+        </table>
+        <div class="btn2ro" style="margin-left: 500px;">
+            <a href="#" class="w-btn w-btn-indigo">취소하기</a>
+            <a href="#" class="w-btn w-btn-green btnNoticeModify">수정하기</a>
+        </div>
+
+    </section>
+
+    <!-- 2023/02/09 // 심규영 // 자주하는질문 보기 -->
+    <section th:fragment="faqView">
+
+        <table>
+            <tr>
+                <td><strong>유형</strong></td>
+                <td>
+                    카테고리1 이름 - 카테고리2 이름
+                </td>
+            </tr>
+            <tr>
+                <td>제목</td>
+                <td>
+                    제목 내용
+                </td>
+            </tr>
+            <tr>
+                <td>내용</td>
+                <td>
+                    <pre>컨텐츠 내용</pre>
+                </td>
+            </tr>
+        </table>
+
+        <div class="aGroup">
+            <a href="#" class="w-btn w-btn-indigo btnDelete">삭제</a>
+            <a href="#" class="w-btn w-btn-green">수정</a>
+            <a href="#" class="w-btn w-btn-indigo">목록</a>
+        </div>
+
+    </section>
+
+    <!-- 2023/02/09 // 심규영 // 공지사항 보기 -->
+    <section th:fragment="noticeView">
+
+        <table>
+            <tr>
+                <td>유형</td>
+                <td>
+                    고객서비스
+                </td>
+            </tr>
+            <tr>
+                <td>제목</td>
+                <td>
+                    공지사항 제목
+                </td>
+            </tr>
+            <tr>
+                <td>내용</td>
+                <td>
+                    공지사항 내용
+                </td>
+            </tr>
+        </table>
+        <div class="btn3ro" style="padding-left: 400px;">
+            <a href="#" class="w-btn w-btn-indigo btnNoticeDelete">삭제</a>
+            <a href="#" class="w-btn w-btn-green">수정</a>
+            <a href="#"  class="w-btn w-btn-indigo">목록</a>
+        </div>
+
+    </section>
+
+    <!-- 2023/02/09 // 심규영 // 문의하기 보기 -->
+    <section th:fragment="qnaView">
+
+        <table>
+            <tr>
+                <td>유형</td>
+                <td>
+                    회원 - 가입
+                </td>
+            </tr>
+            <tr>
+                <td>제목</td>
+                <td>
+                    공지사항 제목
+                </td>
+            </tr>
+            <tr>
+                <td>내용</td>
+                <td>
+                    공지사항 내용
+                </td>
+            </tr>
+            <tr>
+                <td>답변</td>
+                <td>
+                    <pre>답변 내용</pre>
+                </td>
+            </tr>
+        </table>
+        <div class="btn3ro" style="margin-left: 500px;">
+            <a href="#" class="btnNoticeDelete">삭제</a>
+            <a href="#">목록</a>
+        </div>
+
+    </section>
+
+    <!-- 2023/02/09 // 심규영 // 자주하는질문 쓰기 -->
+    <section th:fragment="faqWrite">
+
+        <table>
+            <tr>
+                <td>유형</td>
+                <td>
+                    <select name="cate1" class="w-btn-outline w-btn-indigo-outline" >
+                        <option value="">1차 선택</option>
+                        <option value="cate11">cate11 이름</option>
+
+                    </select>
+                    <select name="cate2" class="w-btn-outline w-btn-indigo-outline" >
+                        <option value="">2차 선택</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>제목</td>
+                <td>
+                    <input type="text" name="title"
+                           class="w-btn-outline w-btn-indigo-outline"
+                           maxlength="255"
+                           placeholder="제목을 입력하세요."
+                           style="width: 80%;">
+                </td>
+            </tr>
+            <tr>
+                <td>내용</td>
+                <td>
+                                <textarea name="content"
+                                          class="w-btn-outline w-btn-indigo-outline"
+                                          placeholder="내용을 입력하세요."
+                                          style="width: 80%; height: 400px;"></textarea>
+                </td>
+            </tr>
+        </table>
+        <div style="margin-left: 500px;">
+            <a href="#" class="w-btn w-btn-indigo">취소하기</a>
+            <a href="#" class="w-btn w-btn-green">등록하기</a>
+        </div>
+    </section>
+
+    <!-- 2023/02/09 // 심규영 // 공지사항 쓰기 -->
+    <section th:fragment="noticeWrite">
+
+        <table>
+            <tr>
+                <td>유형</td>
+                <td>
+                    <select name="cate1" class="w-btn-outline w-btn-indigo-outline">
+                        <option value="">유형 선택</option>
+                        <option value="10">고객서비스</option>
+                        <option value="11">안전거래</option>
+                        <option value="12">위해상품</option>
+                        <option value="13">이벤트상품</option>
+                    </select>
+
+                </td>
+            </tr>
+            <tr>
+                <td>제목</td>
+                <td>
+                    <input type="text" name="title"
+                           class="w-btn-outline w-btn-indigo-outline"
+                           maxlength="255"
+                           placeholder="제목을 입력하세요."
+                           style="width: 80%;">
+                </td>
+            </tr>
+            <tr>
+                <td>내용</td>
+                <td>
+                                <textarea name="content"
+                                          class="w-btn-outline w-btn-indigo-outline"
+                                          placeholder="내용을 입력하세요."
+                                          style="width: 80%; height: 400px;"></textarea>
+                </td>
+            </tr>
+        </table>
+        <div class="btn2ro" style="margin-left: 500px;">
+            <a href="#" class="w-btn w-btn-indigo">취소하기</a>
+            <a href="#" class="w-btn w-btn-green btnNoticeInsert">등록하기</a>
+        </div>
+
+
+    </section>
+
+    <!-- 2023/02/09 // 심규영 // 문의하기 답변 -->
+    <section class="AdminContent" th:fragment="qnaReply">
+        <form action="#" method="post">
+            <table>
+                <tr>
+                    <td><strong>유형</strong></td>
+                    <td>
+                        카테고리1이름 - 카테고리2이름
+                    </td>
+                </tr>
+                <tr>
+                    <td>제목</td>
+                    <td>
+                        문의하기 제목
+                    </td>
+                </tr>
+                <tr>
+                    <td>내용</td>
+                    <td>
+                        문의하기 내용
+                    </td>
+                </tr>
+                <tr>
+                    <td>답변</td>
+                    <td>
+                                    <textarea
+                                            name="AdminContent"
+                                            placeholder=""
+                                            style="width: 80%; height: 200px;"></textarea>
+                    </td>
+                </tr>
+            </table>
+            <div class="btn3ro" style="margin-left: 400px;">
+                <a href="./delete.do?qnaNo=${vo.qnaNo}" class="w-btn w-btn-indigo btnDelete" id="delete">삭제</a>
+                <a href="#" class="w-btn w-btn-green btnSubmit">답변등록</a>
+                <a href="./list.do?cate1=${ param.cate1 }&cate2=${ param.cate2 }&pg=${param.pg}" class="w-btn w-btn-indigo btnList">목록</a>
+            </div>
+        </form>
+    </section>
 </body>
 </html>

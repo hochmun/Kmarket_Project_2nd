@@ -32,7 +32,10 @@ public class AdminCsController {
      * @return
      */
     @GetMapping("admin/cs/{cate}/modify")
-    public String modify(@PathVariable("cate") String cate) {
+    public String modify(@PathVariable("cate") String cate,
+                         Model model) {
+        model.addAttribute("cate", cate);
+
         return "admin/cs/modify";
     }
 
@@ -43,7 +46,10 @@ public class AdminCsController {
      * @return
      */
     @GetMapping("admin/cs/{cate}/view")
-    public String view(@PathVariable("cate") String cate) {
+    public String view(@PathVariable("cate") String cate,
+                       Model model) {
+        model.addAttribute("cate", cate);
+
         return "admin/cs/view";
     }
 
@@ -54,7 +60,10 @@ public class AdminCsController {
      * @return
      */
     @GetMapping("admin/cs/{cate}/write")
-    public String write(@PathVariable("cate") String cate) {
+    public String write(@PathVariable("cate") String cate,
+                        Model model) {
+        model.addAttribute("cate", cate);
+
         return "admin/cs/write";
     }
 
@@ -65,7 +74,10 @@ public class AdminCsController {
      * @return
      */
     @GetMapping("admin/cs/{cate}/reply")
-    public String reply(@PathVariable("cate") String cate) {
+    public String reply(@PathVariable("cate") String cate,
+                        Model model) {
+        model.addAttribute("cate", cate);
+
         return "admin/cs/reply";
     }
 
