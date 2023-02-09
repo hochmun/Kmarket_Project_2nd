@@ -81,55 +81,79 @@
             </aside>
             <section id="admin-product-list">
                 <nav>
-                    <h3>자주묻는질문 보기</h3>
+                    <h3>공지사항 목록</h3>
                     <p>
-                        HOME > 고객센터 > <strong>자주묻는질문</strong>
+                        HOME > 고객센터 > <strong>공지사항</strong>
                     </p>
                 </nav>
                 <!-- 상품목록 컨텐츠 시작 -->                                
                 <section>
-                
-                    <table>
+                    <div>
+                        <select name="type" class="w-btn-outline w-btn-indigo-outline" >
+                            <option value="">유형 선택</option>
+                            <option value="10">고객서비스</option>
+                            <option value="11">안전거래</option>
+                            <option value="12">위해상품</option>                                    
+                            <option value="13">이벤트상품</option>                                    
+                        </select>
+                        
+                    </div>
+                    <table class="VOStableList">
                         <tr>
-                            <td><strong>유형</strong></td>
+                            <th style="width: 5%;"><input type="checkbox" id="cbx_chkAll"/></th>
+                            <th style="width: 5%;">번호</th>
+                            <th style="width: 11%;">유형</th>
+                            <th style="width: auto;">제목</th>
+                            <th style="width: 5%;">조회</th>
+                            <th style="width: 9%;">날짜</th>
+                            <th style="width: 5%;">관리</th>
+                        </tr>
+                        
+                        <tr>
+                            <td><input type="checkbox" name="상품코드"/></td>
+                            <td>1230123</td>
+                            
+                            <td>고객서비스</td>
+                            
+                            <td><a href="#">공지사항 제목</a></td>
+                            <td>32132</td>
+                            <td>23-02-09</td>
                             <td>
-                                카테고리1 이름 - 카테고리2 이름
+                                <a href="#" class="deleteSingle">[삭제]</a>
+                                <a href="#">[수정]</a>
                             </td>
                         </tr>
-                        <tr>
-                            <td>제목</td>
-                            <td>
-                            제목 내용
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>내용</td>
-                            <td>
-                            <pre>컨텐츠 내용</pre>
-                            </td>
-                        </tr>
+                        
                     </table>
 
-                    <div class="aGroup">
-                        <a href="#" class="w-btn w-btn-indigo btnDelete">삭제</a>
-                        <a href="#" class="w-btn w-btn-green">수정</a>
-                        <a href="#" class="w-btn w-btn-indigo">목록</a>
-                    </div>
-                    
+					<div class="btn2ro">
+                        <a href="#" class="w-btn w-btn-indigo deleteAll">선택삭제</a>
+                        <a href="#" class="w-btn w-btn-green">작성하기</a>                     
+					</div>
 
-                
-                </section>
-
+                    <div class="paging">
+                    	
+                        <span class="prev">
+                            <a href="#"><&nbsp;이전</a>
+                        </span>
+		            	
+		            	<span class="num">
+                            <a href="#" class="on">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">4</a>
+		                </span>
+		                
+                        <span class="next">
+                            <a href="#">다음&nbsp;></a>
+                        </span>
+                    	
                         
-                        <p class="ico info">
-                            <strong>Tip!</strong>
-                            전자상거래 등에서의 상품 등의 정보제공에 관한 고시에 따라 총 35개 상품군에 대해 상품 특성 등을 양식에 따라 입력할 수 있습니다.
-                        </p>
-            
-                    </section>
-                </div>
-            </section>
-        </body>
+					</div>
+
+                </section>              
+	        </section>
+        </main>
         <footer>
             <div>
                 <p>Copyright ©kmarket.co.kr All rights reserved. KMARKET ADMINISTRATOR Version 5.4.1.2</p>

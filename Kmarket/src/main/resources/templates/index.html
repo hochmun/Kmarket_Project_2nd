@@ -2,41 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-    <meta charset="UTF-8">
     <title>케이마켓::대한민국 1등 온라인 쇼핑몰</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script src="https://kit.fontawesome.com/20962f3e4b.js" crossorigin="anonymous"></script>
-    <link rel="shortcut icon" type="image/x-icon" href="./img/favicon.ico">
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css"/>
-    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-    <link rel="stylesheet" href="./css/common.css">
-    <script>
-        $(document).ready(function () {
-          $(".slider > ul").bxSlider({
-            easing: "linear",
-          });
-        });
-
-        $(function () {
-          var best = $("aside > .best");
-
-          $(window).scroll(function () {
-            var t = $(this).scrollTop();
-
-            if (t > 620) {
-              best.css({
-                position: "fixed",
-                top: "0",
-              });
-            } else {
-              best.css({ position: "static" });
-            }
-          });
-        });
-      </script>
+    <th:block th:replace="~{fragment/head_fragment::basicHead}"></th:block>
+    <th:block th:replace="~{fragment/head_fragment::mainHead}"></th:block>
 </head>
 <body>
 <div id="wrapper">

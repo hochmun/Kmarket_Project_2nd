@@ -5,6 +5,7 @@
     <title>Title</title>
 </head>
 <body>
+    <!-- 메인 index 헤더 -->
     <header th:fragment="mainHeader">
         <div class="top">
             <div>
@@ -42,6 +43,21 @@
                     <li><a href="#">고객센터</a></li>
                 </ul>
             </div>
+        </div>
+    </header>
+
+    <!-- 2023/02/09 // 심규영 // 관리자 헤더 -->
+    <header th:fragment="adminHeader">
+        <div>
+            <a href="#" class="logo">
+                <img th:src="@{/img/admin_logo.png}" alt="admin_logo">
+            </a>
+            <p>
+                <span>홍길동님 반갑습니다.</span>
+                <a href="#">HOME |</a>
+                <a href="#">로그아웃 |</a>
+                <a href="#">고객센터</a>
+            </p>
         </div>
     </header>
 </body>
