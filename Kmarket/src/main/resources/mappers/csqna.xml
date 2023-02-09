@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.kmarket.dao.cs.CsQnaDAO">
+    <select id="selectQnaArticle" resultType="kr.co.kmarket.vo.Cs_QnaVO">
+        SELECT a.*, c.cate2Name FROM `km_cs_qna` AS a
+        JOIN `km_cs_cate1` AS b
+        ON a.qnaCate1 = b.cate1
+        JOIN `km_cs_cate2` AS c
+        ON b.cate1 = c.cate1 AND a.qnaCate2 = c.cate2
+        WHERE b.cate1 = #{cate1}
+        ORDER BY `qnaNo` DESC
+        LIMIT #{start}, 10;
+    </select>
+
+    <select id="selectCountTotal" resultType="int">
+        SELECT count(`qnaNo`) FROM `km_cs_qna` WHERE `qnaCate1` = 0;
+    </select>
+</mapper>
