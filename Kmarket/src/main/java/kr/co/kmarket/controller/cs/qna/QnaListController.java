@@ -3,6 +3,7 @@ package kr.co.kmarket.controller.cs.qna;
 import kr.co.kmarket.entity.UserEntity;
 import kr.co.kmarket.security.MyUserDetails;
 import kr.co.kmarket.service.cs.CsQnaService;
+import kr.co.kmarket.vo.Cs_Cate1VO;
 import kr.co.kmarket.vo.Cs_QnaVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -27,8 +29,10 @@ public class QnaListController {
         int pageStartNum = service.getPageStartNum(total, start);
         int groups[] = service.getPageGroup(currentPage, lastPage);
 
+        Cs_Cate1VO vos = service.selectCsCate(cate1);
         List<Cs_QnaVO> QnaArts = service.selectQnaArticle(start);
 
+        model.addAttribute("vos", vos);
         model.addAttribute("group", group);
         model.addAttribute("cate1", cate1);
         model.addAttribute("QnaArts", QnaArts);

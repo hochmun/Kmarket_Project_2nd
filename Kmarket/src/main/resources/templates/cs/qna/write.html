@@ -17,7 +17,7 @@
             <aside>
                 <h2>문의하기</h2>
                 <ul>
-                    <li class="on"><a href="#">회원</a></li>
+                    <li class="on"><a th:href="@{/cs/qna/list?cate1=10}">회원</a></li>
                     <li><a href="#">쿠폰/이벤트</a></li>
                     <li><a href="#">주문/결제</a></li>
                     <li><a href="#">배송</a></li>
@@ -27,17 +27,18 @@
                 </ul>
             </aside>
             <article>
-                <form action="#">
+                <form th:action="@{/cs/qna/write}" method="post">
+                <input type="hidden" name="cate1" value="${cate1}">
                     <table>
                         <tr>
                             <td>문의유형</td>
-                            <td>
-                                <select name="type">
+                            <td th:if="${cate1} == 10">
+                                <select name="cate2">
                                     <option value="0">선택</option>
-                                    <option value="">가입</option>
-                                    <option value="">탈퇴</option>
-                                    <option value="">회원정보</option>
-                                    <option value="">로그인</option>
+                                    <option value="10" th:selected="${cate2 == 10}">가입</option>
+                                    <option value="11" th:selected="${cate2 == 11}">탈퇴</option>
+                                    <option value="12" th:selected="${cate2 == 12}">회원정보</option>
+                                    <option value="13" th:selected="${cate2 == 13}">로그인</option>
                                 </select>
                             </td>
                         </tr>

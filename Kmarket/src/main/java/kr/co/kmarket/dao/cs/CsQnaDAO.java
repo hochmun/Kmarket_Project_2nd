@@ -1,5 +1,6 @@
 package kr.co.kmarket.dao.cs;
 
+import kr.co.kmarket.vo.Cs_Cate1VO;
 import kr.co.kmarket.vo.Cs_QnaVO;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
@@ -55,4 +56,12 @@ public interface CsQnaDAO {
      * @return
      */
     public int selectCountTotal();
+
+
+    /**
+     * 23/02/09 카테고리 이름 불러오기
+     * @param cate1
+     * @return
+     */
+    public Cs_Cate1VO selectCsCate(String cate1);
 }
