@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.kmarket.dao.ProductDAO">
+    <select id="getCateName" resultType="kr.co.kmarket.vo.product_cate2VO">
+        SELECT a.c1Name, b.c2Name FROM `km_product_cate1` AS a
+        JOIN `km_product_cate2` AS b
+        ON a.cate1 = b.cate1 WHERE b.cate1=#{cate1} AND b.cate2=#{cate2};
+    </select>
+    <select id="getCountTotal" resultType="int">
+        SELECT COUNT(`prodNo`) FROM `km_product` WHERE `prodCate1`=#{cate1} AND `prodCate2`=#{cate2};
+    </select>
+    <select id="selectProducts" resultType="kr.co.kmarket.vo.productVO">
+        SELECT a.*, FLOOR(`price` * (1 - `discount` / 100)) AS `disPrice`
+        FROM `km_product` AS a WHERE `prodCate1`=#{cate1} AND `prodCate2`=#{cate2}
+
+        <if test="sort == 'sold'">
+            ORDER BY `sold` DESC LIMIT #{start}, 10;
+        </if>
+
+        <if test="sort == 'lowprice'">
+            ORDER BY `price` ASC LIMIT #{start}, 10;
+        </if>
+
+        <if test="sort == 'highprice'">
+            ORDER BY `price` DESC LIMIT #{start}, 10;
+        </if>
+
+        <if test="sort == 'score'">
+            ORDER BY `score` DESC LIMIT #{start}, 10;
+        </if>
+
+        <if test="sort == 'review'">
+            ORDER BY `review` DESC LIMIT #{start}, 10;
+        </if>
+
+        <if test="sort == 'rdate'">
+            ORDER BY `rdate` DESC LIMIT #{start}, 10;
+        </if>
+
+    </select>
+</mapper>
