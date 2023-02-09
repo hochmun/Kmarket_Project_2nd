@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <!-- 2023/02/09 // 심규영 // 관리자 메인 쇼핑몰 운형 현황 정보 -->
+    <article th:fragment="mallStatus">
+      <table>
+        <tr>
+          <td>
+            <strong>주문건수(건)</strong>
+            <span>131</span>
+          </td>
+          <td>
+            <strong>주문금액(원)</strong>
+            <span>1,131,000</span>
+          </td>
+          <td>
+            <strong>회원가입(명)</strong>
+            <span>1014</span>
+          </td>
+          <td>
+            <strong>쇼핑몰 방문(명)</strong>
+            <span>1014</span>
+          </td>
+          <td>
+            <strong>신규게시물(건)</strong>
+            <span>100</span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>
+              <span>PC</span>
+              <span>60</span>
+            </p>
+            <p>
+              <span>Mobile</span>
+              <span>71</span>
+            </p>
+          </td>
+          <td>
+            <p>
+              <span>PC</span>
+              <span>60</span>
+            </p>
+            <p>
+              <span>Mobile</span>
+              <span>71</span>
+            </p>
+          </td>
+          <td>
+            <p>
+              <span>PC</span>
+              <span>60</span>
+            </p>
+            <p>
+              <span>Mobile</span>
+              <span>71</span>
+            </p>
+          </td>
+          <td>
+            <p>
+              <span>PC</span>
+              <span>60</span>
+            </p>
+            <p>
+              <span>Mobile</span>
+              <span>71</span>
+            </p>
+          </td>
+          <td>
+            <p>
+              <span>PC</span>
+              <span>60</span>
+            </p>
+            <p>
+              <span>Mobile</span>
+              <span>71</span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>
+              <span>어제</span>
+              <span>4</span>
+            </p>
+            <p>
+              <span>주간</span>
+              <span>10</span>
+            </p>
+            <p>
+              <span>월간</span>
+              <span>30</span>
+            </p>
+          </td>
+          <td>
+            <p>
+              <span>어제</span>
+              <span>4</span>
+            </p>
+            <p>
+              <span>주간</span>
+              <span>10</span>
+            </p>
+            <p>
+              <span>월간</span>
+              <span>30</span>
+            </p>
+          </td>
+          <td>
+            <p>
+              <span>어제</span>
+              <span>4</span>
+            </p>
+            <p>
+              <span>주간</span>
+              <span>10</span>
+            </p>
+            <p>
+              <span>월간</span>
+              <span>30</span>
+            </p>
+          </td>
+          <td>
+            <p>
+              <span>어제</span>
+              <span>4</span>
+            </p>
+            <p>
+              <span>주간</span>
+              <span>10</span>
+            </p>
+            <p>
+              <span>월간</span>
+              <span>30</span>
+            </p>
+          </td>
+          <td>
+            <p>
+              <span>어제</span>
+              <span>4</span>
+            </p>
+            <p>
+              <span>주간</span>
+              <span>10</span>
+            </p>
+            <p>
+              <span>월간</span>
+              <span>30</span>
+            </p>
+          </td>
+        </tr>
+      </table>
+    </article>
+
+    <!-- 2023/02/09 // 심규영 // 관리자 메인 주문 업무 현황 -->
+    <article th:fragment="orderStatus">
+      <table>
+        <tr>
+          <td>
+            <strong>입금대기(건)</strong>
+            <span>100</span>
+          </td>
+          <td>
+            <strong>배송준비(건)</strong>
+            <span>100</span>
+          </td>
+          <td>
+            <strong>취소요청(건)</strong>
+            <span>100</span>
+          </td>
+          <td>
+            <strong>교환요청(건)</strong>
+            <span>100</span>
+          </td>
+          <td>
+            <strong>반품요청(건)</strong>
+            <span>100</span>
+          </td>
+        </tr>
+      </table>
+    </article>
+
+    <!-- 2023/02/09 // 심규영 // 관리자 메인 공지사항 -->
+    <article th:fragment="adminMainNotice">
+      <p>
+        <span>[공지] 케이마켓 판매자님들은 주기적인 비밀번호 변경을 하세요.</span>
+        <span>20-07-08 12:23</span>
+      </p>
+      <p>
+        <span>[공지] 1주년 기념 신규가입 사은품 안내</span>
+        <span>20-07-08 12:23</span>
+      </p>
+      <p>
+        <span>[공지] 1주년 기념 신규가입 사은품 안내</span>
+        <span>20-07-08 12:23</span>
+      </p>
+      <p>
+        <span>[공지] 1주년 기념 신규가입 사은품 안내</span>
+        <span>20-07-08 12:23</span>
+      </p>
+      <p>
+        <span>[공지] 1주년 기념 신규가입 사은품 안내</span>
+        <span>20-07-08 12:23</span>
+      </p>
+    </article>
+
+    <!-- 2023/02/09 // 심규영 // 관리자 메인 고객문의 -->
+    <article th:fragment="adminMainQna">
+      <p>
+        <span>[문의] 상품이 잘못 왔습니다.</span>
+        <span>20-07-08 12:23</span>
+      </p>
+      <p>
+        <span>[문의] 안녕하세요. 주문자 입니다. 구매한 상품에 문제가 있어서 이렇게 문의글을 남깁니다.</span>
+        <span>20-07-08 12:23</span>
+      </p>
+      <p>
+        <span>[문의] 상품이 잘못 왔습니다.</span>
+        <span>20-07-08 12:23</span>
+      </p>
+      <p>
+        <span>[문의] 상품이 잘못 왔습니다.</span>
+        <span>20-07-08 12:23</span>
+      </p>
+      <p>
+        <span>[문의] 상품이 잘못 왔습니다.</span>
+        <span>20-07-08 12:23</span>
+      </p>
+    </article>
+
+    <!-- 2023/02/09 // 심규영 // 관리자 상품 목록 -->
+    <section th:fragment="adminProductList">
+      <div>
+        <select name="search">
+          <option value="search1">상품명</option>
+          <option value="search2">상품코드</option>
+          <option value="search3">제조사</option>
+          <option value="search4">판매자</option>
+        </select>
+        <input type="text" name="search">
+      </div>
+      <table>
+        <tr>
+          <th><input type="checkbox" name="all"></th>
+          <th>이미지</th>
+          <th>상품코드</th>
+          <th>상품명</th>
+          <th>판매가격</th>
+          <th>할인율</th>
+          <th>포인트</th>
+          <th>재고</th>
+          <th>판매자</th>
+          <th>조회</th>
+          <th>관리</th>
+        </tr>
+        <tr>
+          <td><input type="checkbox" name="상품코드"></td>
+          <td><img src="../../img/sample_thumb.jpg" class="thumb"></td>
+          <td>201603292</td>
+          <td>FreeMovement BLUEFORCE</td>
+          <td>36,000</td>
+          <td>10</td>
+          <td>360</td>
+          <td>400</td>
+          <td>홍길동</td>
+          <td>126</td>
+          <td>
+            <a href="#">[삭제]</a>
+            <a href="#">[수정]</a>
+          </td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" name="상품코드"></td>
+          <td><img src="../../img/sample_thumb.jpg" class="thumb"></td>
+          <td>201603292</td>
+          <td>FreeMovement BLUEFORCE</td>
+          <td>36,000</td>
+          <td>10</td>
+          <td>360</td>
+          <td>400</td>
+          <td>홍길동</td>
+          <td>126</td>
+          <td>
+            <a href="#">[삭제]</a>
+            <a href="#">[수정]</a>
+          </td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" name="상품코드"></td>
+          <td><img src="../../img/sample_thumb.jpg" class="thumb"></td>
+          <td>201603292</td>
+          <td>FreeMovement BLUEFORCE</td>
+          <td>36,000</td>
+          <td>10</td>
+          <td>360</td>
+          <td>400</td>
+          <td>홍길동</td>
+          <td>126</td>
+          <td>
+            <a href="#">[삭제]</a>
+            <a href="#">[수정]</a>
+          </td>
+        </tr>
+      </table>
+
+      <input type="button" value="선택삭제">
+
+      <div th:replace="~{fragment/paging_fragment::adminPaging}"></div>
+
+    </section>
+
+    <!-- 2023/02/09 // 심규영 // 관리자 상품 등록 폼 -->
+    <form action="#" th:fragment="adminRegisterForm">
+
+      <!-- 상품 분류 -->
+      <section>
+        <h4>상품분류</h4>
+        <p>
+          기본분류는 반드시 선택하셔야 합니다. 하나의 상품에 1개의 분류를 지정 합니다.
+        </p>
+        <table>
+          <tr>
+            <td>1차 분류</td>
+            <td>
+              <select name="category1">
+                <option value="cate0">1차 분류 선택</option>
+                <option value="cate11">패션·의류·뷰티</option>
+                <option value="cate12">가전·디지털</option>
+                <option value="cate13">식품·생필품</option>
+                <option value="cate14">홈·문구·취미</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>2차 분류</td>
+            <td>
+              <select name="category2">
+                <option value="cate0">2차 분류 선택</option>
+                <option value="cate21">남성의류</option>
+                <option value="cate22">여성의류</option>
+                <option value="cate23">잡화</option>
+                <option value="cate24">뷰티</option>
+              </select>
+            </td>
+          </tr>
+        </table>
+      </section>
+
+      <!-- 기본 정보 -->
+      <section>
+        <h4>기본정보</h4>
+        <p>
+          기본정보는 반드시 입력해야 합니다.
+        </p>
+        <table>
+          <tr>
+            <td>상품명</td>
+            <td>
+              <input type="text" name="#">
+            </td>
+          </tr>
+          <tr>
+            <td>기본설명</td>
+            <td>
+              <span>상품명 하단에 상품에 대한 추가적인 설명이 필요한 경우에 입력</span>
+              <input type="text" name="#">
+            </td>
+          </tr>
+          <tr>
+            <td>제조사</td>
+            <td>
+              <input type="text" name="#">
+            </td>
+          </tr>
+          <tr>
+            <td>판매가격</td>
+            <td>
+              <input type="text" name="#">원
+            </td>
+          </tr>
+          <tr>
+            <td>할인율</td>
+            <td>
+              <span>0을 입력하면 할인율 없음</span>
+              <input type="text" name="#">%
+            </td>
+          </tr>
+          <tr>
+            <td>포인트</td>
+            <td>
+              <span>0을 입력하면 포인트 없음</span>
+              <input type="text" name="#">점
+            </td>
+          </tr>
+          <tr>
+            <td>재고수량</td>
+            <td>
+              <input type="text" name="#">개
+            </td>
+          </tr>
+          <tr>
+            <td>배송비</td>
+            <td>
+              <span>0을 입력하면 배송비 무료</span>
+              <input type="text" name="#">원
+            </td>
+          </tr>
+          <tr>
+            <td>상품 썸네일</td>
+            <td>
+              <span>크기 190 x 190, 상품 목록에 출력될 이미지 입니다.</span>
+              <input type="file" name="#">
+              <span>크기 230 x 230, 상품 목록에 출력될 이미지 입니다.</span>
+              <input type="file" name="#">
+              <span>크기 456 x 456, 상품 목록에 출력될 이미지 입니다.</span>
+              <input type="file" name="#">
+            </td>
+          </tr>
+          <tr>
+            <td>상세 상품정보</td>
+            <td>
+              <span>크기 가로 940px 높이 제약없음, 크기 최대 1MB, 상세페이지 상품정보에 출력될 이미지 입니다.</span>
+              <input type="file" name="#">
+            </td>
+          </tr>
+        </table>
+      </section>
+
+      <!-- 상품정보 제공 고시 -->
+      <section>
+        <h4>상품정보 제공고시</h4>
+        <p>
+          [전자상거래에 관한 상품정보 제공에 관한 고시] 항목에 의거 등록해야 되는 정보입니다.
+        </p>
+        <table>
+          <tr>
+            <td>상품상태</td>
+            <td><input type="text" name="" value="새상품"></td>
+          </tr>
+          <tr>
+            <td>부가세 면세여부</td>
+            <td><input type="text" name="" value="과세상품"></td>
+          </tr>
+          <tr>
+            <td>영수증발행</td>
+            <td><input type="text" name="" value="발행가능 - 신용카드 전표, 온라인 현금영수증"></td>
+          </tr>
+          <tr>
+            <td>사업자구분</td>
+            <td><input type="text" name="" value="사업자 판매자"></td>
+          </tr>
+          <tr>
+            <td>원산지</td>
+            <td><input type="text" name="" value="국내산"></td>
+          </tr>
+        </table>
+      </section>
+
+      <input type="submit" value="등록하기">
+    </form>
+</body>
+</html>
