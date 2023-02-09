@@ -188,10 +188,10 @@
         </ol>
       </li>
       <li>
-        <a href="#"><i class="fa fa-box-open" aria-hidden="true"></i>상품관리</a>
+        <a th:href="@{/admin/product/list}"><i class="fa fa-box-open" aria-hidden="true"></i>상품관리</a>
         <ol>
-          <li><a href="#">상품현황</a></li>
-          <li><a href="#">상품등록</a></li>
+          <li><a th:href="@{/admin/product/list/1/}">상품현황</a></li>
+          <li><a th:href="@{/admin/product/register}">상품등록</a></li>
           <li><a href="#">재고관리</a></li>
         </ol>
       </li>
@@ -207,8 +207,9 @@
       <li>
         <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>게시판관리</a>
         <ol>
-          <li><a href="#">게시판현황</a></li>
-          <li><a href="#">고객문의</a></li>
+          <li><a th:href="@{/admin/cs/faq/list}">자주묻는질문</a></li>
+          <li><a th:href="@{/admin/cs/qna/list}">문의사항</a></li>
+          <li><a th:href="@{/admin/cs/notice/list}">공지사항</a></li>
         </ol>
       </li>
     </ul>
