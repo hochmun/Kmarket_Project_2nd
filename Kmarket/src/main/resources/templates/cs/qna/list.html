@@ -32,55 +32,10 @@
                     <h2>회원관련 문의 내용입니다.</h2>
                 </nav>
                 <table>
-                  <tr>
-                    <td><a th:href="@{/cs/qna/view}">[가입] 가입 문의내용</a></td>
-                    <td>chh**</td>
-                    <td>2022.11.21</td>
-                  </tr>
-                  <tr>
-                    <td><a th:href="@{/cs/qna/view}">[탈퇴] 탈퇴 문의내용</a></td>
-                    <td>chh**</td>
-                    <td>2022.11.21</td>
-                  </tr>
-                  <tr>
-                    <td><a href="#">[회원정보] 회원정보 문의내용</a></td>
-                    <td>chh**</td>
-                    <td>2022.11.21</td>
-                  </tr>
-                  <tr>
-                    <td><a href="#">[로그인] 회원정보 문의내용</a></td>
-                    <td>chh**</td>
-                    <td>2022.11.21</td>
-                  </tr>
-                  <tr>
-                    <td><a href="#">[로그인] 회원정보 문의내용</a></td>
-                    <td>chh**</td>
-                    <td>2022.11.21</td>
-                  </tr>
-                  <tr>
-                    <td><a href="#">[로그인] 회원정보 문의내용</a></td>
-                    <td>chh**</td>
-                    <td>2022.11.21</td>
-                  </tr>
-                  <tr>
-                    <td><a href="#">[회원정보] 회원정보 문의내용</a></td>
-                    <td>chh**</td>
-                    <td>2022.11.21</td>
-                  </tr>
-                  <tr>
-                    <td><a href="#">[회원정보] 회원정보 문의내용</a></td>
-                    <td>chh**</td>
-                    <td>2022.11.21</td>
-                  </tr>
-                  <tr>
-                    <td><a href="#">[탈퇴] 회원정보 문의내용</a></td>
-                    <td>chh**</td>
-                    <td>2022.11.21</td>
-                  </tr>
-                  <tr>
-                    <td><a href="#">[탈퇴] 회원정보 문의내용</a></td>
-                    <td>chh**</td>
-                    <td>2022.11.21</td>
+                  <tr th:each="arts:${QnaArts}">
+                    <td><a th:href="@{/cs/qna/view}">[[${arts.qnaTitle}]]</a></td>
+                    <td>[[${arts.uid}]]</td>
+                    <td>[[${arts.rdate}]]</td>
                   </tr>
                 </table>
 
