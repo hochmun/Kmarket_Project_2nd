@@ -1,6 +1,22 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <th:block th:replace="~{/member/_header}"></th:block>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(function(){
+        $('.agree').click(function(){
+            let tm = $('input[name=agree1]').is(':checked');
+            let fi = $('input[name=agree2]').is(':checked');
+            let pc = $('input[name=agree3]').is(':checked');
+            if(tm && pc && fi){
+                return true;
+            }else{
+                alert('동의체크를 하세요');
+                return false;
+            }
+        });
+    });
+</script>
         <main id="member">
             <div class="signup">
 				<nav>
@@ -8,15 +24,15 @@
 				</nav>
 				<section>
 					<h3><span class="essential">(필수)</span>케이마켓 이용약관</h3>
-					<textarea class="terms" readonly></textarea>
+					<textarea class="terms" readonly>[[${member_termsVO.tax}]]</textarea>
 					<label><input type="checkbox" name="agree1" />동의합니다.</label>
 
 					<h3><span class="essential">(필수)</span>전자금융거래 이용약관</h3>
-					<textarea class="financial" readonly></textarea>
+					<textarea class="financial" readonly>[[${member_termsVO.finance}]]</textarea>
 					<label><input type="checkbox" name="agree2" />동의합니다.</label>
 
 					<h3><span class="essential">(필수)</span>개인정보 수집동의</h3>
-					<textarea class="privacy" readonly></textarea>
+					<textarea class="privacy" readonly>[[${member_termsVO.privacy}]]</textarea>
 					<label><input type="checkbox" name="agree3" />동의합니다.</label>
 				</section>
 				<div>
