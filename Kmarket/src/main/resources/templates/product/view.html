@@ -1,5 +1,28 @@
-<html xmlns:th="http://www.thymeleaf.org">
-<th:block th:replace="~{/product/_header}"></th:block>
+<!--
+    날짜: 2023/02/07
+    이름: 이해빈
+    내용: 상품 목록(view) html 작업
+-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>케이마켓::대한민국 1등 쇼핑몰</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://kit.fontawesome.com/20962f3e4b.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+    <link rel="stylesheet" href="../css/common.css"/>
+    <link rel="stylesheet" href="../css/product.css"/>
+</head>
+<body>
+    <div id="wrapper">
+        <th:block th:replace="~{fragment/header_fragment::mainHeader}"></th:block>
+        <main id="product">
+            <th:block th:replace="~{fragment/product_aside_fragment::productAside}"></th:block>
 
             <!-- 상품 상세페이지 시작 -->
             <section class="view">
@@ -243,5 +266,8 @@
             </section>
             <!-- 상품 상세페이지 끝 -->
         </main>
-<th:block th:replace="~{/product/_footer}"></th:block>
+        <th:block th:replace="~{fragment/footer_fragment::mainFooter}"></th:block>
+        <button type="button" id="top">상단이동</button>
+    </div>
+</body>
 </html>
