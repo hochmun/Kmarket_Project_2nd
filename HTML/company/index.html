@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, user-scalable=no">
+    <title>Kmarket Inc. 상상하는 모든것</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="/css/company.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script src="/js/company/header.js"></script>
+    <script>
+        $(function(){
+            const swiper = new Swiper ('.swiper', {
+                // Optional parameters
+                direction: 'vertical',
+                loop: false,
+                speed: 1000,
+
+                // If We need pagination
+                pagination: {
+                    el: '.swiper-pagination',
+                },
+
+                // Navigation arrows
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+
+                // And if we need scrollbar
+                scrollbar: {
+                    el: '.swiper-scrollbar',
+                    draggable: true
+                },
+                mousewheel: {
+                    invert: false,
+                },
+            });
+            swiper.on('slideChange', function(){
+                const slideIndex = swiper.realIndex;
+
+                if(slideIndex == 0){
+                    $('header').css('background', 'transparent');
+                }else if(slideIndex == 3){
+                    $('footer').slideDown(1000);
+                }else{
+                    $('header').css('background', 'white');
+                    $('footer').slideUp(1000);
+                }
+            })
+        });
+    </script>
+</head>
+<body>
+    <div class="swiper">
+        <header>
+            <div>
+                <a href="./index.html"><img src="/img/company_header_logo1.png" width="200" alt="로고"></a>
+                <ul>
+                    <li><a href="./introduce.html">회사소개</a></li>
+                    <li><a href="./notioce.html">전자공시</a></li>
+                    <li><a href="./promote.html">홍보채널</a></li>
+                    <li><a href="./manage.html">투명경영</a></li>
+                </ul>
+            </div>
+        </header>
+
+        <!-- Additional required wrapper -->
+        <div class="swiper-wrapper">
+            <!-- Slides -->
+            <div class="swiper-slide slide1">
+                <video src="/img/movie.mp4" loop autoplay muted></video>
+                <div class="scroll-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="swiper-slide slide2">
+                <section>
+                    <h1 class="tit1">Kmarket e-Commerce Eco System</h1>
+                    <h2 class="tit2">e-Commerce<br>Eco System 구축</h2>
+                    <p class="desc">
+                        Kmarket은 고객(Customer)과 협력업체(Provider)를<br>
+                        상품(Product) 중심으로 연결해주는 전자상거래 생태계를 구축하고자 합니다.
+                    </p>
+                </section>
+            </div>
+            <div class="swiper-slide slide3">
+                <section>
+                    <h1 class="tit1">Kmarket Product</h1>
+                    <h2 class="tit2">오프라인과 온라인 상품을 한번에</h2>
+                    <p class="desc">
+                        우리의 모든 일상은 쇼핑으로 연결됩니다<br>
+                        삼시세끼를 채울 장도 봐야하고,<br>
+                        다가오는 계절을 대비해 옷도 사야하죠.<br><br>
+
+                        사야할 것도, 사고싶은 것도 많은 우리의 일상을<br>
+                        좀 더 편리하게 만들기 위해<br>
+                        Kmarket은 하나의 앱에 모든 것을 담았습니다.<br><br>
+
+                        여기 저기 탐색할 필요 없어요.<br>
+                        오프라인과 온라인 상품을 한번에,<br>
+                        Kmarket에서 쇼핑 라이프를 즐겨보세요.
+                    </p>
+                </section>
+            </div>
+            <div class="swiper-slide slide4">
+                <section>
+                    <h1 class="tit1">Kmarket Service</h1>
+                    <h2 class="tit2">내가 정한 시간에 K-배송</h2>
+                    <p class="desc">
+                        온라인 쇼핑에서 가장 견디기 힘든일은 바로 언제 배송이 올지 기다리는 일이죠.<br>
+                        당장 오늘 저녁거리가 필요한데 배송이 제때 올까 한번만 쓰면 샴푸가 동날 것 같은데 내일 아침에 배송이 올까<br>
+                        이런 걱정, Kmarket에서는 내려놓으셔도 됩니다.<br>
+                        K-배송은 내가 정한 일자에, 내가 선택한 시간에 도착하니까요.
+                    </p>
+                </section>
+            </div>
+        </div>
+        <!-- If we need pagination -->
+        <div class="swiper-pagination"></div>
+
+        <!-- If we need scrollbar -->
+        <!-- <div class="swiper-scrollbar"></div>-->
+    </div>
+</body>
+</html>

@@ -1,6 +1,7 @@
 package kr.co.kmarket.service.cs;
 
 import kr.co.kmarket.dao.cs.CsQnaDAO;
+import kr.co.kmarket.vo.Cs_Cate1VO;
 import kr.co.kmarket.vo.Cs_QnaVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -139,5 +140,9 @@ public class CsQnaService {
         int[] groups = {groupStart, groupEnd};
 
         return groups;
+    }
+
+    public Cs_Cate1VO selectCsCate(String cate1){
+        return dao.selectCsCate(cate1);
     }
 }

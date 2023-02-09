@@ -1,0 +1,335 @@
+/*
+    날짜 : 2023/02/09
+    이름 : 김재준
+    내용 : 회사소개 style.css
+*/
+
+/* 초기화 */
+*{
+    margin: 0;
+    padding: 0;
+    font: normal 16px "Noto Sans CJK KR";
+}
+
+ul, ol {list-style: none;}
+a {text-decoration: none; color: #111;}
+
+
+/* header */
+header {
+    position: fixed;
+    width: 100%;
+    height: 80px;
+    z-index: 100;
+    border-bottom: 1px solid #e1e1e1;
+    transition-duration: 0.5s;
+}
+
+header > div {
+    width: 1280px;
+    height: 100%;
+    margin: 0 auto;
+    padding-top: 16px;
+    box-sizing: border-box;
+}
+
+header ul {
+    float: right;
+    margin-top: 16px;
+    overflow: hidden;
+}
+
+header ul > li {
+    float: left;
+    width: 120px;    
+    text-align: center;
+}
+
+header ul > li > a {font-size: 18px;}
+
+
+/* footer */
+footer {
+    width: 100%;
+    height: 100px;
+    background-color: #f9f9f9;
+    z-index: 0 auto;
+}
+
+footer > div {
+width: 1280px;
+height: 100%;
+margin: 0 auto;
+}
+
+footer img {
+    float: left;
+    margin-top: 22px;
+}
+
+footer p {
+    float: left;
+    margin-left: 26px;
+    margin-top: 22px;
+    font-size: 13px;
+    color: #666;
+    line-height: 20px;
+}
+
+
+/* index */
+.swiper-slide > section {
+    position: relative;
+    width: 1280px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+h1.tit1 {
+    position: absolute;
+    font-weight: normal;
+    font-size: 30px;
+    color: #555;
+}
+
+h2.tit2 {
+    position: absolute;
+    font-weight: bold;
+    font-size: 46px;
+    color: #111;
+}
+
+p.desc {
+    position: absolute;
+    font-size: 18px;
+    line-height: 28px;
+    color: #666;
+}
+
+.slide2 .tit1 {left: 0px; top: 200px;}
+.slide2 .tit2 {left: 0px; top: 260px;}
+.slide2 .desc {left: 0px; top: 460px;}
+
+.slide3 .tit1 {left: 720px; top: 120px;}
+.slide3 .tit2 {left: 720px; top: 180px;}
+.slide3 .desc {left: 720px; top: 320px;}
+
+.slide4 .tit1 {left: 160px; top: 120px;}
+.slide4 .tit2 {left: 160px; top: 180px;}
+.slide4 .desc {left: 160px; bottom: 120px;}
+
+
+/* Swiper 관련 */
+.swiper {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    position: relative;
+    width: 100%;
+    height: 1005;
+    background-position-x: 50%;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+}
+
+.swiper-slide video{
+    width: 100%;
+    min-height: 1600px;
+    height: auto;
+}
+
+.slide2 {background-image: url("/img/bg_system_sec.jpg");}
+.slide3 {background-image: url("/img/bg_product_sec.jpg");}
+.slide4 {background-image: url("/img/bg_service_sec.jpg");}
+
+.scroll-icon {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 34px;
+    height: 62px;
+    border: 2px solid rgba(155, 155, 155, 0.8);
+    border-radius: 25px;
+}
+
+.scroll-icon span {
+    width: 4px;
+    height: 4px;
+    background-color: #999;
+    margin: 0 auto;
+    border-radius: 50%;
+}
+
+.scroll-icon span:nth-of-type(1) {
+    animation: scroll-icon .9s -2.3s infinite reverse;
+}
+
+.scroll-icon span:nth-of-type(2) {
+    margin: 4px auto;
+    animation: scroll-icon .9s -1.3s infinite reverse;
+}
+
+.scroll-icon span:nth-of-type(3) {
+    animation: scroll-icon .9s -.3s infinite reverse;
+}
+
+@keyframes scroll-icon {
+    from {
+        opacity: .1;
+    }
+    to {
+        opacity: .6;
+    }
+}
+
+
+/* 서브공통 */
+#wrapper > header {
+    border-bottom: 1px solid rgb(255 255 255 / 10%);
+}
+
+#wrapper > header a {color: #fff;}
+
+main > .cover {
+    width: 100%;
+    height: 670px;
+    box-sizing: border-box;
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+main > .cover > div {
+    position: relative;
+    width: 1280px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+main > .cover > div > h1 {
+    position: absolute;
+    left: 10px;
+    top: 280px;
+    font-size: 52px;
+    font-weight: bold;
+    color: #fff;
+}
+
+main > .cover > div > p {
+    position: absolute;
+    left: 10px;
+    top: 380px;
+    font-size: 22px;
+    font-weight: 500;
+    color: #fff;
+}
+
+main > .content {
+    width: 1280px;
+    height: auto;
+    margin: 0 auto;
+    padding: 40px 0;
+    box-sizing: border-box;
+}
+
+main > .content > h2 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 16px;
+}
+
+main > .content > p {
+    font-size: 19px;
+    line-height: 28px;
+    margin-bottom: 80px;
+}
+
+
+/* 회사소개 */
+#introduce > .cover {background-image: url('/img/bg_company_introduce.jpg');}
+
+#introduce img {
+    display: block;
+    width: 80%;
+    margin: 28px auto;
+}
+
+
+/* 전자공시 */
+#notice > .cover {background-image: url('/img/bg_company_notice.jpg');}
+
+#notice img {
+    display: block;
+    width: 80%;
+    margin: 28px auto;
+}
+
+
+/* 홍보채널 */
+#promote > .cover {background-image: url('/img/bg_company_promote.jpg');}
+
+#promote > .content > article {
+    position: relative;
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    margin-bottom: 26px;
+}
+
+#promote > .content > article > h3 {
+    position: absolute;
+    left: 740px;
+    top: 0;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+#promote > .content > article > p {
+    position: absolute;
+    left: 740px;
+    top: 40px;
+    font-size: 18px;
+}
+
+
+/* 투명경영 */
+#manage > .cover {background-image: url('/img/bg_company_manage.jpg');}
+
+#manage > .content > ul {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    margin-bottom: 56px;
+}
+
+#manage > .content > ul > li {
+    float: left;
+    width: 25%;
+    height: 300px;
+    text-align: center;
+}
+
+#manage > .content > ul > li > h4 {
+    margin: 12px 0;
+    font-size: 19px;
+    font-weight: bold;
+}
+
+#manage > .content > ul > li > p {
+    width: 200px;
+    margin: 0 auto;
+}
+
+
+

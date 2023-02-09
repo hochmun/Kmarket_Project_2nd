@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.kmarket.dao.cs.CsQnaDAO">
+    <!-- qna 글 카테고리별 전체 보기 -->
     <select id="selectQnaArticle" resultType="kr.co.kmarket.vo.Cs_QnaVO">
         SELECT a.*, c.cate2Name FROM `km_cs_qna` AS a
         JOIN `km_cs_cate1` AS b
@@ -13,8 +14,25 @@
         ORDER BY `qnaNo` DESC
         LIMIT #{start}, 10;
     </select>
-
+    <!-- qna 1카테고리 작성글 count-->
     <select id="selectCountTotal" resultType="int">
-        SELECT count(`qnaNo`) FROM `km_cs_qna` WHERE `qnaCate1` = 0;
+        SELECT count(`qnaNo`) FROM `km_cs_qna` WHERE `qnaCate1` = #{qnaCate1};
     </select>
+
+    <select id="selectCsCate" resultType="kr.co.kmarket.vo.Cs_Cate1VO">
+        SELECT a.*, b.cate2, b.cate2Name FROM `km_cs_cate1` AS a
+        JOIN `km_cs_cate2` AS b ON a.cate1 = b.cate1
+        WHERE a.cate1 = #{cate1};
+    </select>
+    
+    <insert id="insertQnaArticle" useGeneratedKeys="true" keyProperty="qnaNo">
+        INSERT INTO `km_cs_qna` SET
+        `uid` = #{uid},
+        `qnaTitle` = #{qnaTitle},
+        `qnaContent` = #{qnaContent},
+        `qnaCate1` = #{qnaCate1},
+        `qnaCate2` = #{qnaCate2},
+        `qnaRdate` = NOW(),
+        `qnaRegip` = #{qnaRegip};
+    </insert>
 </mapper>
