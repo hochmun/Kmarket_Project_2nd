@@ -32,10 +32,10 @@
                 <!-- 상품목록 -->
                 <table border="0">
                     <tr th:each="product, i:${products}">
-                        <td><a href="#" class="thumb"><img src="https://via.placeholder.com/120x120" alt="상품이미지"></a></td>
+                        <td><a href="#" class="thumb"><img th:src="|@{/}thumb/${product.prodCate1}/${product.prodCate2}/${product.thumb1}|" alt="상품이미지"></a></td>
                         <td>
                             <h3 class="name">[[${product.prodName}]]</h3>
-                            <a href="#" class="desc">상품설명</a>
+                            <a href="#" class="desc">[[${product.descript}]]</a>
                         </td>
                         <td>
                             <ul>
@@ -57,21 +57,22 @@
 
                 <!-- 상품목록 페이지번호 -->
                 <div class="paging">
-                    <span class="prev">
-                        <a href="#"><&nbsp;이전</a>
-                    </span>
+                    <th:block th:if="${pageGroup[0]>1}">
+                        <span class="prev">
+                            <a th:href="@{/product/list(cate1=${cate1},cate2=${cate2},sort=${sort},pg=${pageGroup[0]-1})}"><&nbsp;이전</a>
+                        </span>
+                    </th:block>
                     <span class="num">
-                        <a href="#" class="on">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#">4</a>
-                        <a href="#">5</a>
-                        <a href="#">6</a>
-                        <a href="#">7</a>
+                        <th:block th:each="num:${#numbers.sequence(pageGroup[0], pageGroup[1])}">
+                            <a th:href="@{/product/list(cate1=${cate1},cate2=${cate2},sort=${sort},pg=${num})}"
+                               th:class="${num == currentPage ? 'on':'off'}">[[${num}]]</a>
+                        </th:block>
                     </span>
-                    <span class="next">
-                        <a href="#">다음&nbsp;></a>
-                    </span>
+                    <th:block th:if="${pageGroup[1]<lastPageNum}">
+                        <span class="next">
+                            <a th:href="@{/product/list(cate1=${cate1},cate2=${cate2},sort=${sort},pg=${pageGroup[1]+1})}">다음&nbsp;></a>
+                        </span>
+                    </th:block>
                 </div>
 
             </section>
