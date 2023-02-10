@@ -18,23 +18,53 @@ public class QnaWriteController {
     @Autowired
     private CsQnaService service;
 
+    /**
+     * 23/02/09 Q&A 글쓰기 처리 컨트롤러 메서드
+     * @author 김재준
+     * @param model
+     * @param group
+     * @param pg
+     * @param qnaCate1
+     * @param qnaCate2
+     * @return
+     */
     @GetMapping(value = {"cs/qna/write"})
-    public String write(Model model, String qnaCate1){
+    public String write(Model model, String group, String pg, Integer qnaCate1, Integer qnaCate2){
+
+        model.addAttribute("group", group);
+        model.addAttribute("pg", pg);
         model.addAttribute("qnaCate1", qnaCate1);
+        model.addAttribute("qnaCate2", qnaCate2);
+
         return "cs/qna/write";
     }
 
+    /**
+     * 23/02/09 Q&A 글쓰기 처리 컨트롤러 메서드
+     * @author 김재준
+     * @param model
+     * @param req
+     * @param myUser
+     * @param vo
+     * @param group
+     * @param pg
+     * @return
+     */
     @PostMapping(value = {"cs/qna/write"})
-    public String write(Model model, String qnaCate1, String qnaCate2, Cs_QnaVO vo, HttpServletRequest req, @AuthenticationPrincipal MyUserDetails myUser){
+    public String write(Model model, HttpServletRequest req, @AuthenticationPrincipal MyUserDetails myUser, Cs_QnaVO vo,
+                        String group, String pg){
+        vo.setQnaCate1(Integer.parseInt(req.getParameter("qnaCate1")));
+        vo.setQnaCate2(Integer.parseInt(req.getParameter("qnaCate2")));
         vo.setUid(myUser.getUser().getUid());
+        vo.setQnaTitle(req.getParameter("qnaTitle"));
+        vo.setQnaContent(req.getParameter("qnaContent"));
         vo.setQnaRegip(req.getRemoteAddr());
-        int result = service.insertQnaArticle(vo);
-        if(result > 0){
-            return "redirect:cs/qna/list(cate${qnaCate1})";
-        }
 
-        model.addAttribute("qnaCate1", qnaCate1);
-        model.addAttribute("qnaCate2", qnaCate2);
-        return "redirect:cs/qna/list";
+        service.insertQnaArticle(vo);
+
+        model.addAttribute("group", group);
+        model.addAttribute("pg", pg);
+
+        return "redirect:/cs/qna/list";
     }
 }
