@@ -17,25 +17,25 @@
             <aside>
                 <h2>문의하기</h2>
                 <ul>
-                    <li th:class="${cate1} == 10 ? 'on' : ''">
+                    <li th:class="${qnaCate1 == '10'} ? 'on'">
                         <a th:href="@{/cs/qna/list(cate1=10)}">회원</a>
                     </li>
-                    <li th:class="${cate1} == 11 ? 'on' : ''">
+                    <li th:class="${qnaCate1 == '11'} ? 'on'">
                         <a th:href="@{/cs/qna/list(cate1=11)}">쿠폰/이벤트</a>
                     </li>
-                    <li th:class="${cate1} == 12 ? 'on' : ''">
+                    <li th:class="${qnaCate1 == '12'} ? 'on'">
                         <a th:href="@{/cs/qna/list(cate1=12)}">주문/결제</a>
                     </li>
-                    <li th:class="${cate1} == 13 ? 'on' : ''">
+                    <li th:class="${qnaCate1 == '13'} ? 'on'">
                         <a th:href="@{/cs/qna/list(cate1=13)}">배송</a>
                     </li>
-                    <li th:class="${cate1} == 14 ? 'on' : ''">
+                    <li th:class="${qnaCate1 == '14'} ? 'on'">
                         <a th:href="@{/cs/qna/list(cate1=14)}">취소/반품/교환</a>
                     </li>
-                    <li th:class="${cate1} == 15 ? 'on' : ''">
+                    <li th:class="${qnaCate1 == '15'} ? 'on'">
                         <a th:href="@{/cs/qna/list(cate1=15)}">여행/숙박/항공</a>
                     </li>
-                    <li th:class="${cate1} == 16 ? 'on' : ''">
+                    <li th:class="${qnaCate1 == '16'} ? 'on'">
                         <a th:href="@{/cs/qna/list(cate1=16)}">안전거래</a>
                     </li>
                 </ul>
@@ -61,7 +61,7 @@
                     <a href="#" class="next">다음</a>
                 </div>
 
-                <a th:href="@{/cs/qna/write(cate1=${cate1})}" class="btnWrite">문의하기</a>
+                <a th:href="@{/cs/qna/write(cate1=${qnaCate1})}" class="btnWrite">문의하기</a>
 
             </article>
         </section>

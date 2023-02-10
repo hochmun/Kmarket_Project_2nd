@@ -64,6 +64,7 @@
             `qnaRdate`=NOW(),
             `qnaRegip`=#{qnaRegip};
     </insert>
+    
     <!-- Qna는 작성글 수정 없음. -->
     <!-- Qna는 작성글 삭제 없음. -->
 </mapper>
