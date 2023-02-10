@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.kmarket.dao.MemberDAO">
+    <select id="selectTerms" resultType="kr.co.kmarket.vo.member_termsVO">
+        select * from `km_member_terms`;
+    </select>
+    <insert id="insertMember">
+        insert into `km_member` set
+        `uid`=#{uid},
+        `pass`=#{pass},
+        `name`=#{name},
+        `email`=#{email},
+        `type`=1,
+        `hp`=#{hp},
+        `zip`=#{zip},
+        `addr1`=#{addr1},
+        `addr2`=#{addr2},
+        `regip`=#{regip},
+        `rdate`=NOW();
+    </insert>
+    <insert id="insertSellerMember">
+        insert into `km_member` set
+        `uid`=#{uid},
+        `pass`=#{pass},
+        `company`=#{company},
+        `ceo`=#{ceo},
+        `bizRegNum`=#{bizRegNum},
+        `comRegNum`=#{comRegNum},
+        `tel`=#{tel},
+        `fax`=#{fax},
+        `email`=#{email},
+        `type`=2,
+        `zip`=#{zip},
+        `addr1`=#{addr1},
+        `addr2`=#{addr2},
+        `name`=#{name},
+        `hp`=#{hp},
+        `regip`=#{regip},
+        `rdate`=NOW();
+    </insert>
+
+
+</mapper>

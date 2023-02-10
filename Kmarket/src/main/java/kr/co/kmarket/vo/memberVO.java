@@ -10,8 +10,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class memberVO {
+
     private String uid;
     private String pass;
+    private String pass1;
+    private String pass2;
     private String name;
     private int gender;
     private String hp;
@@ -25,7 +28,7 @@ public class memberVO {
     private String company;
     private String ceo;
     private String bizRegNum;
-    private String cornRegNum;
+    private String comRegNum;
     private String tel;
     private String manager;
     private String managerHp;
