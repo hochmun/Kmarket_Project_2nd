@@ -6,21 +6,21 @@
     <select id="selectTerms" resultType="kr.co.kmarket.vo.member_termsVO">
         select * from `km_member_terms`;
     </select>
-    <!--<insert id="insertMember">
+    <insert id="insertMember">
         insert into `km_member` set
         `uid`=#{uid},
         `pass`=#{pass},
         `name`=#{name},
-        `gender`=#{gender},
         `email`=#{email},
+        `type`=1,
         `hp`=#{hp},
         `zip`=#{zip},
         `addr1`=#{addr1},
         `addr2`=#{addr2},
         `regip`=#{regip},
         `rdate`=NOW();
-    </insert>-->
-    <!--<insert id="insertSellerMember">
+    </insert>
+    <insert id="insertSellerMember">
         insert into `km_member` set
         `uid`=#{uid},
         `pass`=#{pass},
@@ -31,6 +31,7 @@
         `tel`=#{tel},
         `fax`=#{fax},
         `email`=#{email},
+        `type`=2,
         `zip`=#{zip},
         `addr1`=#{addr1},
         `addr2`=#{addr2},
@@ -39,6 +40,6 @@
         `regip`=#{regip},
         `rdate`=NOW();
     </insert>
--->
+
 
 </mapper>

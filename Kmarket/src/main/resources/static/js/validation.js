@@ -6,11 +6,12 @@
 	// 데이터 검증에 사용하는 정규표현식
 	let reUid   = /^[a-z]+[a-z0-9]{5,19}$/g;
 	let rePass  = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{5,16}$/;
-	let reName  = /^[ㄱ-힣]+$/;
+	let reName  = /^[가-힣]+$/;
 	let reNick  = /^[a-zA-Zㄱ-힣0-9][a-zA-Zㄱ-힣0-9]*$/;
 	let reEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 	let reHp    = /^01(?:0|1|[6-9])-(?:\d{4})-\d{4}$/;
 	let reAuth  = /^[0-9]+$/;
+	let reCompany   = /^(주)[가-힣]+$/;
 	
 	// 폼 데이터 검증 결과 상태변수
 	let isUidok = false;
@@ -20,27 +21,29 @@
 	let isEmailok = false;
 	let isEmailAuthOk = false;
 	let isHpok = false;
-	
+
 	let email;
 	let emailCode = -999999999;
 	let isClick = false;
-	
+
+	let isCompanyok = false;
+
 	$(function () {
 		// 아이디 검사하기
-		$("input[name='km_uid']").keydown(function () { // 다른 아이디 값을 입력 했을때 다시 중복 확인을 해야 하므로
+		$("input[name='uid']").keydown(function () { // 다른 아이디 값을 입력 했을때 다시 중복 확인을 해야 하므로
 			isUidok = false;
 		});
 		
-		$("input[name='km_uid']").focusout(function(){
+		$("input[name='uid']").focusout(function(){
 			
 			
-			let uid = $("input[name='km_uid']").val();	// uid 입력값
+			let uid = $("input[name='uid']").val();	// uid 입력값
 			console.log('uid: ' +uid);
 			if(isUidok){
 				return;
 			}
 			
-			// km_uid 값을 JSON 형태로 변환
+			// uid 값을 JSON 형태로 변환
 			let jsonData = {
 				"uid":uid
 			};
@@ -56,7 +59,7 @@
 			
 			setTimeout(function(){
 				$.ajax({
-					url: '/Kmarket/member/checkUid.do',
+					url: '/Kmarket/member/checkUid',
 					method: 'get',
 					data: jsonData,
 					dataType: 'json',
@@ -78,10 +81,10 @@
 		
 			
 		// 비밀번호 재입력 일치 검사하기
-		$('input[name=km_pass1], input[name=km_pass2]').focusout(function () {
+		$('input[name=pass1], input[name=pass2]').focusout(function () {
 			
-			let pass1 = $('input[name=km_pass1]').val();
-			let pass2 = $('input[name=km_pass2]').val();
+			let pass1 = $('input[name=pass1]').val();
+			let pass2 = $('input[name=pass2]').val();
 			
 			console.log('pass1: ' +pass1);
 			console.log('pass2: ' +pass2);
@@ -110,14 +113,14 @@
 		
 		
 		// 이름 검사하기
-		$('input[name=km_name]').focusout(function () {
+		$('input[name=name]').focusout(function () {
 			let name = $(this).val();
 			
 			console.log('name: '+name);
 			
 			if(name.match(reName)){
 				isNameok = true;
-				$('.nameResult').text(' ');
+				$('.nameResult').css('color', 'green').text('사용가능한 이름 입니다.');
 			} else {
 				isNameok = false;
 				$('.nameResult').css('color', 'red').text('유효한 이름이 아닙니다.');
@@ -126,7 +129,7 @@
 		
 		
 		// 이메일 검사하기
-		$('input[name=km_email]').focusout(function () {
+		$('input[name=email]').focusout(function () {
 			
 			let email = $(this).val();
 			
@@ -134,7 +137,7 @@
 			
 			if(email.match(reEmail)){
 				isEmailok = true;
-				$('.emailResult').text('');
+				$('.emailResult').css('color', 'green').text('사용가능한 이메일입니다.');
 			} else{
 				isEmailok = false;
 				$('.emailResult').css('color', 'red').text('유효하지 않는 이메일입니다.');
@@ -143,7 +146,7 @@
 		
 		
 		// 휴대폰 검사하기
-		$('input[name=km_hp]').focusout(function () {
+		$('input[name=hp]').focusout(function () {
 			
 			let hp = $(this).val();
 			
@@ -151,11 +154,26 @@
 			
 			if(hp.match(reHp)){
 				isHpok = true;
-				$('.hpResult').text('');
+				$('.hpResult').css('color', 'green').text('사용가능한 휴대폰입니다.');
 			} else{
 				isHpok = false;
 				$('.hpResult').css('color', 'red').text('유효하지 않는 휴대폰입니다.');
 			}
+		});
+
+        //회사명 검사하기
+		$('input[name=company]').focusout(function(){
+		    let company = $(this).val();
+
+		    console.log('company :'+ company);
+
+		    if(company.match(reCompany)){
+		        isCompanyok = true;
+		        $('.comResult').css('color', 'green').text('사용가능한 회사명 입니다.');
+		    }else{
+		        isCompanyok = false;
+                $('.comResult').css('color', 'red').text('유효하지않은 회사명 입니다.');
+		    }
 		});
 		
 		// 최종 폼 전송할 때

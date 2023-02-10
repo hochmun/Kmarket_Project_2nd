@@ -1,43 +1,9 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <th:block th:replace="~{/member/_header}"></th:block>
-<!--<script th:src="@{/js/validation.js}"></script>-->
+<script th:src="@{/js/validation.js}"></script>
 <script th:src="@{/js/zipcode.js}"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
-    	window.onload = function(){
-    		const btnCheckUid = document.getElementById('btnCheckUid');
-
-    		btnCheckUid.addEventListener('click', ()=>{
-    			let uid = document.querySelector('input[name=km_uid]').value;
-
-				// AJAX 전송
-				const xhr = new XMLHttpRequest();
-    			xhr.open("GET", "/Kmarket/member/checkUid?uid="+uid);
-    			xhr.responseType = "json";
-    			xhr.send();
-
-    			// jquery 함수의 success와 .onreadystatechange같음
-    			xhr.onreadystatechange = function(){
-    				if(xhr.readyState == XMLHttpRequest.DONE){
-    					if(xhr.status == 200){
-    						const data = xhr.response;
-   							const uidResult= document.querySelector('.uidResult');
-    						if(data.result == 1){
-    							uidResult.innerText = '이미 사용중인 아이디 입니다.';
-    							uidResult.style.color = 'red';
-    						}else{
-    							uidResult.innerText = '사용가능한 아이디입니다.';
-    							uidResult.style.color = 'green';
-    						}
-    					}else{
-    						alert('Request fail...');
-    					}
-    				}
-    			}
-    		});
-    	}
-    </script>
         <main id="member">
             <div class="register">
                 <nav>
@@ -49,9 +15,9 @@
 							<caption>필수 정보입력</caption>
 							<tr>
 								<th><span class="essential">*</span>아이디</th>
-								<td><input type="text" name="km_uid" placeholder="아이디를 입력"
+								<td><input type="text" name="uid" placeholder="아이디를 입력"
 									required />
-									<button type="button" id="btnCheckUid"><img th:src="@{/img/admin_ico_success.png}" alt="중복확인"></button>
+									<!--<button type="button" id="btnCheckUid"><img th:src="@{/img/admin_ico_success.png}" alt="중복확인"></button>-->
 									<span class="msgId">영문, 숫자로 4~12자까지 설정해 주세요.</span>
 									<span class="uidResult"></span>
 								</td>
@@ -59,7 +25,7 @@
 							<tr>
 								<th><span class="essential">*</span>비밀번호</th>
 								<td>
-									<input type="password" name="km_pass1" placeholder="비밀번호를 입력" required />
+									<input type="password" name="pass1" placeholder="비밀번호를 입력" required />
 									<span class="msgPass1">영문, 숫자, 특수문자를 조합하여 8~12자까지 설정해 주세요.</span>
 									<span class="passResult1"></span>
 								</td>
@@ -67,7 +33,7 @@
 							<tr>
 								<th><span class="essential">*</span>비밀번호확인</th>
 								<td>
-									<input type="password" name="km_pass2" placeholder="비밀번호를 확인" required />
+									<input type="password" name="pass2" placeholder="비밀번호를 확인" required />
 									<span class="msgPass2">영문, 숫자, 특수문자를 조합하여 8~12자까지 설정해 주세요.</span>
 									<span class="passResult2"></span>
 								</td>
@@ -79,7 +45,7 @@
 							<caption>기본 정보입력</caption>
 							<tr>
 								<th><span class="essential">*</span>이름</th>
-								<td><input type="text" name="km_name" placeholder="이름을 입력"
+								<td><input type="text" name="name" placeholder="이름을 입력"
 									required />
 									<span class="nameResult"></span>
 								</td>
@@ -87,12 +53,12 @@
 							<tr>
 								<th><span class="essential">*</span>성별</th>
 								<td>
-									<label><input type="radio" name="km_gender" value="1">&nbsp남</label>
-									<label><input type="radio" name="km_gender" value="2">&nbsp여</label></td>
+									<label><input type="radio" name="gender" value="1">&nbsp남</label>
+									<label><input type="radio" name="gender" value="2">&nbsp여</label></td>
 							</tr>
 							<tr>
 								<th><span class="essential">*</span>EMAIL</th>
-								<td><input type="email" name="km_email" placeholder="이메일 입력"
+								<td><input type="email" name="email" placeholder="이메일 입력"
 									required />
 									<span class="emailResult"></span>
 								</td>
@@ -100,7 +66,7 @@
 							<tr>
 								<th><span class="essential">*</span>휴대폰</th>
 								<td>
-									<input type="text" name="km_hp" maxlength="13"
+									<input type="text" name="hp" maxlength="13"
 									placeholder="휴대폰번호 입력" required /> <span class="msgHp"> -
 										포함 13자리를 입력하세요.</span>
 									<span class="hpResult"></span>
@@ -110,15 +76,15 @@
 								<th>주소</th>
 								<td>
 									<div>
-										<input type="text" name="km_zip" id="zip" onclick="zipcode()" placeholder="우편번호 입력 클릭"
+										<input type="text" name="zip" id="zip" onclick="zipcode()" placeholder="우편번호 입력 클릭"
 											readonly />
 									</div>
 									<div>
-										<input type="text" name="km_addr1" id="addr1" size="50"
+										<input type="text" name="addr1" id="addr1" size="50"
 											placeholder="주소를 검색하세요." readonly />
 									</div>
 									<div>
-										<input type="text" name="km_addr2" id="addr2" size="50"
+										<input type="text" name="addr2" id="addr2" size="50"
 											placeholder="상세주소를 입력하세요." />
 									</div>
 								</td>

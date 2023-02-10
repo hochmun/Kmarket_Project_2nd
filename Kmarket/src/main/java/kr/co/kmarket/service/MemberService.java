@@ -23,7 +23,7 @@ public class MemberService {
         vo.setPass(encoder.encode(vo.getPass1()));
         return dao.insertMember(vo);
     }
-    public int insertMembers(memberVO vo){
+    public int insertSellerMember(memberVO vo){
         vo.setPass(encoder.encode(vo.getPass1()));
         return dao.insertSellerMember(vo);
     }

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Null;
 
 @Data
 @Builder
@@ -20,7 +21,7 @@ public class UserEntity {
     private String uid;
     private String pass;
     private String name;
-    private int gender;
+    private Integer gender;
     private String hp;
     private String email;
     private int type;

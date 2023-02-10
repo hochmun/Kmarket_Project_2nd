@@ -26,24 +26,24 @@ public class SecurityConfig {
 
 		// 로그인 페이지 설정
 		http.formLogin()
-		.loginPage("/user/login")
+		.loginPage("/member/login")
 		.defaultSuccessUrl("/index")
-		.failureUrl("/user/login?success=100")
+		.failureUrl("/member/login?success=100")
 		.usernameParameter("uid")
 		.passwordParameter("pass");
 		
 		// 로그아웃 설정
 		http.logout()
 		.invalidateHttpSession(true)
-		.logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
-		.logoutSuccessUrl("/user/login?success=200");
-
+		.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
+		.logoutSuccessUrl("/member/login?success=200");
+		http.userDetailsService(service);
 
 		return http.build();
 	}
 	
 	@Bean
-	PasswordEncoder passwordEncoder() {
+	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 	

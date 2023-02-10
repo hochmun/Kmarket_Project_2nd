@@ -6,7 +6,7 @@
             <nav>
                 <h1>로그인</h1>
             </nav>
-            <form action="#">
+            <form action="#" method="post">
                 <table border="0">
                     <tr>
                         <td>아이디</td>
@@ -22,7 +22,7 @@
                     <label><input type="checkbox" name="auto">자동 로그인</label>
                     <a href="#">아이디찾기</a>
                     <a href="#">비밀번호찾기</a>
-                    <a href="#">회원가입</a>
+                    <a th:href="@{/member/join}">회원가입</a>
                 </span>
                 <a href="#" class="banner"><img th:src="@{/img/member_login_banner.jpg}" alt="1만원 할인 쿠폰 받기"></a>
             </form>

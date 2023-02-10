@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.Console;
+import java.net.http.HttpRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,11 +36,18 @@ public class MemberController {
     public String register(){
         return "member/register";
     }
-    @PostMapping("member/register")
-    public String register(memberVO vo){
-        int result = service.insertMember(vo);
 
-        return "member/register";
+    @PostMapping("member/register")
+    public String register(memberVO vo, HttpServletRequest req){
+        vo.setRegip(req.getRemoteAddr());
+        int result = service.insertMember(vo);
+        return "redirect:/member/login?success"+result;
+    }
+    @PostMapping("member/registerSeller")
+    public String registerSeller(memberVO vo, HttpServletRequest req){
+        vo.setRegip(req.getRemoteAddr());
+        int result = service.insertSellerMember(vo);
+        return "redirect:/member/login?success"+result;
     }
     @GetMapping("member/registerSeller")
     public String registerSeller(){
@@ -59,7 +68,7 @@ public class MemberController {
     }
 
     @ResponseBody
-    @GetMapping("/member/checkUid")
+    @GetMapping("member/checkUid")
     public Map<String, Integer> checkUid(@RequestParam("uid") String uid){
         int result = service.countByUid(uid);
         Map<String, Integer> resultMap = new HashMap<>();
