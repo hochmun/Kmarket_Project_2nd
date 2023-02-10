@@ -6,6 +6,76 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{fragment/head_fragment::productHead}"></th:block>
+<script th:inline="javascript">
+
+    window.onload = function(){
+
+        // 배송 날짜 구하기
+        let delivery = new Date();
+        let arrival = document.querySelector('.arrival');
+
+		let day = delivery.getDay();
+
+		if(day == 5){ // 금요일일 때
+
+			delivery.setDate(delivery.getDate()+4);
+
+		}else if(day == 6 || 0){ // 주말일 때
+
+			delivery.setDate(delivery.getDate()+3);
+
+		}else { // 평일일 때
+
+			delivery.setDate(delivery.getDate()+2);
+		}
+
+		let d1 = ['일', '월', '화', '수', '목', '금', '토'];
+
+		let dateFormat = (delivery.getMonth()+1) + '/' + delivery.getDate() + '('+ d1[delivery.getDay()] +')  도착예정';
+
+		arrival.innerHTML = dateFormat;
+
+        // 상품 수량 더하기
+        document.querySelector('.increase').addEventListener('click', ()=>{
+
+            let num = document.querySelector('input[name=num]');
+            let count = parseInt(num.value) + 1;
+            num.setAttribute('value', count);
+
+            // 총 주문금액
+            let price = parseInt([[${product.price}]]);
+            let discount = parseInt([[${product.discount}]]);
+            let total = price * (1 - discount / 100) * count;
+
+            total = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+            document.querySelector('.total > span').innerHTML = total;
+
+        });
+
+        // 상품 수량 빼기
+        document.querySelector('.decrease').addEventListener('click', ()=>{
+
+            let num = document.querySelector('input[name=num]');
+
+            if(num.value > 1) {
+                let count = parseInt(num.value) - 1;
+                num.setAttribute('value', count);
+
+                // 총 주문금액
+                let price = parseInt([[${product.price}]]);
+                let discount = parseInt([[${product.discount}]]);
+                let total = price * (1 - discount / 100) * count;
+
+                total = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+                document.querySelector('.total > span').innerHTML = total;
+
+            }
+        });
+    };
+
+</script>
 <body>
     <div id="wrapper">
         <th:block th:replace="~{fragment/header_fragment::mainHeader}"></th:block>
@@ -19,37 +89,38 @@
                 <nav>
                     <h1>상품보기</h1>
                     <p>
-                        HOME > <span>패션·의류·뷰티</span> > <strong>남성의류</strong>
+                        HOME > <span>[[${cateName.c1Name}]]</span> > <strong>[[${cateName.c2Name}]]</strong>
                     </p>
                 </nav>
 
                 <!-- 상품 전체 정보 내용 -->
                 <article class="info">
                     <div class="image">
-                        <img src="https://via.placeholder.com/460x460" alt="상품이미지">
+                        <img th:src="|@{/}thumb/${product.prodCate1}/${product.prodCate2}/${product.thumb3}|" alt="상품이미지">
                     </div>
                     <div class="summary">
                         <nav>
-                            <h1>(주)판매자명</h1>
-                            <h2>상품번호&nbsp;:&nbsp;<span>10010118412</span></h2>
+                            <h1>[[${product.seller}]]</h1>
+                            <h2>상품번호&nbsp;:&nbsp;<span>[[${product.prodNo}]]</span></h2>
                         </nav>
                         <nav>
-                            <h3>상품명</h3>
-                            <p>상품설명 출력</p>
+                            <h3>[[${product.prodName}]]</h3>
+                            <p>[[${product.descript}]]</p>
                             <h5 class="rating star4"><a href="#">상품평보기</a></h5>
                         </nav>
                         <nav>
                             <div class="org_price">
-                                <del>30,000</del>
-                                <span>10%</span>
+                                <del>[[${#numbers.formatInteger(product.price, 1, 'COMMA')}]]</del>
+                                <span>[[${product.discount}]]%</span>
                             </div>
                             <div class="dis_price">
-                                <ins>27,000</ins>
+                                <ins>[[${#numbers.formatInteger((product.price * (1 - product.discount / 100.0)), 3, 'COMMA')}]]</ins>
                             </div>
                         </nav>
                         <nav>
-                            <span class="delivery">무료배송</span>
-                            <span class="arrival">모레(금) 7/8 도착예정</span>
+                            <th:span th:if="${product.delivery == 0}" class="delivery">무료배송</th:span>
+                            <th:span th:if="${product.delivery != 0}" style="font-size:16px">배송비 [[${#numbers.formatInteger(product.delivery, 1, 'COMMA')+'원'}]]</th:span>
+                            <span class="arrival"></span>
                             <span class="desc">본 상품은 국내배송만 가능합니다.</span>
                         </nav>
                         <nav>
@@ -59,7 +130,7 @@
                         <nav>
                             <span class="origin">원산지-상세설명 참조</span>
                         </nav>
-                        <img src="../img/vip_plcc_banner.png" alt="100원만 결제해도 1만원 적립!" class="banner">
+                        <img th:src="@{/img/vip_plcc_banner.png}" alt="100원만 결제해도 1만원 적립!" class="banner">
 
                         <div class="count">
                             <button class="decrease">-</button>
@@ -67,7 +138,7 @@
                             <button class="increase">+</button>
                         </div>
                         <div class="total">
-                            <span>35,000</span>
+                            <span>[[${#numbers.formatInteger(product.price, 1, 'COMMA')}]]</span>
                             <em>총 상품금액</em>
                         </div>
 
@@ -84,9 +155,7 @@
                         <h1>상품정보</h1>
                     </nav>
                     <!-- 상품상세페이지 이미지-->
-                    <img src="https://via.placeholder.com/860x460" alt="상세페이지1">
-                    <img src="https://via.placeholder.com/860x460" alt="상세페이지2">
-                    <img src="https://via.placeholder.com/860x460" alt="상세페이지3">
+                    <img src="|@{/}thumb/${product.prodCate1}/${product.prodCate2}/${product.detail}|" alt="상세페이지1">
                 </article>
 
                 <!-- 상품 정보 제공 고시 내용 -->
@@ -98,31 +167,31 @@
                     <table border="0">
                         <tr>
                             <td>상품번호</td>
-                            <td>10110125435</td>
+                            <td>[[${product.prodNo}]]</td>
                         </tr>
                         <tr>
                             <td>상품상태</td>
-                            <td>새상품</td>
+                            <td>[[${product.status}]]</td>
                         </tr>
                         <tr>
                             <td>부가세 면세여부</td>
-                            <td>과세상품</td>
+                            <td>[[${product.duty}]]</td>
                         </tr>
                         <tr>
                             <td>영수증발행</td>
-                            <td>발행가능 - 신용카드 전표, 온라인 현금영수증</td>
+                            <td>[[${product.receipt}]]</td>
                         </tr>
                         <tr>
                             <td>사업자구분</td>
-                            <td>사업자 판매자</td>
+                            <td>[[${product.bizType}]]</td>
                         </tr>
                         <tr>
                             <td>브랜드</td>
-                            <td>블루포스</td>
+                            <td>[[${product.seller}]]</td>
                         </tr>
                         <tr>
                             <td>원산지</td>
-                            <td>국내생산</td>
+                            <td>[[${product.origin}]]</td>
                         </tr>
                     </table>
                     <table border="0">

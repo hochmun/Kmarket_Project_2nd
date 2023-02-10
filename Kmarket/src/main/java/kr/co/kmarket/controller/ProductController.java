@@ -4,10 +4,13 @@ import kr.co.kmarket.service.ProductService;
 import kr.co.kmarket.vo.productVO;
 import kr.co.kmarket.vo.product_cate2VO;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -57,20 +60,28 @@ public class ProductController {
         model.addAttribute("lastPageNum", lastPageNum);
         model.addAttribute("pageGroup", pageGroup);
 
-        log.info("cate1: " + cate1);
-        log.info("cate2: " + cate2);
-        log.info("cateName: " + cateName);
-        log.info("sort: " + sort);
-        log.info("currentPage: " + currentPage);
-        log.info("lastPageNum: " + lastPageNum);
-        log.info("pageGroupStart: " + pageGroup[0]);
-        log.info("pageGroupEnd: " + pageGroup[1]);
-
         return "product/list";
     }
 
+    /**
+     * 상품 view GetMapping
+     * @since 23/02/10
+     * @author 이해빈
+     */
     @GetMapping("product/view")
-    public String view(){
+    public String view(int cate1, int cate2, int prodNo, Model model){
+
+        // 카테고리 이름 가져오기
+        product_cate2VO cateName = service.getCateName(cate1, cate2);
+        
+        // 상품 가져오기
+        productVO product = service.selectProduct(prodNo);
+
+        model.addAttribute("cate1", cate1);
+        model.addAttribute("cate2", cate2);
+        model.addAttribute("cateName", cateName);
+        model.addAttribute("product", product);
+
 
         return "product/view";
     }
