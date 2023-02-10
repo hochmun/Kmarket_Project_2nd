@@ -20,15 +20,17 @@ public interface AdminProductDAO {
     /**
      * 관리자 상품 리스트 불러오기
      * @since 2023/02/09 // 심규영 // 관리자 상품 리스트 불러오기 작성
+     * @since 2023/02/10 // 심규영 // 검색 기능 추가
      * @return {@code List<productVO>} // 상품 리스트 리턴
      */
-    public List<productVO> selectProducts(@Param("uid") String uid, @Param("start") int start);
+    public List<productVO> selectProducts(@Param("uid") String uid, @Param("start") int start,
+                                          @Param("s") String s, @Param("st") String st);
 
     /**
      * 관리자 상품 리스트 갯수 구하기
      * @since 2023/02/09 // 심규영 // 관리자 상품 리스트 갯수 구하기 작성
      */
-    public int selectCountProduct(String uid);
+    public int selectCountProduct(@Param("uid") String uid, @Param("s") String s, @Param("st") String st);
 
     // upload
 

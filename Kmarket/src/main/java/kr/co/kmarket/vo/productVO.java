@@ -47,4 +47,7 @@ public class productVO {
     private String etc3;
     private String uid;
     private String etc5;
+    
+    // 추가 
+    private int disPrice; // 할인율이 적용된 값
 }

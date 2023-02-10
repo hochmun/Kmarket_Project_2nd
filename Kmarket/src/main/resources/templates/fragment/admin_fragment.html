@@ -234,17 +234,17 @@
     </article>
 
     <!-- 2023/02/09 // 심규영 // 관리자 상품 목록 -->
-    <section th:fragment="adminProductList(products, paging)">
+    <section th:fragment="adminProductList(products, paging, s, st)">
       <div>
-        <select name="search">
-          <option value="search1">상품명</option>
-          <option value="search2">상품코드</option>
-          <option value="search3">제조사</option>
-          <option value="search4">판매자</option>
+        <select name="searchType">
+          <option value="prodName" th:selected="${st} == 'prodName'">상품명</option>
+          <option value="prodNo" th:selected="${st} == 'prodNo'">상품코드</option>
+          <option value="company" th:selected="${st} == 'company'">제조사</option>
+          <option value="seller" th:selected="${st} == 'seller'">판매자</option>
         </select>
-        <input type="text" name="search">
+        <input type="text" name="search" th:value="${s}">
         <input type="button" name="btnSearch" value="검색" style="
-	                float: right;
+	                float: revert;
 					text-indent: 0;
 					margin-top: 0;
 					margin-left: 5px;
@@ -269,12 +269,12 @@
           <td><img th:src="|@{/}thumb/${product.prodCate1}/${product.prodCate2}/${product.thumb1}|" class="thumb"></td>
           <td th:text="${product.prodNo}">201603292</td>
           <td th:text="${product.prodName}">FreeMovement BLUEFORCE</td>
-          <td th:text="${product.price}">36,000</td>
-          <td th:text="${product.discount}">10</td>
-          <td th:text="${product.point}">360</td>
-          <td th:text="${product.stock}">400</td>
+          <td th:text="${#numbers.formatInteger(product.price, 1, 'COMMA') + '원'}">36,000</td>
+          <td th:text="${product.discount + '%'}">10</td>
+          <td th:text="${#numbers.formatInteger(product.point, 1, 'COMMA') + '점'}">360</td>
+          <td th:text="${#numbers.formatInteger(product.stock, 1, 'COMMA') + '개'}">400</td>
           <td th:text="${product.seller}">홍길동</td>
-          <td th:text="${product.hit}">126</td>
+          <td th:text="${#numbers.formatInteger(product.hit, 1, 'COMMA')}">126</td>
           <td>
             <a href="#" class="deleteProduct">[삭제]</a>
             <a href="#">[수정]</a>
@@ -286,24 +286,24 @@
 
       <div class="paging">
         <span th:if="${paging.groupStart gt 1}" class="prev">
-            <a th:href="|@{/}admin/product/list/${paging.groupStart-1}/|"><&nbsp;이전</a>
+            <a th:href="|@{/}admin/product/list/${paging.groupStart-1}/?s=${s}&st=${st}|"><&nbsp;이전</a>
         </span>
 
         <span class="num">
           <th:block th:each="i:${#numbers.sequence(paging.groupStart, paging.groupEnd)}">
-            <a th:href="|@{/}admin/product/list/${i}/|" th:classappend="${paging.currentPage eq i ? 'on' : ''}" th:text="${i}"></a>
+            <a th:href="|@{/}admin/product/list/${i}/?s=${s}&st=${st}|" th:classappend="${paging.currentPage eq i ? 'on' : ''}" th:text="${i}"></a>
           </th:block>
         </span>
 
         <span th:if="${paging.groupEnd lt paging.lastPage}" class="next">
-            <a th:href="|@{/}admin/product/list/${paging.groupEnd+1}/|">다음&nbsp;></a>
+            <a th:href="|@{/}admin/product/list/${paging.groupEnd+1}/?s=${s}&st=${st}|">다음&nbsp;></a>
         </span>
       </div>
 
     </section>
 
     <!-- 2023/02/09 // 심규영 // 관리자 상품 등록 폼 -->
-    <form action="#" th:fragment="adminRegisterForm">
+    <form th:action="@{/admin/product/register}" method="POST" enctype="multipart/form-data" th:fragment="adminRegisterForm(cate1s)">
 
       <!-- 상품 분류 -->
       <section>
@@ -315,24 +315,19 @@
           <tr>
             <td>1차 분류</td>
             <td>
-              <select name="category1">
-                <option value="cate0">1차 분류 선택</option>
-                <option value="cate11">패션·의류·뷰티</option>
-                <option value="cate12">가전·디지털</option>
-                <option value="cate13">식품·생필품</option>
-                <option value="cate14">홈·문구·취미</option>
+              <select name="prodCate1">
+                <option value="">1차 분류 선택</option>
+                <th:block th:each="cate1:${cate1s}">
+                  <option th:value="${cate1.cate1}" th:text="${cate1.c1Name}">패션·의류·뷰티</option>
+                </th:block>
               </select>
             </td>
           </tr>
           <tr>
             <td>2차 분류</td>
             <td>
-              <select name="category2">
+              <select name="prodCate2">
                 <option value="cate0">2차 분류 선택</option>
-                <option value="cate21">남성의류</option>
-                <option value="cate22">여성의류</option>
-                <option value="cate23">잡화</option>
-                <option value="cate24">뷰티</option>
               </select>
             </td>
           </tr>
@@ -349,71 +344,71 @@
           <tr>
             <td>상품명</td>
             <td>
-              <input type="text" name="#">
+              <input type="text" name="prodName">
             </td>
           </tr>
           <tr>
             <td>기본설명</td>
             <td>
               <span>상품명 하단에 상품에 대한 추가적인 설명이 필요한 경우에 입력</span>
-              <input type="text" name="#">
+              <input type="text" name="descript">
             </td>
           </tr>
           <tr>
             <td>제조사</td>
             <td>
-              <input type="text" name="#">
+              <input type="text" name="company">
             </td>
           </tr>
           <tr>
             <td>판매가격</td>
             <td>
-              <input type="text" name="#">원
+              <input type="text" name="price">원
             </td>
           </tr>
           <tr>
             <td>할인율</td>
             <td>
               <span>0을 입력하면 할인율 없음</span>
-              <input type="text" name="#">%
+              <input type="text" name="discount">%
             </td>
           </tr>
           <tr>
             <td>포인트</td>
             <td>
               <span>0을 입력하면 포인트 없음</span>
-              <input type="text" name="#">점
+              <input type="text" name="point">점
             </td>
           </tr>
           <tr>
             <td>재고수량</td>
             <td>
-              <input type="text" name="#">개
+              <input type="text" name="stock">개
             </td>
           </tr>
           <tr>
             <td>배송비</td>
             <td>
               <span>0을 입력하면 배송비 무료</span>
-              <input type="text" name="#">원
+              <input type="text" name="delivery">원
             </td>
           </tr>
           <tr>
             <td>상품 썸네일</td>
             <td>
               <span>크기 190 x 190, 상품 목록에 출력될 이미지 입니다.</span>
-              <input type="file" name="#">
+              <input type="file" name="thumb1">
               <span>크기 230 x 230, 상품 목록에 출력될 이미지 입니다.</span>
-              <input type="file" name="#">
+              <input type="file" name="thumb2">
               <span>크기 456 x 456, 상품 목록에 출력될 이미지 입니다.</span>
-              <input type="file" name="#">
+              <input type="file" name="thumb3">
             </td>
           </tr>
           <tr>
             <td>상세 상품정보</td>
             <td>
               <span>크기 가로 940px 높이 제약없음, 크기 최대 1MB, 상세페이지 상품정보에 출력될 이미지 입니다.</span>
-              <input type="file" name="#">
+              <input type="file" name="detail">
             </td>
           </tr>
         </table>
@@ -428,23 +423,23 @@
         <table>
           <tr>
             <td>상품상태</td>
-            <td><input type="text" name="" value="새상품"></td>
+            <td><input type="text" name="status" value="새상품"></td>
           </tr>
           <tr>
             <td>부가세 면세여부</td>
-            <td><input type="text" name="" value="과세상품"></td>
+            <td><input type="text" name="duty" value="과세상품"></td>
           </tr>
           <tr>
             <td>영수증발행</td>
-            <td><input type="text" name="" value="발행가능 - 신용카드 전표, 온라인 현금영수증"></td>
+            <td><input type="text" name="receipt" value="발행가능 - 신용카드 전표, 온라인 현금영수증"></td>
           </tr>
           <tr>
             <td>사업자구분</td>
-            <td><input type="text" name="" value="사업자 판매자"></td>
+            <td><input type="text" name="bizType" value="사업자 판매자"></td>
           </tr>
           <tr>
             <td>원산지</td>
-            <td><input type="text" name="" value="국내산"></td>
+            <td><input type="text" name="origin" value="국내산"></td>
           </tr>
         </table>
       </section>

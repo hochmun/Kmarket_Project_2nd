@@ -9,10 +9,10 @@
     <header th:fragment="mainHeader">
         <div class="top">
             <div>
-                <a href="#">로그인</a>
-                <a href="#">회원가입</a>
+                <a th:href="@{/member/login}">로그인</a>
+                <a th:href="@{/member/register}">회원가입</a>
                 <a href="#">마이페이지</a>
-                <a href="#">
+                <a th:href="@{/product/cart}">
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                     &nbsp;장바구니
                 </a>
@@ -20,7 +20,7 @@
         </div>
         <div class="logo">
             <div>
-                <a href="#"><img th:src="@{/img/header_logo.png}" alt="로고"></a>
+                <a th:href="@{/index}"><img th:src="@{/img/header_logo.png}" alt="로고"></a>
                 <form action="#">
                     <input type="text" name="search">
                     <button><i class="fa fa-search"></i></button>
@@ -37,10 +37,10 @@
                     <li><a href="#">할인상품</a></li>
                 </ul>
                 <ul>
-                    <li><a href="#">공지사항</a></li>
-                    <li><a href="#">자주묻는질문</a></li>
-                    <li><a href="#">문의하기</a></li>
-                    <li><a href="#">고객센터</a></li>
+                    <li><a th:href="@{/cs/notice/list}">공지사항</a></li>
+                    <li><a th:href="@{/cs/faq/list}">자주묻는질문</a></li>
+                    <li><a th:href="@{/cs/qna/list}">문의하기</a></li>
+                    <li><a th:href="@{/cs/index}">고객센터</a></li>
                 </ul>
             </div>
         </div>
@@ -49,14 +49,14 @@
     <!-- 2023/02/09 // 심규영 // 관리자 헤더 -->
     <header th:fragment="adminHeader">
         <div>
-            <a href="#" class="logo">
+            <a th:href="@{/admin/index}" class="logo">
                 <img th:src="@{/img/admin_logo.png}" alt="admin_logo">
             </a>
             <p>
                 <span>홍길동님 반갑습니다.</span>
                 <a href="#">HOME |</a>
                 <a href="#">로그아웃 |</a>
-                <a href="#">고객센터</a>
+                <a th:href="@{/cs/index}">고객센터</a>
             </p>
         </div>
     </header>

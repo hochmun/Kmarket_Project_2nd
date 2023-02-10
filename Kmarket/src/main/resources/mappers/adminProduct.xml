@@ -19,12 +19,12 @@
             prodCate1,
             prodCate2
         FROM `km_product`
-        WHERE uid LIKE #{uid}
+        WHERE uid LIKE #{uid} AND ${st} LIKE #{s}
         ORDER BY prodNo desc
         LIMIT #{start}, 10;
     </select>
 
     <select id="selectCountProduct" resultType="int">
-        SELECT COUNT(prodNo) FROM km_product WHERE uid LIKE #{uid};
+        SELECT COUNT(prodNo) FROM km_product WHERE uid LIKE #{uid} AND ${st} LIKE #{s};
     </select>
 </mapper>
