@@ -243,10 +243,16 @@
           <option value="search4">판매자</option>
         </select>
         <input type="text" name="search">
+        <input type="button" name="btnSearch" value="검색" style="
+	                float: right;
+					text-indent: 0;
+					margin-top: 0;
+					margin-left: 5px;
+				">
       </div>
       <table>
         <tr>
-          <th><input type="checkbox" name="all"></th>
+          <th><input type="checkbox" name="all" id="cbx_chkAll"></th>
           <th>이미지</th>
           <th>상품코드</th>
           <th>상품명</th>
@@ -260,7 +266,7 @@
         </tr>
         <tr th:each="product:${products}">
           <td><input type="checkbox" name="상품코드"></td>
-          <td><img th:src="|/thumb/${product.prodCate1}/${product.prodCate2}/${product.thumb1}|" class="thumb"></td>
+          <td><img th:src="|@{/}thumb/${product.prodCate1}/${product.prodCate2}/${product.thumb1}|" class="thumb"></td>
           <td th:text="${product.prodNo}">201603292</td>
           <td th:text="${product.prodName}">FreeMovement BLUEFORCE</td>
           <td th:text="${product.price}">36,000</td>
@@ -270,7 +276,7 @@
           <td th:text="${product.seller}">홍길동</td>
           <td th:text="${product.hit}">126</td>
           <td>
-            <a href="#">[삭제]</a>
+            <a href="#" class="deleteProduct">[삭제]</a>
             <a href="#">[수정]</a>
           </td>
         </tr>
@@ -278,7 +284,21 @@
 
       <input type="button" value="선택삭제">
 
-      <div th:replace="~{fragment/paging_fragment::adminPaging}"></div>
+      <div class="paging">
+        <span th:if="${paging.groupStart gt 1}" class="prev">
+            <a th:href="|@{/}admin/product/list/${paging.groupStart-1}/|"><&nbsp;이전</a>
+        </span>
+
+        <span class="num">
+          <th:block th:each="i:${#numbers.sequence(paging.groupStart, paging.groupEnd)}">
+            <a th:href="|@{/}admin/product/list/${i}/|" th:classappend="${paging.currentPage eq i ? 'on' : ''}" th:text="${i}"></a>
+          </th:block>
+        </span>
+
+        <span th:if="${paging.groupEnd lt paging.lastPage}" class="next">
+            <a th:href="|@{/}admin/product/list/${paging.groupEnd+1}/|">다음&nbsp;></a>
+        </span>
+      </div>
 
     </section>
 
