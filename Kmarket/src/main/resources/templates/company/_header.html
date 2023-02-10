@@ -1,0 +1,30 @@
+<!--
+  날짜 : 2023/02/09
+  이름 : 김재준
+  내용 : company/header
+-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, user-scalable=no">
+  <title>Kmarket Inc. 상상하는 모든것</title>
+  <link rel="shortcut icon" type="image/x-icon" th:href="@{/img/favicon.ico}" />
+  <link rel="stylesheet" th:href="@{/css/company.css}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script th:src="@{/js/company/header.js}"></script>
+</head>
+<body>
+<div id="wrapper">
+  <header>
+    <div>
+      <a th:href="@{/company/index}"><img th:src="@{/img/company_header_logo2.png}" width="180" alt="로고"></a>
+      <ul>
+        <li><a th:href="@{/company/introduce}">회사소개</a></li>
+        <li><a th:href="@{/company/notice}">전자공시</a></li>
+        <li><a th:href="@{/company/promote}">홍보채널</a></li>
+        <li><a th:href="@{/company/manage}">투명경영</a></li>
+      </ul>
+    </div>
+  </header>

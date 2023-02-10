@@ -18,7 +18,7 @@
                     </p>
                 </nav>
                 <!-- 상품목록 컨텐츠 시작 -->
-                <section th:replace="~{fragment/admin_fragment::adminProductList}"></section>
+                <section th:replace="~{fragment/admin_fragment::adminProductList(products = ${products},paging = ${paging})}"></section>
 
                 <p class="ico info">
                     <strong>Tip!</strong>
