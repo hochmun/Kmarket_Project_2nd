@@ -4,6 +4,8 @@ import kr.co.kmarket.vo.Cs_Cate1VO;
 import kr.co.kmarket.vo.Cs_QnaVO;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.List;
 @Mapper
 @Repository
 public interface CsQnaDAO {
+
     /**
      * 23/02/08 qna list 작성글 전체 번호순 불러오기
      * @author 김재준
