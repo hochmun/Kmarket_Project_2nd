@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 2023/02/10 // 심규영 // 메인 인덱스 xml 생성 -->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.kmarket.dao.MainDAO">
+    <!-- create -->
+    <!-- read -->
+    <!-- 2023/02/10 // 심규영 // 카테고리1 불러오기 -->
+    <select id="selectCate1s" resultType="kr.co.kmarket.vo.product_cate1VO">
+        SELECT * FROM km_product_cate1;
+    </select>
+
+    <!-- 2023/02/10 // 심규영 // 카테고리2 불러오기 -->
+    <select id="selectCate2s" resultType="kr.co.kmarket.vo.product_cate2VO">
+        SELECT * FROM km_product_cate2;
+    </select>
+
+    <!-- 2023/02/10 // 심규영 // 카테고리1 에 따른 카테고리2 값 가져오기 -->
+    <select id="selectCate2WithCate1">
+        SELECT * FROM km_product_cate2 WHERE cate1 = #{cate1};
+    </select>
+
+    <!-- 2023/02/10 // 심규영 // 베스트 상품 5개 불러오기 -->
+    <select id="selectProductBest" resultType="kr.co.kmarket.vo.productVO">
+        SELECT
+            prodNo,
+            prodCate1,
+            prodCate2,
+            prodName,
+            price,
+            discount,
+            thumb1
+        FROM km_product
+        ORDER BY sold DESC
+        LIMIT 5;
+    </select>
+
+    <!-- 2023/02/10 // 심규영 // 카테고리별 상품 8개 가져오기 -->
+    <select id="selectProductMode" resultType="kr.co.kmarket.vo.productVO">
+        SELECT
+            prodNo,
+            prodCate1,
+            prodCate2,
+            prodName,
+            descript,
+            price,
+            discount,
+            delivery,
+            thumb2
+        FROM km_product
+        ORDER BY ${mode} DESC
+        LIMIT 8;
+    </select>
+
+    <!-- upload -->
+    <!-- delete -->
+</mapper>
