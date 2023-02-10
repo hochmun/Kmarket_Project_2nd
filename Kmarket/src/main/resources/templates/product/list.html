@@ -39,18 +39,23 @@
                         </td>
                         <td>
                             <ul>
-                                <li><ins class="dis-price">[[${product.price * (1 - product.discount / 100.0)}]]</ins></li>
+                                <li><ins class="dis-price">[[${#numbers.formatInteger((product.price * (1 - product.discount / 100.0)), 3, 'COMMA')}]]</ins></li>
                                 <li>
-                                    <del class="org-price">[[${product.price}]]</del>
+                                    <del class="org-price">[[${#numbers.formatInteger(product.price, 3, 'COMMA')}]]</del>
                                     <span class="discount">[[${product.discount}]]%</span>
                                 </li>
-                                <li><span class="free-delivery">무료배송</span></li>
+                                <th:block th:if="${product.delivery eq 0}">
+                                    <li><span class="free-delivery">무료배송</span></li>
+                                </th:block>
+                                <th:block th:if="${product.delivery > 0}">
+                                    <li><span>배송비 </span>[[${#numbers.formatInteger(product.delivery, 1, 'COMMA')+'원'}]]</li>
+                                </th:block>
                             </ul>
                         </td>
                         <td>
                             <h4 class="seller"><i class="fas fa-home"></i>&nbsp;[[${product.seller}]]</h4>
                             <h5 class="badge power">판매자등급</h5>
-                            <h6 class="rating star1">상품평</h6>
+                            <h6 class="rating star1" th:style="'width:'+${product.score * 16 + 37}+'px'">상품평</h6>
                         </td>
                     </tr>
                 </table>

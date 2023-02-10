@@ -20,6 +20,7 @@ public class ProductService {
      * @author 이해빈
      */
     public List<productVO> selectProducts(int cate1, int cate2, String sort, int start){
+
         return dao.selectProducts(cate1, cate2, sort, start);
     }
 

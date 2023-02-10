@@ -4,10 +4,13 @@ import kr.co.kmarket.service.ProductService;
 import kr.co.kmarket.vo.productVO;
 import kr.co.kmarket.vo.product_cate2VO;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -24,7 +27,8 @@ public class ProductController {
      * @author 이해빈
      */
     @GetMapping("product/list")
-    public String list(Model model, int cate1, int cate2, String sort, String pg){
+    public String list(Model model, int cate1, @RequestParam(value = "cate2", required = false, defaultValue = "0") int cate2, String sort, String pg){
+        log.info("cate2 "+cate2);
 
         // 카테고리 이름 가져오기
         product_cate2VO cateName = service.getCateName(cate1, cate2);
