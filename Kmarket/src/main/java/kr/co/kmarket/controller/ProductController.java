@@ -57,6 +57,15 @@ public class ProductController {
         model.addAttribute("lastPageNum", lastPageNum);
         model.addAttribute("pageGroup", pageGroup);
 
+        log.info("cate1: " + cate1);
+        log.info("cate2: " + cate2);
+        log.info("cateName: " + cateName);
+        log.info("sort: " + sort);
+        log.info("currentPage: " + currentPage);
+        log.info("lastPageNum: " + lastPageNum);
+        log.info("pageGroupStart: " + pageGroup[0]);
+        log.info("pageGroupEnd: " + pageGroup[1]);
+
         return "product/list";
     }
 
