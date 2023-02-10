@@ -3,36 +3,67 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.kmarket.dao.cs.CsQnaDAO">
-    <!-- qna 글 카테고리별 전체 보기 -->
-    <select id="selectQnaArticle" resultType="kr.co.kmarket.vo.Cs_QnaVO">
-        SELECT a.*, c.cate2Name FROM `km_cs_qna` AS a
-        JOIN `km_cs_cate1` AS b
-        ON a.qnaCate1 = b.cate1
-        JOIN `km_cs_cate2` AS c
-        ON b.cate1 = c.cate1 AND a.qnaCate2 = c.cate2
-        WHERE b.cate1 = #{cate1}
-        ORDER BY `qnaNo` DESC
-        LIMIT #{start}, 10;
-    </select>
-    <!-- qna 1카테고리 작성글 count-->
-    <select id="selectCountTotal" resultType="int">
-        SELECT count(`qnaNo`) FROM `km_cs_qna` WHERE `qnaCate1` = #{qnaCate1};
+    <!-- qna list 불러오기 -->
+    <select id="selectQnaArticles" resultType="kr.co.kmarket.vo.Cs_QnaVO">
+        select a.*, c.cate2Name from `km_cs_qna` as a
+        join `km_cs_cate1` as b
+        on a.qnaCate1 = b.cate1
+        join `km_cs_cate2` as c
+        on b.cate1 = c.cate1 and a.qnaCate2 = c.cate2
+        where b.cate1 = ${qnaCate1}
+        order by `qnaNo` desc
+        limit #{start}, 10;
     </select>
 
-    <select id="selectCsCate" resultType="kr.co.kmarket.vo.Cs_Cate1VO">
-        SELECT a.*, b.cate2, b.cate2Name FROM `km_cs_cate1` AS a
-        JOIN `km_cs_cate2` AS b ON a.cate1 = b.cate1
-        WHERE a.cate1 = #{cate1};
+    <!-- qna list 전체 작성글 수 불러오기 -->
+    <select id="selectCountTotal" resultType="int">
+        select count(`qnaNo`) from `km_cs_qna` where `qnaCate1` = #{qnaCate1};
     </select>
-    
+
+    <!-- qna list 작성글 카테고리 불러오기 -->
+    <select id="selectCate1" resultType="kr.co.kmarket.vo.Cs_Cate1VO">
+        select a.*, b.cate2, b.cate2Name from `km_cs_cate1` as a
+        join `km_cs_cate2` as b on a.cate1 = b.cate1
+        where a.cate1 = #{cate1};
+    </select>
+
+    <!-- qna list 작성글 상세보기 -->
+    <select id="selectQnaArticle" resultMap="selectQnaArticleResultMap">
+        select a.*, b.cate1Name, c.cate2Name from `km_cs_qna` as a
+        join `km_cs_cate1` as b
+        on a.qnaCate1 = b.cate1
+        join `km_cs_cate2` as c
+        on b.cate1 = c.cate1 and a.qnaCate2 = c.cate2
+        where `qnaNo`=#{qnaNo};
+    </select>
+
+    <!-- 조회(select) 결과를 상세하게 매핑하기 위한 사용자 정의 Map -->
+    <resultMap id="selectQnaArticleResultMap" type="kr.co.kmarket.vo.Cs_QnaVO">
+        <id column="qnaNo" property="qnaNo"/>
+        <result column="qnaCate1" property="qnaCate1"/>
+        <result column="qnaCate2" property="qnaCate2"/>
+        <result column="cate1Name" property="cate1Name"/>
+        <result column="cate2Name" property="cate2Name"/>
+        <result column="uid" property="uid"/>
+        <result column="qnaTitle" property="qnaTitle"/>
+        <result column="qnaContent" property="qnaContent"/>
+        <result column="qnaRdate" property="qnaRdate"/>
+        <result column="qnaRegip" property="qnaRegip"/>
+    </resultMap>
+
+    <!-- qna list 작성글 등록하기 -->
+    <!-- useGeneratedKeys="true" : 자동으로 생성된 키(AUTO_INCREMENT_KEY)를 가져올 것인지 여부 -->
+    <!-- keyProperty="qnaNo" : 자동으로 생성된 키를 어떤 변수에 저장할 것인지 지정 -->
     <insert id="insertQnaArticle" useGeneratedKeys="true" keyProperty="qnaNo">
-        INSERT INTO `km_cs_qna` SET
-        `uid` = #{uid},
-        `qnaTitle` = #{qnaTitle},
-        `qnaContent` = #{qnaContent},
-        `qnaCate1` = #{qnaCate1},
-        `qnaCate2` = #{qnaCate2},
-        `qnaRdate` = NOW(),
-        `qnaRegip` = #{qnaRegip};
+        insert into `km_cs_qna` set
+            `qnaCate1`=#{qnaCate1},
+            `qnaCate2`=#{qnaCate2},
+            `uid`=#{uid},
+            `qnaTitle`=#{qnaTitle},
+            `qnaContent`=#{qnaContent},
+            `qnaRdate`=NOW(),
+            `qnaRegip`=#{qnaRegip};
     </insert>
+    <!-- Qna는 작성글 수정 없음. -->
+    <!-- Qna는 작성글 삭제 없음. -->
 </mapper>
