@@ -260,7 +260,7 @@
         </tr>
         <tr th:each="product:${products}">
           <td><input type="checkbox" name="상품코드"></td>
-          <td><img th:src="|/thumb/${product.prodCate1}/${product.prodCate2}/${product.thumb1}|" class="thumb"></td>
+          <td><img th:src="|@{/}thumb/${product.prodCate1}/${product.prodCate2}/${product.thumb1}|" class="thumb"></td>
           <td th:text="${product.prodNo}">201603292</td>
           <td th:text="${product.prodName}">FreeMovement BLUEFORCE</td>
           <td th:text="${product.price}">36,000</td>
@@ -278,7 +278,21 @@
 
       <input type="button" value="선택삭제">
 
-      <div th:replace="~{fragment/paging_fragment::adminPaging}"></div>
+      <div class="paging">
+        <span th:if="${paging.groupStart gt 1}" class="prev">
+            <a th:href="|@{/}admin/product/list/${paging.groupStart-1}/|"><&nbsp;이전</a>
+        </span>
+
+        <span class="num">
+          <th:block th:each="i:${#numbers.sequence(paging.groupStart, paging.groupEnd)}">
+            <a th:href="|@{/}admin/product/list/${i}/|" th:classappend="${paging.currentPage eq i ? 'on' : ''}" th:text="${i}"></a>
+          </th:block>
+        </span>
+
+        <span th:if="${paging.groupEnd lt paging.lastPage}" class="next">
+            <a th:href="|@{/}admin/product/list/${paging.groupEnd+1}/|">다음&nbsp;></a>
+        </span>
+      </div>
 
     </section>
 
