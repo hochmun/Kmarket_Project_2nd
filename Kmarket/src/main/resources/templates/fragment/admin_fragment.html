@@ -243,10 +243,16 @@
           <option value="search4">판매자</option>
         </select>
         <input type="text" name="search">
+        <input type="button" name="btnSearch" value="검색" style="
+	                float: right;
+					text-indent: 0;
+					margin-top: 0;
+					margin-left: 5px;
+				">
       </div>
       <table>
         <tr>
-          <th><input type="checkbox" name="all"></th>
+          <th><input type="checkbox" name="all" id="cbx_chkAll"></th>
           <th>이미지</th>
           <th>상품코드</th>
           <th>상품명</th>
@@ -270,7 +276,7 @@
           <td th:text="${product.seller}">홍길동</td>
           <td th:text="${product.hit}">126</td>
           <td>
-            <a href="#">[삭제]</a>
+            <a href="#" class="deleteProduct">[삭제]</a>
             <a href="#">[수정]</a>
           </td>
         </tr>
