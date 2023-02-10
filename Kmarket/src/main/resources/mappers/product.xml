@@ -12,8 +12,7 @@
         SELECT COUNT(`prodNo`) FROM `km_product` WHERE `prodCate1`=#{cate1} AND `prodCate2`=#{cate2};
     </select>
     <select id="selectProducts" resultType="kr.co.kmarket.vo.productVO">
-        SELECT a.*, FLOOR(`price` * (1 - `discount` / 100)) AS `disPrice`
-        FROM `km_product` AS a WHERE `prodCate1`=#{cate1}
+        SELECT * FROM `km_product` WHERE `prodCate1`=#{cate1} AND `prodCate2`=#{cate2}
 
         <if test="sort == 'sold'">
             ORDER BY `sold` DESC LIMIT #{start}, 10;
@@ -40,4 +39,13 @@
         </if>
 
     </select>
+
+    <select id="selectProduct" resultType="kr.co.kmarket.vo.productVO">
+        select * from `km_product` where `prodNo`=#{prodNo};
+    </select>
+
+    <update id="updateProductHit">
+        UPDATE `km_product` SET `hit` = `hit`+ 1 WHERE `prodNo`=#{prodNo};
+    </update>
+
 </mapper>

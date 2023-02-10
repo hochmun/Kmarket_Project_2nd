@@ -32,10 +32,10 @@
                 <!-- 상품목록 -->
                 <table border="0">
                     <tr th:each="product, i:${products}">
-                        <td><a href="#" class="thumb"><img th:src="|@{/}thumb/${product.prodCate1}/${product.prodCate2}/${product.thumb1}|" alt="상품이미지"></a></td>
+                        <td><a th:href="@{/product/view(cate1=${cate1},cate2=${cate2},prodNo=${product.prodNo})}" class="thumb"><img th:src="|@{/}thumb/${product.prodCate1}/${product.prodCate2}/${product.thumb1}|" alt="상품이미지"></a></td>
                         <td>
                             <h3 class="name">[[${product.prodName}]]</h3>
-                            <a href="#" class="desc">[[${product.descript}]]</a>
+                            <a th:href="@{/product/view(cate1=${cate1},cate2=${cate2},prodNo=${product.prodNo})}" class="desc">[[${product.descript}]]</a>
                         </td>
                         <td>
                             <ul>

@@ -27,8 +27,7 @@ public class ProductController {
      * @author 이해빈
      */
     @GetMapping("product/list")
-    public String list(Model model, int cate1, @RequestParam(value = "cate2", required = false, defaultValue = "0") int cate2, String sort, String pg){
-        log.info("cate2 "+cate2);
+    public String list(Model model, int cate1, int cate2, String sort, String pg){
 
         // 카테고리 이름 가져오기
         product_cate2VO cateName = service.getCateName(cate1, cate2);
@@ -61,20 +60,28 @@ public class ProductController {
         model.addAttribute("lastPageNum", lastPageNum);
         model.addAttribute("pageGroup", pageGroup);
 
-        log.info("cate1: " + cate1);
-        log.info("cate2: " + cate2);
-        log.info("cateName: " + cateName);
-        log.info("sort: " + sort);
-        log.info("currentPage: " + currentPage);
-        log.info("lastPageNum: " + lastPageNum);
-        log.info("pageGroupStart: " + pageGroup[0]);
-        log.info("pageGroupEnd: " + pageGroup[1]);
-
         return "product/list";
     }
 
+    /**
+     * 상품 view GetMapping
+     * @since 23/02/10
+     * @author 이해빈
+     */
     @GetMapping("product/view")
-    public String view(){
+    public String view(int cate1, int cate2, int prodNo, Model model){
+
+        // 카테고리 이름 가져오기
+        product_cate2VO cateName = service.getCateName(cate1, cate2);
+        
+        // 상품 가져오기
+        productVO product = service.selectProduct(prodNo);
+
+        model.addAttribute("cate1", cate1);
+        model.addAttribute("cate2", cate2);
+        model.addAttribute("cateName", cateName);
+        model.addAttribute("product", product);
+
 
         return "product/view";
     }

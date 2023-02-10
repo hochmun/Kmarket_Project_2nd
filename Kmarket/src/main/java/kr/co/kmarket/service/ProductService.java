@@ -5,6 +5,7 @@ import kr.co.kmarket.vo.productVO;
 import kr.co.kmarket.vo.product_cate2VO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,7 +21,6 @@ public class ProductService {
      * @author 이해빈
      */
     public List<productVO> selectProducts(int cate1, int cate2, String sort, int start){
-
         return dao.selectProducts(cate1, cate2, sort, start);
     }
 
@@ -40,6 +40,22 @@ public class ProductService {
      */
     public int getCountTotal(int cate1, int cate2) {
         return dao.getCountTotal(cate1, cate2);
+    }
+
+    /**
+     * 상품 가져오기
+     * @since 23/02/10
+     * @author 이해빈
+     */
+    @Transactional
+    public productVO selectProduct(int prodNo){
+
+        productVO product = dao.selectProduct(prodNo);
+
+        // 조회수 + 1
+        dao.updateProductHit(prodNo);
+
+        return product;
     }
 
     /**
