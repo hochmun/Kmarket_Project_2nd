@@ -44,6 +44,8 @@
         select * from `km_product` where `prodNo`=#{prodNo};
     </select>
 
+
+
     <update id="updateProductHit">
         UPDATE `km_product` SET `hit` = `hit`+ 1 WHERE `prodNo`=#{prodNo};
     </update>

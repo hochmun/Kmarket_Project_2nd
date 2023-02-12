@@ -1,5 +1,8 @@
 package kr.co.kmarket.controller;
 
+import kr.co.kmarket.dto.CartDTO;
+import kr.co.kmarket.entity.UserEntity;
+import kr.co.kmarket.security.MyUserDetails;
 import kr.co.kmarket.service.ProductService;
 import kr.co.kmarket.vo.productVO;
 import kr.co.kmarket.vo.product_cate2VO;
@@ -7,12 +10,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -69,7 +74,10 @@ public class ProductController {
      * @author 이해빈
      */
     @GetMapping("product/view")
-    public String view(int cate1, int cate2, int prodNo, Model model){
+    public String view(int cate1, int cate2, int prodNo, Model model, @AuthenticationPrincipal MyUserDetails myUser){
+
+        UserEntity user = myUser.getUser();
+        model.addAttribute("user", user);
 
         // 카테고리 이름 가져오기
         product_cate2VO cateName = service.getCateName(cate1, cate2);
@@ -102,6 +110,25 @@ public class ProductController {
     public String complete(){
 
         return "product/complete";
+    }
+
+    /**
+     * 장바구니 추가 컨트롤러
+     * @since 23/02/12
+     * @author 이해빈
+     * */
+    @ResponseBody
+    @PostMapping("product/addCart")
+    public Map<String, Integer> addCart(@RequestBody CartDTO cart){
+
+
+        int result = service.addCart(cart);
+
+        Map<String , Integer> resultMap = new HashMap<>();
+        resultMap.put("result", result);
+
+        return resultMap;
+
     }
 
 }
