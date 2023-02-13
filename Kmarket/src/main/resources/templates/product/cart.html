@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{fragment/head_fragment::productHead}"></th:block>
+<script th:src="@{/js/product/cart.js}"></script>
 <body>
     <div id="wrapper">
         <th:block th:replace="~{fragment/header_fragment::mainHeader}"></th:block>
@@ -41,63 +42,28 @@
                             <tr class="empty">
                                 <td colspan="7">장바구니에 상품이 없습니다.</td>
                             </tr>
-                            <tr>
-                                <td><input type="checkbox" name=""></td>
+                            <tr th:each="cart: ${carts}">
+                                <td><input type="checkbox" name="chk" th:value="${cart.cartNo}"></td>
                                 <td>
                                     <article>
-                                        <a href="#"><img src="https://via.placeholder.com/80x80" alt=""></a>
+                                        <a href="#"><img th:src="|@{/}thumb/${cart.prodCate1}/${cart.prodCate2}/${cart.thumb1}|" alt=""></a>
                                         <div>
-                                            <h2><a href="#">상품명</a></h2>
-                                            <p>상품설명</p>
+                                            <h2><a href="#">[[${cart.prodName}]]</a></h2>
+                                            <p>[[${cart.descript}]]</p>
                                         </div>
                                     </article>
                                 </td>
-                                <td>1</td>
-                                <td>27,000</td>
-                                <td>5%</td>
-                                <td>270</td>
-                                <td>무료배송</td>
-                                <td>27,000</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" name=""></td>
-                                <td>
-                                    <article>
-                                        <a href="#"><img src="https://via.placeholder.com/80x80" alt=""></a>
-                                        <div>
-                                            <h2><a href="#">상품명</a></h2>
-                                            <p>상품설명</p>
-                                        </div>
-                                    </article>
-                                </td>
-                                <td>1</td>
-                                <td>27,000</td>
-                                <td>5%</td>
-                                <td>270</td>
-                                <td>무료배송</td>
-                                <td>27,000</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" name=""></td>
-                                <td>
-                                    <article>
-                                        <a href="#"><img src="https://via.placeholder.com/80x80" alt=""></a>
-                                        <div>
-                                            <h2><a href="#">상품명</a></h2>
-                                            <p>상품설명</p>
-                                        </div>
-                                    </article>
-                                </td>
-                                <td>1</td>
-                                <td>27,000</td>
-                                <td>5%</td>
-                                <td>270</td>
-                                <td>무료배송</td>
-                                <td>27,000</td>
+                                <td>[[${cart.count}]]</td>
+                                <td>[[${#numbers.formatInteger(cart.price, 1, 'COMMA')}]]</td>
+                                <td>[[${cart.discount}]]%</td>
+                                <td>[[${cart.point}]]</td>
+                                <td th:if="${cart.delivery ne 0}">[[${#numbers.formatInteger(cart.delivery, 1, 'COMMA')}]]</td>
+                                <td th:if="${cart.delivery eq 0}">무료배송</td>
+                                <td>[[${#numbers.formatInteger((cart.price * (1 - cart.discount / 100.0)), 1, 'COMMA')}]]</td>
                             </tr>
                         </tbody>
                     </table>
-                    <input type="button" name="del" value="선택삭제">
+                    <input type="button" name="del" id="del" value="선택삭제">
 
                     <!-- 장바구니 전체합계-->
                     <div class="total">
@@ -105,15 +71,15 @@
                         <table border="0">
                             <tr>
                                 <td>상품수</td>
-                                <td>1</td>
+                                <td>0</td>
                             </tr>
                             <tr>
                                 <td>상품금액</td>
-                                <td>27,000</td>
+                                <td>0</td>
                             </tr>
                             <tr>
                                 <td>할인금액</td>
-                                <td>-1,000</td>
+                                <td>0</td>
                             </tr>
                             <tr>
                                 <td>배송비</td>
@@ -121,11 +87,11 @@
                             </tr>              
                             <tr>
                                 <td>포인트</td>
-                                <td>260</td>
+                                <td>0</td>
                             </tr>
                             <tr>
                                 <td>전체주문금액</td>
-                                <td>26,000</td>
+                                <td>0</td>
                             </tr>
                         </table>
                         <input type="submit" name="" value="주문하기">

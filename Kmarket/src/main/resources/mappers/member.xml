@@ -42,5 +42,9 @@
         `rdate`=NOW();
     </insert>
 
+    <!-- 2023/02/13 이해빈 회원 정보 가져오기 -->
+    <select id="selectMember" resultType="kr.co.kmarket.vo.memberVO">
+        select * from `km_member` where `uid`=#{uid};
+    </select>
 
 </mapper>

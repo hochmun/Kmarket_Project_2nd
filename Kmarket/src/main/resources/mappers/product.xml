@@ -44,6 +44,13 @@
         select * from `km_product` where `prodNo`=#{prodNo};
     </select>
 
+    <select id="selectCarts" resultType="kr.co.kmarket.dto.CartDTO">
+        SELECT a.*, b.prodCate1, b.prodCate2, b.prodName, b.thumb1, b.descript FROM `km_product_cart` AS a
+        JOIN `km_product` AS b
+        ON a.prodNo = b.prodNo
+        WHERE a.`uid`=#{uid};
+    </select>
+
     <insert id="addCart">
         INSERT INTO `km_product_cart`(`uid`, `prodNo`, `count`, `price`, `discount`, `point`, `delivery`, `total`, `rdate`)
         VALUES(#{uid}, #{prodNo}, #{count}, #{price}, #{discount}, #{point}, #{delivery}, #{total}, NOW());

@@ -3,19 +3,18 @@ package kr.co.kmarket.controller;
 import kr.co.kmarket.dto.CartDTO;
 import kr.co.kmarket.entity.UserEntity;
 import kr.co.kmarket.security.MyUserDetails;
+import kr.co.kmarket.service.MemberService;
 import kr.co.kmarket.service.ProductService;
+import kr.co.kmarket.vo.memberVO;
 import kr.co.kmarket.vo.productVO;
 import kr.co.kmarket.vo.product_cate2VO;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +26,9 @@ public class ProductController {
 
     @Autowired
     private ProductService service;
+
+    @Autowired
+    private MemberService memberservice;
 
     /**
      * 상품 list GetMapping
@@ -95,11 +97,27 @@ public class ProductController {
     @GetMapping("product/order")
     public String order(){
 
+        // 유저 정보가져오기
+        //memberVO member = memberservice.selectMember(uid);
+        //model.addAttribute("member", member);
+
         return "product/order";
     }
 
+    /**
+     * 장바구니 목록
+     * @since 23/02/13
+     * @author 이해빈
+     */
     @GetMapping("product/cart")
-    public String cart(){
+    public String cart(Model model, @AuthenticationPrincipal MyUserDetails myUser){
+
+        String uid = myUser.getUser().getUid();
+
+        // 장바구니 목록 가져오기
+        List<CartDTO> carts = service.selectCarts(uid);
+
+        model.addAttribute("carts", carts);
 
         return "product/cart";
     }
@@ -111,52 +129,37 @@ public class ProductController {
     }
 
     /**
-     * 장바구니 추가 컨트롤러
-     * @since 23/02/12
-     * @author 이해빈
-     * */
-    @ResponseBody
-    @PostMapping("product/addCart")
-    public Map<String, Integer> addCart(@RequestBody CartDTO cart,  @AuthenticationPrincipal MyUserDetails myUser){
-
-        UserEntity user = myUser.getUser();
-        cart.setUid(user.getUid());
-
-        int result = service.addCart(cart);
-
-        Map<String , Integer> resultMap = new HashMap<>();
-        resultMap.put("result", result);
-
-        return resultMap;
-
-    }
-
-    /**
-     * 주문하기 페이지 이동 컨트롤러
+     * 장바구니 담기 + 주문하기 페이지 이동
      * @since 23/02/13
      * @author 이해빈
      */
     @ResponseBody
     @PostMapping("product/goToOrder")
-    public Map<String , Integer> goToOrder(@RequestBody CartDTO cart, HttpServletRequest req){
-
-        HttpSession session = req.getSession();
-        session.setAttribute("cart", cart);
+    public Map<String , Integer> goToOrder(@RequestBody CartDTO cart, @AuthenticationPrincipal MyUserDetails myUser, HttpSession session){
 
         int result = 0;
+        
+        String type = cart.getType();
 
-        if(cart.getProdNo() > 0){
-            result = 1;
+        // 장바구니에 담을 경우
+        if(type.equals("cart")){
+            UserEntity user = myUser.getUser();
+            cart.setUid(user.getUid());
+            result = service.addCart(cart);
+
+        
+        // 주문하기 페이지로 이동하는 경우 -> 세션에 저장
+        }else if(type.equals("product")){
+            if(cart.getProdNo() > 0){
+                result = 1;
+            }
+            session.setAttribute("prodNo", cart);
+
         }
-
-        log.info("cart :" + cart.getProdNo());
 
         Map<String , Integer> resultMap = new HashMap<>();
         resultMap.put("result", result);
 
         return resultMap;
     }
-
-
-
 }
