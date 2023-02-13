@@ -4,6 +4,36 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.kmarket.dao.admin.AdminProductDAO">
+    <!-- insert -->
+
+    <insert id="insertProduct">
+        INSERT INTO `km_product` SET
+            prodCate1 = #{prodCate1},
+            prodCate2 = #{prodCate2},
+            prodName = #{prodName},
+            descript = #{descript},
+            company = #{company},
+            seller = #{seller},
+            price = #{price},
+            discount = #{discount},
+            `point` = #{point},
+            stock = #{stock},
+            delivery = #{delivery},
+            thumb1 = #{thumb1},
+            thumb2 = #{thumb2},
+            thumb3 = #{thumb3},
+            detail = #{detail},
+            `status` = #{status},
+            duty = #{duty},
+            receipt = #{receipt},
+            bizType = #{bizType},
+            origin = #{origin},
+            ip = #{ip},
+            uid = #{uid},
+            rdate = NOW();
+    </insert>
+
+    <!-- select -->
     <!-- 2023/02/09 // 심규영 // 상품 정보 불러오기 -->
     <select id="selectProducts" resultType="kr.co.kmarket.vo.productVO">
         SELECT

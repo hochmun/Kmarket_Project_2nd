@@ -16,6 +16,13 @@ import java.util.List;
 public interface AdminProductDAO {
     // create
 
+    /**
+     * 2023/02/13 // 심규영 // 관리자 상품 등록 기능
+     * @param vo
+     * @return
+     */
+    public int insertProduct(productVO vo);
+
     // read
     /**
      * 관리자 상품 리스트 불러오기

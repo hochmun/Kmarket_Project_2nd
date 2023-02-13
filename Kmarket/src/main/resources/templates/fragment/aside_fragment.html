@@ -53,7 +53,7 @@
           <a href="#">
             <div class="thumb">
               <i th:text="${bestStat.count}">1</i>
-              <img th:src="|@{/}thumb/${best.prodCate1}/${best.prodCate2}/$[best.thumb1}|" alt="item1">
+              <img th:src="|@{/}thumb/${best.prodCate1}/${best.prodCate2}/${best.thumb1}|" alt="item1">
             </div>
             <h2 th:text="${best.prodName}">상품명</h2>
             <div class="org_price" th:if="${best.discount gt 0}">

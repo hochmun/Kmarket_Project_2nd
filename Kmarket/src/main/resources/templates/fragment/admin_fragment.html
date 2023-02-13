@@ -344,71 +344,70 @@
           <tr>
             <td>상품명</td>
             <td>
-              <input type="text" name="prodName">
+              <input type="text" name="prodName" maxlength="100" required>
             </td>
           </tr>
           <tr>
             <td>기본설명</td>
             <td>
               <span>상품명 하단에 상품에 대한 추가적인 설명이 필요한 경우에 입력</span>
-              <input type="text" name="descript">
+              <input type="text" name="descript" maxlength="100" required>
             </td>
           </tr>
           <tr>
             <td>제조사</td>
             <td>
-              <input type="text" name="company">
+              <input type="text" name="company" maxlength="100" required>
             </td>
           </tr>
           <tr>
             <td>판매가격</td>
             <td>
-              <input type="text" name="price">원
+              <input type="text" name="price" maxlength="11" required>원
+              &nbsp;&nbsp;<span class="priceResult"></span>
             </td>
           </tr>
           <tr>
             <td>할인율</td>
             <td>
               <span>0을 입력하면 할인율 없음</span>
-              <input type="text" name="discount">%
-            </td>
-          </tr>
-          <tr>
-            <td>포인트</td>
-            <td>
-              <span>0을 입력하면 포인트 없음</span>
-              <input type="text" name="point">점
+              <input type="text" name="discount" maxlength="2" required>%
+              &nbsp;&nbsp;<span class="discountResult"></span>
             </td>
           </tr>
           <tr>
             <td>재고수량</td>
             <td>
-              <input type="text" name="stock">개
+              <input type="text" name="stock" maxlength="11" required>개
+              &nbsp;&nbsp;<span class="stockResult"></span>
             </td>
           </tr>
           <tr>
             <td>배송비</td>
             <td>
               <span>0을 입력하면 배송비 무료</span>
-              <input type="text" name="delivery">원
+              <input type="text" name="delivery" maxlength="11" required>원
+              &nbsp;&nbsp;<span class="deliveryResult"></span>
             </td>
           </tr>
           <tr>
             <td>상품 썸네일</td>
             <td>
               <span>크기 190 x 190, 상품 목록에 출력될 이미지 입니다.</span>
-              <input type="file" name="thumb1">
+              <input type="file" name="thumb1File" required>
+
               <span>크기 230 x 230, 상품 목록에 출력될 이미지 입니다.</span>
-              <input type="file" name="thumb2">
+              <input type="file" name="thumb2File" required>
+
               <span>크기 456 x 456, 상품 목록에 출력될 이미지 입니다.</span>
-              <input type="file" name="thumb3">
+              <input type="file" name="thumb3File" required>
             </td>
           </tr>
           <tr>
             <td>상세 상품정보</td>
             <td>
               <span>크기 가로 940px 높이 제약없음, 크기 최대 1MB, 상세페이지 상품정보에 출력될 이미지 입니다.</span>
-              <input type="file" name="detail">
+              <input type="file" name="detailFile" required>
             </td>
           </tr>
         </table>
@@ -423,23 +422,23 @@
         <table>
           <tr>
             <td>상품상태</td>
-            <td><input type="text" name="status" value="새상품"></td>
+            <td><input type="text" name="status" value="새상품" maxlength="20" required></td>
           </tr>
           <tr>
             <td>부가세 면세여부</td>
-            <td><input type="text" name="duty" value="과세상품"></td>
+            <td><input type="text" name="duty" value="과세상품" maxlength="20" required></td>
           </tr>
           <tr>
             <td>영수증발행</td>
-            <td><input type="text" name="receipt" value="발행가능 - 신용카드 전표, 온라인 현금영수증"></td>
+            <td><input type="text" name="receipt" value="발행가능 - 신용카드 전표, 온라인 현금영수증" maxlength="50" required></td>
           </tr>
           <tr>
             <td>사업자구분</td>
-            <td><input type="text" name="bizType" value="사업자 판매자"></td>
+            <td><input type="text" name="bizType" value="사업자 판매자" maxlength="20" required></td>
           </tr>
           <tr>
             <td>원산지</td>
-            <td><input type="text" name="origin" value="국내산"></td>
+            <td><input type="text" name="origin" value="국내산" maxlength="20" required></td>
           </tr>
         </table>
       </section>
