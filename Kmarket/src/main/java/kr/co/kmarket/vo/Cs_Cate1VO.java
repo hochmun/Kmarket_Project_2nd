@@ -7,8 +7,8 @@ import lombok.*;
  * 이름 : 김재준
  */
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 @Builder
 public class Cs_Cate1VO {

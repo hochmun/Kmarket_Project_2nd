@@ -1,5 +1,6 @@
 package kr.co.kmarket.controller.cs.qna;
 
+import kr.co.kmarket.entity.UserEntity;
 import kr.co.kmarket.security.MyUserDetails;
 import kr.co.kmarket.service.cs.CsQnaService;
 import kr.co.kmarket.vo.Cs_QnaVO;
@@ -44,16 +45,20 @@ public class QnaWriteController {
      */
     @PostMapping(value = {"cs/qna/write"})
     public String write(Model model, HttpServletRequest req, @AuthenticationPrincipal MyUserDetails myUser, Cs_QnaVO vo,
-                        String cate1, String cate2){
+                        Integer cate1, Integer cate2){
 
-        //UserEntity user = myUser.getUser();
-        //vo.setUid(user.getUid());
-        vo.setQnaCate1(cate1);
-        vo.setQnaCate2(cate2);
+        UserEntity user = myUser.getUser();
+
+        vo.setUid(user.getUid());
+        if (cate2 == null || cate2 == 0) {
+            model.addAttribute("errorMessage", "카테고리를 선택하세요.");
+            return "cs/qna/write";
+        }
+        vo.setQnaCate1(String.valueOf(cate1));
+        vo.setQnaCate2(String.valueOf(cate2));
         vo.setQnaRegip(req.getRemoteAddr());
         service.insertQnaArticle(vo);
 
         return "redirect:/cs/qna/list?cate1="+cate1;
     }
-
 }

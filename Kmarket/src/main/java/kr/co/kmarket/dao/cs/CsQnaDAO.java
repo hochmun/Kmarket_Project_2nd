@@ -1,7 +1,6 @@
 package kr.co.kmarket.dao.cs;
 
 import kr.co.kmarket.vo.Cs_Cate1VO;
-import kr.co.kmarket.vo.Cs_Cate2VO;
 import kr.co.kmarket.vo.Cs_QnaVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -35,12 +34,6 @@ public interface CsQnaDAO {
      * @return
      */
     public Cs_QnaVO selectQnaArticle(@Param("qnaNo") Integer qnaNo);
-
-    /**
-     * 23/02/12 qna view용 카테고리 이름
-     * @autor 김재준
-     */
-    public Cs_Cate2VO selectCateName(@Param("cate1") Integer cate1, @Param("cate2") Integer cate2);
 
     /**
      * 23/02/08 qna 글 작성

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.kmarket.dao.cs.CsFaqDAO">
+    <select id="selectCsFaqListWithCsCate1" resultType="kr.co.kmarket.vo.Cs_FaqVO">
+            select * from `km_cs_faq` where `faqCate1` = #{faqCate1} and `faqCate2` = #{faqCate2};
+    </select>
+    <!-- Faq는 글 작성 없음. -->
+</mapper>

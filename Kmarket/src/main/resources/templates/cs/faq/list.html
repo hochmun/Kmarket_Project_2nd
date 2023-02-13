@@ -3,8 +3,7 @@
   이름 : 김재준
   내용 : cs/faq/list.html
 -->
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{cs/_cs_header}"></th:block>
 <section id="cs">
     <div class="faq">
@@ -16,67 +15,33 @@
         <section class="list">
             <aside>
                 <h2>자주묻는 질문</h2>
-                <ul>
-                    <li class="on"><a href="#">회원</a></li>
-                    <li><a href="#">쿠폰/이벤트</a></li>
-                    <li><a href="#">주문/결제</a></li>
-                    <li><a href="#">배송</a></li>
-                    <li><a href="#">취소/반품/교환</a></li>
-                    <li><a href="#">여행/숙박/항공</a></li>
-                    <li><a href="#">안전거래</a></li>
+                <ul th:each="vo:${vo}">
+                    <li th:classappend="${vo.cate1} == ${cate1} ? 'on' : 'off'"><a th:href="@{/cs/faq/list(csCate1=${vo.cate1}}">[[${vo.cate1Name}]]</a></li>
                 </ul>
             </aside>
             <article>
-                <nav>
-                    <h1>회원</h1>
+                <nav th:each="vo:${vo}">
+                    <th:block th:if="${vo.cate1} == ${cate1}">
+                        <h1 th:text="${vo.cate1Name}"></h1>
+                    </th:block>
                     <h2>가장 자주 묻는 질문입니다.</h2>
                 </nav>
 
-                <div>
-                    <h3>가입</h3>
-                    <ul>
-                        <li><a th:href="@{/cs/faq/view}"><span>Q.</span>개인회원과 법인회원에 차이가 있나요?</a></li>
-                        <li><a href="#"><span>Q.</span>개인회원과 법인회원에 차이가 있나요?</a></li>
-                        <li><a href="#"><span>Q.</span>개인회원과 법인회원에 차이가 있나요?</a></li>
-                        <li><a href="#"><span>Q.</span>개인회원과 법인회원에 차이가 있나요?</a></li>
-                        <li><a href="#"><span>Q.</span>개인회원과 법인회원에 차이가 있나요?</a></li>
-                        <li class="more"><a href="#">더보기</a></li>
+                <div th:each="vo:${vo}">
+                    <h3>[[${vo.cate2Name}]]</h3>
+                    <ul th:with="count=0">
+                        <th:block th:each="vos:${vos}">
+                            <th:block th:if="${vos.faqCate2} == ${vo.cate2}">
+                                <th:block th:with="count=${count}+1">
+                                <li th:classappend="${count} > 3 ? 'hide' : ''"><a><span>Q.</span>[[${vos.faqTitle}]]</a></li><!--th:href="@{/cs/faq/view(faqNo=${vos.faqNo})}"-->
+                                </th:block>
+                            </th:block>
+                        </th:block>
+                        <th:block th:if="${count} == 0">
+                            <li class="more" onclick="moreView(this)"><a href="#">더보기</a></li>
+                        </th:block>
                     </ul>
                 </div>
-                <div>
-                    <h3>탈퇴</h3>
-                    <ul>
-                        <li><a href="#"><span>Q.</span>회원탈퇴 후 재가입이 가능한가요?</a></li>
-                        <li><a href="#"><span>Q.</span>회원탈퇴 후 재가입이 가능한가요?</a></li>
-                        <li><a href="#"><span>Q.</span>회원탈퇴 후 재가입이 가능한가요?</a></li>
-                        <li><a href="#"><span>Q.</span>회원탈퇴 후 재가입이 가능한가요?</a></li>
-                        <li><a href="#"><span>Q.</span>회원탈퇴 후 재가입이 가능한가요?</a></li>
-                        <li class="more"><a href="#">더보기</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3>회원정보</h3>
-                    <ul>
-                        <li><a href="#"><span>Q.</span>회원정보를 수정하고 싶어요.</a></li>
-                        <li><a href="#"><span>Q.</span>회원정보를 수정하고 싶어요.</a></li>
-                        <li><a href="#"><span>Q.</span>회원정보를 수정하고 싶어요.</a></li>
-                        <li><a href="#"><span>Q.</span>회원정보를 수정하고 싶어요.</a></li>
-                        <li><a href="#"><span>Q.</span>회원정보를 수정하고 싶어요.</a></li>
-                        <li class="more"><a href="#">더보기</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3>로그인</h3>
-                    <ul>
-                        <li><a href="#"><span>Q.</span>로그인에 문제가 있어요.</a></li>
-                        <li><a href="#"><span>Q.</span>로그인에 문제가 있어요.</a></li>
-                        <li><a href="#"><span>Q.</span>로그인에 문제가 있어요.</a></li>
-                        <li><a href="#"><span>Q.</span>로그인에 문제가 있어요.</a></li>
-                        <li><a href="#"><span>Q.</span>로그인에 문제가 있어요.</a></li>
-                        <li class="more"><a href="#">더보기</a></li>
-                    </ul>
-                </div>
-
             </article>
         </section>
     </div>
