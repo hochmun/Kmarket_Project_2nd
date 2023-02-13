@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -54,15 +56,6 @@ public class AdminProductService {
 
     // read
 
-    /**
-     * 상품 삭제시 삭제할 이미지 정보 불러오는데 사용중
-     * 2023/02/13 // 심규영 // 관리자 상품 불러오기
-     * @param prodNo
-     * @return
-     */
-    public productVO selectProduct(String prodNo){
-        return dao.selectProduct(prodNo);
-    }
 
     /**
      * 관리자 상품 리스트 불러오기<br>
@@ -94,29 +87,41 @@ public class AdminProductService {
         return dao.selectCountProduct(uid, s, st);
     }
     // upload
+    /**
+     * 관리자 상품 삭제 상태로 변경 기능
+     * <br>다중 처리 기능 추가
+     * @since 2023/02/13 // 심규영 // 최초작성
+     */
+    public int updateProductDeleteStatus(String[] arrays, String uid, int type){
+        // 관리자이면 전체 상품 삭제 허용
+        if(type == 5) uid = "%%";
+
+        int result = 0;
+
+        for(String prodNo : arrays){
+            result += dao.updateProductDeleteStatus(prodNo, uid);
+        }
+
+        return result;
+    }
+
+    /**
+     * 관리자 상품 수정 기능
+     * @since 2023/02/13 // 심규영 // 최초작성
+     * @return
+     */
+    public int updateProduct(HashMap<String, Object> map, String uid){
+        String prodName = (String) map.get("prodName");
+        String price = (String) map.get("price");
+        String discount = (String) map.get("discount");
+        String stock = (String) map.get("stock");
+        String prodNo = (String) map.get("prodNo");
+
+        return dao.updateProduct(prodName, price, discount, stock, prodNo, uid);
+    }
 
     // delete
 
-    /**
-     * 관리자 상품 삭제 기능<br>
-     * 판매자 회원일 경우 자신의 상품만 삭제 가능<br>
-     * 관리자 회원일 경우 전체 상품 삭제 가능<br>
-     * 데이터 베이스에서 상품 삭제 전 서버에서 이미지 파일 제거
-     * @since 2023/02/13 // 심규영 // 최초작성
-     * @param prodNo
-     * @param uid
-     * @return
-     */
-    public int deleteProduct(String prodNo, String uid, int type) {
-        // 관리자 일 경우 전체 상품에 영향 줄 수 있음
-        if(type == 5) uid = "%%"; 
-        
-        // 데이터 베이스에서 상품 정보 제거전 서버에서 파일 삭제
-        deleteFile(prodNo);
-        
-        // 데이터 베이스에 상품 정보 삭제
-        return dao.deleteProduct(prodNo, uid);
-    }
 
     // service
 
@@ -143,29 +148,4 @@ public class AdminProductService {
         return nName;
     }
 
-    /**
-     * 관리자 상품 삭제전 서버에 이미지 제거 기능
-     * @since 2023/02/13 // 심규영 // 최초작성
-     * @param prodNo
-     */
-    public void deleteFile(String prodNo) {
-        // 삭제할 상품 이미지 정보 불러오기
-        productVO product = selectProduct(prodNo);
-        int cate1 = product.getProdCate1();
-        int cate2 = product.getProdCate2();
-
-        // 파일 경로 설정
-        String path = new File(uploadPath).getAbsolutePath();
-        
-        File thumb1 = new File(String.format("%s/%d/%d/%s", path, cate1, cate2, product.getThumb1()));
-        File thumb2 = new File(String.format("%s/%d/%d/%s", path, cate1, cate2, product.getThumb2()));
-        File thumb3 = new File(String.format("%s/%d/%d/%s", path, cate1, cate2, product.getThumb3()));
-        File detail = new File(String.format("%s/%d/%d/%s", path, cate1, cate2, product.getDetail()));
-
-        // 해당 경로에 해당하는 이미지파일이 있을경우 삭제
-        if(thumb1.exists()) thumb1.delete();
-        if(thumb2.exists()) thumb2.delete();
-        if(thumb3.exists()) thumb3.delete();
-        if(detail.exists()) detail.delete();
-    }
 }

@@ -48,21 +48,58 @@ $(()=>{
 			prodNo += tr.children[2].innerText;
 			prodNo += ", ";
 		}
-		/*
-		$.ajax({
-			url:'/Kmarket/admin/product/list.do',
-			type: 'POST',
-			data: {'prodNo':prodNo},
-			dataType: 'json',
-			success: (data)=>{
-				if(data.result > 0) {
-					alert('상품 삭제 완료 했습니다.');
-					trs.remove();
-				} else {
-					alert('상품 삭제에 실패 하였습니다.');
-				}
-			}
-		});
-		*/
+		$.get('/Kmarket/admin/product/deleteProduct?prodNo='+prodNo,(data)=>{
+            if(data.result > 0) {
+                alert('상품 삭제 완료 했습니다.');
+                trs.remove();
+            } else {
+                alert('상품 삭제에 실패 하였습니다.');
+            }
+        });
 	});
+
+	// 수정 기능
+	/*
+	$('.modifyProduct').click(function(e){
+	    e.preventDefault();
+	    let status = $(this).text();
+	    const tr = $(this).parent().parent();
+
+	    if(status == "[수정]"){
+	        $(this).text("[수정 완료]");
+
+	        tr.children().eq(3).attr('contenteditable', true);
+	        tr.children().eq(4).attr('contenteditable', true);
+	        tr.children().eq(5).attr('contenteditable', true);
+	        tr.children().eq(7).attr('contenteditable', true);
+	    } else {
+	        $(this).text("[수정]");
+
+            tr.children().eq(3).attr('contenteditable', false);
+            tr.children().eq(4).attr('contenteditable', false);
+            tr.children().eq(5).attr('contenteditable', false);
+            tr.children().eq(7).attr('contenteditable', false);
+
+            const prodName = tr.children().eq(3).text();
+            const price = tr.children().eq(4).text();
+            const discount = tr.children().eq(5).text();
+            const stock = tr.children().eq(7).text();
+            const prodNo = tr.children().eq(3).text();
+
+            $.ajax({
+                url:'/Kmarket/admin/product/modifyProduct',
+                type: 'PUT',
+                data: {'prodName':prodName,'price':price,'discount':discount,'stock':stock, 'prodNo':prodNo},
+                dataType: 'json',
+                success: (data)=>{
+                    if(data.result > 0) {
+                        alert('상품 수정이 완료 했습니다.');
+                    } else {
+                        alert('상품 수정에 실패 하였습니다.');
+                    }
+                }
+            });
+	    }
+	});
+	*/
 });

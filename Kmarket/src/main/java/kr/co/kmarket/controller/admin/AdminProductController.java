@@ -128,7 +128,7 @@ public class AdminProductController {
 
     /**
      * 관리자 상품 삭제 기능
-     *
+     * <br> 다중 처리 기능 추가
      * @param prodNo
      * @return
      * @since 2023/02/13 // 심규영 // 최초 작성
@@ -138,7 +138,31 @@ public class AdminProductController {
     public Map<String, Object> deleteProduct(@RequestParam("prodNo") String prodNo,
                                              @AuthenticationPrincipal MyUserDetails myUserDetails) {
         UserEntity user = myUserDetails.getUser();
-        int result = service.deleteProduct(prodNo, user.getUid(), user.getType());
+        String uid = user.getUid();
+        int type = user.getType();
+
+        String[] arrays = prodNo.split(",");
+
+        int result = service.updateProductDeleteStatus(arrays, uid, type);
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("result", result);
+
+        return data;
+    }
+
+    /**
+     * 관리자 상품 리스트 - 상품 수정 기능
+     * @since 2023/02/13 // 심규영 // 상품 수정 기능
+     * @param map
+     * @param myUserDetails
+     * @return
+     */
+    @ResponseBody
+    @PutMapping("/admin/product/modifyProduct")
+    public Map<String, Object> modifyProduct(@RequestBody HashMap<String, Object> map,
+                                             @AuthenticationPrincipal MyUserDetails myUserDetails){
+        int result = service.updateProduct(map, myUserDetails.getUser().getUid());
 
         Map<String, Object> data = new HashMap<>();
         data.put("result", result);

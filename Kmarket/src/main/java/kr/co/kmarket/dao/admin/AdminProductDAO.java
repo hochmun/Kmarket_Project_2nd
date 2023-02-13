@@ -26,14 +26,6 @@ public interface AdminProductDAO {
     // read
 
     /**
-     * 상품 삭제시 삭제할 이미지 정보 불러오는데 사용중
-     * 2023/02/13 // 심규영 // 관리자 상품 불러오기
-     * @param prodNo
-     * @return
-     */
-    public productVO selectProduct(@Param("prodNo") String prodNo);
-
-    /**
      * 관리자 상품 리스트 불러오기
      * @since 2023/02/09 // 심규영 // 관리자 상품 리스트 불러오기 작성
      * @since 2023/02/10 // 심규영 // 검색 기능 추가
@@ -50,14 +42,28 @@ public interface AdminProductDAO {
 
     // upload
 
-    // delete
+    /**
+     * 관리자 상품 삭제 상태로 변경 기능
+     * @since 2023/02/13 // 심규영 // 최초작성
+     */
+    public int updateProductDeleteStatus(@Param("prodNo") String prodNo, @Param("uid") String uid);
 
     /**
-     * 관리자 상품 삭제 기능
+     * 관리자 상품 수정 기능
      * @since 2023/02/13 // 심규영 // 최초작성
-     * @param prodNo
+     * @param prodName
+     * @param price
+     * @param discount
+     * @param stock
      * @return
      */
-    public int deleteProduct(@Param("prodNo") String prodNo, @Param("uid") String uid);
+    public int updateProduct(@Param("prodName") String prodName,
+                             @Param("price") String price,
+                             @Param("discount") String discount,
+                             @Param("stock") String stock,
+                             @Param("prodNo") String prodNo,
+                             @Param("uid") String uid);
+
+    // delete
 
 }

@@ -1,5 +1,7 @@
 package kr.co.kmarket.controller.admin;
 
+import kr.co.kmarket.security.MyUserDetails;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,8 +21,10 @@ public class AdminCsController {
      */
     @GetMapping("admin/cs/{cate}/list")
     public String list(@PathVariable("cate") String cate,
-                       Model model) {
+                       Model model,
+                       @AuthenticationPrincipal MyUserDetails myUserDetails) {
         model.addAttribute("cate", cate);
+        model.addAttribute("name", myUserDetails.getUser().getName());
 
         return "admin/cs/list";
     }

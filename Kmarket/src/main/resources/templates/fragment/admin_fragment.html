@@ -277,12 +277,12 @@
           <td th:text="${#numbers.formatInteger(product.hit, 1, 'COMMA')}">126</td>
           <td>
             <a href="#" class="deleteProduct">[삭제]</a>
-            <a href="#">[수정]</a>
+            <a href="#" class="modifyProduct">[수정]</a>
           </td>
         </tr>
       </table>
 
-      <input type="button" value="선택삭제">
+      <input type="button" id="deleteAll" value="선택삭제">
 
       <div class="paging">
         <span th:if="${paging.groupStart gt 1}" class="prev">
