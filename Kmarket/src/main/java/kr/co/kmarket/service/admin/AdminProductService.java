@@ -2,19 +2,31 @@ package kr.co.kmarket.service.admin;
 
 import kr.co.kmarket.dao.admin.AdminProductDAO;
 import kr.co.kmarket.vo.productVO;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * 관리자 상품 서비스 <br>
  * @since 2023/02/09 // 심규영 // 관리자 상품 서비스 생성
  */
+@Slf4j
 @Service
 public class AdminProductService {
 
+    /** 
+     * 2023/02/13 // 심규영 // 파일 업로드 경로
+     */
+    @Value("${spring.servlet.multipart.location}")
+    private String uploadPath;
+    
     /**
      * @since 2023/02/09 // 심규영 // 관리자 상품 DAO 연결
      */
@@ -22,6 +34,23 @@ public class AdminProductService {
     private AdminProductDAO dao;
 
     // create
+
+    /**
+     * <br>2023/02/13 // 심규영 // 관리자 상품 등록 서비스 기능
+     * @param vo
+     */
+    public int insertProduct(productVO vo){
+        // 이미지 이름 변경 후 등록
+        vo.setThumb1(fileUpload(vo.getThumb1File()));
+        vo.setThumb2(fileUpload(vo.getThumb2File()));
+        vo.setThumb3(fileUpload(vo.getThumb3File()));
+        vo.setDetail(fileUpload(vo.getDetailFile()));
+
+        // 포인트 계산
+        vo.setPoint((int)(vo.getPrice() * (1 - (vo.getDiscount() / 100.0))) / 100);
+
+        return dao.insertProduct(vo);
+    }
 
     // read
 
@@ -60,5 +89,28 @@ public class AdminProductService {
     // delete
 
     // service
+
+    /**
+     * <br>2023/02/13 // 심규영 // 파일 업로드 기능 서비스
+     * @param file
+     */
+    public String fileUpload(MultipartFile file) {
+        // 시스템 경로
+        String path = new File(uploadPath).getAbsolutePath();
+
+        // 이름 변경
+        String oName = file.getOriginalFilename();
+        String ext = oName.substring(oName.lastIndexOf("."));
+        String nName = UUID.randomUUID().toString()+ext;
+        
+        // 파일 저장
+        try {
+            file.transferTo(new File(path, nName));
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+
+        return nName;
+    }
 
 }

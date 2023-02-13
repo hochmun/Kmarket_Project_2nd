@@ -17,7 +17,7 @@
     </select>
 
     <!-- 2023/02/10 // 심규영 // 카테고리1 에 따른 카테고리2 값 가져오기 -->
-    <select id="selectCate2WithCate1">
+    <select id="selectCate2WithCate1" resultType="kr.co.kmarket.vo.product_cate2VO">
         SELECT * FROM km_product_cate2 WHERE cate1 = #{cate1};
     </select>
 
