@@ -29,7 +29,7 @@ public class QnaListController {
      * @return
      */
     @GetMapping(value = {"cs/qna/list"})
-        public String list(Model model, String pg, HttpServletRequest req, Integer cate1){
+        public String list(Model model, String pg, Integer cate1){
 
         pg = (pg == null) ? "1" : pg;
 

@@ -2,6 +2,7 @@ package kr.co.kmarket.controller.cs.qna;
 
 import kr.co.kmarket.service.cs.CsQnaService;
 import kr.co.kmarket.vo.Cs_Cate1VO;
+import kr.co.kmarket.vo.Cs_Cate2VO;
 import kr.co.kmarket.vo.Cs_QnaVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +23,7 @@ public class QnaViewController {
     @GetMapping(value = {"cs/qna/view"})
     public String view(Model model, Integer qnaNo, Integer cate1, Integer cate2){
 
-        Cs_Cate1VO cateName = service.selectCateName(cate1, cate2);
+        Cs_Cate2VO cateName = service.selectCateName(cate1, cate2);
 
         Cs_QnaVO vo = service.selectQnaArticle(qnaNo);
 

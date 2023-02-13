@@ -27,22 +27,22 @@
             </aside>
             <article>
                 <nav>
-                    <h2 class="title" th:text="${'['+cateName.cate2Name+'] '+vo.qnaTitle}"></h2>
+                    <h2 class="title" th:text="${'['+cateName?.cate2Name+'] '+vo?.qnaTitle}"></h2>
                     <p>
-                        <span>[[${(QnaArt.uid).substring(0, 4)}]]***</span>
-                        <span>[[${QnaArt.qnaRdate}]]</span>
+                        <span>[[${vo?.uid}]]</span>
+                        <span>[[${vo?.qnaRdate}]]</span>
                     </p>
                 </nav>
 
                 <div class="content">
                     <p>
-                        [[${QnaArt.qnaContent}]]
+                        [[${vo?.qnaContent}]]
                     </p>
                         <br><br><br>
-                        <th:block th:if="${vo.qnaAnswer != null}">
-                            <h2 class="answerTitle">[답변] [[${vo.qnaTitle}]]</h2><br>
+                        <th:block th:if="${vo?.qnaAdminContent != null}">
+                            <h2 class="answerTitle">[답변] [[${vo?.qnaTitle}]]</h2><br>
                             <div class="qnaAnswer">
-                                <span>[[${vo.qnaAdminContent}]]</span>
+                                <span>[[${vo?.qnaAdminContent}]]</span>
                                 <br><br>
                                 <p>
                                     ※ 피싱 관련 피해신고<br /><br />

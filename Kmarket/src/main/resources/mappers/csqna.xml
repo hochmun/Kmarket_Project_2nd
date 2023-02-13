@@ -63,9 +63,9 @@
         </association>
     </resultMap>
 
-    <select id="selectCateName" resultType="kr.co.kmarket.vo.Cs_Cate1VO">
-        SELECT b.cate2Name FROM `km_cs_cate1` as a
-        JOIN `km_cs_cate2` as b
+    <select id="selectCateName" resultType="kr.co.kmarket.vo.Cs_Cate2VO">
+        SELECT `cate2Name` FROM `km_cs_cate2` as b
+        JOIN `km_cs_cate1` as a
         ON a.cate1 = b.cate1 and a.cate1 = #{cate1}
         WHERE b.cate2=#{cate2};
     </select>

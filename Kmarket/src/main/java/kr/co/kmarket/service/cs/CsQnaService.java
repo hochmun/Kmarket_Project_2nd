@@ -2,6 +2,7 @@ package kr.co.kmarket.service.cs;
 
 import kr.co.kmarket.dao.cs.CsQnaDAO;
 import kr.co.kmarket.vo.Cs_Cate1VO;
+import kr.co.kmarket.vo.Cs_Cate2VO;
 import kr.co.kmarket.vo.Cs_QnaVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
@@ -41,7 +42,7 @@ public class CsQnaService {
      * 23/02/12 qna 카테고리 이름
      * @autor 김재준
      */
-    public Cs_Cate1VO selectCateName(Integer cate1, Integer cate2){
+    public Cs_Cate2VO selectCateName(Integer cate1, Integer cate2){
         return dao.selectCateName(cate1, cate2);
     }
 
