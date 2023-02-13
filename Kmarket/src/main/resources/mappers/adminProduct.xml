@@ -34,7 +34,20 @@
     </insert>
 
     <!-- select -->
-    <!-- 2023/02/09 // 심규영 // 상품 정보 불러오기 -->
+    <!-- 2023/02/09 // 심규영 // 상품 정보 가져오기 -->
+    <select id="selectProduct" resultType="kr.co.kmarket.vo.productVO">
+        SELECT
+            `prodCate1`,
+            `prodCate2`,
+            `thumb1`,
+            `thumb2`,
+            `thumb3`,
+            `detail`
+        FROM `km_product`
+        WHERE prodNo = #{prodNo};
+    </select>
+
+    <!-- 2023/02/09 // 심규영 // 상품들 정보 불러오기 -->
     <select id="selectProducts" resultType="kr.co.kmarket.vo.productVO">
         SELECT
             `thumb1`,
@@ -57,4 +70,14 @@
     <select id="selectCountProduct" resultType="int">
         SELECT COUNT(prodNo) FROM km_product WHERE uid LIKE #{uid} AND ${st} LIKE #{s};
     </select>
+
+    <!-- delete -->
+    <!--
+    2023/02/13 // 심규영 // 상품 삭제 기능
+    상품 삭제시 자신이 올린 상품만 삭제 가능 => uid 비교
+    상품 삭제시 관리자일 경우 프리패스 => uid= '%%'
+    -->
+    <delete id="deleteProduct">
+        DELETE FROM `km_product` WHERE `prodNo` = #{prodNo} AND `uid` LIKE #{uid};
+    </delete>
 </mapper>

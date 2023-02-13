@@ -28,22 +28,14 @@ $(()=>{
 		if(deleteOk == false) return false;
 		const tr = $(this).parent().parent();
 		const prodNo = tr.children().eq(2).text();
-		/*
-		$.ajax({
-			url:'/Kmarket/admin/product/list.do',
-			type: 'POST',
-			data: {'prodNo':prodNo},
-			dataType: 'json',
-			success: (data)=>{
-				if(data.result > 0) {
-					alert('상품 삭제 완료 했습니다.');
-					tr.remove();
-				} else {
-					alert('상품 삭제에 실패 하였습니다.');
-				}
-			}
-		});
-		*/
+		$.get('/Kmarket/admin/product/deleteProduct?prodNo='+prodNo,(data)=>{
+            if(data.result > 0) {
+                alert('상품 삭제 완료 했습니다.');
+                tr.remove();
+            } else {
+                alert('상품 삭제에 실패 하였습니다.');
+            }
+        });
 	});
 
 	// 다중 삭제 기능

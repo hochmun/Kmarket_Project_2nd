@@ -52,8 +52,10 @@ public class AdminProductController {
                        @AuthenticationPrincipal MyUserDetails myUserDetails) {
         UserEntity user = myUserDetails.getUser();
 
-        // 임시 아이디 설정
-        String uid = "";
+        // 접속한 유저가 관리자일시 전체 상품 보기, 아닐경우 자신의 상품만 보기
+        String uid;
+        if(user.getType() == 5) uid = "%%";
+        else uid = user.getUid();
 
         // 페이징 처리
         PagingDTO paging = new PagingUtil().getPagingDTO(pg, service.selectCountProduct(uid, s, st));
@@ -122,6 +124,26 @@ public class AdminProductController {
         result.put("cate2s", cate2s);
 
         return result;
+    }
+
+    /**
+     * 관리자 상품 삭제 기능
+     *
+     * @param prodNo
+     * @return
+     * @since 2023/02/13 // 심규영 // 최초 작성
+     */
+    @ResponseBody
+    @GetMapping("/admin/product/deleteProduct")
+    public Map<String, Object> deleteProduct(@RequestParam("prodNo") String prodNo,
+                                             @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        UserEntity user = myUserDetails.getUser();
+        int result = service.deleteProduct(prodNo, user.getUid(), user.getType());
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("result", result);
+
+        return data;
     }
 
 }
