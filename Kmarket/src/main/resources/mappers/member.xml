@@ -11,6 +11,7 @@
         `uid`=#{uid},
         `pass`=#{pass},
         `name`=#{name},
+        `gender`=#{gender},
         `email`=#{email},
         `type`=1,
         `hp`=#{hp},
@@ -35,8 +36,8 @@
         `zip`=#{zip},
         `addr1`=#{addr1},
         `addr2`=#{addr2},
-        `name`=#{name},
-        `hp`=#{hp},
+        `manager`=#{manager},
+        `managerHp`=#{managerHp},
         `regip`=#{regip},
         `rdate`=NOW();
     </insert>
