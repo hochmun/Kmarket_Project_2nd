@@ -4,77 +4,29 @@
     내용: 상품 목록(view) html 작업
 -->
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <th:block th:replace="~{fragment/head_fragment::productHead}"></th:block>
+<script th:src="@{/js/product/view.js}"></script>
+<script sec:authorize=${isAnonymous()}>
+    window.addEventListener('load', ()=>{
+        document.querySelector('.cart').removeAttribute('onclick');
+        document.querySelector('.cart').addEventListener('click',()=>{
+            alert(' 먼저로그인을 하셔야 합니다.');
+        });
+
+        document.querySelector('.order').removeAttribute('onclick');
+        document.querySelector('.order').addEventListener('click',()=>{
+            alert(' 먼저로그인을 하셔야 합니다.');
+        });
+    })
+</script>
 <script th:inline="javascript">
-
-    window.onload = function(){
-
-        // 배송 날짜 구하기
-        let delivery = new Date();
-        let arrival = document.querySelector('.arrival');
-
-		let day = delivery.getDay();
-
-		if(day == 5){ // 금요일일 때
-
-			delivery.setDate(delivery.getDate()+4);
-
-		}else if(day == 6 || 0){ // 주말일 때
-
-			delivery.setDate(delivery.getDate()+3);
-
-		}else { // 평일일 때
-
-			delivery.setDate(delivery.getDate()+2);
-		}
-
-		let d1 = ['일', '월', '화', '수', '목', '금', '토'];
-
-		let dateFormat = (delivery.getMonth()+1) + '/' + delivery.getDate() + '('+ d1[delivery.getDay()] +')  도착예정';
-
-		arrival.innerHTML = dateFormat;
-
-        // 상품 수량 더하기
-        document.querySelector('.increase').addEventListener('click', ()=>{
-
-            let num = document.querySelector('input[name=num]');
-            let count = parseInt(num.value) + 1;
-            num.setAttribute('value', count);
-
-            // 총 주문금액
-            let price = parseInt([[${product.price}]]);
-            let discount = parseInt([[${product.discount}]]);
-            let total = price * (1 - discount / 100) * count;
-
-            total = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-
-            document.querySelector('.total > span').innerHTML = total;
-
-        });
-
-        // 상품 수량 빼기
-        document.querySelector('.decrease').addEventListener('click', ()=>{
-
-            let num = document.querySelector('input[name=num]');
-
-            if(num.value > 1) {
-                let count = parseInt(num.value) - 1;
-                num.setAttribute('value', count);
-
-                // 총 주문금액
-                let price = parseInt([[${product.price}]]);
-                let discount = parseInt([[${product.discount}]]);
-                let total = price * (1 - discount / 100) * count;
-
-                total = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-
-                document.querySelector('.total > span').innerHTML = total;
-
-            }
-        });
-    };
-
+    const prodNo = [[${product.prodNo}]];
+    const price = [[${product.price}]];
+    const discount = [[${product.discount}]];
+    const point = [[${product.point}]];
+    const delivery = [[${product.delivery}]];
 </script>
 <body>
     <div id="wrapper">
@@ -138,13 +90,13 @@
                             <button class="increase">+</button>
                         </div>
                         <div class="total">
-                            <span>[[${#numbers.formatInteger(product.price, 1, 'COMMA')}]]</span>
+                            <span>[[${#numbers.formatInteger((product.price * (1 - product.discount / 100.0)), 3, 'COMMA')}]]</span>
                             <em>총 상품금액</em>
                         </div>
 
                         <div class="button">
-                            <input type="button" class="cart" value="장바구니">
-                            <input type="button" class="order" value="구매하기">
+                            <input type="button" class="cart" value="장바구니" onclick="addCart()">
+                            <input type="button" class="order" value="구매하기" onclick="orderProduct()">
                         </div>
                     </div>
                 </article>
@@ -155,7 +107,7 @@
                         <h1>상품정보</h1>
                     </nav>
                     <!-- 상품상세페이지 이미지-->
-                    <img src="|@{/}thumb/${product.prodCate1}/${product.prodCate2}/${product.detail}|" alt="상세페이지1">
+                    <img th:src="|@{/}thumb/${product.prodCate1}/${product.prodCate2}/${product.detail}|" alt="상세페이지1">
                 </article>
 
                 <!-- 상품 정보 제공 고시 내용 -->

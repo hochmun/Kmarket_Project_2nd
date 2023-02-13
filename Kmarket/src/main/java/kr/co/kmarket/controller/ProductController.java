@@ -1,5 +1,8 @@
 package kr.co.kmarket.controller;
 
+import kr.co.kmarket.dto.CartDTO;
+import kr.co.kmarket.entity.UserEntity;
+import kr.co.kmarket.security.MyUserDetails;
 import kr.co.kmarket.service.ProductService;
 import kr.co.kmarket.vo.productVO;
 import kr.co.kmarket.vo.product_cate2VO;
@@ -7,12 +10,16 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -82,7 +89,6 @@ public class ProductController {
         model.addAttribute("cateName", cateName);
         model.addAttribute("product", product);
 
-
         return "product/view";
     }
 
@@ -103,5 +109,54 @@ public class ProductController {
 
         return "product/complete";
     }
+
+    /**
+     * 장바구니 추가 컨트롤러
+     * @since 23/02/12
+     * @author 이해빈
+     * */
+    @ResponseBody
+    @PostMapping("product/addCart")
+    public Map<String, Integer> addCart(@RequestBody CartDTO cart,  @AuthenticationPrincipal MyUserDetails myUser){
+
+        UserEntity user = myUser.getUser();
+        cart.setUid(user.getUid());
+
+        int result = service.addCart(cart);
+
+        Map<String , Integer> resultMap = new HashMap<>();
+        resultMap.put("result", result);
+
+        return resultMap;
+
+    }
+
+    /**
+     * 주문하기 페이지 이동 컨트롤러
+     * @since 23/02/13
+     * @author 이해빈
+     */
+    @ResponseBody
+    @PostMapping("product/goToOrder")
+    public Map<String , Integer> goToOrder(@RequestBody CartDTO cart, HttpServletRequest req){
+
+        HttpSession session = req.getSession();
+        session.setAttribute("cart", cart);
+
+        int result = 0;
+
+        if(cart.getProdNo() > 0){
+            result = 1;
+        }
+
+        log.info("cart :" + cart.getProdNo());
+
+        Map<String , Integer> resultMap = new HashMap<>();
+        resultMap.put("result", result);
+
+        return resultMap;
+    }
+
+
 
 }

@@ -1,6 +1,7 @@
 package kr.co.kmarket.service;
 
 import kr.co.kmarket.dao.ProductDAO;
+import kr.co.kmarket.dto.CartDTO;
 import kr.co.kmarket.vo.productVO;
 import kr.co.kmarket.vo.product_cate2VO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,14 @@ public class ProductService {
         dao.updateProductHit(prodNo);
 
         return product;
+    }
+    /**
+     * 상품 장바구니 추가
+     * @since 23/02/12
+     * @author 이해빈
+     */
+    public int addCart(CartDTO cart){
+        return dao.addCart(cart);
     }
 
     /**
@@ -120,5 +129,7 @@ public class ProductService {
     public int getLimitStart(int currentPage) {
         return (currentPage - 1) * 10;
     }
+
+
 
 }

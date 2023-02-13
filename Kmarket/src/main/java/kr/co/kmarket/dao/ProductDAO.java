@@ -1,5 +1,6 @@
 package kr.co.kmarket.dao;
 
+import kr.co.kmarket.dto.CartDTO;
 import kr.co.kmarket.vo.productVO;
 import kr.co.kmarket.vo.product_cate2VO;
 import org.apache.ibatis.annotations.Mapper;
@@ -46,4 +47,12 @@ public interface ProductDAO {
      * @author 이해빈
      */
     public void updateProductHit(int prodNo);
+    
+    /**
+     * 상품 장바구니 추가
+     * @since 23/02/12
+     * @author 이해빈
+     */
+    public int addCart(CartDTO cart);
+    
 }
