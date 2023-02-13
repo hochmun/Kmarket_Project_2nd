@@ -13,7 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 
@@ -32,6 +34,10 @@ public class QnaListController {
         public String list(Model model, String pg, Integer cate1){
 
         pg = (pg == null) ? "1" : pg;
+        if (cate1 == null) {
+            cate1 = 10;
+            return "redirect:/cs/qna/list?cate1=10";
+        }
 
         int currentPage = service.getCurrentPage(pg);
         int start = service.getLimitStart(currentPage);
@@ -56,5 +62,4 @@ public class QnaListController {
 
         return "cs/qna/list";
     }
-
 }

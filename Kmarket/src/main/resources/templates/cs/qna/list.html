@@ -32,7 +32,7 @@
                 </nav>
                 <table>
                   <tr th:each="arts:${QnaArts}">
-                    <td><a th:href="@{/cs/qna/view(cate1=${cate1},no=${arts.qnaNo})}" th:text="${'['+arts.cate2Name+'] '+arts.qnaTitle}"></a></td>
+                    <td><a th:href="@{/cs/qna/view(cate1=${cate1},qnaNo=${arts.qnaNo})}" th:text="${'['+arts.cate2Name+'] '+arts.qnaTitle}"></a></td>
                     <td>[[${(arts.uid).substring(0, 4)}]]***</td>
                     <td>[[${arts.qnaRdate}]]</td>
                   </tr>

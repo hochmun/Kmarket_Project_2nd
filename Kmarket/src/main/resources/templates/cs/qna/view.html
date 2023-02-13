@@ -27,22 +27,22 @@
             </aside>
             <article>
                 <nav>
-                    <h2 class="title" th:text="${'['+cateName?.cate2Name+'] '+vo?.qnaTitle}"></h2>
+                    <h2 class="title" th:text="${'['+vo?.cate2Name+'] '+vo.qnaTitle}"></h2>
                     <p>
-                        <span>[[${vo?.uid}]]</span>
-                        <span>[[${vo?.qnaRdate}]]</span>
+                        <span>[[${(vo.uid).substring(0, 4)}]]***</span>
+                        <span>[[${vo.qnaRdate}]]</span>
                     </p>
                 </nav>
 
                 <div class="content">
                     <p>
-                        [[${vo?.qnaContent}]]
+                        [[${vo.qnaContent}]]
                     </p>
                         <br><br><br>
-                        <th:block th:if="${vo?.qnaAdminContent != null}">
-                            <h2 class="answerTitle">[답변] [[${vo?.qnaTitle}]]</h2><br>
+                        <th:block th:if="${vo.qnaAdminContent != null}">
+                            <h2 class="answerTitle">[답변] [[${vo.qnaTitle}]]</h2><br>
                             <div class="qnaAnswer">
-                                <span>[[${vo?.qnaAdminContent}]]</span>
+                                <span>[[${vo.qnaAdminContent}]]</span>
                                 <br><br>
                                 <p>
                                     ※ 피싱 관련 피해신고<br /><br />
@@ -55,7 +55,7 @@
                             </div>
                         </th:block>
                 </div>
-                <a th:href="@{/cs/qna/list}" class="btnList">목록보기</a>
+                <a th:href="@{/cs/qna/list(cate1=${cate1})}" class="btnList">목록보기</a>
             </article>
         </section>
     </div>

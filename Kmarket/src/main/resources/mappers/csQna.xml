@@ -51,32 +51,14 @@
         <result property="qnaRegip" column="qnaRegip"/>
         <result property="cate1Name" column="cate1Name"/>
         <result property="cate2Name" column="cate2Name"/>
-
-        <association property="cate1Name" javaType="kr.co.kmarket.vo.Cs_Cate1VO">
-            <id property="cate1" column="cate1"/>
-            <result property="cate1Name" column="cate1Name"/>
-        </association>
-
-        <association property="cate2Name" javaType="kr.co.kmarket.vo.Cs_Cate2VO">
-            <id property="cate2" column="cate2"/>
-            <result property="cate2Name" column="cate2Name"/>
-        </association>
     </resultMap>
-
-    <select id="selectCateName" resultType="kr.co.kmarket.vo.Cs_Cate2VO">
-        SELECT `cate2Name` FROM `km_cs_cate2` as b
-        JOIN `km_cs_cate1` as a
-        ON a.cate1 = b.cate1 and a.cate1 = #{cate1}
-        WHERE b.cate2=#{cate2};
-    </select>
 
     <!-- qna list 작성글 등록하기 -->
     <!-- useGeneratedKeys="true" : 자동으로 생성된 키(AUTO_INCREMENT_KEY)를 가져올 것인지 여부 -->
     <!-- keyProperty="qnaNo" : 자동으로 생성된 키를 어떤 변수에 저장할 것인지 지정 -->
     <insert id="insertQnaArticle" useGeneratedKeys="true" keyProperty="qnaNo" >
         insert into `km_cs_qna` set
-            <!--`uid`=#{uid},-->
-            `uid`='nenech12',
+            `uid`=#{uid},
             `qnaTitle`=#{qnaTitle},
             `qnaContent`=#{qnaContent},
             `qnaCate1`=#{qnaCate1},

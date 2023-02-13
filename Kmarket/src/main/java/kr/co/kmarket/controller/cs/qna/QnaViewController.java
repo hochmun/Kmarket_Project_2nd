@@ -21,14 +21,14 @@ public class QnaViewController {
     private CsQnaService service;
 
     @GetMapping(value = {"cs/qna/view"})
-    public String view(Model model, Integer qnaNo, Integer cate1, Integer cate2){
+    public String view(Model model, Integer qnaNo, Integer cate1){
 
-        Cs_Cate2VO cateName = service.selectCateName(cate1, cate2);
+        Cs_Cate1VO vos = service.selectCate1Name(cate1);
 
         Cs_QnaVO vo = service.selectQnaArticle(qnaNo);
 
         model.addAttribute("vo", vo);
-        model.addAttribute("cateName", cateName);
+        model.addAttribute("cate1", cate1);
 
         return "cs/qna/view";
     }

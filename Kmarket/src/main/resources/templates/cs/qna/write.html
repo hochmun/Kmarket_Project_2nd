@@ -3,9 +3,9 @@
   이름 : 김재준
   내용 : cs/qna/write.html
 -->
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{cs/_cs_header}"></th:block>
+<script th:src="@{/js/cs/QnaWrite.js}"></script>
 <section id="cs">
     <div class="qna">
         <nav>
@@ -29,7 +29,6 @@
             <article>
                 <form th:action="@{/cs/qna/write}" method="post">
                 <input type="hidden" name="cate1" th:value="${cate1}">
-                <!--<input type="hidden" name="uid" th:value="${uid == null ? 0 : uid}">-->
                     <table>
                         <tr>
                             <td>문의유형</td>
@@ -118,13 +117,13 @@
                         <tr>
                             <td>문의제목</td>
                             <td>
-                                <input type="text" name="qnaTitle" placeholder="제목을 입력하세요." required>
+                                <input type="text" name="qnaTitle" placeholder="제목을 입력하세요." maxlength="50" required>
                             </td>
                         </tr>
                         <tr>
                             <td>문의내용</td>
                             <td>
-                                <textarea name="qnaContent" placeholder="내용을 입력하세요." required></textarea>
+                                <textarea name="qnaContent" placeholder="내용을 입력하세요." maxlength="2000" required></textarea>
                             </td>
                         </tr>
                     </table>

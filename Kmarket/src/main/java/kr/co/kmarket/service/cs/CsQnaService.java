@@ -2,10 +2,8 @@ package kr.co.kmarket.service.cs;
 
 import kr.co.kmarket.dao.cs.CsQnaDAO;
 import kr.co.kmarket.vo.Cs_Cate1VO;
-import kr.co.kmarket.vo.Cs_Cate2VO;
 import kr.co.kmarket.vo.Cs_QnaVO;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,14 +34,6 @@ public class CsQnaService {
      */
     public Cs_QnaVO selectQnaArticle(Integer qnaNo){
         return dao.selectQnaArticle(qnaNo);
-    }
-
-    /**
-     * 23/02/12 qna 카테고리 이름
-     * @autor 김재준
-     */
-    public Cs_Cate2VO selectCateName(Integer cate1, Integer cate2){
-        return dao.selectCateName(cate1, cate2);
     }
 
     /**
