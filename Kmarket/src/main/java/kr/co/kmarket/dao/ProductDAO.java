@@ -54,5 +54,12 @@ public interface ProductDAO {
      * @author 이해빈
      */
     public int addCart(CartDTO cart);
+
+    /**
+     * 상품 장바구니 목록
+     * @since 23/02/13
+     * @author 이해빈
+     */
+    public List<CartDTO> selectCarts(String uid);
     
 }

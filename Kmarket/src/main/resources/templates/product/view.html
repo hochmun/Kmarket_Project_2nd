@@ -22,11 +22,16 @@
     })
 </script>
 <script th:inline="javascript">
+    const prodName = [[${product.prodNo}]];
     const prodNo = [[${product.prodNo}]];
     const price = [[${product.price}]];
     const discount = [[${product.discount}]];
     const point = [[${product.point}]];
     const delivery = [[${product.delivery}]];
+    const thumb1 = [[${product.thumb1}]];
+    const prodCate1 = [[${product.prodCate1}]];
+    const prodCate2 = [[${product.prodCate2}]];
+    const descript = [[${product.descript}]];
 </script>
 <body>
     <div id="wrapper">
@@ -95,8 +100,8 @@
                         </div>
 
                         <div class="button">
-                            <input type="button" class="cart" value="장바구니" onclick="addCart()">
-                            <input type="button" class="order" value="구매하기" onclick="orderProduct()">
+                            <input type="button" class="cart" value="장바구니" onclick="order('cart')">
+                            <input type="button" class="order" value="구매하기" onclick="order('product')">
                         </div>
                     </div>
                 </article>

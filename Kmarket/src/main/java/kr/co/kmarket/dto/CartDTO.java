@@ -27,5 +27,13 @@ public class CartDTO {
     private int total;
     private String rdate;
 
+    // 추가필드
+    private String type;
+    private String prodName;
+    private int prodCate1;
+    private int prodCate2;
+    private String thumb1;
+    private String descript;
+
 }
 

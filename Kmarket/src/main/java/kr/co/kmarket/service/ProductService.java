@@ -68,6 +68,15 @@ public class ProductService {
     }
 
     /**
+     * 상품 장바구니 목록
+     * @since 23/02/13
+     * @author 이해빈
+     */
+    public List<CartDTO> selectCarts(String uid){
+        return dao.selectCarts(uid);
+    }
+
+    /**
      * 현재 페이지
      * @since 23/02/09
      * @author 이해빈
@@ -124,12 +133,9 @@ public class ProductService {
      * @since 23/02/09
      * @author 이해빈
      */
-
     // 페이지 시작값
     public int getLimitStart(int currentPage) {
         return (currentPage - 1) * 10;
     }
-
-
 
 }
