@@ -1,13 +1,17 @@
 package kr.co.kmarket.controller.cs.qna;
 
 import kr.co.kmarket.service.cs.CsQnaService;
+import kr.co.kmarket.vo.Cs_Cate1VO;
+import kr.co.kmarket.vo.Cs_Cate2VO;
 import kr.co.kmarket.vo.Cs_QnaVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -17,33 +21,16 @@ public class QnaViewController {
     private CsQnaService service;
 
     @GetMapping(value = {"cs/qna/view"})
-    public String view(Model model, String group, String pg, String cate1, Integer qnaNo){
-        // null값 처리
-        pg = (pg == null) ? "1" : pg;
-        group = (group == null) ? "1" : group;
+    public String view(Model model, Integer qnaNo, Integer cate1, Integer cate2){
 
-        // 페이지 정보
-        int currentPage = service.getCurrentPage(pg);
-        int start = service.getLimitStart(currentPage);
-        long total = service.getTotalCount(cate1);
-        int lastPage = service.getLastPageNum(total);
-        int pageStartNum = service.getPageStartNum(total, start);
-        int groups[] = service.getPageGroup(currentPage, lastPage);
+        Cs_Cate2VO cateName = service.selectCateName(cate1, cate2);
 
-        // 게시물 불러오기
         Cs_QnaVO vo = service.selectQnaArticle(qnaNo);
 
-        model.addAttribute("group", group);
-        model.addAttribute("currentPage", currentPage);
-        model.addAttribute("lastPage", lastPage);
-        model.addAttribute("pageStartNum", pageStartNum);
-        model.addAttribute("groups", groups);
-        model.addAttribute("total", total);
-        model.addAttribute("start", start);
-
         model.addAttribute("vo", vo);
-        model.addAttribute("cate1", cate1);
+        model.addAttribute("cateName", cateName);
 
         return "cs/qna/view";
     }
+
 }

@@ -3,8 +3,7 @@
   이름 : 김재준
   내용 : cs/qna/view.html
 -->
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{cs/_cs_header}"></th:block>
 <section id="cs">
     <div class="qna">
@@ -17,36 +16,44 @@
             <aside>
                 <h2>문의하기</h2>
                 <ul>
-                    <li class="on"><a href="#">회원</a></li>
-                    <li><a href="#">쿠폰/이벤트</a></li>
-                    <li><a href="#">주문/결제</a></li>
-                    <li><a href="#">배송</a></li>
-                    <li><a href="#">취소/반품/교환</a></li>
-                    <li><a href="#">여행/숙박/항공</a></li>
-                    <li><a href="#">안전거래</a></li>
+                    <li th:classappend="${cate1} == '10' ? 'on' : 'off'"><a th:href="@{/cs/qna/list?cate1=10}">회원</a></li>
+                    <li th:classappend="${cate1} == '11' ? 'on' : 'off'"><a th:href="@{/cs/qna/list?cate1=11}">쿠폰/이벤트</a></li>
+                    <li th:classappend="${cate1} == '12' ? 'on' : 'off'"><a th:href="@{/cs/qna/list?cate1=12}">주문/결제</a></li>
+                    <li th:classappend="${cate1} == '13' ? 'on' : 'off'"><a th:href="@{/cs/qna/list?cate1=13}">배송</a></li>
+                    <li th:classappend="${cate1} == '14' ? 'on' : 'off'"><a th:href="@{/cs/qna/list?cate1=14}">취소/반품/교환</a></li>
+                    <li th:classappend="${cate1} == '15' ? 'on' : 'off'"><a th:href="@{/cs/qna/list?cate1=15}">여행/숙박/항공</a></li>
+                    <li th:classappend="${cate1} == '16' ? 'on' : 'off'"><a th:href="@{/cs/qna/list?cate1=16}">안전거래</a></li>
                 </ul>
             </aside>
             <article>
                 <nav>
-                    <h2 class="title">[가입] 가입 문의내용</h2>
+                    <h2 class="title" th:text="${'['+cateName?.cate2Name+'] '+vo?.qnaTitle}"></h2>
                     <p>
-                        <span>chh***</span>
-                        <span>2022-11-21</span>
+                        <span>[[${vo?.uid}]]</span>
+                        <span>[[${vo?.qnaRdate}]]</span>
                     </p>
                 </nav>
 
                 <div class="content">
                     <p>
-                        개인회원에서 법인회원(사업자 회원)으로 전환은 불가하므로 법인회원(사업자 회원) 전환은 신규 가입으로 진행을 해야 합니다.
+                        [[${vo?.qnaContent}]]
                     </p>
-                    <p>
-                        ※ 피싱 관련 피해신고<br><br>
-                        ▶ 경찰청 사이버수사국 (국번없이)182 :
-                        http://cyberbureau.police.go.kr<br>
-                        ▶ KISA 인터넷침해대응센터 (국번없이)118 :
-                        http://www.krcert.or.kr<br>
-                        감사합니다.<br>
-                    </p>
+                        <br><br><br>
+                        <th:block th:if="${vo?.qnaAdminContent != null}">
+                            <h2 class="answerTitle">[답변] [[${vo?.qnaTitle}]]</h2><br>
+                            <div class="qnaAnswer">
+                                <span>[[${vo?.qnaAdminContent}]]</span>
+                                <br><br>
+                                <p>
+                                    ※ 피싱 관련 피해신고<br /><br />
+                                    ▶ 경찰청 사이버수사국 (국번없이)182 :
+                                    http://cyberbureau.police.go.kr<br />
+                                    ▶ KISA 인터넷침해대응센터 (국번없이)118 :
+                                    http://www.krcert.or.kr<br />
+                                    감사합니다.<br />
+                                </p>
+                            </div>
+                        </th:block>
                 </div>
                 <a th:href="@{/cs/qna/list}" class="btnList">목록보기</a>
             </article>

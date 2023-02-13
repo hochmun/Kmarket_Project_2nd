@@ -29,6 +29,7 @@
             <article>
                 <form th:action="@{/cs/qna/write}" method="post">
                 <input type="hidden" name="cate1" th:value="${cate1}">
+                <!--<input type="hidden" name="uid" th:value="${uid == null ? 0 : uid}">-->
                     <table>
                         <tr>
                             <td>문의유형</td>
@@ -117,18 +118,18 @@
                         <tr>
                             <td>문의제목</td>
                             <td>
-                                <input type="text" name="title" placeholder="제목을 입력하세요." required>
+                                <input type="text" name="qnaTitle" placeholder="제목을 입력하세요." required>
                             </td>
                         </tr>
                         <tr>
                             <td>문의내용</td>
                             <td>
-                                <textarea name="content" placeholder="내용을 입력하세요." required></textarea>
+                                <textarea name="qnaContent" placeholder="내용을 입력하세요." required></textarea>
                             </td>
                         </tr>
                     </table>
                     <div>
-                        <a th:href="@{/cs/qna/list(cate1=${qnaCate1})}" class="btnList">취소하기</a>
+                        <a th:href="@{/cs/qna/list(cate1=${cate1})}" class="btnList">취소하기</a>
                         <input type="submit" class="btnSubmit" value="등록하기">
                     </div>
                 </form>
