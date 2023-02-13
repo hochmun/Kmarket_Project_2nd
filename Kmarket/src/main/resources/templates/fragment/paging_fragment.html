@@ -25,5 +25,18 @@
           <a href="#">다음&nbsp;></a>
       </span>
     </div>
+
+    <!-- 2023/02/12 // 김재준 // 고객센터 페이징 -->
+    <div class="page" th:fragment="csPaging">
+            <th:block th:if="${groups[0] > 1}">
+                <a th:href="@{/cs/qna/list(cate1=${cate1},pg=${groups[0]- 1})}" class="prev">이전</a>
+            </th:block>
+            <th:block th:each="num:${#numbers.sequence(groups[0], groups[1])}">
+                <a th:href="@{/cs/qna/list(cate1=${cate1},pg=${num})}" th:class="${num == currentPage ? 'num current' : 'num'}">[[${num}]]</a>
+            </th:block>
+            <th:block th:if="${groups[1] < lastPage}">
+                <a th:href="@{/cs/qna/list(cate1=${cate1},pg=${groups[1] + 1})}" class="next">다음</a>
+            </th:block>
+    </div>
 </body>
 </html>

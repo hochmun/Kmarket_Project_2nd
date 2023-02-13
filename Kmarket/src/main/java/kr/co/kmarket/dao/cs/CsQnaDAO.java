@@ -2,10 +2,8 @@ package kr.co.kmarket.dao.cs;
 
 import kr.co.kmarket.vo.Cs_Cate1VO;
 import kr.co.kmarket.vo.Cs_QnaVO;
-import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,12 +13,19 @@ import java.util.List;
 public interface CsQnaDAO {
 
     /**
-     * 23/02/08 qna list 작성글 전체 번호순 불러오기
-     * @author 김재준
+     * 23/02/08 qna list
+     * @autor 김재준
      * @param start
      * @return
      */
-    public List<Cs_QnaVO> selectQnaArticles(int start, String cate1) ;
+    public List<Cs_QnaVO> selectQnaArticles(@Param("start") int start, @Param("cate1") Integer cate1);
+
+    /**
+     * 23/02/10 qna list cate1Name 가져오기
+     * @autor 김재준
+     */
+    public Cs_Cate1VO selectCate1Name(@Param("cate1") Integer cate1);
+
 
     /**
      * 23/02/08 qna list 작성글 선택
@@ -28,15 +33,13 @@ public interface CsQnaDAO {
      * @param qnaNo
      * @return
      */
-    public Cs_QnaVO selectQnaArticle(int qnaNo);
+    public Cs_QnaVO selectQnaArticle(@Param("qnaNo") Integer qnaNo);
 
     /**
-     * 23/02/09 qna no로 글 선택
+     * 23/02/12 qna 카테고리 이름
      * @autor 김재준
-     * @param qnaNo
-     * @return
      */
-    public Cs_QnaVO selectCsQnaNo(int qnaNo);
+    public Cs_Cate1VO selectCateName(@Param("cate1") Integer cate1, @Param("cate2") Integer cate2);
 
     /**
      * 23/02/08 qna 글 작성
@@ -51,14 +54,5 @@ public interface CsQnaDAO {
      * @autor 김재준
      * @return
      */
-    public int selectCountTotal(String cate1);
-
-
-    /**
-     * 23/02/09 qna 카테고리1 불러오기 (전체)
-     * @autor 김재준
-     * @param cate1
-     * @return
-     */
-    public Cs_Cate1VO selectCate1(String cate1);
+    public int selectCountTotal(@Param("cate1") Integer cate1);
 }

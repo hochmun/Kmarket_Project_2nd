@@ -3,8 +3,7 @@
   이름 : 김재준
   내용 : cs/qna/list.html
 -->
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{cs/_cs_header}"></th:block>
 <section id="cs">
     <div class="qna">
@@ -17,51 +16,32 @@
             <aside>
                 <h2>문의하기</h2>
                 <ul>
-                    <li th:class="${qnaCate1 == '10'} ? 'on'">
-                        <a th:href="@{/cs/qna/list(cate1=10)}">회원</a>
-                    </li>
-                    <li th:class="${qnaCate1 == '11'} ? 'on'">
-                        <a th:href="@{/cs/qna/list(cate1=11)}">쿠폰/이벤트</a>
-                    </li>
-                    <li th:class="${qnaCate1 == '12'} ? 'on'">
-                        <a th:href="@{/cs/qna/list(cate1=12)}">주문/결제</a>
-                    </li>
-                    <li th:class="${qnaCate1 == '13'} ? 'on'">
-                        <a th:href="@{/cs/qna/list(cate1=13)}">배송</a>
-                    </li>
-                    <li th:class="${qnaCate1 == '14'} ? 'on'">
-                        <a th:href="@{/cs/qna/list(cate1=14)}">취소/반품/교환</a>
-                    </li>
-                    <li th:class="${qnaCate1 == '15'} ? 'on'">
-                        <a th:href="@{/cs/qna/list(cate1=15)}">여행/숙박/항공</a>
-                    </li>
-                    <li th:class="${qnaCate1 == '16'} ? 'on'">
-                        <a th:href="@{/cs/qna/list(cate1=16)}">안전거래</a>
-                    </li>
+                    <li th:classappend="${cate1} == '10' ? 'on' : 'off'"><a th:href="@{/cs/qna/list?cate1=10}">회원</a></li>
+                    <li th:classappend="${cate1} == '11' ? 'on' : 'off'"><a th:href="@{/cs/qna/list?cate1=11}">쿠폰/이벤트</a></li>
+                    <li th:classappend="${cate1} == '12' ? 'on' : 'off'"><a th:href="@{/cs/qna/list?cate1=12}">주문/결제</a></li>
+                    <li th:classappend="${cate1} == '13' ? 'on' : 'off'"><a th:href="@{/cs/qna/list?cate1=13}">배송</a></li>
+                    <li th:classappend="${cate1} == '14' ? 'on' : 'off'"><a th:href="@{/cs/qna/list?cate1=14}">취소/반품/교환</a></li>
+                    <li th:classappend="${cate1} == '15' ? 'on' : 'off'"><a th:href="@{/cs/qna/list?cate1=15}">여행/숙박/항공</a></li>
+                    <li th:classappend="${cate1} == '16' ? 'on' : 'off'"><a th:href="@{/cs/qna/list?cate1=16}">안전거래</a></li>
                 </ul>
             </aside>
             <article>
                 <nav>
-                    <h1>회원</h1>
-                    <h2>회원관련 문의 내용입니다.</h2>
+                    <h1 th:text="${vos.cate1Name}"></h1>
+                    <h2>[[${vos.cate1Name}]]관련 문의 내용입니다.</h2>
                 </nav>
                 <table>
                   <tr th:each="arts:${QnaArts}">
-                    <td><a th:href="@{/cs/qna/view}">[[${arts.qnaTitle}]]</a></td>
-                    <td>[[${arts.uid}]]</td>
+                    <td><a th:href="@{/cs/qna/view(cate1=${cate1},no=${arts.qnaNo})}" th:text="${'['+arts.cate2Name+'] '+arts.qnaTitle}"></a></td>
+                    <td>[[${(arts.uid).substring(0, 4)}]]***</td>
                     <td>[[${arts.qnaRdate}]]</td>
                   </tr>
                 </table>
 
-                <div class="page">
-                    <a href="#" class="prev">이전</a>
-                    <a href="#" class="num on">1</a>
-                    <a href="#" class="num">2</a>
-                    <a href="#" class="num">3</a>
-                    <a href="#" class="next">다음</a>
-                </div>
 
-                <a th:href="@{/cs/qna/write(cate1=${qnaCate1})}" class="btnWrite">문의하기</a>
+                <section th:replace="~{fragment/paging_fragment::csPaging}"></section>
+
+                <a th:href="@{/cs/qna/write(cate1=${cate1})}" class="btnWrite">문의하기</a>
 
             </article>
         </section>

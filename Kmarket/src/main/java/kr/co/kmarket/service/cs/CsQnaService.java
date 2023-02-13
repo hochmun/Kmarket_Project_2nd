@@ -4,6 +4,7 @@ import kr.co.kmarket.dao.cs.CsQnaDAO;
 import kr.co.kmarket.vo.Cs_Cate1VO;
 import kr.co.kmarket.vo.Cs_QnaVO;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,13 +18,12 @@ public class CsQnaService {
     private CsQnaDAO dao;
 
     /**
-     * 23/02/08 qna list 전체 작성글 불러오기
-     * @author 김재준
+     * 23/02/08 qna list
+     * @autor 김재준
      * @param start
      * @return
      */
-    public List<Cs_QnaVO> selectQnaArticles(int start, String cate1){
-
+    public List<Cs_QnaVO> selectQnaArticles(int start, Integer cate1){
         return dao.selectQnaArticles(start, cate1);
     }
 
@@ -33,18 +33,24 @@ public class CsQnaService {
      * @param qnaNo
      * @return
      */
-    public Cs_QnaVO selectQnaArticle(int qnaNo){
+    public Cs_QnaVO selectQnaArticle(Integer qnaNo){
         return dao.selectQnaArticle(qnaNo);
     }
 
     /**
-     * 23/02/09 qna no로 글 선택
+     * 23/02/12 qna 카테고리 이름
      * @autor 김재준
-     * @param qnaNo
-     * @return
      */
-    public Cs_QnaVO selectCsQnaNo(int qnaNo){
-        return dao.selectCsQnaNo(qnaNo);
+    public Cs_Cate1VO selectCateName(Integer cate1, Integer cate2){
+        return dao.selectCateName(cate1, cate2);
+    }
+
+    /**
+     * 23/02/10 qna list cate1Name 가져오기
+     * @autor 김재준
+     */
+    public Cs_Cate1VO selectCate1Name(Integer cate1){
+        return dao.selectCate1Name(cate1);
     }
 
     /**
@@ -89,7 +95,7 @@ public class CsQnaService {
      * @autor 김재준
      * @return
      */
-    public long getTotalCount(String cate1){
+    public long getTotalCount(Integer cate1){
         return dao.selectCountTotal(cate1);
     }
 
@@ -140,16 +146,4 @@ public class CsQnaService {
 
         return groups;
     }
-
-    /**
-     * 23/02/09 qna 카테고리 1 불러오기
-     * @autor 김재준
-     * @param cate1
-     * @return
-     */
-    public Cs_Cate1VO selectCate1(String cate1){
-        return dao.selectCate1(cate1);
-    }
-
-
 }
