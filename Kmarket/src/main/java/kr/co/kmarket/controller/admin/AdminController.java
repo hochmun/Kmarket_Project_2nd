@@ -1,6 +1,9 @@
 package kr.co.kmarket.controller.admin;
 
+import kr.co.kmarket.security.MyUserDetails;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
@@ -16,7 +19,12 @@ public class AdminController {
      * @return
      */
     @GetMapping("admin/index")
-    public String index() {
+    public String index(@AuthenticationPrincipal MyUserDetails myUserDetails,
+                        Model model) {
+        String name = myUserDetails.getUser().getName();
+
+        model.addAttribute("name", name);
+
         return "admin/index";
     }
 

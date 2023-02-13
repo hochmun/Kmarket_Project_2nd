@@ -18,8 +18,16 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		// 인가(접근권한) 설정
+		// 전체 접근 가능
 		http.authorizeHttpRequests().antMatchers("/", "/index").permitAll();
-		http.authorizeHttpRequests().antMatchers("/admin/product/register").hasAnyRole("2", "5"); // 판매자 회원, 관리자
+
+		// 판매자 회원, 관리자 만 접근 가능
+		http.authorizeHttpRequests()
+				.antMatchers("/admin/product/**","/admin/index")
+				.hasAnyRole("2", "5");
+		
+		// 관리자만 접근 가능
+		http.authorizeHttpRequests().antMatchers("/admin/cs/**").hasAnyRole("5");
 
 		// 사이트 위변조 요청 방지
 		http.csrf().disable();

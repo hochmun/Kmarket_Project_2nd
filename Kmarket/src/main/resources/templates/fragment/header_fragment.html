@@ -59,9 +59,9 @@
                 <img th:src="@{/img/admin_logo.png}" alt="admin_logo">
             </a>
             <p>
-                <span>홍길동님 반갑습니다.</span>
-                <a href="#">HOME |</a>
-                <a href="#">로그아웃 |</a>
+                <span>[[${name}]]님 반갑습니다.</span>
+                <a th:href="@{/index}">HOME |</a>
+                <a th:href="@{/member/logout}">로그아웃 |</a>
                 <a th:href="@{/cs/index}">고객센터</a>
             </p>
         </div>

@@ -43,7 +43,7 @@ public class productVO {
     private String origin;
     private String ip;
     private String rdate;
-    private int etc1;
+    private int prodStatus;
     private int etc2;
     private String etc3;
     private String uid;

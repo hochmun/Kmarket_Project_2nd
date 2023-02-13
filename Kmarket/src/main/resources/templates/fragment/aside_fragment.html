@@ -117,7 +117,7 @@
           <li><a href="#">배송관리</a></li>
         </ol>
       </li>
-      <li>
+      <li sec:authorize="hasRole('5')">
         <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>게시판관리</a>
         <ol>
           <li><a th:href="@{/admin/cs/faq/list}">자주묻는질문</a></li>

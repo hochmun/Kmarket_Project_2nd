@@ -24,6 +24,7 @@ public interface AdminProductDAO {
     public int insertProduct(productVO vo);
 
     // read
+
     /**
      * 관리자 상품 리스트 불러오기
      * @since 2023/02/09 // 심규영 // 관리자 상품 리스트 불러오기 작성
@@ -40,6 +41,28 @@ public interface AdminProductDAO {
     public int selectCountProduct(@Param("uid") String uid, @Param("s") String s, @Param("st") String st);
 
     // upload
+
+    /**
+     * 관리자 상품 삭제 상태로 변경 기능
+     * @since 2023/02/13 // 심규영 // 최초작성
+     */
+    public int updateProductDeleteStatus(@Param("prodNo") String prodNo, @Param("uid") String uid);
+
+    /**
+     * 관리자 상품 수정 기능
+     * @since 2023/02/13 // 심규영 // 최초작성
+     * @param prodName
+     * @param price
+     * @param discount
+     * @param stock
+     * @return
+     */
+    public int updateProduct(@Param("prodName") String prodName,
+                             @Param("price") String price,
+                             @Param("discount") String discount,
+                             @Param("stock") String stock,
+                             @Param("prodNo") String prodNo,
+                             @Param("uid") String uid);
 
     // delete
 

@@ -6,6 +6,9 @@
 <mapper namespace="kr.co.kmarket.dao.admin.AdminProductDAO">
     <!-- insert -->
 
+    <!--
+        2023/02/13 // 심규영 // 관리자 상품 등록 기능
+     -->
     <insert id="insertProduct">
         INSERT INTO `km_product` SET
             prodCate1 = #{prodCate1},
@@ -34,7 +37,8 @@
     </insert>
 
     <!-- select -->
-    <!-- 2023/02/09 // 심규영 // 상품 정보 불러오기 -->
+
+    <!-- 2023/02/09 // 심규영 // 상품들 정보 불러오기 -->
     <select id="selectProducts" resultType="kr.co.kmarket.vo.productVO">
         SELECT
             `thumb1`,
@@ -49,12 +53,31 @@
             prodCate1,
             prodCate2
         FROM `km_product`
-        WHERE uid LIKE #{uid} AND ${st} LIKE #{s}
+        WHERE uid LIKE #{uid} AND ${st} LIKE #{s} AND prodStatus = 1
         ORDER BY prodNo desc
         LIMIT #{start}, 10;
     </select>
 
     <select id="selectCountProduct" resultType="int">
-        SELECT COUNT(prodNo) FROM km_product WHERE uid LIKE #{uid} AND ${st} LIKE #{s};
+        SELECT COUNT(prodNo) FROM km_product WHERE uid LIKE #{uid} AND ${st} LIKE #{s} AND prodStatus = 1;
     </select>
+
+    <!-- upload -->
+
+    <!-- 2023/02/13 // 심규영 // 상품 상태 삭제로 변경하는 쿼리문 -->
+    <update id="updateProductDeleteStatus">
+        UPDATE `km_product` SET prodStatus = 5 WHERE `prodNo` = #{prodNo} AND `uid` LIKE #{uid};
+    </update>
+
+    <update id="updateProduct">
+        UPDATE `km_product` SET
+            prodName = #{prodName},
+            price = #{price},
+            discount = #{discount},
+            stock = #{stock}
+        WHERE `prodNo` = #{prodNo} AND `uid` Like #{uid}
+    </update>
+
+    <!-- delete -->
+
 </mapper>
