@@ -19,7 +19,9 @@ public class SecurityConfig {
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		// 인가(접근권한) 설정
 		http.authorizeHttpRequests().antMatchers("/", "/index").permitAll();
-		http.authorizeHttpRequests().antMatchers("/admin/product/register").hasAnyRole("2", "5"); // 판매자 회원, 관리자
+		http.authorizeHttpRequests()
+				.antMatchers("/admin/product/**","/admin/index")
+				.hasAnyRole("2", "5"); // 판매자 회원, 관리자
 
 		// 사이트 위변조 요청 방지
 		http.csrf().disable();

@@ -48,7 +48,10 @@ public class AdminProductController {
     public String list(@PathVariable("pg") String pg,
                        Model model,
                        @RequestParam(value = "s", required = false,defaultValue = "") String s,
-                       @RequestParam(value = "st", required = false,defaultValue = "") String st) {
+                       @RequestParam(value = "st", required = false,defaultValue = "") String st,
+                       @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        UserEntity user = myUserDetails.getUser();
+
         // 임시 아이디 설정
         String uid = "";
 
@@ -63,6 +66,7 @@ public class AdminProductController {
         model.addAttribute("st", st);
         model.addAttribute("paging", paging);
         model.addAttribute("products", products);
+        model.addAttribute("name", user.getName());
 
         // 리턴
         return "admin/product/list";
@@ -74,10 +78,12 @@ public class AdminProductController {
      * @return
      */
     @GetMapping("admin/product/register")
-    public String register(Model model) {
+    public String register(Model model,
+                           @AuthenticationPrincipal MyUserDetails myUserDetails) {
         List<product_cate1VO> cate1s = mainService.selectCate1s();
 
         model.addAttribute("cate1s", cate1s);
+        model.addAttribute("name", myUserDetails.getUser().getName());
 
         return "admin/product/register";
     }
