@@ -11,7 +11,7 @@
 	let reEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 	let reHp    = /^01(?:0|1|[6-9])-(?:\d{4})-\d{4}$/;
 	let reAuth  = /^[0-9]+$/;
-	let reCompany   = /^(주)[가-힣]+$/;
+
 	
 	// 폼 데이터 검증 결과 상태변수
 	let isUidok = false;
@@ -26,7 +26,7 @@
 	let emailCode = -999999999;
 	let isClick = false;
 
-	let isCompanyok = false;
+
 
 	$(function () {
 		// 아이디 검사하기
@@ -161,20 +161,7 @@
 			}
 		});
 
-        //회사명 검사하기
-		$('input[name=company]').focusout(function(){
-		    let company = $(this).val();
 
-		    console.log('company :'+ company);
-
-		    if(company.match(reCompany)){
-		        isCompanyok = true;
-		        $('.comResult').css('color', 'green').text('사용가능한 회사명 입니다.');
-		    }else{
-		        isCompanyok = false;
-                $('.comResult').css('color', 'red').text('유효하지않은 회사명 입니다.');
-		    }
-		});
 		
 		// 최종 폼 전송할 때
 		

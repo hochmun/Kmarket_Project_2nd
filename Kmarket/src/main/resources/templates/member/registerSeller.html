@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <th:block th:replace="~{member/_header}"></th:block>
-<script th:src="@{/js/validation.js}"></script>
+<script th:src="@{/js/Sellervalidation.js}"></script>
 <script th:src="@{/js/zipcode.js}"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
         <main id="member">
@@ -51,7 +51,8 @@
 							<tr>
 								<th><span class="essential">*</span>대표자</th>
 								<td><input type="text" name="ceo" placeholder="대표자 입력"
-									required /></td>
+									required /> <span class="msgCeo">
+								</td>
 							</tr>
 							<tr>
 								<th><span class="essential">*</span>사업자등록번호</th>
@@ -70,7 +71,7 @@
 							<tr>
 								<th><span class="essential">*</span>전화번호</th>
 								<td><input type="text" name="tel" placeholder="전화번호 입력"
-									required /> <span class="msg_Tel">&nbsp;&nbsp;- 표시 포함, 지역번호 포함, 
+									required /> <span class="msgTel">&nbsp;&nbsp;- 표시 포함, 지역번호 포함,
                                          예) 02-234-1234
                                     </span></td>
 							</tr>
@@ -84,7 +85,8 @@
 							<tr>
 								<th><span class="essential">*</span>EMAIL</th>
 								<td><input type="email" name="email" placeholder="이메일 입력"
-									required /></td>
+									required /> <span class="emailResult">
+								</td>
 							</tr>
 							<tr class="addr">
 								<th><span class="essential">*</span>회사주소</th>
@@ -110,14 +112,14 @@
                             <caption>담당자 정보입력</caption>
                             <tr>
                                 <th><span class="essential">*</span>이름</th>
-                                <td><input type="text" name="name" placeholder="이름을 입력"
-                                    required/></td>
+                                <td><input type="text" name="manager" placeholder="이름을 입력"
+                                    required/> <span class="msgManager">
+								</td>
                             </tr>
                             <tr>
                                 <th><span class="essential">*</span>휴대폰</th>
-                                <td><input type="text" name="hp" maxlength="13" placeholder="휴대폰번호 입력"
-                                    required/> <span class="msgHp">&nbsp;&nbsp; - 포함 13자리를 입력하세요.</span>
-									<span class="hpResult"></span>
+                                <td><input type="text" name="managerHp" maxlength="13" placeholder="휴대폰번호 입력"
+                                    required/> <span class="msgManagerHp">&nbsp;&nbsp; - 포함 13자리를 입력하세요.</span>
 								</td>
                             </tr>
                         </table>
