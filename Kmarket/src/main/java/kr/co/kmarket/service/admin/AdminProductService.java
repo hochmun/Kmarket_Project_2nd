@@ -41,10 +41,10 @@ public class AdminProductService {
      */
     public int insertProduct(productVO vo){
         // 이미지 이름 변경 후 등록
-        vo.setThumb1(fileUpload(vo.getThumb1File()));
-        vo.setThumb2(fileUpload(vo.getThumb2File()));
-        vo.setThumb3(fileUpload(vo.getThumb3File()));
-        vo.setDetail(fileUpload(vo.getDetailFile()));
+        vo.setThumb1(fileUpload(vo.getThumb1File(), vo.getProdCate1(), vo.getProdCate2()));
+        vo.setThumb2(fileUpload(vo.getThumb2File(), vo.getProdCate1(), vo.getProdCate2()));
+        vo.setThumb3(fileUpload(vo.getThumb3File(), vo.getProdCate1(), vo.getProdCate2()));
+        vo.setDetail(fileUpload(vo.getDetailFile(), vo.getProdCate1(), vo.getProdCate2()));
 
         // 포인트 계산
         vo.setPoint((int)(vo.getPrice() * (1 - (vo.getDiscount() / 100.0))) / 100);
@@ -94,7 +94,7 @@ public class AdminProductService {
      * <br>2023/02/13 // 심규영 // 파일 업로드 기능 서비스
      * @param file
      */
-    public String fileUpload(MultipartFile file) {
+    public String fileUpload(MultipartFile file, int cate1, int cate2) {
         // 시스템 경로
         String path = new File(uploadPath).getAbsolutePath();
 
@@ -105,7 +105,7 @@ public class AdminProductService {
         
         // 파일 저장
         try {
-            file.transferTo(new File(path, nName));
+            file.transferTo(new File(String.format("%s/%d/%d/", path, cate1, cate2), nName));
         } catch (Exception e) {
             log.error(e.getMessage());
         }

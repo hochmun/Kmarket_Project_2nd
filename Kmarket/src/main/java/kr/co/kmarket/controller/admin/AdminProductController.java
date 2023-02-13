@@ -96,6 +96,8 @@ public class AdminProductController {
         vo.setIp(req.getRemoteAddr());
         vo.setSeller(user.getCompany()); // 셀러를 회사 이름에서 가져옴
 
+        service.insertProduct(vo);
+
         return "redirect:/admin/product/register";
     }
 
