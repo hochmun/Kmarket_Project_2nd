@@ -15,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -74,10 +76,7 @@ public class ProductController {
      * @author 이해빈
      */
     @GetMapping("product/view")
-    public String view(int cate1, int cate2, int prodNo, Model model, @AuthenticationPrincipal MyUserDetails myUser){
-
-        UserEntity user = myUser.getUser();
-        model.addAttribute("user", user);
+    public String view(int cate1, int cate2, int prodNo, Model model){
 
         // 카테고리 이름 가져오기
         product_cate2VO cateName = service.getCateName(cate1, cate2);
@@ -89,7 +88,6 @@ public class ProductController {
         model.addAttribute("cate2", cate2);
         model.addAttribute("cateName", cateName);
         model.addAttribute("product", product);
-
 
         return "product/view";
     }
@@ -119,8 +117,10 @@ public class ProductController {
      * */
     @ResponseBody
     @PostMapping("product/addCart")
-    public Map<String, Integer> addCart(@RequestBody CartDTO cart){
+    public Map<String, Integer> addCart(@RequestBody CartDTO cart,  @AuthenticationPrincipal MyUserDetails myUser){
 
+        UserEntity user = myUser.getUser();
+        cart.setUid(user.getUid());
 
         int result = service.addCart(cart);
 
@@ -130,5 +130,33 @@ public class ProductController {
         return resultMap;
 
     }
+
+    /**
+     * 주문하기 페이지 이동 컨트롤러
+     * @since 23/02/13
+     * @author 이해빈
+     */
+    @ResponseBody
+    @PostMapping("product/goToOrder")
+    public Map<String , Integer> goToOrder(@RequestBody CartDTO cart, HttpServletRequest req){
+
+        HttpSession session = req.getSession();
+        session.setAttribute("cart", cart);
+
+        int result = 0;
+
+        if(cart.getProdNo() > 0){
+            result = 1;
+        }
+
+        log.info("cart :" + cart.getProdNo());
+
+        Map<String , Integer> resultMap = new HashMap<>();
+        resultMap.put("result", result);
+
+        return resultMap;
+    }
+
+
 
 }

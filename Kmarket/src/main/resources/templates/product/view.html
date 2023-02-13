@@ -8,17 +8,25 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <th:block th:replace="~{fragment/head_fragment::productHead}"></th:block>
 <script th:src="@{/js/product/view.js}"></script>
-<script th:inline="javascript" sec:authorize=${isAnonymous()}>
-    let uid = null;
+<script sec:authorize=${isAnonymous()}>
+    window.addEventListener('load', ()=>{
+        document.querySelector('.cart').removeAttribute('onclick');
+        document.querySelector('.cart').addEventListener('click',()=>{
+            alert(' 먼저로그인을 하셔야 합니다.');
+        });
+
+        document.querySelector('.order').removeAttribute('onclick');
+        document.querySelector('.order').addEventListener('click',()=>{
+            alert(' 먼저로그인을 하셔야 합니다.');
+        });
+    })
+</script>
+<script th:inline="javascript">
     const prodNo = [[${product.prodNo}]];
     const price = [[${product.price}]];
     const discount = [[${product.discount}]];
     const point = [[${product.point}]];
     const delivery = [[${product.delivery}]];
-
-    [[#if authentication.principal.user]]
-        uid = [[${#authentication.principal.user.uid}]];
-    [[/if]]
 </script>
 <body>
     <div id="wrapper">

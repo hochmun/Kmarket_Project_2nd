@@ -67,14 +67,15 @@ window.onload = function(){
 function addCart(){
 
     let count = document.querySelector('input[name=num]').value;
+    let total = price * (1 - discount / 100) * count;
 
     let jsonData = {
-        "uid":uid,
         "prodNo":prodNo,
         "count":count,
         "price":price,
         "discount": discount,
         "point": point,
+        "total": total,
         "delivery":delivery
     }
 
@@ -103,5 +104,44 @@ function addCart(){
             }
         }
     };
+};
 
+// 주문하기 페이지 이동
+function orderProduct(){
+
+    let count = document.querySelector('input[name=num]').value;
+    let total = price * (1 - discount / 100) * count;
+
+    let jsonData = {
+        "prodNo":prodNo,
+        "count":count,
+        "price":price,
+        "discount": discount,
+        "point": point,
+        "total": total,
+        "delivery":delivery
+    }
+
+    // AJAX 전송
+    const xhr = new XMLHttpRequest();
+    xhr.open('post','/Kmarket/product/goToOrder');
+    xhr.responseType = "json";
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify(jsonData));
+
+    xhr.onreadystatechange = function(){
+
+        if(xhr.readyState == XMLHttpRequest.DONE){
+            if(xhr.status == 200){
+                const data = xhr.response;
+                console.log(data);
+
+                if(data.result > 0){
+                    location.href = "/Kmarket/product/order";
+                }
+            }else{
+                alert('요청을 실패하였습니다.\n 잠시 후 다시 시도해 주세요.');
+            }
+        }
+    };
 };

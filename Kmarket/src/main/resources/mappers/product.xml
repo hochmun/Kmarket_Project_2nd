@@ -44,7 +44,10 @@
         select * from `km_product` where `prodNo`=#{prodNo};
     </select>
 
-
+    <insert id="addCart">
+        INSERT INTO `km_product_cart`(`uid`, `prodNo`, `count`, `price`, `discount`, `point`, `delivery`, `total`, `rdate`)
+        VALUES(#{uid}, #{prodNo}, #{count}, #{price}, #{discount}, #{point}, #{delivery}, #{total}, NOW());
+    </insert>
 
     <update id="updateProductHit">
         UPDATE `km_product` SET `hit` = `hit`+ 1 WHERE `prodNo`=#{prodNo};
