@@ -13,10 +13,21 @@
         select * from `km_cs_cate2` where `cate1` = #{cate1};
     </select>
 
+    <!-- cate1, cate2 값으로 faq 정보 가져오기 -->
     <select id="selectCsFaqListWithCsCate1" resultType="kr.co.kmarket.vo.Cs_FaqVO">
         select * from `km_cs_faq`
         where `faqCate1` = #{faqCate1} and `faqCate2` = #{faqCate2}
         limit 10;
+    </select>
+
+    <!-- faqNo 값으로 faq 정보 가져오기 -->
+    <select id="selectCsFaqWithFaqNo" resultType="kr.co.kmarket.vo.Cs_FaqVO">
+        select a.*, b.cate1Name, c.cate2Name from `km_cs_faq` as a
+        join `km_cs_cate1` as b
+        on a.faqCate1 = b.cate1
+        join `km_cs_cate2` as c
+        on a.faqCate2 = c.cate2 and a.faqCate1 = c.cate1
+        where a.faqNo = #{faqNo};
     </select>
 
     <!-- Faq는 글 작성 없음. -->

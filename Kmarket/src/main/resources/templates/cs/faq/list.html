@@ -5,6 +5,7 @@
 -->
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{cs/_cs_header}"></th:block>
+<script th:src="@{/js/cs/faqList.js}"></script>
 <section id="cs">
     <div class="faq">
         <nav>
@@ -15,29 +16,29 @@
         <section class="list">
             <aside>
                 <h2>자주묻는 질문</h2>
-                <ul th:each="vo1:${vos1}">
-                    <li th:classappend="${vo1.cate1} == ${csCate1} ? 'on' : 'off'"><a th:href="@{/cs/faq/list(csCate1=${vo1.cate1})}">[[${vo1.cate1Name}]]</a></li>
+                <ul th:each="vo2:${vos2}">
+                    <li th:classappend="${vo2.cate1} == ${csCate1} ? 'on' : 'off'"><a th:href="@{/cs/faq/list(csCate1=${vo2.cate1})}">[[${vo2.cate1Name}]]</a></li>
                 </ul>
             </aside>
             <article>
                 <nav>
-                    <th:block th:each="vo1:${vos1}">
-                        <th:block th:if="${vo1.cate1} == ${csCate1}">
-                            <h1 th:text="${vo1.cate1Name}"></h1>
+                    <th:block th:each="vo2:${vos2}">
+                        <th:block th:if="${vo2.cate1} == ${csCate1}">
+                            <h1 th:text="${vo2.cate1Name}"></h1>
                         </th:block>
                     </th:block>
                     <h2>가장 자주 묻는 질문입니다.</h2>
                 </nav>
 
-                <th:block th:each="vo2:${vos2}">
+                <th:block th:each="vo3:${vos3}">
                 <div>
-                    <h3>[[${vo2.cate2Name}]]</h3>
+                    <h3>[[${vo3.cate2Name}]]</h3>
                     <th:block th:with="count = 0">
                     <ul>
                         <th:block th:each="vo:${vos}">
-                            <th:block th:if="${vo.faqCate2} == ${vo2.cate2}">
+                            <th:block th:if="${vo.faqCate2} == ${vo3.cate2}">
                                 <th:block th:with="count = ${count} + 1">
-                                    <li th:classappend="${count} > 3 ? 'hide' : ''"><a th:href="@{/cs/faq/view(faqNo=${vo.faqNo})}"><span>Q.</span>[[${vo.faqTitle}]]</a></li>
+                                    <li th:classappend="${count} > 3 ? 'hide' : ''"><a th:href="@{/cs/faq/view(faqNo=${vo.faqNo},csCate1=${vo.faqCate1})}"><span>Q.</span>[[${vo.faqTitle}]]</a></li>
                                 </th:block>
                             </th:block>
                         </th:block>
