@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -75,6 +76,15 @@ public class ProductService {
     public List<CartDTO> selectCarts(String uid){
         return dao.selectCarts(uid);
     }
+
+    /**
+     * 상품 장바구니 삭제
+     * @since 23/02/14
+     * @author 이해빈
+     */
+    public int deleteCart(HashMap<String, Object> checkboxArr){
+        return dao.deleteCart(checkboxArr);
+    };
 
     /**
      * 현재 페이지

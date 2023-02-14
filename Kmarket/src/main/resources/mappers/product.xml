@@ -60,4 +60,13 @@
         UPDATE `km_product` SET `hit` = `hit`+ 1 WHERE `prodNo`=#{prodNo};
     </update>
 
+    <delete id="deleteCart" parameterType="java.util.Map">
+
+        DELETE FROM `km_product_cart`
+        WHERE `cartNo` IN
+        <foreach collection="checkboxArr" item="cartNo" open="(" separator="," close=")">
+            #{cartNo}
+        </foreach>
+    </delete>
+
 </mapper>
