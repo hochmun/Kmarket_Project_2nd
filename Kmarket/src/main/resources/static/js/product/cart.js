@@ -33,7 +33,7 @@ window.onload = function(){
             cartTotal();
         });
     }
-    /*
+
     // 선택 삭제
     document.getElementById('del').addEventListener('click', ()=> {
 
@@ -86,9 +86,7 @@ window.onload = function(){
             };
         }
     });
-    */
-
-
+    
     // 상품 정보 출력
     const cartTotal = () => {
 
@@ -146,4 +144,57 @@ window.onload = function(){
 
 }
 
+/*
+function checkbox() {
 
+    let isDeleteOk = confirm('선택된 상품들을 장바구니에서 삭제하시겠습니까?');
+
+    if(!isDeleteOk){
+        return false;
+    }
+
+    // 선택된 상품들만 배열에 넣기
+    let checkboxArr = [];
+    for(let i=0; i < checkboxes.length; i++){
+        if(checkboxes[i].checked){
+            let no = checkboxes[i].value;
+            checkboxArr.push(no);
+
+            // 목록에서 숨기기
+            let tr = checkboxes[i].parentNode.parentNode;
+            tr.style.display = 'none';
+            // 전체합계에서 빼기
+            checkboxes[i].checked = false;
+            cartTotal();
+        }
+    }
+
+    if(isDeleteOk){
+
+        // AJAX 전송
+        const xhr = new XMLHttpRequest();
+        xhr.open('post','/Kmarket/product/deleteCart');
+        xhr.responseType = "json";
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({"checkboxArr": checkboxArr}));
+
+        xhr.onreadystatechange = function(){
+
+            if(xhr.readyState == XMLHttpRequest.DONE){
+                if(xhr.status == 200){
+                    const data = xhr.response;
+                    console.log(data);
+
+                    if(data.result > 0){
+                        alert('장바구니에서 상품을 삭제하였습니다.');
+                    }
+
+                }else{
+                    alert('요청을 실패하였습니다.\n 잠시 후 다시 시도해 주세요.');
+                }
+            }
+        };
+    }
+
+}
+*/
