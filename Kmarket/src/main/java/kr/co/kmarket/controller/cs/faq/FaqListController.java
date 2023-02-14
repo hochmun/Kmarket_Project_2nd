@@ -1,5 +1,6 @@
 package kr.co.kmarket.controller.cs.faq;
 
+import kr.co.kmarket.dto.Cate2DTO;
 import kr.co.kmarket.service.cs.CsFaqService;
 import kr.co.kmarket.service.cs.CsQnaService;
 import kr.co.kmarket.vo.Cs_Cate1VO;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -18,19 +20,26 @@ public class FaqListController {
     @Autowired
     private CsFaqService service;
 
-    @Autowired
-    private CsQnaService qnaService;
-
     @GetMapping(value = {"cs/faq/list"})
-    public String list(Model model, Integer cate1, List<Cs_Cate2VO> vos){
+    public String list(Model model, String csCate1, Cate2DTO vos3){
+        // 넘어오는 cate1값 null = 10으로 초기화
+        if(csCate1 == null || csCate1.equals("")){
+            csCate1 = "10";
+        }
 
-        Cs_Cate1VO vo = qnaService.selectCate1Name(cate1);
+        // 카테고리1 정보 가져오기
+        List<Cs_Cate1VO> vos1 = service.selectCsCate1();
 
-        List<Cs_FaqVO> fvos = service.selectCsFaqListWithCsCate1(vos);
+        // 카테1로 카테2 정보 가져오기
+        List<Cs_Cate2VO> vos2 = service.selectCsCate2(csCate1);
 
-        model.addAttribute("fvos", fvos);
-        model.addAttribute("vo", vo);
-        model.addAttribute("cate1", cate1);
+        // cate1, cate2 값으로 카테고리 10개씩 가져오기
+        List<Cs_FaqVO> vos = service.selectCsFaqListWithCsCate1(vos3);
+
+        model.addAttribute("vos", vos);
+        model.addAttribute("vos1", vos1);
+        model.addAttribute("vos2", vos2);
+        model.addAttribute("csCate1", csCate1);
 
         return "cs/faq/list";
     }

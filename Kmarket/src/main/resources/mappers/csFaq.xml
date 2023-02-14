@@ -3,8 +3,21 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.kmarket.dao.cs.CsFaqDAO">
-    <select id="selectCsFaqListWithCsCate1" resultType="kr.co.kmarket.vo.Cs_FaqVO">
-            select * from `km_cs_faq` where `faqCate1` = #{faqCate1} and `faqCate2` = #{faqCate2};
+    <!-- cate1 정보 가져오기 -->
+    <select id="selectCsCate1" resultType="kr.co.kmarket.vo.Cs_Cate1VO">
+        select * from `km_cs_cate1`;
     </select>
+
+    <!-- cate1 값으로 cate2 정보 가져오기 -->
+    <select id="selectCsCate2" resultType="kr.co.kmarket.vo.Cs_Cate2VO">
+        select * from `km_cs_cate2` where `cate1` = #{cate1};
+    </select>
+
+    <select id="selectCsFaqListWithCsCate1" resultType="kr.co.kmarket.vo.Cs_FaqVO">
+        select * from `km_cs_faq`
+        where `faqCate1` = #{faqCate1} and `faqCate2` = #{faqCate2}
+        limit 10;
+    </select>
+
     <!-- Faq는 글 작성 없음. -->
 </mapper>

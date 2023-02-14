@@ -7,10 +7,10 @@ import lombok.*;
  * 이름 : 김재준
  */
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Builder
 public class Cs_FaqVO {
     private int faqNo;
     private int faqCate1;
