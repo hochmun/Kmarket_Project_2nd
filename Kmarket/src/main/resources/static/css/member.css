@@ -542,6 +542,7 @@ header {
     margin-top: 6px;
   }
   #member > .register table .addr th {
+    /*판매자 회원가입시 회사주소 왼쪽여백 없애려고 비활성화*/
     padding-left: 30px;
   }
   
