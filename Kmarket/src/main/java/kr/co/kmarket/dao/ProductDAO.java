@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Mapper
@@ -61,5 +62,12 @@ public interface ProductDAO {
      * @author 이해빈
      */
     public List<CartDTO> selectCarts(String uid);
+
+    /**
+     * 상품 장바구니 삭제
+     * @since 23/02/14
+     * @author 이해빈
+     */
+    public int deleteCart(HashMap<String, Object> checkboxArr);
     
 }

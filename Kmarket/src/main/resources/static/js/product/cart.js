@@ -15,6 +15,10 @@ window.onload = function(){
         for(let i=0; i < checkboxes.length; i++){
             checkboxes[i].checked = checkAll.checked;
         }
+
+        // 장바구니 전체합계 변경
+        cartTotal();
+
     });
 
     // 개별 체크박스를 누르면 전체 선택 해제
@@ -24,9 +28,12 @@ window.onload = function(){
             if(!this.checked){
             checkAll.checked = false;
             }
+
+            // 장바구니 전체합계 변경
+            cartTotal();
         });
     }
-
+    /*
     // 선택 삭제
     document.getElementById('del').addEventListener('click', ()=> {
 
@@ -36,19 +43,22 @@ window.onload = function(){
             return false;
         }
 
-       // 선택된 상품들만 배열에 넣기
-       let checkboxArr = [];
-       for(let i=0; i < checkboxes.length; i++){
-           if(checkboxes[i].checked){
-               let no = checkboxes[i].value;
-               checkboxArr.push(no);
+        // 선택된 상품들만 배열에 넣기
+        let checkboxArr = [];
+        for(let i=0; i < checkboxes.length; i++){
+            if(checkboxes[i].checked){
+                let no = checkboxes[i].value;
+                checkboxArr.push(no);
 
-               // 목록에서 숨기기
-               let tr = checkboxes[i].parentNode.parentNode;
-               tr.style.display = 'none';
-           }
-       }
-        /*
+                // 목록에서 숨기기
+                let tr = checkboxes[i].parentNode.parentNode;
+                tr.style.display = 'none';
+                // 전체합계에서 빼기
+                checkboxes[i].checked = false;
+                cartTotal();
+            }
+        }
+
         if(isDeleteOk){
 
             // AJAX 전송
@@ -56,7 +66,7 @@ window.onload = function(){
             xhr.open('post','/Kmarket/product/deleteCart');
             xhr.responseType = "json";
             xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.send(JSON.stringify(jsonData));
+            xhr.send(JSON.stringify({"checkboxArr": checkboxArr}));
 
             xhr.onreadystatechange = function(){
 
@@ -66,7 +76,7 @@ window.onload = function(){
                         console.log(data);
 
                         if(data.result > 0){
-                            location.href="Kmarket/product/cart";
+                            alert('장바구니에서 상품을 삭제하였습니다.');
                         }
 
                     }else{
@@ -75,11 +85,65 @@ window.onload = function(){
                 }
             };
         }
-        */
-
     });
+    */
+
 
     // 상품 정보 출력
+    const cartTotal = () => {
 
+        let totCount = 0;
+        let totPrice = 0;
+        let totDisprice = 0;
+        let totDelivery = 0;
+        let totPoint = 0;
+        let totTotal = 0;
+
+        // 할인가 계산
+        let _price = 0;
+        let discount = 0;
+
+        for(let i=0; i < checkboxes.length; i++){
+            if(checkboxes[i].checked){
+
+                let tr = checkboxes[i].parentNode.parentNode;
+                let td = tr.childNodes;
+                totCount += parseInt(td[5].innerText);
+
+                _price = parseInt(td[7].innerText.replace(/,/g, ""));
+                discount = parseInt(td[9].innerText.replace(/%/g, ""));
+
+                totPrice += _price;
+                totDisprice += _price * (discount / 100);
+
+
+                totPoint += parseInt(td[11].innerText.replace(/,/g, ""));
+                if(td[13].innerText == '무료배송'){
+                    totDelivery += 0;
+                }else{
+                    totDelivery += parseInt(td[13].innerText.replace(/,/g, ""));
+                }
+                totTotal += parseInt(td[15].innerText.replace(/,/g, ""));
+
+            }
+        }
+
+        const count = document.querySelector('.total > table tr:nth-child(1) > td:nth-child(2)');
+        const price = document.querySelector('.total > table tr:nth-child(2) > td:nth-child(2)');
+        const disprice = document.querySelector('.total > table tr:nth-child(3) > td:nth-child(2)');
+        const delivery = document.querySelector('.total > table tr:nth-child(4) > td:nth-child(2)');
+        const point = document.querySelector('.total > table tr:nth-child(5) > td:nth-child(2)');
+        const total = document.querySelector('.total > table tr:nth-child(6) > td:nth-child(2)');
+
+        count.innerText = totCount+'개';
+        price.innerText = totPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+'원';
+        disprice.innerText = '-' +totDisprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+'원';
+        delivery.innerText = totDelivery.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+'원';
+        point.innerText = totPoint.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        total.innerText = totTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+'원';
+
+    }
 
 }
+
+

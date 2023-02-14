@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -158,6 +159,25 @@ public class ProductController {
         }
 
         Map<String , Integer> resultMap = new HashMap<>();
+        resultMap.put("result", result);
+
+        return resultMap;
+    }
+
+    /**
+     * 장바구니 선택 삭제
+     * @since 23/02/14
+     * @author 이해빈
+     */
+    @ResponseBody
+    @PostMapping("product/deleteCart")
+    public Map<String, Integer> deleteCart(@RequestBody HashMap<String, Object> checkboxArr) {
+
+        int result = 0;
+
+        result = service.deleteCart(checkboxArr);
+
+        Map<String, Integer> resultMap = new HashMap<>();
         resultMap.put("result", result);
 
         return resultMap;
