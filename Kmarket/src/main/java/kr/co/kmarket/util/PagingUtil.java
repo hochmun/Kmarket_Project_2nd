@@ -28,7 +28,7 @@ public class PagingUtil {
     public int getCurrentPage(String pg) {
         int currnetPage = 1;
 
-        if(pg != null) currnetPage = Integer.parseInt(pg);
+        if(pg != null && pg != "") currnetPage = Integer.parseInt(pg);
 
         return currnetPage;
     }

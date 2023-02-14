@@ -7,8 +7,21 @@
     <!-- create -->
 
     <!-- read -->
+    <!-- 2023/02/14 // 심규영 // 관리자 고객센터 게시물 read -->
     <select id="selectCsArticles">
         
+    </select>
+
+    <!-- 2023/02/14 // 심규영 // 관리자 고객센터 게시물 최대 갯수 read -->
+    <select id="selectCountCsArticle" parameterType="hashmap" resultType="int">
+        SELECT COUNT(${noName}) FROM ${table}
+        <if test="cate == 'notice'">
+            WHERE `noticeCate` LIKE #{type}
+        </if>
+        <if test="cate == 'qna'">
+            WHERE `qnaCate1` LIKE #{cate1} AND `qnaCate2` LIKE #{cate2}
+        </if>
+        ;
     </select>
 
     <!-- upload -->
