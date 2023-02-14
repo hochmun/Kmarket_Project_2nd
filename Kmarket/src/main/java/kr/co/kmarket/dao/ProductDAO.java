@@ -61,7 +61,14 @@ public interface ProductDAO {
      * @since 23/02/13
      * @author 이해빈
      */
-    public List<CartDTO> selectCarts(String uid);
+    public List<CartDTO> selectCarts(String uid);    
+    
+    /**
+     * 상품 주문할 장바구니 목록 가져오기
+     * @since 23/02/13
+     * @author 이해빈
+     */
+    public List<CartDTO> getCarts(HashMap<String, Object> checkboxArr);
 
     /**
      * 상품 장바구니 삭제

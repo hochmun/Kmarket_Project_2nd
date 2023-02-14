@@ -16,10 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 @Controller
@@ -95,15 +92,54 @@ public class ProductController {
         return "product/view";
     }
 
+    /**
+     * 상품 order GetMapping
+     * @since 23/02/10
+     * @author 이해빈
+     * 
+     * 23/02/14 상품 목록 가져오기
+     */
     @GetMapping("product/order")
-    public String order(){
+    public String order(@AuthenticationPrincipal MyUserDetails myUser, Model model, HttpSession session){
+
+        String uid = myUser.getUser().getUid();
 
         // 유저 정보가져오기
-        //memberVO member = memberservice.selectMember(uid);
-        //model.addAttribute("member", member);
+        memberVO member = memberservice.selectMember(uid);
+
+        List<CartDTO> cdtos = null;
+
+        // 상품 view 페이지에서 주문하기로 바로 넘어오는 경우
+        if(session.getAttribute("prodNo") != null) {
+
+            CartDTO prodNo = (CartDTO) session.getAttribute("prodNo");
+
+            // 세션에 저장된 carts 값 제거
+            //session.removeAttribute("prodNo"); --> 여기서 세션에 저장된 prodNo값을 지울 경우 새로고침을 했을 때 목록이 날아감
+            session.removeAttribute("carts");
+
+            cdtos = new ArrayList<>();
+            cdtos.add(prodNo);
+
+        }
+
+        // 상품 carts 페이지에서 넘어오는 경우
+        if(session.getAttribute("carts") != null) {
+
+            cdtos = (List<CartDTO>) session.getAttribute("carts");
+
+            // 세션에 저장된 prodNo 값 제거
+            //session.removeAttribute("carts");
+            session.removeAttribute("prodNo");
+        }
+
+        model.addAttribute("member", member);
+        model.addAttribute("cdtos", cdtos);
 
         return "product/order";
     }
+
+
 
     /**
      * 장바구니 목록
@@ -154,6 +190,13 @@ public class ProductController {
             if(cart.getProdNo() > 0){
                 result = 1;
             }
+            
+            // 세션에 값이 있는 경우 초기화 후 저장
+            Object prodNo = session.getAttribute("prodNo");
+
+            if (prodNo != null) {
+                session.removeAttribute("prodNo");
+            }
             session.setAttribute("prodNo", cart);
 
         }
@@ -176,6 +219,43 @@ public class ProductController {
         int result = 0;
 
         result = service.deleteCart(checkboxArr);
+
+        Map<String, Integer> resultMap = new HashMap<>();
+        resultMap.put("result", result);
+
+        return resultMap;
+    }    
+    
+    /**
+     * 장바구니 선택 주문
+     * @since 23/02/14
+     * @author 이해빈
+     */
+    @ResponseBody
+    @PostMapping("product/goOrder")
+    public Map<String, Integer> goOrder(@RequestBody HashMap<String, Object> checkboxArr, HttpSession session) {
+
+        int result = 0;
+
+        List<CartDTO> cartsDTOs = service.getCarts(checkboxArr);
+
+        if(!cartsDTOs.isEmpty()){
+            result = 1;
+        }
+
+        // 세션에 저장된 carts, prodNo가 있으면 초기화 후 세션에 저장
+        Object carts = session.getAttribute("carts");
+        Object prodNo = session.getAttribute("prodNo");
+
+        if (carts != null) {
+            session.removeAttribute("carts");
+        }
+
+        if (prodNo != null) {
+            session.removeAttribute("prodNo");
+        }
+
+        session.setAttribute("carts",  cartsDTOs);
 
         Map<String, Integer> resultMap = new HashMap<>();
         resultMap.put("result", result);
