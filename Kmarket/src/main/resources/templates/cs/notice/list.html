@@ -3,8 +3,7 @@
   이름 : 김재준
   내용 : cs/notice/list.html
 -->
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{cs/_cs_header}"></th:block>
 <section id="cs">
     <div class="notice">
@@ -17,69 +16,43 @@
             <aside>
                 <h2>공지사항</h2>
                 <ul>
-                    <li class="on"><a href="#">전체</a></li>
-                    <li><a href="#">고객서비스</a></li>
-                    <li><a href="#">안전거래</a></li>
-                    <li><a href="#">위해상품</a></li>
-                    <li><a href="#">이벤트당첨</a></li>
+                    <li th:classappend="${noCate == null} ? 'on' : 'off'"><a th:href="@{/cs/notice/list}">전체</a></li>
+                    <li th:classappend="${noCate == 10} ? 'on' : 'off'"><a th:href="@{/cs/notice/list?noCate=10}">고객서비스</a></li>
+                    <li th:classappend="${noCate == 11} ? 'on' : 'off'"><a th:href="@{/cs/notice/list?noCate=11}">안전거래</a></li>
+                    <li th:classappend="${noCate == 12} ? 'on' : 'off'"><a th:href="@{/cs/notice/list?noCate=12}">위해상품</a></li>
+                    <li th:classappend="${noCate == 13} ? 'on' : 'off'"><a th:href="@{/cs/notice/list?noCate=13}">이벤트당첨</a></li>
                 </ul>
             </aside>
             <article>
-                <nav>
+                <nav th:if="${noCate == null}">
                     <h1>전체</h1>
                     <h2>공지사항 전체 내용입니다.</h2>
                 </nav>
+                <nav th:if="${noCate == 10}">
+                    <h1>고객서비스</h1>
+                    <h2>고객서비스 공지사항 내용입니다.</h2>
+                </nav>
+                <nav th:if="${noCate == 11}">
+                    <h1>안전거래</h1>
+                    <h2>안전거래 공지사항 내용입니다.</h2>
+                </nav>
+                <nav th:if="${noCate == 12}">
+                    <h1>위해상품</h1>
+                    <h2>위해상품 공지사항 내용입니다.</h2>
+                </nav>
+                <nav th:if="${noCate == 13}">
+                    <h1>이벤트당첨</h1>
+                    <h2>이벤트당첨 공지사항 내용입니다.</h2>
+                </nav>
 
                 <table>
-                    <tr>
-                        <td><a th:href="@{/cs/notice/view}">[안내] 해외결제 사칭 문자 주의</a></td>
-                        <td>2022.11.21</td>
-                    </tr>
-                    <tr>
-                        <td><a th:href="@{/cs/notice/view}">[발표]『G.Live X SK스토아(하남쭈꾸미)』 이벤트 당첨자</a></td>
-                        <td>2022.11.21</td>
-                    </tr>
-                    <tr>
-                        <td><a th:href="@{/cs/notice/view}">[안내] 로젠택배 반품/교환 수거지시 지연 안내</a></td>
-                        <td>2022.11.21</td>
-                    </tr>
-                    <tr>
-                        <td><a href="#">[안내] 해외직구셀러 특별약관 개정</a></td>
-                        <td>2022.11.21</td>
-                    </tr>
-                    <tr>
-                        <td><a href="#">[안내] 위치정보이용 약관 개정 공지</a></td>
-                        <td>2022.11.21</td>
-                    </tr>
-                    <tr>
-                        <td><a href="#">[발표] 『써모스 상품 구매』 이벤트 당첨자</a></td>
-                        <td>2022.11.21</td>
-                    </tr>
-                    <tr>
-                        <td><a href="#">한국소비자원, '22년 OECD 글로벌 제품안전 캠페인'</a></td>
-                        <td>2022.11.21</td>
-                    </tr>
-                    <tr>
-                        <td><a href="#">[점검] G마켓 사이트 이용 일시 중단</a></td>
-                        <td>2022.11.21</td>
-                    </tr>
-                    <tr>
-                        <td><a href="#">[안내] 구매회원 이용약관 개정</a></td>
-                        <td>2022.11.21</td>
-                    </tr>
-                    <tr>
-                        <td><a href="#">[안내] 씨티은행 시스템 점검에 따른 계좌, 체크카드결제 서비스 일시 중단</a></td>
-                        <td>2022.11.21</td>
+                    <tr th:each="vo:${vos}">
+                        <td><a th:href="@{/cs/notice/view(noCate=${vo.noticeCate},no=${vo.noticeNo})}" th:text="${'['+vo.noticeCate+'] '+vo.noticeTitle}"></a></td>
+                        <td>[[${vo.noticeRdate}]]</td>
                     </tr>
                 </table>
 
-                <div class="page">
-                    <a href="#" class="prev">이전</a>
-                    <a href="#" class="num on">1</a>
-                    <a href="#" class="num">2</a>
-                    <a href="#" class="num">3</a>
-                    <a href="#" class="next">다음</a>
-                </div>
+                <section th:replace="~{fragment/paging_fragment::csNoticePaging}"></section>
 
             </article>
         </section>
