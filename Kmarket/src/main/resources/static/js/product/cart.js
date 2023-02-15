@@ -37,6 +37,7 @@ window.onload = function(){
     // 상품 정보 출력
     const cartTotal = () => {
 
+        // 계산에 필요한 변수
         let totCount = 0;
         let totPrice = 0;
         let totDisprice = 0;
@@ -44,7 +45,6 @@ window.onload = function(){
         let totPoint = 0;
         let totTotal = 0;
 
-        // 할인가 계산
         let _price = 0;
         let discount = 0;
 
@@ -53,6 +53,7 @@ window.onload = function(){
 
                 let tr = checkboxes[i].parentNode.parentNode;
                 let td = tr.childNodes;
+
                 totCount += parseInt(td[5].innerText);
 
                 _price = parseInt(td[7].innerText.replace(/,/g, ""));
@@ -61,15 +62,14 @@ window.onload = function(){
                 totPrice += _price;
                 totDisprice += _price * (discount / 100);
 
+                totPoint += parseInt(td[11].innerText.replace(/,/g, ""));;
 
-                totPoint += parseInt(td[11].innerText.replace(/,/g, ""));
                 if(td[13].innerText == '무료배송'){
                     totDelivery += 0;
                 }else{
                     totDelivery += parseInt(td[13].innerText.replace(/,/g, ""));
                 }
                 totTotal += parseInt(td[15].innerText.replace(/,/g, ""));
-
             }
         }
 
@@ -77,14 +77,14 @@ window.onload = function(){
         const price = document.querySelector('.total > table tr:nth-child(2) > td:nth-child(2)');
         const disprice = document.querySelector('.total > table tr:nth-child(3) > td:nth-child(2)');
         const delivery = document.querySelector('.total > table tr:nth-child(4) > td:nth-child(2)');
-        const point = document.querySelector('.total > table tr:nth-child(5) > td:nth-child(2)');
-        const total = document.querySelector('.total > table tr:nth-child(6) > td:nth-child(2)');
+        const total = document.querySelector('.total > table tr:nth-child(5) > td:nth-child(2)');
+        const point = document.querySelector('.total > table tr:nth-child(6) > td:nth-child(2)');
 
         count.innerText = totCount+'개';
         price.innerText = totPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+'원';
         disprice.innerText = '-' +totDisprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+'원';
         delivery.innerText = totDelivery.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+'원';
-        point.innerText = totPoint.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        point.innerText = totPoint.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+'점';
         total.innerText = totTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+'원';
 
     }
