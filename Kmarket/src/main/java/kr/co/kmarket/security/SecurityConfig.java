@@ -44,6 +44,7 @@ public class SecurityConfig {
 		.key("unique")
 		//login페이지 자동로그인 input name
 		.rememberMeParameter("remember-me")
+		//쿠키유지시간 초단위(일주일로설정)
 		.tokenValiditySeconds(86400)
 		.alwaysRemember(false)
 		.userDetailsService(service)

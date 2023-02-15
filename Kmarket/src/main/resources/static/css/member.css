@@ -322,6 +322,15 @@ header {
     font-size: 0;
     border: none;
   }
+  /*아이디,비밀번호 찾기때 로그인이미지 변경하려고 추가*/
+  #member > .login > form > input[value="ok"] {
+      float: left;
+      width: 97px;
+      height: 71px;
+      background-image: url("../img/complete.jpg");
+      font-size: 0;
+      border: none;
+    }
   #member > .login > form > span {
     clear: left;
     display: block;

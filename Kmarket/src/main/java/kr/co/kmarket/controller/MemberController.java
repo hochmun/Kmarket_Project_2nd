@@ -32,6 +32,19 @@ public class MemberController {
     public String login(){
         return "member/login";
     }
+    @GetMapping("member/search_id")
+    public String search_id(){
+        return "member/search_id";
+    }
+    @PostMapping("member/search_id")
+    public String search_id(String name,String hp){
+
+        return "member/search_id";
+    }
+    @GetMapping("member/search_pwd")
+    public String search_pwd(){
+        return "member/search_pwd";
+    }
     @GetMapping("member/register")
     public String register(){
         return "member/register";

@@ -19,13 +19,19 @@ public class MemberService {
     @Autowired
     private UserRepo repo;
 
+    /*일반회원가입*/
     public int insertMember(memberVO vo){
         vo.setPass(encoder.encode(vo.getPass1()));
         return dao.insertMember(vo);
     }
+    /*판매자회원가입*/
     public int insertSellerMember(memberVO vo){
         vo.setPass(encoder.encode(vo.getPass1()));
         return dao.insertSellerMember(vo);
+    }
+    /*아이디찾기*/
+    public int search_id(String name, String hp){
+        return dao.search_id(name, hp);
     }
     public member_termsVO selectTerms(){
         return dao.selectTerms();
