@@ -1,5 +1,6 @@
 package kr.co.kmarket.security;
 
+import kr.co.kmarket.entity.PersistentLogins;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -7,13 +8,19 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import javax.sql.DataSource;
 
 @EnableWebSecurity
 public class SecurityConfig {
 	
 	@Autowired
 	private SecurityUserService service;
+	@Autowired
+	private DataSource dataSource;
 	
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -32,6 +39,15 @@ public class SecurityConfig {
 		// 사이트 위변조 요청 방지
 		http.csrf().disable();
 
+		//자동로그인 설정
+		http.rememberMe()
+		.key("unique")
+		//login페이지 자동로그인 input name
+		.rememberMeParameter("remember-me")
+		.tokenValiditySeconds(86400)
+		.alwaysRemember(false)
+		.userDetailsService(service)
+		.tokenRepository(tokenRepository());
 
 		// 로그인 페이지 설정
 		http.formLogin()
@@ -45,7 +61,9 @@ public class SecurityConfig {
 		http.logout()
 		.invalidateHttpSession(true)
 		.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
-		.logoutSuccessUrl("/member/login?success=200");
+		.logoutSuccessUrl("/member/login?success=200")
+		.deleteCookies("JSESSIONID", "remember-me");
+
 		http.userDetailsService(service);
 
 		return http.build();
@@ -55,5 +73,12 @@ public class SecurityConfig {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
+
+	//자동로그인할때 필요한 토큰?
+	@Bean
+	public PersistentTokenRepository tokenRepository(){
+		JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
+		jdbcTokenRepository.setDataSource(dataSource);
+		return jdbcTokenRepository;
+	}
 }
