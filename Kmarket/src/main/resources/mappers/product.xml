@@ -70,7 +70,7 @@
         UPDATE `km_product` SET `hit` = `hit`+ 1 WHERE `prodNo`=#{prodNo};
     </update>
 
-    <delete id="deleteCart" parameterType="java.util.Map">
+    <delete id="deleteCarts" parameterType="java.util.Map">
 
         DELETE FROM `km_product_cart`
         WHERE `cartNo` IN
@@ -78,5 +78,44 @@
             #{cartNo}
         </foreach>
     </delete>
+
+    <update id="updatePoint" parameterType="map">
+        UPDATE `km_member`
+        SET
+        `point` = `point`- #{usedPoint},
+        `point` = `point`+ #{savePoint}
+        WHERE `uid`= #{ordUid};
+    </update>
+
+    <insert id="updateOrder" parameterType="map" keyProperty="ordNo" useGeneratedKeys="true">
+        INSERT INTO `km_product_order`
+        SET
+            `ordUid`        = #{ordUid},
+            `ordCount`      = #{ordCount},
+            `ordPrice`      = #{ordPrice},
+            `ordDiscount`   = #{ordDiscount},
+            `ordDelivery`   = #{ordDelivery},
+            `ordTotPrice`   = #{ordTotPrice},
+            `savePoint`     = #{savePoint},
+            `usedPoint`     = #{usedPoint},
+            `recipName`     = #{recipName},
+            `recipHp`       = #{recipHp},
+            `recipZip`      = #{recipZip},
+            `recipAddr1`    = #{recipAddr1},
+            `recipAddr2`    = #{recipAddr2},
+            `ordPayment`    = #{ordPayment},
+            `ordComplete`   = #{ordComplete},
+            `ordDate`       = NOW();
+    </insert>
+
+    <insert id="insertOrderItem">
+        INSERT INTO `km_product_order_item` (`ordNo`, `prodNo`, `count`, `price`, `discount`, `point`, `delivery`, `total`)
+        SELECT #{ordNo}, `prodNo`, `count`, `price`, `discount`, `point`, `delivery`, `total` FROM `km_product_cart` AS a  WHERE a.`cartNo` = #{cartNo};
+    </insert>
+
+    <delete id="deleteCart">
+        DELETE FROM `km_product_cart` WHERE `cartNo` = #{cartNo};
+    </delete>
+
 
 </mapper>

@@ -4,13 +4,18 @@ import kr.co.kmarket.dao.ProductDAO;
 import kr.co.kmarket.dto.CartDTO;
 import kr.co.kmarket.vo.productVO;
 import kr.co.kmarket.vo.product_cate2VO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+@Slf4j
 @Service
 public class ProductService {
 
@@ -91,9 +96,52 @@ public class ProductService {
      * @since 23/02/14
      * @author 이해빈
      */
-    public int deleteCart(HashMap<String, Object> checkboxArr){
-        return dao.deleteCart(checkboxArr);
+    public int deleteCarts(HashMap<String, Object> checkboxArr){
+        return dao.deleteCarts(checkboxArr);
     };
+
+
+    /**
+     * 현재 페이지
+     * @since 23/02/15
+     * @author 이해빈
+     */
+    @Transactional
+    public int updateOrder(List<String> cartNos, Map<String, Object> orderinfo){
+
+        int result = 0;
+        int size = cartNos.size();
+
+        // 회원 정보 포인트 업데이트
+        result += dao.updatePoint(orderinfo);
+
+        // 주문 테이블 업데이트
+        result += dao.updateOrder(orderinfo);
+
+        // 주문 테이블 업데이트 후 ordNo 값을 리턴받음
+        BigInteger ordNoBigInt = (BigInteger) orderinfo.get("ordNo");
+        int ordNo = ordNoBigInt.intValueExact();
+
+        orderinfo.put("ordNo", ordNo);
+
+
+        for(int i = 0; i < cartNos.size(); i++){
+            int cartNo = Integer.parseInt(cartNos.get(i));
+             // 주문 상품 테이블 업데이트
+             result += dao.insertOrderItem(cartNo, ordNo);
+             // 주문한 상품 장바구니에서 삭제
+             result += dao.deleteCart(cartNo);
+        }
+
+        // 모든 테이블 업데이트가 정상적으로 실행되었을 경우 주문번호를 리턴
+        if(result == size * 2 + 2){
+            return ordNo;
+        }else{
+            return 0;
+        }
+
+    };
+
 
     /**
      * 현재 페이지

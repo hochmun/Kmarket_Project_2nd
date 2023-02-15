@@ -140,6 +140,34 @@ public class ProductController {
     }
 
     /**
+     * 상품 주문하기 기능
+     * @since 23/02/15
+     * @author 이해빈
+     * */
+    @ResponseBody
+    @PostMapping("product/order")
+    public Map<String, Integer> order(@RequestBody HashMap<String, Object> requestBody, @AuthenticationPrincipal MyUserDetails myUser){
+
+        // 주문번호
+        int ordNo = 0;
+
+        List<String> cartNos = (List<String>) requestBody.get("checkboxArr");
+        Map<String, Object> orderinfo = (Map<String, Object>) requestBody.get("orderinfo");
+
+        // 유저정보 가져오기
+        String uid = myUser.getUser().getUid();
+        orderinfo.put("ordUid", uid);
+
+        // DB 업데이트
+        ordNo = service.updateOrder(cartNos, orderinfo);
+
+        Map<String, Integer> resultMap = new HashMap<>();
+        resultMap.put("ordNo", ordNo);
+
+        return resultMap;
+    }
+
+    /**
      * 장바구니 목록
      * @since 23/02/13
      * @author 이해빈
@@ -216,7 +244,7 @@ public class ProductController {
 
         int result = 0;
 
-        result = service.deleteCart(checkboxArr);
+        result = service.deleteCarts(checkboxArr);
 
         Map<String, Integer> resultMap = new HashMap<>();
         resultMap.put("result", result);

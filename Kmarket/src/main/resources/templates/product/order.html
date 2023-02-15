@@ -124,14 +124,14 @@
                             <tr>
                                 <td>우편번호</td>
                                 <td>
-                                    <input type="text" name="zip" id="zip" th:value="${member.zip}"/>
+                                    <input type="text" name="zip" id="zip" th:value="${member.zip}" readonly/>
                                     <input type="button" value="검색" onclick="zipcode()"/>
                                 </td>
                             </tr>
                             <tr>
                                 <td>기본주소</td>
                                 <td>
-                                    <input type="text" name="addr1" id="addr1" th:value="${member.addr1}"/>
+                                    <input type="text" name="addr1" id="addr1" th:value="${member.addr1}" readonly/>
                                 </td>
                             </tr>
                             <tr>
@@ -163,7 +163,7 @@
                             <div>
                                 <span>신용카드</span>
                                 <p>
-                                    <label><input type="radio" name="payment" value="type1"/>신용카드 결제</label>
+                                    <label><input type="radio" name="payment" value="type1" checked="checked"/>신용카드 결제</label>
                                     <label><input type="radio" name="payment" value="type2"/>체크카드 결제</label>                                
                                 </p>
                             </div>

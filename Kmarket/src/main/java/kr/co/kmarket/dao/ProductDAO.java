@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 @Repository
@@ -75,6 +76,31 @@ public interface ProductDAO {
      * @since 23/02/14
      * @author 이해빈
      */
-    public int deleteCart(HashMap<String, Object> checkboxArr);
+    public int deleteCarts(HashMap<String, Object> checkboxArr);
+
+    /**
+     * 상품 주문관련 회원 포인트내역 업데이트
+     * @since 23/02/15
+     * @author 이해빈
+     * */
+    public int updatePoint(Map<String, Object> orderinfo);
+    
+    /**
+     * 상품 주문(km_product_order) 테이블 업데이트
+     * @author 이해빈
+     * */
+    public int updateOrder(Map<String, Object> orderinfo);
+
+    /**
+     * 주문한 상품(km_product_order_item) 테이블 업데이트
+     * @author 이해빈
+     * */
+    public int insertOrderItem(@Param("cartNo") int cartNo, @Param("ordNo") int ordNo);
+
+    /**
+     * 주문한 상품을 장바구니에서 삭제
+     * @author 이해빈
+     * */
+    public int deleteCart(@Param("cartNo") int cartNo);
     
 }
