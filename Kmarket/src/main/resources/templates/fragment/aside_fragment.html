@@ -50,7 +50,7 @@
       <h1><i class="fas fa-crown"></i>베스트상품</h1>
       <ol>
         <li th:each="best:${bests}">
-          <a href="#">
+          <a th:href="@{/product/view(cate1 = ${best.prodCate1}, cate2 = ${best.prodCate2}, prodNo = ${best.prodNo})}">
             <div class="thumb">
               <i th:text="${bestStat.count}">1</i>
               <img th:src="|@{/}thumb/${best.prodCate1}/${best.prodCate2}/${best.thumb1}|" alt="item1">

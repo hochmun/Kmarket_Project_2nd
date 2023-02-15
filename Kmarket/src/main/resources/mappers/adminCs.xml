@@ -7,8 +7,38 @@
     <!-- create -->
 
     <!-- read -->
-    <select id="selectCsArticles">
-        
+    <!-- 2023/02/15 // 심규영 // 관리자 고객센터 게시물 read -->
+    <select id="selectCsArticles" parameterType="hashmap" resultType="kr.co.kmarket.vo.AdminCsVo">
+        SELECT
+            *
+            <if test="cate == 'qna' || cate == 'faq'">
+                , (SELECT `cate1Name` FROM `km_cs_cate1` AS b WHERE b.`cate1` = a.${c1Name} ) AS c1Name
+                , (SELECT `cate2Name` FROM `km_cs_cate2` AS c WHERE c.`cate1` = a.${c1Name} AND c.`cate2` = a.${c2Name}) AS c2Name
+            </if>
+            <if test="cate == 'qna'">
+                , (SELECT `name` FROM `km_member` AS d WHERE d.`uid` = a.`uid`) AS qnaName
+            </if>
+        FROM ${table} AS a
+            <if test="cate == 'qna' || cate == 'faq'">
+                WHERE a.${c1Name} LIKE #{cate1} AND a.${c2Name} LIKE #{cate2}
+            </if>
+            <if test="cate == 'notice'">
+                WHERE a.`noticeCate` LIKE #{type}
+            </if>
+        ORDER BY a.${noName} DESC
+        LIMIT ${start}, 10;
+    </select>
+
+    <!-- 2023/02/14 // 심규영 // 관리자 고객센터 게시물 최대 갯수 read -->
+    <select id="selectCountCsArticle" parameterType="hashmap" resultType="int">
+        SELECT COUNT(${noName}) FROM ${table}
+        <if test="cate == 'notice'">
+            WHERE `noticeCate` LIKE #{type}
+        </if>
+        <if test="cate == 'qna'">
+            WHERE `qnaCate1` LIKE #{cate1} AND `qnaCate2` LIKE #{cate2}
+        </if>
+        ;
     </select>
 
     <!-- upload -->

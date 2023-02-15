@@ -33,7 +33,7 @@
     <section th:fragment="hit(hits)" class="hit">
         <h3><span>히트상품</span></h3>
         <article th:each="product:${hits}">
-            <a href="#">
+            <a th:href="@{/product/view(cate1 = ${product.prodCate1}, cate2 = ${product.prodCate2}, prodNo = ${product.prodNo})}">
                 <div class="thumb">
                     <img th:src="|@{/}thumb/${product.prodCate1}/${product.prodCate2}/${product.thumb2}|" alt="t1">
                 </div>
@@ -55,7 +55,7 @@
     <section th:fragment="recommend(recommends)" class="recommend">
         <h3><span>추천상품</span></h3>
         <article th:each="product:${recommends}">
-            <a href="#">
+            <a th:href="@{/product/view(cate1 = ${product.prodCate1}, cate2 = ${product.prodCate2}, prodNo = ${product.prodNo})}">
                 <div class="thumb">
                     <img th:src="|@{/}thumb/${product.prodCate1}/${product.prodCate2}/${product.thumb2}|" alt="t1">
                 </div>
@@ -77,7 +77,7 @@
     <section th:fragment="new(news)" class="new">
         <h3><span>최신상품</span></h3>
         <article th:each="product:${news}">
-            <a href="#">
+            <a th:href="@{/product/view(cate1 = ${product.prodCate1}, cate2 = ${product.prodCate2}, prodNo = ${product.prodNo})}">
                 <div class="thumb">
                     <img th:src="|@{/}thumb/${product.prodCate1}/${product.prodCate2}/${product.thumb2}|" alt="t1">
                 </div>
@@ -99,7 +99,7 @@
     <section th:fragment="discount(discounts)" class="discount">
         <h3><span>할인상품</span></h3>
         <article th:each="product:${discounts}">
-            <a href="#">
+            <a th:href="@{/product/view(cate1 = ${product.prodCate1}, cate2 = ${product.prodCate2}, prodNo = ${product.prodNo})}">
                 <div class="thumb">
                     <img th:src="|@{/}thumb/${product.prodCate1}/${product.prodCate2}/${product.thumb2}|" alt="t1">
                 </div>

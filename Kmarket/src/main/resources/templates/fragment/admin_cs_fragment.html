@@ -30,7 +30,7 @@
     </nav>
 
     <!-- 2023/02/09 // 심규영 // 자주하는 질문 목록 -->
-    <section th:fragment="faqList">
+    <section th:fragment="faqList(data, cate)">
 
         <div style="display: inline-block;">
             <select name="cate1" class="w-btn-outline w-btn-indigo-outline">
@@ -62,17 +62,18 @@
             </tr>
 
 
-            <tr>
+            <tr th:each="article:${data.articles}">
                 <td><input type="checkbox" name="상품코드"/></td>
-                <td>213213</td>
-                <td>cate1</td>
-                <td style="text-align: center;">cate2</td>
-                <td><a href="#">제목</a></td>
-                <td>12323</td>
-                <td>2023-02-08</td>
+                <td th:text="${article.faqNo}">213213</td>
+                <td th:text="${article.c1Name}">cate1</td>
+                <td th:text="${article.c2Name}" style="text-align: center;">cate2</td>
+                <td><a th:text="${article.faqTitle}"
+                       th:href="|@{/}admin/cs/${cate}/view?no=${article.faqNo}&cate1=${data.etcText.cate1}&cate2=${data.etcText.cate2}|">제목</a></td>
+                <td th:text="${article.faqHit}">12323</td>
+                <td th:text="${article.faqRdate}">2023-02-08</td>
                 <td>
                     <a href="#">[삭제]</a>
-                    <a href="#">[수정]</a>
+                    <a th:href="|@{/}admin/cs/${cate}/modify?no=${article.faqNo}|">[수정]</a>
                 </td>
             </tr>
 
@@ -80,12 +81,12 @@
         </table>
 
         <input type="button" value="선택삭제">
-        <a href="#" class="w-btn w-btn-green">작성하기</a>
+        <a th:href="|@{/}admin/cs/${cate}/write|" class="w-btn w-btn-green">작성하기</a>
 
     </section>
 
     <!-- 2023/02/09 // 심규영 // 공지사항 목록 -->
-    <section th:fragment="noticeList">
+    <section th:fragment="noticeList(data, cate)">
         <div>
             <select name="type" class="w-btn-outline w-btn-indigo-outline" >
                 <option value="">유형 선택</option>
@@ -107,18 +108,22 @@
                 <th style="width: 5%;">관리</th>
             </tr>
 
-            <tr>
+            <tr th:each="article:${data.articles}">
                 <td><input type="checkbox" name="상품코드"/></td>
-                <td>1230123</td>
+                <td th:text="${article.noticeNo}">1230123</td>
 
-                <td>고객서비스</td>
+                <td th:if="${article.noticeCate eq 10}">고객서비스</td>
+                <td th:if="${article.noticeCate eq 11}">안전거래</td>
+                <td th:if="${article.noticeCate eq 12}">위해상품</td>
+                <td th:if="${article.noticeCate eq 13}">이벤트상품</td>
 
-                <td><a href="#">공지사항 제목</a></td>
-                <td>32132</td>
-                <td>23-02-09</td>
+                <td><a th:text="${article.noticeTitle}"
+                       th:href="|@{/}admin/cs/${cate}/view?no=${article.noticeNo}&type=${data.etcText.type}&pg=${data.paging.currentPage}|">공지사항 제목</a></td>
+                <td th:text="${article.noticeHit}">32132</td>
+                <td th:text="${article.noticeRdate}">23-02-09</td>
                 <td>
                     <a href="#" class="deleteSingle">[삭제]</a>
-                    <a href="#">[수정]</a>
+                    <a th:href="|@{/}admin/cs/${cate}/modify?no=${article.noticeNo}|">[수정]</a>
                 </td>
             </tr>
 
@@ -126,15 +131,30 @@
 
         <div class="btn2ro">
             <a href="#" class="w-btn w-btn-indigo deleteAll">선택삭제</a>
-            <a href="#" class="w-btn w-btn-green">작성하기</a>
+            <a th:href="|@{/}admin/cs/${cate}/write|" class="w-btn w-btn-green">작성하기</a>
         </div>
 
-        <div class="paging" th:replace="~{fragment/paging_fragment::adminPaging}"></div>
+        <div class="paging">
+            <span th:if="${data.paging.groupStart gt 1}" class="prev">
+                <a th:href="|@{/}admin/cs/${cate}/list?pg=${data.paging.groupStart-1}&type=${data.etcText.type}|"><&nbsp;이전</a>
+            </span>
+
+            <span class="num">
+                <th:block th:each="i:${#numbers.sequence(data.paging.groupStart, data.paging.groupEnd)}">
+                    <a th:href="|@{/}admin/cs/${cate}/list?pg=${i}&type=${data.etcText.type}|"
+                       th:classappend="${data.paging.currentPage eq i ? 'on' : ''}" th:text="${i}"></a>
+                </th:block>
+            </span>
+
+            <span th:if="${data.paging.groupEnd lt data.paging.lastPage}" class="next">
+                <a th:href="|@{/}admin/cs/${cate}/list?pg=${data.paging.groupEnd+1}&type=${data.etcText.type}|">다음&nbsp;></a>
+            </span>
+        </div>
 
     </section>
 
     <!-- 2023/02/09 // 심규영 // 문의하기 목록 -->
-    <section th:fragment="qnaList">
+    <section th:fragment="qnaList(data, cate)">
         <div style="display: inline-block;">
             <select name="cate1" class="w-btn-outline w-btn-indigo-outline">
                 <option value="" >1차 선택</option>
@@ -160,15 +180,17 @@
                 <th style="width: 7%;">작성일</th>
                 <th style="width: 7%;">상태</th>
             </tr>
-            <tr>
+            <tr th:each="article:${data.articles}">
                 <td><input type="checkbox" name="상품코드"/></td>
-                <td>1231323</td>
-                <td>카테고리1이름</td>
-                <td>카테고리2이름</td>
-                <td><a href="#">문의하기 제목</a></td>
-                <td>작성자 이름</td>
-                <td>23-02-09</td>
-                <td>검토중</td>
+                <td th:text="${article.qnaNo}">1231323</td>
+                <td th:text="${article.c1Name}">카테고리1이름</td>
+                <td th:text="${article.c2Name}">카테고리2이름</td>
+                <td><a th:text="${article.qnaTitle}" href="#">문의하기 제목</a></td>
+                <td th:text="${article.qnaName}">작성자 이름</td>
+                <td th:text="${article.qnaRdate}">23-02-09</td>
+
+                <td th:if="${article.qnaType eq 1}">검토중</td>
+                <td th:if="${article.qnaType eq 2}">답변완료</td>
             </tr>
         </table>
 
@@ -176,7 +198,22 @@
             <a href="#" class="deleteAll">선택삭제</a>
         </div>
 
-        <div class="paging" th:replace="~{fragment/paging_fragment::adminPaging}"></div>
+        <div class="paging">
+            <span th:if="${data.paging.groupStart gt 1}" class="prev">
+                <a th:href="|@{/}admin/cs/${cate}/list?pg=${data.paging.groupStart-1}&cate1=${data.etcText.cate1}&cate2=${data.etcText.cate2}|"><&nbsp;이전</a>
+            </span>
+
+            <span class="num">
+                <th:block th:each="i:${#numbers.sequence(data.paging.groupStart, data.paging.groupEnd)}">
+                    <a th:href="|@{/}admin/cs/${cate}/list?pg=${i}&cate1=${data.etcText.cate1}&cate2=${data.etcText.cate2}|"
+                       th:classappend="${data.paging.currentPage eq i ? 'on' : ''}" th:text="${i}"></a>
+                </th:block>
+            </span>
+
+            <span th:if="${data.paging.groupEnd lt data.paging.lastPage}" class="next">
+                <a th:href="|@{/}admin/cs/${cate}/list?pg=${data.paging.groupEnd+1}&cate1=${data.etcText.cate1}&cate2=${data.etcText.cate2}|">다음&nbsp;></a>
+            </span>
+        </div>
 
     </section>
 
