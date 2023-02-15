@@ -31,24 +31,24 @@
                 </nav>
 
                 <th:block th:each="vo3:${vos3}">
-                <div>
-                    <h3>[[${vo3.cate2Name}]]</h3>
-                    <th:block th:with="count = 0">
-                    <ul>
-                        <th:block th:each="vo:${vos}">
-                            <th:block th:if="${vo.faqCate2} == ${vo3.cate2}">
-                                <th:block th:with="count = ${count} + 1">
-                                    <li th:classappend="${count} > 3 ? 'hide' : ''"><a th:href="@{/cs/faq/view(faqNo=${vo.faqNo},csCate1=${vo.faqCate1})}"><span>Q.</span>[[${vo.faqTitle}]]</a></li>
+                    <div>
+                        <h3>[[${vo3.cate2Name}]]</h3>
+                        <th:block th:with="count = 0">
+                            <ul>
+                                <th:block th:each="vo:${vos}">
+                                    <th:block th:if="${vo.faqCate2 eq vo3.cate2} and ${vo.faqCate1 eq vo3.cate1}">
+                                        <th:block th:with="count = ${count + 1}">
+                                            <li th:classappend="${count > 3} ? 'hide' : ''"><a th:href="@{/cs/faq/view(faqNo=${vo.faqNo},csCate1=${vo.faqCate1})}"><span>Q.</span>[[${vo.faqTitle}]]</a></li>
+                                        </th:block>
+                                    </th:block>
                                 </th:block>
-                            </th:block>
+                                <th:block th:if="${count} == 0">
+                                    <li><a>등록된 게시물이 없습니다.</a></li>
+                                </th:block>
+                                <li class="more" onclick="moreView(this)"><a href="#">더보기</a></li>
+                            </ul>
                         </th:block>
-                        <th:block th:if="${count} == 0">
-                            <li><a>등록된 게시물이 없습니다.</a></li>
-                        </th:block>
-                        <li class="more" onclick="moreView(this)"><a href="#">더보기</a></li>
-                    </ul>
-                    </th:block>
-                </div>
+                    </div>
                 </th:block>
             </article>
         </section>

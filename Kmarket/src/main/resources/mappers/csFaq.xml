@@ -15,9 +15,12 @@
 
     <!-- cate1, cate2 값으로 faq 정보 가져오기 -->
     <select id="selectCsFaqListWithCsCate1" resultType="kr.co.kmarket.vo.Cs_FaqVO">
-        select * from `km_cs_faq`
-        where `faqCate1` = #{faqCate1} and `faqCate2` = #{faqCate2}
-        limit 10;
+        select * from `km_cs_faq` AS a
+        JOIN `km_cs_cate1` AS b
+        ON a.faqCate1 = b.cate1
+        JOIN `km_cs_cate2` AS c
+        ON b.cate1 = c.cate1 AND a.faqCate2 = c.cate2
+        WHERE a.faqCate1 = c.cate1 AND a.faqCate2 = c.cate2;
     </select>
 
     <!-- faqNo 값으로 faq 정보 가져오기 -->
