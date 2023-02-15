@@ -83,6 +83,9 @@ window.onload = function(){
             return false;
         }
 
+        // 유효성 검사
+
+
         // 선택된 상품들만 배열에 넣기
         let checkboxArr = [];
         for(let i=0; i < checkboxes.length; i++){

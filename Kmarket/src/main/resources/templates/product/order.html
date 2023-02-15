@@ -52,7 +52,7 @@
                                 <td><input type="checkbox" name="chk" th:value="${cdto.cartNo}"></td>
                                 <td>
                                     <article>
-                                        <a href="#"><img src="|@{/}thumb/${cdto.prodCate1}/${cdto.prodCate2}/${cdto.thumb1}|" alt=""></a>
+                                        <a href="#"><img th:src="|@{/}thumb/${cdto.prodCate1}/${cdto.prodCate2}/${cdto.thumb1}|" alt=""></a>
                                         <div>
                                             <h2><a href="#">[[${cdto.prodName}]]</a></h2>
                                             <p>[[${cdto.descript}]]</p>
