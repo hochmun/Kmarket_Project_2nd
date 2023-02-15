@@ -6,6 +6,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{fragment/head_fragment::productHead}"></th:block>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script th:src="@{/js/zipcode.js}"></script>
+<script th:src="@{/js/product/order.js}"></script>
+<script th:inline = "javascript">
+    const memberPoint = [[${member.point}]];
+</script>
 <body>
     <div id="wrapper">
         <th:block th:replace="~{fragment/header_fragment::mainHeader}"></th:block>
@@ -54,12 +60,12 @@
                                     </article>
                                 </td>
                                 <td>[[${cdto.count}]]</td>
-                                <td>[[${#numbers.formatInteger(cdto.price, 1, 'COMMA')}]]</td>
+                                <td>[[${#numbers.formatInteger(cdto.price * cdto.count, 1, 'COMMA')}]]</td>
                                 <td>[[${cdto.discount}]]%</td>
-                                <td>[[${#numbers.formatInteger(cdto.point, 1, 'COMMA')}]]</td>
+                                <td>[[${#numbers.formatInteger(cdto.point * cdto.count , 1, 'COMMA')}]]</td>
                                 <td th:if="${cdto.delivery ne 0}">[[${#numbers.formatInteger(cdto.delivery, 1, 'COMMA')}]]</td>
                                 <td th:if="${cdto.delivery eq 0}">무료배송</td>
-                                <td>[[${#numbers.formatInteger((cdto.price * (1 - cdto.discount / 100.0)), 1, 'COMMA')}]]</td>
+                                <td>[[${#numbers.formatInteger((cdto.price * cdto.count * (1 - cdto.discount / 100.0)), 1, 'COMMA')}]]</td>
                             </tr>
                         </tbody>
                     </table>
@@ -69,7 +75,7 @@
                         <h2>최종결제 정보</h2>
                         <table border="0">
                             <tr>
-                                <td>총</td>
+                                <td>상품수</td>
                                 <td>0건</td>
                             </tr>
                             <tr>
@@ -92,8 +98,12 @@
                                 <td>전체주문금액</td>
                                 <td>0원</td>
                             </tr>
+                            <tr>
+                                <td>적립 포인트</td>
+                                <td>0점</td>
+                            </tr>
                         </table>
-                        <input type="button" name="" value="결제하기">
+                        <input type="button" id="payment" value="결제하기">
                     </div>
 
                     <!-- 배송정보 -->
@@ -101,7 +111,7 @@
                         <h1>배송정보</h1>
                         <table>
                             <tr>
-                                <td>주문자</td>
+                                <td>수령자</td>
                                 <td><input type="text" name="orderer" th:value="${member.name}"></td>
                             </tr>
                             <tr>
@@ -114,20 +124,20 @@
                             <tr>
                                 <td>우편번호</td>
                                 <td>
-                                    <input type="text" name="zip" th:value="${member.zip}"/>
-                                    <input type="button" value="검색"/>
+                                    <input type="text" name="zip" id="zip" th:value="${member.zip}"/>
+                                    <input type="button" value="검색" onclick="zipcode()"/>
                                 </td>
                             </tr>
                             <tr>
                                 <td>기본주소</td>
                                 <td>
-                                    <input type="text" name="addr1" th:value="${member.addr1}"/>
+                                    <input type="text" name="addr1" id="addr1" th:value="${member.addr1}"/>
                                 </td>
                             </tr>
                             <tr>
                                 <td>상세주소</td>
                                 <td>
-                                    <input type="text" name="addr2" th:value="${member.addr2}"/>
+                                    <input type="text" name="addr2" id="addr2" th:value="${member.addr2}"/>
                                 </td>
                             </tr>
                         </table>
@@ -140,8 +150,8 @@
                         <div>
                             <p>현재 포인트 : <span>[[${member.point}]]</span>점</p>
                             <label>
-                                <input type="text" name="point" />점
-                                <input type="button" value="적용"/>
+                                <input type="text" name="point" value="0"/>점
+                                <input type="button" id="pointDiscount" value="적용"/>
                             </label>
                             <span>포인트 5,000점 이상이면 현금처럼 사용 가능합니다.</span>
                         </div>

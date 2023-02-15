@@ -771,7 +771,7 @@
 #product > .order > form > .final {
   float: right;
   width: 360px;
-  height: 412px;
+  height: 442px;
   padding: 20px;
   margin-top: 12px;
   background: #fff;
@@ -791,8 +791,10 @@
 #product > .order > form > .final > table {width: 100%;}
 #product > .order > form > .final > table tr {}
 #product > .order > form > .final > table tr:nth-last-child(2) {}
-#product > .order > form > .final > table tr:nth-last-child(1) td {font-size: 20px;}
-#product > .order > form > .final > table tr:nth-last-child(1) td:last-child {
+
+/* 2023/02/15 이해빈 상품 주문하기 최종결제정보 css 수정  */
+#product > .order > form > .final > table tr:nth-child(6) td {font-size: 20px;}
+#product > .order > form > .final > table tr:nth-child(6) td:last-child {
   color: #ff006c;  
   font-size: 20px;
   font-weight: bold;
@@ -1043,11 +1045,15 @@
   color: #1e1e1e;
 }
 
+
+
 #product > .cart > form > .total > table {width: 100%;}
 #product > .cart > form > .total > table tr {}
 #product > .cart > form > .total > table tr:nth-last-child(2) {}
-#product > .cart > form > .total > table tr:nth-last-child(1) td {font-size: 20px;}
-#product > .cart > form > .total > table tr:nth-last-child(1) td:last-child {
+
+/* 2023/02/15 이해빈 상품 장바구니 전체합계 css 수정 */
+#product > .cart > form > .total > table tr:nth-child(5) td {font-size: 20px;}
+#product > .cart > form > .total > table tr:nth-child(5) td:last-child {
   color: #ff006c;  
   font-size: 20px;
   font-weight: bold;
