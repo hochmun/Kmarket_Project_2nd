@@ -33,18 +33,26 @@
     <section th:fragment="faqList(data, cate)">
 
         <div style="display: inline-block;">
-            <select name="cate1" class="w-btn-outline w-btn-indigo-outline">
+            <select name="cate1" class="w-btn-outline w-btn-indigo-outline" onchange="cate1Change()">
                 <option value="">1차 선택</option>
 
-                <option value="cate1">cate1Name</option>
+                <th:block th:each="cate1VO:${data.cate1VOs}">
+                    <option th:value="${cate1VO.cate1}" th:selected="${cate1VO.cate1} eq ${#numbers.formatInteger(data.etcText.cate1,1)}">[[${cate1VO.cate1Name}]]</option>
+                </th:block>
 
             </select>
 
         </div>
         <div style="display: inline-block;">
-            <select name="cate2" class="w-btn-outline w-btn-indigo-outline">
+            <select name="cate2" class="w-btn-outline w-btn-indigo-outline" onchange="cate2Change()">
                 <option value="">2차 선택</option>
-                <option value="cate2">cate2Name</option>
+
+                <th:block th:if="${#maps.containsKey(data, 'cate2VOs')}">
+                    <th:block th:each="cate2VO:${data.cate2VOs}">
+                        <option th:value="${cate2VO.cate2}" th:selected="${cate2VO.cate2} eq ${#numbers.formatInteger(data.etcText.cate2,1)}">[[${cate2VO.cate2Name}]]</option>
+                    </th:block>
+                </th:block>
+
             </select>
         </div>
 
@@ -68,13 +76,17 @@
                 <td th:text="${article.c1Name}">cate1</td>
                 <td th:text="${article.c2Name}" style="text-align: center;">cate2</td>
                 <td><a th:text="${article.faqTitle}"
-                       th:href="|@{/}admin/cs/${cate}/view?no=${article.faqNo}&cate1=${data.etcText.cate1}&cate2=${data.etcText.cate2}|">제목</a></td>
+                       th:href="|@{/}admin/cs/${cate}/view?no=${article.faqNo}&cate1=${article.faqCate1}&cate2=${article.faqCate2}|">제목</a></td>
                 <td th:text="${article.faqHit}">12323</td>
                 <td th:text="${article.faqRdate}">2023-02-08</td>
                 <td>
                     <a href="#">[삭제]</a>
                     <a th:href="|@{/}admin/cs/${cate}/modify?no=${article.faqNo}|">[수정]</a>
                 </td>
+            </tr>
+
+            <tr th:if="${#lists.size(data.articles) lt 1}">
+                <td colspan="7">게시물이 없습니다.</td>
             </tr>
 
 
@@ -88,12 +100,12 @@
     <!-- 2023/02/09 // 심규영 // 공지사항 목록 -->
     <section th:fragment="noticeList(data, cate)">
         <div>
-            <select name="type" class="w-btn-outline w-btn-indigo-outline" >
+            <select name="type" class="w-btn-outline w-btn-indigo-outline" onchange="typeChange()">
                 <option value="">유형 선택</option>
-                <option value="10">고객서비스</option>
-                <option value="11">안전거래</option>
-                <option value="12">위해상품</option>
-                <option value="13">이벤트상품</option>
+                <option value="10" th:selected="${data.etcText.type eq '10'}">고객서비스</option>
+                <option value="11" th:selected="${data.etcText.type eq '11'}">안전거래</option>
+                <option value="12" th:selected="${data.etcText.type eq '12'}">위해상품</option>
+                <option value="13" th:selected="${data.etcText.type eq '13'}">이벤트상품</option>
             </select>
 
         </div>
@@ -118,13 +130,17 @@
                 <td th:if="${article.noticeCate eq 13}">이벤트상품</td>
 
                 <td><a th:text="${article.noticeTitle}"
-                       th:href="|@{/}admin/cs/${cate}/view?no=${article.noticeNo}&type=${data.etcText.type}&pg=${data.paging.currentPage}|">공지사항 제목</a></td>
+                       th:href="|@{/}admin/cs/${cate}/view?no=${article.noticeNo}&type=${article.noticeCate}&pg=${data.paging.currentPage}|">공지사항 제목</a></td>
                 <td th:text="${article.noticeHit}">32132</td>
                 <td th:text="${article.noticeRdate}">23-02-09</td>
                 <td>
                     <a href="#" class="deleteSingle">[삭제]</a>
                     <a th:href="|@{/}admin/cs/${cate}/modify?no=${article.noticeNo}|">[수정]</a>
                 </td>
+            </tr>
+
+            <tr th:if="${#lists.size(data.articles) lt 1}">
+                <td colspan="6">게시물이 없습니다.</td>
             </tr>
 
         </table>
@@ -156,16 +172,26 @@
     <!-- 2023/02/09 // 심규영 // 문의하기 목록 -->
     <section th:fragment="qnaList(data, cate)">
         <div style="display: inline-block;">
-            <select name="cate1" class="w-btn-outline w-btn-indigo-outline">
-                <option value="" >1차 선택</option>
-                <option value="cate11">카테고리1 이름</option>
+            <select name="cate1" class="w-btn-outline w-btn-indigo-outline" onchange="cate1Change()">
+                <option value="">1차 선택</option>
+
+                <th:block th:each="cate1VO:${data.cate1VOs}">
+                    <option th:value="${cate1VO.cate1}" th:selected="${cate1VO.cate1} eq ${#numbers.formatInteger(data.etcText.cate1,1)}">[[${cate1VO.cate1Name}]]</option>
+                </th:block>
 
             </select>
 
         </div>
         <div style="display: inline-block;">
-            <select name="cate2" class="w-btn-outline w-btn-indigo-outline">
+            <select name="cate2" class="w-btn-outline w-btn-indigo-outline" onchange="cate2Change()">
                 <option value="">2차 선택</option>
+
+                <th:block th:if="${#maps.containsKey(data, 'cate2VOs')}">
+                    <th:block th:each="cate2VO:${data.cate2VOs}">
+                        <option th:value="${cate2VO.cate2}" th:selected="${cate2VO.cate2} eq ${#numbers.formatInteger(data.etcText.cate2,1)}">[[${cate2VO.cate2Name}]]</option>
+                    </th:block>
+                </th:block>
+
             </select>
         </div>
 
@@ -185,13 +211,27 @@
                 <td th:text="${article.qnaNo}">1231323</td>
                 <td th:text="${article.c1Name}">카테고리1이름</td>
                 <td th:text="${article.c2Name}">카테고리2이름</td>
-                <td><a th:text="${article.qnaTitle}" href="#">문의하기 제목</a></td>
+
+                <td th:if="${article.qnaType eq 1}">
+                    <a th:text="${article.qnaTitle}"
+                       th:href="|@{/}admin/cs/${cate}/reply?no=${article.qnaNo}&pg=${data.paging.currentPage}|">문의하기 제목</a>
+                </td>
+                <td th:if="${article.qnaType eq 2}">
+                    <a th:text="${article.qnaTitle}"
+                       th:href="|@{/}admin/cs/${cate}/view?no=${article.qnaNo}&pg=${data.paging.currentPage}|">문의하기 제목</a>
+                </td>
+
                 <td th:text="${article.qnaName}">작성자 이름</td>
                 <td th:text="${article.qnaRdate}">23-02-09</td>
 
                 <td th:if="${article.qnaType eq 1}">검토중</td>
                 <td th:if="${article.qnaType eq 2}">답변완료</td>
             </tr>
+
+            <tr th:if="${#lists.size(data.articles) lt 1}">
+                <td colspan="7">게시물이 없습니다.</td>
+            </tr>
+
         </table>
 
         <div class="btn1ro">

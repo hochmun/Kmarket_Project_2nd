@@ -1,6 +1,8 @@
 package kr.co.kmarket.dao.admin;
 
 import kr.co.kmarket.vo.AdminCsVo;
+import kr.co.kmarket.vo.Cs_Cate1VO;
+import kr.co.kmarket.vo.Cs_Cate2VO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -47,6 +49,19 @@ public interface AdminCsDAO {
      *      cate2 = csCate2 값
      */
     public int selectCountCsArticle(Map<String, String> map);
+
+    /**
+     * 2023/02/15 // 심규영 // 고객센터 카테고리1 리스트 불러오기
+     * @return
+     */
+    public List<Cs_Cate1VO> selectCsCate1s();
+
+    /**
+     * 2023/02/15 // 심규영 // 고객센터 카테고리1값으로 카테고리2 리스트 불러오기
+     * @param cate1
+     * @return
+     */
+    public List<Cs_Cate2VO> selectCsCate2sWithCate1(int cate1);
 
     // upload
     public void uploadCsArticle();

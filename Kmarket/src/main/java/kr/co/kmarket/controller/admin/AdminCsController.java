@@ -3,15 +3,15 @@ package kr.co.kmarket.controller.admin;
 import kr.co.kmarket.dto.AdminCsListParamDTO;
 import kr.co.kmarket.security.MyUserDetails;
 import kr.co.kmarket.service.admin.AdminCsService;
+import kr.co.kmarket.vo.Cs_Cate2VO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -106,6 +106,9 @@ public class AdminCsController {
 
     /**
      * 관리자 고객센터 답변 페이지
+     * 들어오는 정보
+     *      no => 페이지 번호
+     *      pg => 게시물이 있던 페이지
      * @since 2023/02/09 // 심규영
      * @param cate
      * @return
@@ -117,5 +120,20 @@ public class AdminCsController {
 
         return "admin/cs/reply";
     }
+
+    /**
+     * 2023/02/15 // 심규영 // 고객센터 1값 변경시 카테고리2 리스트 반환
+     */
+    @ResponseBody
+    @PostMapping("admin/cs/getCsCate2")
+    public Map<String, Object> getCsCate2(@RequestBody Map<String, String> map) {
+         List<Cs_Cate2VO> cate2VOs = service.selectCsCate2sWithCate1(map.get("cate1"));
+
+         Map<String, Object> data = new HashMap<>();
+         data.put("cate2VOs", cate2VOs);
+
+         return data;
+    }
+
 
 }
