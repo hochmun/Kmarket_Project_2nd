@@ -28,6 +28,11 @@ public class AdminCsController {
     
     /**
      * 관리자 고객센터 목록 페이지
+     * 들어올 가능성이 있는 정보
+     *      cate1 => cs_cate1 번호
+     *      cate2 => cs_cate2 번호
+     *      type => notice cate 번호
+     *      pg => 페이지 번호
      * @since 2023/02/09 // 심규영
      * @param cate
      * @return
@@ -50,6 +55,9 @@ public class AdminCsController {
 
     /**
      * 관리자 고객센터 수정 페이지
+     * 자주묻는 질문, 공지사항
+     * 들어오는 정보
+     *      no => 게시물 번호
      * @since 2023/02/09 // 심규영
      * @param cate
      * @return
@@ -64,6 +72,12 @@ public class AdminCsController {
 
     /**
      * 관리자 고객센터 보기 페이지
+     * 들어올수 있는 정보
+     *      no => 게시물 번호
+     *      cate1 => cs_cate1 번호
+     *      cate2 => cs_cate2 번호
+     *      type => notice cate 번호
+     *      pg => 게시물이 있던 페이지 번호
      * @since 2023/02/09 // 심규영
      * @param cate
      * @return

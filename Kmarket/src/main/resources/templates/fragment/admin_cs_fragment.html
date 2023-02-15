@@ -67,12 +67,13 @@
                 <td th:text="${article.faqNo}">213213</td>
                 <td th:text="${article.c1Name}">cate1</td>
                 <td th:text="${article.c2Name}" style="text-align: center;">cate2</td>
-                <td><a th:text="${article.faqTitle}" href="#">제목</a></td>
+                <td><a th:text="${article.faqTitle}"
+                       th:href="|@{/}admin/cs/${cate}/view?no=${article.faqNo}&cate1=${data.etcText.cate1}&cate2=${data.etcText.cate2}|">제목</a></td>
                 <td th:text="${article.faqHit}">12323</td>
                 <td th:text="${article.faqRdate}">2023-02-08</td>
                 <td>
                     <a href="#">[삭제]</a>
-                    <a href="#">[수정]</a>
+                    <a th:href="|@{/}admin/cs/${cate}/modify?no=${article.faqNo}|">[수정]</a>
                 </td>
             </tr>
 
@@ -80,7 +81,7 @@
         </table>
 
         <input type="button" value="선택삭제">
-        <a href="#" class="w-btn w-btn-green">작성하기</a>
+        <a th:href="|@{/}admin/cs/${cate}/write|" class="w-btn w-btn-green">작성하기</a>
 
     </section>
 
@@ -116,12 +117,13 @@
                 <td th:if="${article.noticeCate eq 12}">위해상품</td>
                 <td th:if="${article.noticeCate eq 13}">이벤트상품</td>
 
-                <td><a th:text="${article.noticeTitle}" href="#">공지사항 제목</a></td>
+                <td><a th:text="${article.noticeTitle}"
+                       th:href="|@{/}admin/cs/${cate}/view?no=${article.noticeNo}&type=${data.etcText.type}&pg=${data.paging.currentPage}|">공지사항 제목</a></td>
                 <td th:text="${article.noticeHit}">32132</td>
                 <td th:text="${article.noticeRdate}">23-02-09</td>
                 <td>
                     <a href="#" class="deleteSingle">[삭제]</a>
-                    <a href="#">[수정]</a>
+                    <a th:href="|@{/}admin/cs/${cate}/modify?no=${article.noticeNo}|">[수정]</a>
                 </td>
             </tr>
 
@@ -129,7 +131,7 @@
 
         <div class="btn2ro">
             <a href="#" class="w-btn w-btn-indigo deleteAll">선택삭제</a>
-            <a href="#" class="w-btn w-btn-green">작성하기</a>
+            <a th:href="|@{/}admin/cs/${cate}/write|" class="w-btn w-btn-green">작성하기</a>
         </div>
 
         <div class="paging">
