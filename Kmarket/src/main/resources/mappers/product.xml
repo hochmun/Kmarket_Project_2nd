@@ -51,6 +51,16 @@
         WHERE a.`uid`=#{uid};
     </select>
 
+    <select id="getCarts" parameterType="java.util.Map" resultType="kr.co.kmarket.dto.CartDTO">
+        SELECT a.*, b.prodCate1, b.prodCate2, b.prodName, b.thumb1, b.descript FROM `km_product_cart` AS a
+        JOIN `km_product` AS b
+        ON a.prodNo = b.prodNo
+        WHERE `cartNo` IN
+        <foreach collection="checkboxArr" item="cartNo" open="(" separator="," close=")">
+            #{cartNo}
+        </foreach>
+    </select>
+
     <insert id="addCart">
         INSERT INTO `km_product_cart`(`uid`, `prodNo`, `count`, `price`, `discount`, `point`, `delivery`, `total`, `rdate`)
         VALUES(#{uid}, #{prodNo}, #{count}, #{price}, #{discount}, #{point}, #{delivery}, #{total}, NOW());
@@ -59,5 +69,14 @@
     <update id="updateProductHit">
         UPDATE `km_product` SET `hit` = `hit`+ 1 WHERE `prodNo`=#{prodNo};
     </update>
+
+    <delete id="deleteCart" parameterType="java.util.Map">
+
+        DELETE FROM `km_product_cart`
+        WHERE `cartNo` IN
+        <foreach collection="checkboxArr" item="cartNo" open="(" separator="," close=")">
+            #{cartNo}
+        </foreach>
+    </delete>
 
 </mapper>

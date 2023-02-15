@@ -726,7 +726,8 @@
 #product > .order > form > table tbody {}
 
 #product > .order > form > table .empty {
-  display: none;
+  /* 2023/02/14 이해빈 display 속성 수정
+  display: none;*/
 }
 #product > .order > form > table .empty td {
   padding: 50px 0 !important;

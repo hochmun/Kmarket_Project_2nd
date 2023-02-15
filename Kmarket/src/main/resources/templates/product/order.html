@@ -28,31 +28,38 @@
                     <table>
                         <thead>
                             <tr>
+                                <th><input type="checkbox" name="all"></th>
                                 <th>상품명</th>
-                                <th>총수량</th>
+                                <th>수량</th>
                                 <th>판매가</th>
+                                <th>할인</th>
+                                <th>포인트</th>
                                 <th>배송비</th>
-                                <th>소계</th>
+                                <th>총합</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="empty">
+                            <tr class="empty" style="display:none;">
                                 <td colspan="7">장바구니에 상품이 없습니다.</td>
                             </tr>
-                            <tr>
+                            <tr th:each="cdto : ${cdtos}">
+                                <td><input type="checkbox" name="chk" th:value="${cdto.cartNo}"></td>
                                 <td>
                                     <article>
-                                        <a href="#"><img src="https://via.placeholder.com/80x80" alt=""></a>
+                                        <a href="#"><img src="|@{/}thumb/${cdto.prodCate1}/${cdto.prodCate2}/${cdto.thumb1}|" alt=""></a>
                                         <div>
-                                            <h2><a href="#"></a></h2>
-                                            <p>상품설명</p>
+                                            <h2><a href="#">[[${cdto.prodName}]]</a></h2>
+                                            <p>[[${cdto.descript}]]</p>
                                         </div>
                                     </article>
                                 </td>
-                                <td>1</td>
-                                <td>27,000</td>
-                                <td>무료배송</td>
-                                <td>27,000</td>
+                                <td>[[${cdto.count}]]</td>
+                                <td>[[${#numbers.formatInteger(cdto.price, 1, 'COMMA')}]]</td>
+                                <td>[[${cdto.discount}]]%</td>
+                                <td>[[${#numbers.formatInteger(cdto.point, 1, 'COMMA')}]]</td>
+                                <td th:if="${cdto.delivery ne 0}">[[${#numbers.formatInteger(cdto.delivery, 1, 'COMMA')}]]</td>
+                                <td th:if="${cdto.delivery eq 0}">무료배송</td>
+                                <td>[[${#numbers.formatInteger((cdto.price * (1 - cdto.discount / 100.0)), 1, 'COMMA')}]]</td>
                             </tr>
                         </tbody>
                     </table>
@@ -63,27 +70,27 @@
                         <table border="0">
                             <tr>
                                 <td>총</td>
-                                <td>2 건</td>
+                                <td>0건</td>
                             </tr>
                             <tr>
                                 <td>상품금액</td>
-                                <td>27,000</td>
+                                <td>0원</td>
                             </tr>
                             <tr>
                                 <td>할인금액</td>
-                                <td>-1,000</td>
+                                <td>-0원</td>
                             </tr>
                             <tr>
                                 <td>배송비</td>
-                                <td>0</td>
+                                <td>0원</td>
                             </tr>
                             <tr>
                                 <td>포인트 할인</td>
-                                <td>-1,000</td>
+                                <td>-0원</td>
                             </tr>
                             <tr>
                                 <td>전체주문금액</td>
-                                <td>25,000</td>
+                                <td>0원</td>
                             </tr>
                         </table>
                         <input type="button" name="" value="결제하기">
@@ -95,32 +102,32 @@
                         <table>
                             <tr>
                                 <td>주문자</td>
-                                <td><input type="text" name="orderer"></td>
+                                <td><input type="text" name="orderer" th:value="${member.name}"></td>
                             </tr>
                             <tr>
                                 <td>휴대폰</td>
                                 <td>
-                                    <input type="text" name="hp" />
+                                    <input type="text" name="hp" th:value="${member.hp}"/>
                                     <span>- 포함 입력</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>우편번호</td>
                                 <td>
-                                    <input type="text" name="zip"/>
+                                    <input type="text" name="zip" th:value="${member.zip}"/>
                                     <input type="button" value="검색"/>
                                 </td>
                             </tr>
                             <tr>
                                 <td>기본주소</td>
                                 <td>
-                                    <input type="text" name="addr1"/>
+                                    <input type="text" name="addr1" th:value="${member.addr1}"/>
                                 </td>
                             </tr>
                             <tr>
                                 <td>상세주소</td>
                                 <td>
-                                    <input type="text" name="addr2"/>
+                                    <input type="text" name="addr2" th:value="${member.addr2}"/>
                                 </td>
                             </tr>
                         </table>
@@ -131,7 +138,7 @@
                         <h1>할인정보</h1>
       
                         <div>
-                            <p>현재 포인트 : <span>7200</span>점</p>
+                            <p>현재 포인트 : <span>[[${member.point}]]</span>점</p>
                             <label>
                                 <input type="text" name="point" />점
                                 <input type="button" value="적용"/>
