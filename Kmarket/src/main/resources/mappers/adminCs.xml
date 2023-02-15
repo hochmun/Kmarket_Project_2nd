@@ -41,6 +41,16 @@
         ;
     </select>
 
+    <!-- 2023/02/15 // 심규영 // 고객센터 카테고리1 리스트 불러오기 -->
+    <select id="selectCsCate1s" resultType="kr.co.kmarket.vo.Cs_Cate1VO">
+        SELECT * FROM `km_cs_cate1`;
+    </select>
+
+    <!-- 2023/02/15 // 심규영 // 고객센터 카테고리1값으로 카테고리2 리스트 불러오기 -->
+    <select id="selectCsCate2sWithCate1" resultType="kr.co.kmarket.vo.Cs_Cate2VO">
+        SELECT * FROM `km_cs_cate2` WHERE `cate1` = #{cate1};
+    </select>
+
     <!-- upload -->
 
 

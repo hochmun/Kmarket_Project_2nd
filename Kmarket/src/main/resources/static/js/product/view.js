@@ -40,7 +40,7 @@ window.onload = function(){
         num.setAttribute('value', count);
 
         // 총 주문금액
-        let total = price * (1 - discount / 100) * count;
+        let total = parseInt(price * (1 - discount / 100) * count);
         total = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         document.querySelector('.total > span').innerHTML = total;
 
@@ -55,7 +55,7 @@ window.onload = function(){
             num.setAttribute('value', count);
 
             // 총 주문금액
-            let total = price * (1 - discount / 100) * count;
+            let total = parseInt(price * (1 - discount / 100) * count);
             total = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
             document.querySelector('.total > span').innerHTML = total;
 

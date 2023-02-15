@@ -3,8 +3,9 @@ package kr.co.kmarket.service.admin;
 import kr.co.kmarket.dao.admin.AdminCsDAO;
 import kr.co.kmarket.dto.AdminCsListParamDTO;
 import kr.co.kmarket.dto.PagingDTO;
+import kr.co.kmarket.service.MainService;
 import kr.co.kmarket.util.PagingUtil;
-import kr.co.kmarket.vo.AdminCsVo;
+import kr.co.kmarket.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,14 +26,13 @@ public class AdminCsService {
      */
     @Autowired
     private AdminCsDAO dao;
-    
+
     // create
 
     // read
 
     /**
      * 2023/02/15 // 심규영 // 게시물 불러오기
-     * @param map
      *      table => 테이블 이름
      *      cate => faq, qna, notice
      *      c1Name => faqCate1, qnaCate1
@@ -46,7 +46,7 @@ public class AdminCsService {
      */
     public List<AdminCsVo> selectCsArticles(String cate, int start, AdminCsListParamDTO param) {
         Map<String, String> map = new HashMap<>();
-    
+
         // 공통
         map.put("table", "km_cs_"+cate);
         map.put("cate", cate);
@@ -88,7 +88,7 @@ public class AdminCsService {
      */
     public int selectCountCsArticle(String cate, AdminCsListParamDTO param) {
         Map<String, String> map = new HashMap<>();
-        
+
         // hashmap에 값 입력하기
         map.put("noName", cate+"No");
         map.put("table", "km_cs_"+cate);
@@ -109,6 +109,23 @@ public class AdminCsService {
         return dao.selectCountCsArticle(map);
     }
 
+    /**
+     * 2023/02/15 // 심규영 // 고객센터 카테고리1 리스트 불러오기
+     * @return
+     */
+    public List<Cs_Cate1VO> selectCsCate1s(){
+        return dao.selectCsCate1s();
+    }
+
+    /**
+     * 2023/02/15 // 심규영 // 고객센터 카테고리1값으로 카테고리2 리스트 불러오기
+     * @return
+     */
+    public List<Cs_Cate2VO> selectCsCate2sWithCate1(String cate1Str){
+        int cate1 = Integer.parseInt(cate1Str);
+        return dao.selectCsCate2sWithCate1(cate1);
+    }
+
     // update
 
     // delete
@@ -126,6 +143,19 @@ public class AdminCsService {
 
         // param 처리
         paramProcess(param);
+
+        // 1차 카테고리 불러오기(자주묻는 질문,문의하기 일시)
+        if(cate.equals("faq") || cate.equals("qna")) {
+            // 기본 적으로 카테고리1 리스트 불러옴
+            List<Cs_Cate1VO> cate1VOs = selectCsCate1s();
+            data.put("cate1VOs", cate1VOs);
+    
+            // 카테고리1값이 들어오며 카테고리2값도 있을 경우 => 카테고리2 리스트 불러옴
+            if(!param.getCate1().equals("") && !param.getCate2().equals("")) {
+                List<Cs_Cate2VO> cate2VOs = selectCsCate2sWithCate1(param.getCate1());
+                data.put("cate2VOs", cate2VOs);
+            }
+        }
         
         // 페이징 처리
         PagingDTO paging = new PagingUtil().getPagingDTO(param.getPg(), selectCountCsArticle(cate, param));
