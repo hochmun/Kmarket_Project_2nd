@@ -4,11 +4,13 @@ import kr.co.kmarket.dao.admin.AdminCsDAO;
 import kr.co.kmarket.dto.AdminCsListParamDTO;
 import kr.co.kmarket.dto.PagingDTO;
 import kr.co.kmarket.util.PagingUtil;
+import kr.co.kmarket.vo.AdminCsVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,6 +29,53 @@ public class AdminCsService {
     // create
 
     // read
+
+    /**
+     * 2023/02/15 // 심규영 // 게시물 불러오기
+     * @param map
+     *      table => 테이블 이름
+     *      cate => faq, qna, notice
+     *      c1Name => faqCate1, qnaCate1
+     *      cate1 => 카테고리 번호
+     *      c2Name => faqCate2, qnaCate2
+     *      cate2 => 카테고리 번호
+     *      type => notice 카테 번호
+     *      noName => faqNo, qnaNo, noticeNo
+     *      start => 페이지 시작값(faq는 1 고정)
+     * @return
+     */
+    public List<AdminCsVo> selectCsArticles(String cate, int start, AdminCsListParamDTO param) {
+        Map<String, String> map = new HashMap<>();
+    
+        // 공통
+        map.put("table", "km_cs_"+cate);
+        map.put("cate", cate);
+        map.put("noName", cate+"No");
+
+        // 자주묻는 질문, 문의 하기 카테고리 입력
+        if(cate.equals("faq") || cate.equals("qna")) {
+            map.put("c1Name", cate+"Cate1");
+            map.put("c2Name", cate+"Cate2");
+
+            if(param.getCate1().equals("") || param.getCate1() == null) map.put("cate1", "%%");
+            else map.put("cate1", param.getCate1());
+            if(param.getCate2().equals("") || param.getCate2() == null) map.put("cate2", "%%");
+            else map.put("cate2", param.getCate2());
+        }
+
+        // 공지사항 타입 입력
+        if(cate.equals("notice")) {
+            if(param.getType().equals("") || param.getType() == null) map.put("type", "%%");
+            else map.put("type", param.getType());
+        }
+
+        // 자주묻는 질문은 페이지 시작 번호 0로 고정
+        if(cate.equals("faq")) map.put("start", "0");
+        else map.put("start", start+"");
+
+        // 출력
+        return dao.selectCsArticles(map);
+    }
 
     /**
      * 2023/02/15 // 심규영 // 게시물 총 갯수 계산, 최초 접속시 계산
@@ -83,7 +132,10 @@ public class AdminCsService {
         data.put("paging", paging);
 
         // 카테고리에 따른 목록 불러서 map에 넣기
-
+        List<AdminCsVo> articles = selectCsArticles(cate, paging.getStart(), param);
+        data.put("articles", articles);
+        
+        // 파라미터 map 입력
         data.put("etcText", param);
 
         return data;

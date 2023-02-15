@@ -62,14 +62,14 @@
             </tr>
 
 
-            <tr>
+            <tr th:each="article:${data.articles}">
                 <td><input type="checkbox" name="상품코드"/></td>
-                <td>213213</td>
-                <td>cate1</td>
-                <td style="text-align: center;">cate2</td>
-                <td><a href="#">제목</a></td>
-                <td>12323</td>
-                <td>2023-02-08</td>
+                <td th:text="${article.faqNo}">213213</td>
+                <td th:text="${article.c1Name}">cate1</td>
+                <td th:text="${article.c2Name}" style="text-align: center;">cate2</td>
+                <td><a th:text="${article.faqTitle}" href="#">제목</a></td>
+                <td th:text="${article.faqHit}">12323</td>
+                <td th:text="${article.faqRdate}">2023-02-08</td>
                 <td>
                     <a href="#">[삭제]</a>
                     <a href="#">[수정]</a>
@@ -107,15 +107,18 @@
                 <th style="width: 5%;">관리</th>
             </tr>
 
-            <tr>
+            <tr th:each="article:${data.articles}">
                 <td><input type="checkbox" name="상품코드"/></td>
-                <td>1230123</td>
+                <td th:text="${article.noticeNo}">1230123</td>
 
-                <td>고객서비스</td>
+                <td th:if="${article.noticeCate eq 10}">고객서비스</td>
+                <td th:if="${article.noticeCate eq 11}">안전거래</td>
+                <td th:if="${article.noticeCate eq 12}">위해상품</td>
+                <td th:if="${article.noticeCate eq 13}">이벤트상품</td>
 
-                <td><a href="#">공지사항 제목</a></td>
-                <td>32132</td>
-                <td>23-02-09</td>
+                <td><a th:text="${article.noticeTitle}" href="#">공지사항 제목</a></td>
+                <td th:text="${article.noticeHit}">32132</td>
+                <td th:text="${article.noticeRdate}">23-02-09</td>
                 <td>
                     <a href="#" class="deleteSingle">[삭제]</a>
                     <a href="#">[수정]</a>
@@ -175,15 +178,17 @@
                 <th style="width: 7%;">작성일</th>
                 <th style="width: 7%;">상태</th>
             </tr>
-            <tr>
+            <tr th:each="article:${data.articles}">
                 <td><input type="checkbox" name="상품코드"/></td>
-                <td>1231323</td>
-                <td>카테고리1이름</td>
-                <td>카테고리2이름</td>
-                <td><a href="#">문의하기 제목</a></td>
-                <td>작성자 이름</td>
-                <td>23-02-09</td>
-                <td>검토중</td>
+                <td th:text="${article.qnaNo}">1231323</td>
+                <td th:text="${article.c1Name}">카테고리1이름</td>
+                <td th:text="${article.c2Name}">카테고리2이름</td>
+                <td><a th:text="${article.qnaTitle}" href="#">문의하기 제목</a></td>
+                <td th:text="${article.qnaName}">작성자 이름</td>
+                <td th:text="${article.qnaRdate}">23-02-09</td>
+
+                <td th:if="${article.qnaType eq 1}">검토중</td>
+                <td th:if="${article.qnaType eq 2}">답변완료</td>
             </tr>
         </table>
 
