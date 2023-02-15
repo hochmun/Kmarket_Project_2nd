@@ -6,8 +6,8 @@
 
 window.onload = function(){
 
-    let checkAll = document.querySelector('input[name=all]');
-    let checkboxes = document.querySelectorAll('input[name=chk]');
+    const checkAll = document.querySelector('input[name=all]');
+    const checkboxes = document.querySelectorAll('input[name=chk]');
 
     // 체크박스 전체선택, 해제
     checkAll.addEventListener('click', ()=> {
@@ -33,121 +33,6 @@ window.onload = function(){
             cartTotal();
         });
     }
-
-
-    // 선택 삭제
-    document.getElementById('del').addEventListener('click', ()=> {
-
-        let isDeleteOk = confirm('선택된 상품들을 장바구니에서 삭제하시겠습니까?');
-
-        if(!isDeleteOk){
-            return false;
-        }
-
-        // 선택된 상품들만 배열에 넣기
-        let checkboxArr = [];
-        for(let i=0; i < checkboxes.length; i++){
-            if(checkboxes[i].checked){
-                let no = checkboxes[i].value;
-                checkboxArr.push(no);
-
-                // 목록에서 숨기기
-                let tr = checkboxes[i].parentNode.parentNode;
-                tr.style.display = 'none';
-                // 전체합계에서 빼기
-                checkboxes[i].checked = false;
-                cartTotal();
-            }
-        }
-
-        if(checkboxArr == ''){
-            alert('삭제할 상품이 없습니다!')
-            return false;
-        }
-
-        if(isDeleteOk){
-
-            // AJAX 전송
-            const xhr = new XMLHttpRequest();
-            xhr.open('post','/Kmarket/product/deleteCart');
-            xhr.responseType = "json";
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.send(JSON.stringify({"checkboxArr": checkboxArr}));
-
-            xhr.onreadystatechange = function(){
-
-                if(xhr.readyState == XMLHttpRequest.DONE){
-                    if(xhr.status == 200){
-                        const data = xhr.response;
-                        console.log(data);
-
-                        if(data.result > 0){
-                            alert('장바구니에서 상품을 삭제하였습니다.');
-                        }
-
-                    }else{
-                        alert('요청을 실패하였습니다.\n 잠시 후 다시 시도해 주세요.');
-                    }
-                }
-            };
-        }
-    });
-
-
-    // 선택 주문
-    document.getElementById('orderProduct').addEventListener('click', ()=> {
-
-        let isOrderOk = confirm('선택한 상품들을 주문하시겠습니까?');
-
-        if(!isOrderOk){
-            return false;
-        }
-
-        // 선택된 상품들만 배열에 넣기
-        let checkboxArr = [];
-        for(let i=0; i < checkboxes.length; i++){
-            if(checkboxes[i].checked){
-                let no = checkboxes[i].value;
-                checkboxArr.push(no);
-            }
-
-        }
-
-        if(checkboxArr == ''){
-            alert('주문할 상품이 없습니다!')
-            return false;
-        }
-
-        if(isOrderOk){
-
-            // AJAX 전송
-            const xhr = new XMLHttpRequest();
-            xhr.open('post','/Kmarket/product/goOrder');
-            xhr.responseType = "json";
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.send(JSON.stringify({"checkboxArr": checkboxArr}));
-
-            xhr.onreadystatechange = function(){
-
-                if(xhr.readyState == XMLHttpRequest.DONE){
-                    if(xhr.status == 200){
-                        const data = xhr.response;
-                        console.log(data);
-
-                        if(data.result > 0){
-                            location.href = "/Kmarket/product/order";
-                        }else{
-                            alert('주문을 실패하였습니다! \n 잠시 후 다시 시도해 주세요.')
-                        }
-
-                    }else{
-                        alert('요청을 실패하였습니다.\n 잠시 후 다시 시도해 주세요.');
-                    }
-                }
-            };
-        }
-    });
-
 
     // 상품 정보 출력
     const cartTotal = () => {
@@ -204,37 +89,69 @@ window.onload = function(){
 
     }
 
-}
-/*
-function checkbox(){
 
-        let isDeleteOk = confirm('선택된 상품들을 장바구니에서 삭제하시겠습니까?');
+    // 선택삭제
+    document.getElementById('del').addEventListener('click', ()=> {
+        checkbox('deleteCart');
+        //alert('del');
+    });
 
-        if(!isDeleteOk){
+    // 선택주문
+    document.getElementById('orderProduct').addEventListener('click', ()=> {
+        checkbox('goOrder');
+        //alert('order');
+    });
+
+
+    function checkbox(type){
+
+        let Ok = null;
+
+        if(type == 'deleteCart'){
+           Ok = confirm('선택된 상품들을 장바구니에서 삭제하시겠습니까?');
+        }else if(type == 'goOrder'){
+            Ok = confirm('선택한 상품들을 주문하시겠습니까?');
+        }
+
+        if(!Ok){
             return false;
         }
 
         // 선택된 상품들만 배열에 넣기
         let checkboxArr = [];
         for(let i=0; i < checkboxes.length; i++){
+
+
             if(checkboxes[i].checked){
                 let no = checkboxes[i].value;
                 checkboxArr.push(no);
 
-                // 목록에서 숨기기
-                let tr = checkboxes[i].parentNode.parentNode;
-                tr.style.display = 'none';
-                // 전체합계에서 빼기
-                checkboxes[i].checked = false;
-                cartTotal();
+                if(type == 'deleteCart'){
+
+                    // 목록에서 숨기기
+                    let tr = checkboxes[i].parentNode.parentNode;
+                    tr.style.display = 'none';
+
+                    // 전체합계에서 빼기
+                    checkboxes[i].checked = false;
+                    cartTotal();
+
+                }
             }
+
+
         }
 
-        if(isDeleteOk){
+        if(checkboxArr == ''){
+            alert('선택된 상품이 없습니다!')
+            return false;
+        }
+
+        if(Ok){
 
             // AJAX 전송
             const xhr = new XMLHttpRequest();
-            xhr.open('post','/Kmarket/product/deleteCart');
+            xhr.open('post','/Kmarket/product/' + type);
             xhr.responseType = "json";
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.send(JSON.stringify({"checkboxArr": checkboxArr}));
@@ -247,7 +164,12 @@ function checkbox(){
                         console.log(data);
 
                         if(data.result > 0){
-                            alert('장바구니에서 상품을 삭제하였습니다.');
+
+                            if(type == 'deleteCart'){
+                                alert('장바구니에서 상품을 삭제하였습니다.');
+                            }else if(type == 'goOrder'){
+                                location.href = "/Kmarket/product/order";
+                            }
                         }
 
                     }else{
@@ -256,5 +178,5 @@ function checkbox(){
                 }
             };
         }
+    }
 }
-*/
