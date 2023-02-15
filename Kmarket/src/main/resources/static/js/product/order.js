@@ -168,8 +168,8 @@ window.onload = function(){
                     const data = xhr.response;
                     console.log(data);
 
-                    if(data.ordNo > 0){
-                        location.href = "/Kmarket/product/complete?ordNo=" + data.ordNo;
+                    if(data.result > 0){
+                        location.href = "/Kmarket/product/complete";
                     }
 
                 }else{

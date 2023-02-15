@@ -4,7 +4,10 @@ import kr.co.kmarket.dao.ProductDAO;
 import kr.co.kmarket.dto.CartDTO;
 import kr.co.kmarket.vo.productVO;
 import kr.co.kmarket.vo.product_cate2VO;
+import kr.co.kmarket.vo.product_orderVO;
+import kr.co.kmarket.vo.product_order_itemVO;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
@@ -102,7 +105,7 @@ public class ProductService {
 
 
     /**
-     * 현재 페이지
+     * 주문내용 DB 업데이트
      * @since 23/02/15
      * @author 이해빈
      */
@@ -115,33 +118,63 @@ public class ProductService {
         // 회원 정보 포인트 업데이트
         result += dao.updatePoint(orderinfo);
 
+        log.info("서비스 회원정보 업데이트 result :" + result);
+
         // 주문 테이블 업데이트
         result += dao.updateOrder(orderinfo);
+        log.info("서비스 주문 테이블 업데이트 :" + result);
 
         // 주문 테이블 업데이트 후 ordNo 값을 리턴받음
         BigInteger ordNoBigInt = (BigInteger) orderinfo.get("ordNo");
         int ordNo = ordNoBigInt.intValueExact();
 
+        log.info("주문테이블 업데이트 후 ordNo :" + ordNo);
+
         orderinfo.put("ordNo", ordNo);
 
+        log.info("cartNos 사이즈 :" +cartNos.size());
 
         for(int i = 0; i < cartNos.size(); i++){
             int cartNo = Integer.parseInt(cartNos.get(i));
-             // 주문 상품 테이블 업데이트
-             result += dao.insertOrderItem(cartNo, ordNo);
-             // 주문한 상품 장바구니에서 삭제
-             result += dao.deleteCart(cartNo);
+
+            log.info("cartNo :" +cartNo);
+
+            // 주문 상품 테이블 업데이트
+            result += dao.insertOrderItem(cartNo, ordNo);
+            log.info("서비스 주문상품 테이블 업데이트  :" + result);
+            // 주문한 상품 장바구니에서 삭제
+            result += dao.deleteCart(cartNo);
+            log.info("서비스 주문한 상품 삭제 업데이트  :" + result);
         }
 
         // 모든 테이블 업데이트가 정상적으로 실행되었을 경우 주문번호를 리턴
         if(result == size * 2 + 2){
+            log.info("서비스 here1.....");
             return ordNo;
         }else{
+            log.info("서비스 here2.....");
             return 0;
         }
 
     };
 
+    /**
+     * 주문정보 가져오기
+     * @since 23/02/15
+     * @author 이해빈
+     */
+    public product_orderVO selectOrder(int ordNo){
+        return dao.selectOrder(ordNo);
+    }
+
+    /**
+     * 주문한 아이템 가져오기
+     * @since 23/02/15
+     * @author 이해빈
+     */
+    public List<product_order_itemVO> selectOrderItems(@Param("ordNo") int ordNo){
+        return dao.selectOrderItems(ordNo);
+    }
 
     /**
      * 현재 페이지

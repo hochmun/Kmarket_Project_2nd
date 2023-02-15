@@ -5,9 +5,7 @@ import kr.co.kmarket.entity.UserEntity;
 import kr.co.kmarket.security.MyUserDetails;
 import kr.co.kmarket.service.MemberService;
 import kr.co.kmarket.service.ProductService;
-import kr.co.kmarket.vo.memberVO;
-import kr.co.kmarket.vo.productVO;
-import kr.co.kmarket.vo.product_cate2VO;
+import kr.co.kmarket.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -146,10 +144,10 @@ public class ProductController {
      * */
     @ResponseBody
     @PostMapping("product/order")
-    public Map<String, Integer> order(@RequestBody HashMap<String, Object> requestBody, @AuthenticationPrincipal MyUserDetails myUser){
+    public Map<String, Integer> order(@RequestBody HashMap<String, Object> requestBody, @AuthenticationPrincipal MyUserDetails myUser, HttpSession session){
 
         // 주문번호
-        int ordNo = 0;
+        int result = 0;
 
         List<String> cartNos = (List<String>) requestBody.get("checkboxArr");
         Map<String, Object> orderinfo = (Map<String, Object>) requestBody.get("orderinfo");
@@ -159,10 +157,21 @@ public class ProductController {
         orderinfo.put("ordUid", uid);
 
         // DB 업데이트
-        ordNo = service.updateOrder(cartNos, orderinfo);
+        int ordNo = service.updateOrder(cartNos, orderinfo);
+
+        log.info("컨트롤러 ordNo :" + ordNo);
+
+        // 세션에 주문한 상품 저장
+        if(ordNo > 0){
+            result = 1;
+            session.setAttribute("ordNo", ordNo);
+
+            log.info("컨트롤러 세션에 저장된 ordNo :" + session.getAttribute("ordNo"));
+
+        }
 
         Map<String, Integer> resultMap = new HashMap<>();
-        resultMap.put("ordNo", ordNo);
+        resultMap.put("result", result);
 
         return resultMap;
     }
@@ -185,8 +194,31 @@ public class ProductController {
         return "product/cart";
     }
 
+
+    /**
+     * 구매 완료 페이지
+     * @since 23/02/15
+     * @author 이해빈
+     */
     @GetMapping("product/complete")
-    public String complete(){
+    public String complete(Model model, HttpSession session){
+
+        // 세션에 저장된 주문번호 가져오기
+        int ordNo = (int) session.getAttribute("ordNo");
+        
+        //세션에서 주문번호 삭제
+        session.removeAttribute("ordNo");
+
+        // 주문 내용 가져오기
+        product_orderVO orderinfo = service.selectOrder(ordNo);
+        
+        // 주문한 상품 목록 가져오기
+        List<product_order_itemVO> items = service.selectOrderItems(ordNo);
+
+        log.info("items :" +items);
+
+        model.addAttribute("orderinfo", orderinfo);
+        model.addAttribute("items", items);
 
         return "product/complete";
     }

@@ -3,6 +3,8 @@ package kr.co.kmarket.dao;
 import kr.co.kmarket.dto.CartDTO;
 import kr.co.kmarket.vo.productVO;
 import kr.co.kmarket.vo.product_cate2VO;
+import kr.co.kmarket.vo.product_orderVO;
+import kr.co.kmarket.vo.product_order_itemVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -82,25 +84,43 @@ public interface ProductDAO {
      * 상품 주문관련 회원 포인트내역 업데이트
      * @since 23/02/15
      * @author 이해빈
-     * */
+     */
     public int updatePoint(Map<String, Object> orderinfo);
     
     /**
      * 상품 주문(km_product_order) 테이블 업데이트
+     * @since 23/02/15
      * @author 이해빈
-     * */
+     */
     public int updateOrder(Map<String, Object> orderinfo);
 
     /**
      * 주문한 상품(km_product_order_item) 테이블 업데이트
+     * @since 23/02/15
      * @author 이해빈
-     * */
+     */
     public int insertOrderItem(@Param("cartNo") int cartNo, @Param("ordNo") int ordNo);
 
     /**
      * 주문한 상품을 장바구니에서 삭제
+     * @since 23/02/15
      * @author 이해빈
-     * */
+     */
     public int deleteCart(@Param("cartNo") int cartNo);
+
+    /**
+     * 주문정보 가져오기
+     * @since 23/02/15
+     * @author 이해빈
+     */
+    public product_orderVO selectOrder(@Param("ordNo") int ordNo);    
     
+    /**
+     * 주문한 아이템 가져오기
+     * @since 23/02/15
+     * @author 이해빈
+     */
+    public List<product_order_itemVO> selectOrderItems(@Param("ordNo") int ordNo);
+
 }
+

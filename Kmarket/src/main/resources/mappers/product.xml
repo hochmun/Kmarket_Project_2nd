@@ -117,5 +117,19 @@
         DELETE FROM `km_product_cart` WHERE `cartNo` = #{cartNo};
     </delete>
 
+    <select id="selectOrder" resultType="kr.co.kmarket.vo.product_orderVO">
+        SELECT a.*, b.name, b.hp FROM `km_product_order` AS a
+        JOIN `km_member` AS b
+        ON a.ordUid = b.uid
+        WHERE `ordNo` = #{ordNo};
+    </select>
 
+    <select id="selectOrderItems" resultType="kr.co.kmarket.vo.product_order_itemVO">
+        SELECT a.*, b.prodCate1, b.prodCate2, b.prodName, b.thumb1, b.descript FROM `km_product_order_item` AS a
+        JOIN `km_product` AS b
+        ON a.prodNo = b.prodNo
+        WHERE `ordNo` = #{ordNo};
+    </select>
+    
+    
 </mapper>

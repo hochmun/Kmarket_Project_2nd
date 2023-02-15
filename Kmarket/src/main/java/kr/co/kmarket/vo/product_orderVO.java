@@ -3,6 +3,7 @@ package kr.co.kmarket.vo;
  *  날짜 : 2023/02/08
  *  이름 : 이해빈
  *  내용 : 상품 order VO
+ *      - 2023/02/08 추가필드
  * */
 
 import lombok.*;
@@ -31,5 +32,10 @@ public class product_orderVO {
     private int ordPayment;
     private int ordComplete;
     private String ordDate;
+
+
+    // 추가필드
+    private String name;
+    private String hp;
 
 }
