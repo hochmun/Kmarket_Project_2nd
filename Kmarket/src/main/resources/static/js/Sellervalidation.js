@@ -37,6 +37,7 @@
     let isaddr2ok = false;
     let isOnlineok = false;
 
+
 	let email;
 	let emailCode = -999999999;
 	let isClick = false;
@@ -144,7 +145,7 @@
         $('input[name=ceo]').focusout(function(){
             let ceo = $('input[name=ceo]').val();
 
-            if(ceo.match(reName)){
+            if(ceo.match(reCeo)){
                 isCeook = true;
                 $('.msgCeo').css('color', 'green').text('사용가능합니다.');
             }else{
@@ -227,7 +228,6 @@
 
 
         //회사주소
-
         let zip = $('input[name=zip]').val();
         let zip1 = $('input[name=addr1]').val();
         let zip2 = $('input[name=addr2]').val();

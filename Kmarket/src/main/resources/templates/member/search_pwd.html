@@ -4,29 +4,31 @@
     <main id="member">
         <div class="login">
             <nav>
-                <h1>로그인</h1>
+                <h1>비밀번호찾기</h1>
             </nav>
-            <form action="#" method="post">
+            <form action="#">
                 <table border="0">
                     <tr>
                         <td>아이디</td>
                         <td><input type="text" name="uid" placeholder="아이디 입력"></td>
                     </tr>
                     <tr>
-                        <td>비밀번호</td>
-                        <td><input type="password" name="pass" placeholder="비밀번호 입력"></td>
+                        <td>이름</td>
+                        <td><input type="text" name="name" placeholder="이름 입력"></td>
+                    </tr>
+                    <tr>
+                        <td>전화번호</td>
+                        <td><input type="text" name="hp" placeholder="전화번호 입력"></td>
                     </tr>
                 </table>
-                <input type="submit" value="로그인"/>
+                <input type="submit" value="ok"/>
                 <span>
-                    <label><input type="checkbox" name="remember-me">자동 로그인</label>
-                    <a th:href="@{/member/search_id}">아이디찾기</a>
-                    <a th:href="@{/member/search_pwd}">비밀번호찾기</a>
+                    <a th:href="@{/member/login}">로그인</a>
+                    <a th:href="@{/member/search_id}">아이디 찾기</a>
                     <a th:href="@{/member/join}">회원가입</a>
+                    <a th:href="@{/member/login}">취소</a>
                 </span>
-                <a href="#" class="banner"><img th:src="@{/img/member_login_banner.jpg}" alt="1만원 할인 쿠폰 받기"></a>
             </form>
-            <img th:src="@{/img/member_certifi_logo.gif}" alt="banner">
         </div>
     </main>
 <th:block th:replace="~{member/_footer}"></th:block>
