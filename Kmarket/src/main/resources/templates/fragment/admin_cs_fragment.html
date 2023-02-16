@@ -33,7 +33,7 @@
     <section th:fragment="faqList(data, cate)">
 
         <div style="display: inline-block;">
-            <select name="cate1" class="w-btn-outline w-btn-indigo-outline" onchange="cate1Change()">
+            <select name="cate1" onchange="cate1Change()">
                 <option value="">1차 선택</option>
 
                 <th:block th:each="cate1VO:${data.cate1VOs}">
@@ -44,7 +44,7 @@
 
         </div>
         <div style="display: inline-block;">
-            <select name="cate2" class="w-btn-outline w-btn-indigo-outline" onchange="cate2Change()">
+            <select name="cate2" onchange="cate2Change()">
                 <option value="">2차 선택</option>
 
                 <th:block th:if="${#maps.containsKey(data, 'cate2VOs')}">
@@ -451,18 +451,21 @@
     </section>
 
     <!-- 2023/02/09 // 심규영 // 자주하는질문 쓰기 -->
-    <section th:fragment="faqWrite">
+    <section th:fragment="faqWrite(data, cate)">
 
         <table>
             <tr>
                 <td>유형</td>
                 <td>
-                    <select name="cate1" class="w-btn-outline w-btn-indigo-outline" >
+                    <select name="cate1" onchange="cate1Change()">
                         <option value="">1차 선택</option>
-                        <option value="cate11">cate11 이름</option>
+
+                        <th:block th:each="cate1VO:${data.cate1VOs}">
+                            <option th:value="${cate1VO.cate1}">[[${cate1VO.cate1Name}]]</option>
+                        </th:block>
 
                     </select>
-                    <select name="cate2" class="w-btn-outline w-btn-indigo-outline" >
+                    <select name="cate2">
                         <option value="">2차 선택</option>
                     </select>
                 </td>
@@ -471,7 +474,6 @@
                 <td>제목</td>
                 <td>
                     <input type="text" name="title"
-                           class="w-btn-outline w-btn-indigo-outline"
                            maxlength="255"
                            placeholder="제목을 입력하세요."
                            style="width: 80%;">
@@ -480,27 +482,26 @@
             <tr>
                 <td>내용</td>
                 <td>
-                                <textarea name="content"
-                                          class="w-btn-outline w-btn-indigo-outline"
-                                          placeholder="내용을 입력하세요."
-                                          style="width: 80%; height: 400px;"></textarea>
+                    <textarea name="content"
+                              placeholder="내용을 입력하세요."
+                              style="width: 80%; height: 400px;"></textarea>
                 </td>
             </tr>
         </table>
         <div style="margin-left: 500px;">
-            <a href="#" class="w-btn w-btn-indigo">취소하기</a>
-            <a href="#" class="w-btn w-btn-green">등록하기</a>
+            <a th:href="|@{/}admin/cs/${cate}/list|">취소하기</a>
+            <a href="#">등록하기</a>
         </div>
     </section>
 
     <!-- 2023/02/09 // 심규영 // 공지사항 쓰기 -->
-    <section th:fragment="noticeWrite">
+    <section th:fragment="noticeWrite(data, cate)">
 
         <table>
             <tr>
                 <td>유형</td>
                 <td>
-                    <select name="cate1" class="w-btn-outline w-btn-indigo-outline">
+                    <select name="type">
                         <option value="">유형 선택</option>
                         <option value="10">고객서비스</option>
                         <option value="11">안전거래</option>
@@ -514,7 +515,6 @@
                 <td>제목</td>
                 <td>
                     <input type="text" name="title"
-                           class="w-btn-outline w-btn-indigo-outline"
                            maxlength="255"
                            placeholder="제목을 입력하세요."
                            style="width: 80%;">
@@ -523,16 +523,15 @@
             <tr>
                 <td>내용</td>
                 <td>
-                                <textarea name="content"
-                                          class="w-btn-outline w-btn-indigo-outline"
-                                          placeholder="내용을 입력하세요."
-                                          style="width: 80%; height: 400px;"></textarea>
+                    <textarea name="content"
+                              placeholder="내용을 입력하세요."
+                              style="width: 80%; height: 400px;"></textarea>
                 </td>
             </tr>
         </table>
         <div class="btn2ro" style="margin-left: 500px;">
-            <a href="#" class="w-btn w-btn-indigo">취소하기</a>
-            <a href="#" class="w-btn w-btn-green btnNoticeInsert">등록하기</a>
+            <a th:href="|@{/}admin/cs/${cate}/list|">취소하기</a>
+            <a href="#">등록하기</a>
         </div>
 
 

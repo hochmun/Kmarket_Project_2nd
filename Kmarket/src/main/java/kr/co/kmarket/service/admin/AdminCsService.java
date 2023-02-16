@@ -98,7 +98,7 @@ public class AdminCsService {
             if(param.getType().equals("")) map.put("type", "%%");
             else map.put("type", param.getType());
         }
-        if(cate.equals("qna")) {
+        if(cate.equals("qna") || cate.equals("faq")) {
             if(param.getCate1().equals("")) map.put("cate1", "%%");
             else map.put("cate1", param.getCate1());
 
@@ -131,6 +131,51 @@ public class AdminCsService {
     // delete
 
     // service
+
+    /**
+     * 2023/02/16 // 심규영 // 관리자 고객센터 글 쓰기 종합 처리
+     */
+    public Map<String, Object> CsWriteDataProcess(String cate) {
+        // 데이터를 담을 map
+        Map<String, Object> data = new HashMap<>();
+
+        // cate가 faq일 경우 cs_cate1리스트 가져오기
+        if(cate.equals("faq")) {
+            List<Cs_Cate1VO> cate1VOs = selectCsCate1s();
+            data.put("cate1VOs", cate1VOs);
+        }
+
+        return data;
+    }
+
+    /**
+     * 2023/02/16 // 심규영 // 관리자 고객센터 글 쓰기 포스트 처리
+     * map에 들어 있을 수 있는 값
+     *      cate1 => faq 글 작성시 오는 값
+     *      cate2 => cs_cate2
+     *      type => notice 카테고리
+     *      title => 제목
+     *      contents => 내용
+     */
+    public int CsWritePostProcess(Map<String, String> map, String cate) {
+        int result = 0;
+
+        // 글 작성 전 cate가 faq일 경우
+        // cate1과 cate2값으로 글 갯수 카운트
+        // 글 갯수가 10개 이상일 경우 -1리턴
+        if(cate.equals("cate")) {
+            AdminCsListParamDTO param = AdminCsListParamDTO.builder().cate1(map.get("cate1")).cate2(map.get("cate2")).build();
+            int total = selectCountCsArticle(cate, param);
+            if(total >= 10) {
+                result = -1;
+                return result;
+            }
+        }
+        
+        // 글 작성
+
+        return result;
+    }
 
     /**
      * 2023/02/14 // 심규영 // 관리자 고객센터 리스트 종합 처리
@@ -171,6 +216,10 @@ public class AdminCsService {
         return data;
     }
 
+    /**
+     * 2023/02/15 // 심규영 // 관리자 고객센터 리스트 종합 처리 param null 처리
+     * @param param
+     */
     public void paramProcess(AdminCsListParamDTO param) {
         if(param.getPg() == null) param.setPg("");
         if(param.getType() == null) param.setType("");

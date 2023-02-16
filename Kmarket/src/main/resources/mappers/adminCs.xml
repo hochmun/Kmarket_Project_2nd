@@ -38,6 +38,9 @@
         <if test="cate == 'qna'">
             WHERE `qnaCate1` LIKE #{cate1} AND `qnaCate2` LIKE #{cate2}
         </if>
+        <if test="cate == 'faq'">
+            WHERE `faqCate1` LIKE #{cate1} AND `faqCate2` LIKE #{cate2}
+        </if>
         ;
     </select>
 
