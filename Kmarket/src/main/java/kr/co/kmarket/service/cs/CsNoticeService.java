@@ -17,13 +17,23 @@ public class CsNoticeService {
     public CsNoticeDAO dao;
 
     /**
-     * 23/02/08 notice list
+     * 23/02/16 notice list all 불러오기
      * @autor 김재준
      * @param start
      * @return
      */
-    public List<Cs_NoticeVO> selectNotArticles(@Param("start") int start){
-        return dao.selectNotArticles(start);
+    public List<Cs_NoticeVO> selectNotArticlesAll(int start){
+        return dao.selectNotArticlesAll(start);
+    }
+
+    /**
+     * 23/02/08 notice list 카테고리별 불러오기
+     * @autor 김재준
+     * @param start
+     * @return
+     */
+    public List<Cs_NoticeVO> selectNotArticles(@Param("start") int start, String noCate1){
+        return dao.selectNotArticles(start, noCate1);
     }
 
     /**
@@ -65,8 +75,8 @@ public class CsNoticeService {
      * @autor 김재준
      * @return
      */
-    public long getTotalCount(){
-        return dao.selectNotCountTotal();
+    public long getTotalCount(String noCate1){
+        return dao.selectNotCountTotal(noCate1);
     }
 
     /**
@@ -76,6 +86,8 @@ public class CsNoticeService {
      */
     public int getLastPageNum(long total){
         int lastPage = 0;
+
+        if(total == 0) return 1;
 
         if (total % 10 == 0){
             lastPage = (int) (total/10);
