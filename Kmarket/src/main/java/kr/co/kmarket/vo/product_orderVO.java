@@ -37,5 +37,6 @@ public class product_orderVO {
     // 추가필드
     private String name;
     private String hp;
+    private String prodNo;
 
 }

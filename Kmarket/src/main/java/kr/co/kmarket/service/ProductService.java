@@ -118,44 +118,51 @@ public class ProductService {
         // 회원 정보 포인트 업데이트
         result += dao.updatePoint(orderinfo);
 
-        log.info("서비스 회원정보 업데이트 result :" + result);
-
         // 주문 테이블 업데이트
         result += dao.updateOrder(orderinfo);
-        log.info("서비스 주문 테이블 업데이트 :" + result);
 
         // 주문 테이블 업데이트 후 ordNo 값을 리턴받음
         BigInteger ordNoBigInt = (BigInteger) orderinfo.get("ordNo");
         int ordNo = ordNoBigInt.intValueExact();
 
-        log.info("주문테이블 업데이트 후 ordNo :" + ordNo);
-
         orderinfo.put("ordNo", ordNo);
 
-        log.info("cartNos 사이즈 :" +cartNos.size());
+        // view -> 주문의경우
+        if(size == 1 && Integer.parseInt(cartNos.get(0))==0){
 
-        for(int i = 0; i < cartNos.size(); i++){
-            int cartNo = Integer.parseInt(cartNos.get(i));
+            // 주문번호 가져오기
+            List<String> prodNos = (List<String>) orderinfo.get("prodNoArr");
+            int prodNo = Integer.parseInt(prodNos.get(0));
 
-            log.info("cartNo :" +cartNo);
+            orderinfo.put("ordNo", ordNo);
+            orderinfo.put("prodNo", prodNo);
 
             // 주문 상품 테이블 업데이트
-            result += dao.insertOrderItem(cartNo, ordNo);
-            log.info("서비스 주문상품 테이블 업데이트  :" + result);
-            // 주문한 상품 장바구니에서 삭제
-            result += dao.deleteCart(cartNo);
-            log.info("서비스 주문한 상품 삭제 업데이트  :" + result);
+            result += dao.insertOrderItem2(orderinfo);
+
+
+        }else{ // 장바구니 -> 주문의 경우
+            for(int i = 0; i < cartNos.size(); i++) {
+                int cartNo = Integer.parseInt(cartNos.get(i));
+
+                // 주문 상품 테이블 업데이트
+                result += dao.insertOrderItem(cartNo, ordNo);
+
+                // 주문한 상품 장바구니에서 삭제
+                result += dao.deleteCart(cartNo);
+
+            }
         }
 
-        // 모든 테이블 업데이트가 정상적으로 실행되었을 경우 주문번호를 리턴
-        if(result == size * 2 + 2){
-            log.info("서비스 here1.....");
+
+        // 모든 테이블 업데이트가 정상적으로 실행되었을 경우 주문번호를 리턴, 그렇지 않으면 0 리텅
+        if(size > 0 && result == size * 2 + 2){ // 장바구니 -> 주문
+            return ordNo;
+        }else if(size == 1 && result == 3){ // view -> 주문
             return ordNo;
         }else{
-            log.info("서비스 here2.....");
             return 0;
         }
-
     };
 
     /**

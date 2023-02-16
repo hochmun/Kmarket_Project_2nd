@@ -49,7 +49,7 @@
                                 <td colspan="7">장바구니에 상품이 없습니다.</td>
                             </tr>
                             <tr th:each="cdto : ${cdtos}">
-                                <td><input type="checkbox" name="chk" th:value="${cdto.cartNo}"></td>
+                                <td><input type="checkbox" name="chk" th:value="${cdto.cartNo}" th:attr="data-prodNo=${cdto.prodNo}"></td>
                                 <td>
                                     <article>
                                         <a href="#"><img th:src="|@{/}thumb/${cdto.prodCate1}/${cdto.prodCate2}/${cdto.thumb1}|" alt=""></a>
@@ -65,7 +65,7 @@
                                 <td>[[${#numbers.formatInteger(cdto.point * cdto.count , 1, 'COMMA')}]]</td>
                                 <td th:if="${cdto.delivery ne 0}">[[${#numbers.formatInteger(cdto.delivery, 1, 'COMMA')}]]</td>
                                 <td th:if="${cdto.delivery eq 0}">무료배송</td>
-                                <td>[[${#numbers.formatInteger((cdto.price * cdto.count * (1 - cdto.discount / 100.0)), 1, 'COMMA')}]]</td>
+                                <td>[[${#numbers.formatInteger((cdto.price * cdto.count * (1 - cdto.discount / 100.0) + cdto.delivery), 1, 'COMMA')}]]</td>
                             </tr>
                         </tbody>
                     </table>

@@ -92,11 +92,16 @@ window.onload = function(){
         }
 
         // 선택된 상품들만 배열에 넣기
-        let checkboxArr = [];
+        let checkboxArr = [];  // 장바구니 번호
+        let prodNoArr = [];    // 상품번호
         for(let i=0; i < checkboxes.length; i++){
             if(checkboxes[i].checked){
                 let no = checkboxes[i].value;
+                let prodNo = checkboxes[i].getAttribute('data-prodNo');
+
                 checkboxArr.push(no);
+                prodNoArr.push(prodNo);
+
             }
         }
 
@@ -104,7 +109,6 @@ window.onload = function(){
             alert('선택된 상품이 없습니다!')
             return false;
         }
-
 
         // 배송 정보
         if(recipName == ''){
@@ -150,7 +154,8 @@ window.onload = function(){
             "recipAddr1" : recipAddr1,
             "recipAddr2" : recipAddr2,
             "ordPayment" : ordPayment,
-            "ordComplete" : 1
+            "ordComplete" : 1,
+            "prodNoArr" : prodNoArr
         }
 
 
@@ -208,7 +213,7 @@ window.onload = function(){
                 discount = parseInt(td[9].innerText.replace(/%/g, ""));
 
                 totPrice += _price;
-                totDisprice += _price * (discount / 100);
+                totDisprice += parseInt(_price * (discount / 100));
 
                 totPoint += parseInt(td[11].innerText.replace(/,/g, ""));;
 

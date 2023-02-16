@@ -96,10 +96,19 @@ public interface ProductDAO {
 
     /**
      * 주문한 상품(km_product_order_item) 테이블 업데이트
+     * 장바구니 -> order
      * @since 23/02/15
      * @author 이해빈
      */
     public int insertOrderItem(@Param("cartNo") int cartNo, @Param("ordNo") int ordNo);
+
+    /**
+     * 주문한 상품(km_product_order_item) 테이블 업데이트
+     * view -> 주문
+     * @since 23/02/16
+     * @author 이해빈
+     */
+    public int insertOrderItem2(Map<String ,Object> orderinfo);
 
     /**
      * 주문한 상품을 장바구니에서 삭제
@@ -121,6 +130,8 @@ public interface ProductDAO {
      * @author 이해빈
      */
     public List<product_order_itemVO> selectOrderItems(@Param("ordNo") int ordNo);
+
+
 
 }
 

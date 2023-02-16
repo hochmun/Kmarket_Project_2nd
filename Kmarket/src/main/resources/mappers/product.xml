@@ -113,6 +113,14 @@
         SELECT #{ordNo}, `prodNo`, `count`, `price`, `discount`, `point`, `delivery`, `total` FROM `km_product_cart` AS a  WHERE a.`cartNo` = #{cartNo};
     </insert>
 
+    <insert id="insertOrderItem2" parameterType="map">
+        INSERT INTO `km_product_order_item`
+        (`ordNo`, `prodNo`, `count`, `price`, `discount`, `point`, `delivery`, `total`)
+        SELECT #{ordNo}, #{prodNo}, #{ordCount}, `price`, `discount`, `point`, `delivery`, #{ordTotPrice}
+        FROM `km_product` as a
+        WHERE `prodNo`= #{prodNo};
+    </insert>
+
     <delete id="deleteCart">
         DELETE FROM `km_product_cart` WHERE `cartNo` = #{cartNo};
     </delete>
@@ -131,5 +139,6 @@
         WHERE `ordNo` = #{ordNo};
     </select>
     
-    
+
+
 </mapper>

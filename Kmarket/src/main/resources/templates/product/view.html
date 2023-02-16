@@ -90,12 +90,12 @@
                         <img th:src="@{/img/vip_plcc_banner.png}" alt="100원만 결제해도 1만원 적립!" class="banner">
 
                         <div class="count">
-                            <button class="decrease">-</button>
+                            <button class="decrease" onclick="decrease()">-</button>
                             <input type="text" name="num" value="1" readonly>
-                            <button class="increase">+</button>
+                            <button class="increase" onclick="increase()">+</button>
                         </div>
                         <div class="total">
-                            <span>[[${#numbers.formatInteger((product.price * (1 - product.discount / 100.0)), 3, 'COMMA')}]]</span>
+                            <span>[[${#numbers.formatInteger((product.price * (1 - product.discount / 100.0) + product.delivery), 3, 'COMMA')}]]</span>
                             <em>총 상품금액</em>
                         </div>
 

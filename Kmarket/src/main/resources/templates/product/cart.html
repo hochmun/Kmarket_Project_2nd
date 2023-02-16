@@ -59,7 +59,7 @@
                                 <td>[[${#numbers.formatInteger(cart.point * cart.count , 1, 'COMMA')}]]</td>
                                 <td th:if="${cart.delivery ne 0}">[[${#numbers.formatInteger(cart.delivery, 1, 'COMMA')}]]</td>
                                 <td th:if="${cart.delivery eq 0}">무료배송</td>
-                                <td>[[${#numbers.formatInteger((cart.price * cart.count * (1 - cart.discount / 100.0)), 1, 'COMMA')}]]</td>
+                                <td>[[${#numbers.formatInteger((cart.price * cart.count * (1 - cart.discount / 100.0) + cart.delivery), 1, 'COMMA')}]]</td>
                             </tr>
                             </tr>
                         </tbody>
