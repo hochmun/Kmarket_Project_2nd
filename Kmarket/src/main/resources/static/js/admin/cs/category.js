@@ -34,7 +34,7 @@ function cate1Change() {
 
                 const option = document.createElement('option');
                 option.setAttribute('value', '');
-                option.innerText = '2차 분류 선택';
+                option.innerText = '2차 선택';
                 cate2Select.appendChild(option);
 
                 for(const vo of data.cate2VOs) {
