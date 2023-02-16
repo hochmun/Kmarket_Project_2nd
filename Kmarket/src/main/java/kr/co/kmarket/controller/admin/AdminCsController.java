@@ -3,6 +3,7 @@ package kr.co.kmarket.controller.admin;
 import kr.co.kmarket.dto.AdminCsListParamDTO;
 import kr.co.kmarket.security.MyUserDetails;
 import kr.co.kmarket.service.admin.AdminCsService;
+import kr.co.kmarket.vo.AdminCsVo;
 import kr.co.kmarket.vo.Cs_Cate1VO;
 import kr.co.kmarket.vo.Cs_Cate2VO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -136,16 +137,81 @@ public class AdminCsController {
      * 들어오는 정보
      *      no => 페이지 번호
      *      pg => 게시물이 있던 페이지
+     *      cate1 => 게시물이 있던 카테고리1 번호
+     *      cate2 => 게시물이 있던 카테고리2 번호
      * @since 2023/02/09 // 심규영
      * @param cate
      * @return
      */
     @GetMapping("admin/cs/{cate}/reply")
     public String reply(@PathVariable("cate") String cate,
-                        Model model) {
+                        Model model,
+                        @RequestParam Map<String, String> map) {
+        // 정보를 담을 map 생성
+        Map<String, Object> data = new HashMap<>();
+        data.put("etcText", map);
+
+        // 해당 글 정보 가져오기
+        AdminCsVo article = service.selectCsArticle(map, cate);
+        data.put("article", article);
+
+        // 모델 전송
         model.addAttribute("cate", cate);
+        model.addAttribute("data", data);
 
         return "admin/cs/reply";
+    }
+
+    /**
+     * 2023/02/16 // 심규영 // 관리자 고객센터 문의하기 답변 Post 처리
+     * map에 들어오는 값
+     *      no                  => 게시물 번호
+     *      qnaAdminContent     => 관리자가 답변한 답변 내용
+     */
+    @ResponseBody
+    @PostMapping("admin/cs/{cate}/reply")
+    public Map<String, Object> reply(@RequestBody Map<String, String> map) {
+        // 결과값 선언
+        int result = 0;
+
+        // 데이터 베이스에 답변 내용 넣기
+        result = service.updateQnaArticle(map.get("qnaAdminContent"), map.get("no"));
+
+        // 결과값 담을 map
+        Map<String, Object> data = new HashMap<>();
+        data.put("result", result);
+        
+        // 리턴
+        return data;
+    }
+
+    /**
+     * 2023/02/16 // 심규영 // 관리자 고객센터 게시글 삭제
+     * map에 들어오는 값
+     *       no => 게시글 번호
+     */
+    @ResponseBody
+    @PostMapping("admin/cs/{cate}/delete")
+    public Map<String, Object> articleDelete(@RequestBody Map<String, String> map,
+                              @PathVariable("cate") String cate) {
+        // 결과값
+        int result = 0;
+
+        // 게시물 번호 받기
+        // 게시물 삭제 여러개 대처용
+        String[] nos = map.get("no").split(",");
+        
+        // 게시물 삭제 하기
+        for(String no : nos) {
+            result += service.deleteCsArticle(no, cate);
+        }
+
+        // 리턴하는 map 생성
+        Map<String, Object> data = new HashMap<>();
+        data.put("result", result);
+
+        // 리턴
+        return data;
     }
 
     /**

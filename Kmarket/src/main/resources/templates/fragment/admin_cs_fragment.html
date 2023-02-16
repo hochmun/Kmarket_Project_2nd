@@ -214,11 +214,11 @@
 
                 <td th:if="${article.qnaType eq 1}">
                     <a th:text="${article.qnaTitle}"
-                       th:href="|@{/}admin/cs/${cate}/reply?no=${article.qnaNo}&pg=${data.paging.currentPage}|">문의하기 제목</a>
+                       th:href="|@{/}admin/cs/${cate}/reply?no=${article.qnaNo}&pg=${data.paging.currentPage}&cate1=${data.etcText.cate1}&cate2=${data.etcText.cate2}|">문의하기 제목</a>
                 </td>
                 <td th:if="${article.qnaType eq 2}">
                     <a th:text="${article.qnaTitle}"
-                       th:href="|@{/}admin/cs/${cate}/view?no=${article.qnaNo}&pg=${data.paging.currentPage}|">문의하기 제목</a>
+                       th:href="|@{/}admin/cs/${cate}/view?no=${article.qnaNo}&pg=${data.paging.currentPage}&cate1=${data.etcText.cate1}&cate2=${data.etcText.cate2}|">문의하기 제목</a>
                 </td>
 
                 <td th:text="${article.qnaName}">작성자 이름</td>
@@ -538,41 +538,41 @@
     </section>
 
     <!-- 2023/02/09 // 심규영 // 문의하기 답변 -->
-    <section class="AdminContent" th:fragment="qnaReply">
+    <section class="AdminContent" th:fragment="qnaReply(data)">
         <form action="#" method="post">
             <table>
                 <tr>
                     <td><strong>유형</strong></td>
                     <td>
-                        카테고리1이름 - 카테고리2이름
+                        [[${data.article.c1Name}]] - [[${data.article.c2Name}]]
                     </td>
                 </tr>
                 <tr>
                     <td>제목</td>
                     <td>
-                        문의하기 제목
+                        [[${data.article.qnaTitle}]]
                     </td>
                 </tr>
                 <tr>
                     <td>내용</td>
                     <td>
-                        문의하기 내용
+                        [[${data.article.qnaContent}]]
                     </td>
                 </tr>
                 <tr>
                     <td>답변</td>
                     <td>
-                                    <textarea
-                                            name="AdminContent"
-                                            placeholder=""
-                                            style="width: 80%; height: 200px;"></textarea>
+                        <textarea
+                            name="AdminContent"
+                            placeholder=""
+                            style="width: 80%; height: 200px;"></textarea>
                     </td>
                 </tr>
             </table>
             <div class="btn3ro" style="margin-left: 400px;">
-                <a href="./delete.do?qnaNo=${vo.qnaNo}" class="w-btn w-btn-indigo btnDelete" id="delete">삭제</a>
-                <a href="#" class="w-btn w-btn-green btnSubmit">답변등록</a>
-                <a href="./list.do?cate1=${ param.cate1 }&cate2=${ param.cate2 }&pg=${param.pg}" class="w-btn w-btn-indigo btnList">목록</a>
+                <a href="#" id="delete" th:onclick="articleDelete('qna',[[${data.etcText.no}]], 'reply')">삭제</a>
+                <a href="#" th:onclick="articleReply([[${data.etcText.no}]])">답변등록</a>
+                <a th:href="|@{/}admin/cs/qna/list?pg=${data.etcText.pg}&cate1=${data.etcText.cate1}&cate2=${data.etcText.cate2}|">목록</a>
             </div>
         </form>
     </section>

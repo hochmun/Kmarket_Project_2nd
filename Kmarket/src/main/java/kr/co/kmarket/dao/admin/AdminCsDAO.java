@@ -33,7 +33,21 @@ public interface AdminCsDAO {
     public int createCsArticle(Map<String, String> map);
 
     // read
-    public void selectCsArticle();
+
+    /**
+     * 2023/02/16 // 심규영 // 관리자 고객센터 글 보기
+     * 들어가는 map 정보
+     *      table => 테이블 이름
+     *      typeNo => No 속성 이름
+     *      no => 게시물 번호
+     *      cate => 카테고리 이름
+     *      
+     *      if (cate == faq || cate == qna)
+     *      c1Name => 카테고리1 속성 이름
+     *      c2Name => 카테고리2 속성 이름
+     * @param map
+     */
+    public AdminCsVo selectCsArticle(Map<String, String> map);
 
     /**
      * 2023/02/15 // 심규영 // 게시물 불러오기
@@ -79,7 +93,24 @@ public interface AdminCsDAO {
     // upload
     public void uploadCsArticle();
 
+    /**
+     * 2023/02/16 // 심규영 // 관리자 고객센터 문의하기 답변
+     * 들어오는 값
+     *      content => 관리자 답변 내용
+     *      no      => 게시물 번호
+     */
+    public int updateQnaArticle(@Param("content") String content,@Param("no") String no);
+
     // delete
-    public void deleteCsArticle();
+
+    /**
+     * 2023/02/16 // 심규영 // 관리자 고객센터 게시글 삭제 메소드
+     * map에 들어오는 값
+     *      table   => 테이블 이름
+     *      cateNo  => 해당 테이블 No 속성 이름
+     *      no      => 게시물 번호
+     * @param map
+     */
+    public int deleteCsArticle(Map<String, String> map);
 
 }

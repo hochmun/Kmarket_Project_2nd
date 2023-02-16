@@ -23,6 +23,20 @@
     </insert>
 
     <!-- read -->
+    <!-- 2023/02/16 // 심규영 // 관리자 고객센터 글 보기 -->
+    <select id="selectCsArticle" parameterType="hashmap" resultType="kr.co.kmarket.vo.AdminCsVo">
+        SELECT
+            *
+
+        <if test="cate == 'qna' || cate == 'faq'">
+            , (SELECT `cate1Name` FROM `km_cs_cate1` AS b WHERE b.`cate1` = a.${c1Name} ) AS c1Name
+            , (SELECT `cate2Name` FROM `km_cs_cate2` AS c WHERE c.`cate1` = a.${c1Name} AND c.`cate2` = a.${c2Name}) AS c2Name
+        </if>
+
+        FROM ${table} AS a
+        WHERE ${typeNo} = #{no};
+    </select>
+
     <!-- 2023/02/15 // 심규영 // 관리자 고객센터 게시물 read -->
     <select id="selectCsArticles" parameterType="hashmap" resultType="kr.co.kmarket.vo.AdminCsVo">
         SELECT
@@ -71,7 +85,19 @@
     </select>
 
     <!-- upload -->
+    <!-- 2023/02/16 // 심규영 // 관리자 고객센터 문의하기 답변 쿼리문 -->
+    <update id="updateQnaArticle">
+        UPDATE `km_cs_qna` SET
+            `qnaAdminContent` = #{content},
+            `qnaType` = '2'
+        WHERE `qnaNo` = ${no};
+    </update>
 
     <!-- delete -->
+    <!-- 2023/02/16 // 심규영 // 관리자 고객센터 게시글 삭제 쿼리 -->
+    <delete id="deleteCsArticle" parameterType="hashmap">
+        DELETE FROM ${table}
+        WHERE ${cateNo} = #{no}
+    </delete>
 
 </mapper>
