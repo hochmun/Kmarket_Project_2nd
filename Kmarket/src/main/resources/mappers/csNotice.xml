@@ -15,7 +15,7 @@
         select a.*, c.cate2 from `km_cs_notice` as a
         join `km_cs_cate1` as b on a.noticeCate=b.cate1
         join `km_cs_cate2` as c on b.cate1=c.cate1 and a.noticeCate=c.cate2
-        where b.cate1=#{cate1}
+        where b.cate1 like #{cate1}
         order by `noticeNo` desc
         limit #{start}, 10;
     </select>
