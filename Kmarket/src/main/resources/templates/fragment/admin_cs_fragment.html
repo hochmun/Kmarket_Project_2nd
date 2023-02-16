@@ -214,11 +214,11 @@
 
                 <td th:if="${article.qnaType eq 1}">
                     <a th:text="${article.qnaTitle}"
-                       th:href="|@{/}admin/cs/${cate}/reply?no=${article.qnaNo}&pg=${data.paging.currentPage}|">문의하기 제목</a>
+                       th:href="|@{/}admin/cs/${cate}/reply?no=${article.qnaNo}&pg=${data.paging.currentPage}&cate1=${data.etcText.cate1}&cate2=${data.etcText.cate2}|">문의하기 제목</a>
                 </td>
                 <td th:if="${article.qnaType eq 2}">
                     <a th:text="${article.qnaTitle}"
-                       th:href="|@{/}admin/cs/${cate}/view?no=${article.qnaNo}&pg=${data.paging.currentPage}|">문의하기 제목</a>
+                       th:href="|@{/}admin/cs/${cate}/view?no=${article.qnaNo}&pg=${data.paging.currentPage}&cate1=${data.etcText.cate1}&cate2=${data.etcText.cate2}|">문의하기 제목</a>
                 </td>
 
                 <td th:text="${article.qnaName}">작성자 이름</td>
@@ -352,25 +352,25 @@
     </section>
 
     <!-- 2023/02/09 // 심규영 // 자주하는질문 보기 -->
-    <section th:fragment="faqView">
+    <section th:fragment="faqView(data)">
 
         <table>
             <tr>
                 <td><strong>유형</strong></td>
                 <td>
-                    카테고리1 이름 - 카테고리2 이름
+                    [[${data.article.c1Name}]] - [[${data.article.c2Name}]]
                 </td>
             </tr>
             <tr>
                 <td>제목</td>
                 <td>
-                    제목 내용
+                    [[${data.article.faqTitle}]]
                 </td>
             </tr>
             <tr>
                 <td>내용</td>
                 <td>
-                    <pre>컨텐츠 내용</pre>
+                    <pre>[[${data.article.faqContent}]]</pre>
                 </td>
             </tr>
         </table>
@@ -384,25 +384,26 @@
     </section>
 
     <!-- 2023/02/09 // 심규영 // 공지사항 보기 -->
-    <section th:fragment="noticeView">
+    <section th:fragment="noticeView(data)">
 
         <table>
             <tr>
                 <td>유형</td>
-                <td>
-                    고객서비스
-                </td>
+                <td th:if="${data.article.noticeCate eq 10}">고객서비스</td>
+                <td th:if="${data.article.noticeCate eq 11}">안전거래</td>
+                <td th:if="${data.article.noticeCate eq 12}">위해상품</td>
+                <td th:if="${data.article.noticeCate eq 13}">이벤트상품</td>
             </tr>
             <tr>
                 <td>제목</td>
                 <td>
-                    공지사항 제목
+                    [[${data.article.noticeTitle}]]
                 </td>
             </tr>
             <tr>
                 <td>내용</td>
                 <td>
-                    공지사항 내용
+                    [[${data.article.noticeContent}]]
                 </td>
             </tr>
         </table>
@@ -415,31 +416,31 @@
     </section>
 
     <!-- 2023/02/09 // 심규영 // 문의하기 보기 -->
-    <section th:fragment="qnaView">
+    <section th:fragment="qnaView(data)">
 
         <table>
             <tr>
                 <td>유형</td>
                 <td>
-                    회원 - 가입
+                    [[${data.article.c1Name}]] - [[${data.article.c2Name]]]
                 </td>
             </tr>
             <tr>
                 <td>제목</td>
                 <td>
-                    공지사항 제목
+                    [[${data.article.qnaTitle}]]
                 </td>
             </tr>
             <tr>
                 <td>내용</td>
                 <td>
-                    공지사항 내용
+                    [[${data.article.qnaContent}]]
                 </td>
             </tr>
             <tr>
                 <td>답변</td>
                 <td>
-                    <pre>답변 내용</pre>
+                    <pre>[[${data.article.qnaAdminContent}]]</pre>
                 </td>
             </tr>
         </table>
@@ -490,7 +491,7 @@
         </table>
         <div style="margin-left: 500px;">
             <a th:href="|@{/}admin/cs/${cate}/list|">취소하기</a>
-            <a href="#">등록하기</a>
+            <a href="#" onclick="articleWrite('faq')">등록하기</a>
         </div>
     </section>
 
@@ -531,48 +532,48 @@
         </table>
         <div class="btn2ro" style="margin-left: 500px;">
             <a th:href="|@{/}admin/cs/${cate}/list|">취소하기</a>
-            <a href="#">등록하기</a>
+            <a href="#" onclick="articleWrite('notice')">등록하기</a>
         </div>
 
 
     </section>
 
     <!-- 2023/02/09 // 심규영 // 문의하기 답변 -->
-    <section class="AdminContent" th:fragment="qnaReply">
+    <section class="AdminContent" th:fragment="qnaReply(data)">
         <form action="#" method="post">
             <table>
                 <tr>
                     <td><strong>유형</strong></td>
                     <td>
-                        카테고리1이름 - 카테고리2이름
+                        [[${data.article.c1Name}]] - [[${data.article.c2Name}]]
                     </td>
                 </tr>
                 <tr>
                     <td>제목</td>
                     <td>
-                        문의하기 제목
+                        [[${data.article.qnaTitle}]]
                     </td>
                 </tr>
                 <tr>
                     <td>내용</td>
                     <td>
-                        문의하기 내용
+                        [[${data.article.qnaContent}]]
                     </td>
                 </tr>
                 <tr>
                     <td>답변</td>
                     <td>
-                                    <textarea
-                                            name="AdminContent"
-                                            placeholder=""
-                                            style="width: 80%; height: 200px;"></textarea>
+                        <textarea
+                            name="AdminContent"
+                            placeholder=""
+                            style="width: 80%; height: 200px;"></textarea>
                     </td>
                 </tr>
             </table>
             <div class="btn3ro" style="margin-left: 400px;">
-                <a href="./delete.do?qnaNo=${vo.qnaNo}" class="w-btn w-btn-indigo btnDelete" id="delete">삭제</a>
-                <a href="#" class="w-btn w-btn-green btnSubmit">답변등록</a>
-                <a href="./list.do?cate1=${ param.cate1 }&cate2=${ param.cate2 }&pg=${param.pg}" class="w-btn w-btn-indigo btnList">목록</a>
+                <a href="#" id="delete" th:onclick="articleDelete('qna',[[${data.etcText.no}]], 'reply')">삭제</a>
+                <a href="#" th:onclick="articleReply([[${data.etcText.no}]])">답변등록</a>
+                <a th:href="|@{/}admin/cs/qna/list?pg=${data.etcText.pg}&cate1=${data.etcText.cate1}&cate2=${data.etcText.cate2}|">목록</a>
             </div>
         </form>
     </section>

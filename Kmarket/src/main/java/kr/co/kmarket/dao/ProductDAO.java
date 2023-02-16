@@ -1,14 +1,15 @@
 package kr.co.kmarket.dao;
 
 import kr.co.kmarket.dto.CartDTO;
-import kr.co.kmarket.vo.productVO;
-import kr.co.kmarket.vo.product_cate2VO;
+import kr.co.kmarket.vo.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 @Repository
@@ -75,6 +76,73 @@ public interface ProductDAO {
      * @since 23/02/14
      * @author 이해빈
      */
-    public int deleteCart(HashMap<String, Object> checkboxArr);
+    public int deleteCarts(HashMap<String, Object> checkboxArr);
+
+    /**
+     * 상품 주문관련 회원 포인트내역 업데이트
+     * @since 23/02/15
+     * @author 이해빈
+     */
+    public int updatePoint(Map<String, Object> orderinfo);
     
+    /**
+     * 상품 주문(km_product_order) 테이블 업데이트
+     * @since 23/02/15
+     * @author 이해빈
+     */
+    public int updateOrder(Map<String, Object> orderinfo);
+
+    /**
+     * 주문한 상품(km_product_order_item) 테이블 업데이트
+     * 장바구니 -> order
+     * @since 23/02/15
+     * @author 이해빈
+     */
+    public int insertOrderItem(@Param("cartNo") int cartNo, @Param("ordNo") int ordNo);
+
+    /**
+     * 주문한 상품(km_product_order_item) 테이블 업데이트
+     * view -> 주문
+     * @since 23/02/16
+     * @author 이해빈
+     */
+    public int insertOrderItem2(Map<String ,Object> orderinfo);
+
+    /**
+     * 주문한 상품을 장바구니에서 삭제
+     * @since 23/02/15
+     * @author 이해빈
+     */
+    public int deleteCart(@Param("cartNo") int cartNo);
+
+    /**
+     * 주문정보 가져오기
+     * @since 23/02/15
+     * @author 이해빈
+     */
+    public product_orderVO selectOrder(@Param("ordNo") int ordNo);    
+    
+    /**
+     * 주문한 아이템 가져오기
+     * @since 23/02/15
+     * @author 이해빈
+     */
+    public List<product_order_itemVO> selectOrderItems(@Param("ordNo") int ordNo);
+
+    
+    /**
+     * 상품 리뷰 가져오기
+     * @since 23/02/16
+     * @author 이해빈
+     * */
+    public List<product_reviewVO> selectReviews(@Param("prodNo") int prodNo, @Param("start") int start);
+
+    /**
+     * 상품 리뷰 total 값 가져오기
+     * @since 23/02/16
+     * @author 이해빈
+     * */
+    public int getCountTotalForReview(@Param("prodNo") int prodNo);
+
 }
+

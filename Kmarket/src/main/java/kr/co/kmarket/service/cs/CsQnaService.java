@@ -98,6 +98,8 @@ public class CsQnaService {
     public int getLastPageNum(long total){
         int lastPage = 0;
 
+        if(total == 0) return 1;
+
         if (total % 10 == 0){
             lastPage = (int) (total/10);
         }else{

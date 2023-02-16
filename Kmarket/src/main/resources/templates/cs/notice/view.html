@@ -3,8 +3,7 @@
   이름 : 김재준
   내용 : cs/notice/view.html
 -->
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{cs/_cs_header}"></th:block>
 <section id="cs">
     <div class="notice">
@@ -17,18 +16,18 @@
             <aside>
                 <h2>공지사항</h2>
                 <ul>
-                    <li class="on"><a href="#">전체</a></li>
-                    <li><a href="#">고객서비스</a></li>
-                    <li><a href="#">안전거래</a></li>
-                    <li><a href="#">위해상품</a></li>
-                    <li><a href="#">이벤트당첨</a></li>
+                    <li th:classappend="${cate1 == null || cate1 == ''} ? 'on' : 'off'"><a th:href="@{/cs/notice/list}">전체</a></li>
+                    <li th:classappend="${cate1 == '10'} ? 'on' : 'off'"><a th:href="@{/cs/notice/list?noCate1=10}">고객서비스</a></li>
+                    <li th:classappend="${cate1 == '11'} ? 'on' : 'off'"><a th:href="@{/cs/notice/list?noCate1=11}">안전거래</a></li>
+                    <li th:classappend="${cate1 == '12'} ? 'on' : 'off'"><a th:href="@{/cs/notice/list?noCate1=12}">위해상품</a></li>
+                    <li th:classappend="${cate1 == '13'} ? 'on' : 'off'"><a th:href="@{/cs/notice/list?noCate1=13}">이벤트당첨</a></li>
                 </ul>
             </aside>
 
             <article>
                 <nav>
-                    <h2 class="title">[안내] 해외결제 사칭 문자 주의</h2>
-                    <span class="date">2022.11.20</span>
+                    <h2 class="title">[[${vo?.noticeTitle}]]</h2>
+                    <span class="date">[[${vo?.noticeRdate}]]</span>
                 </nav>
 
                 <div class="content">

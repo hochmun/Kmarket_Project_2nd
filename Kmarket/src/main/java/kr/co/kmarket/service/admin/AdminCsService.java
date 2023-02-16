@@ -28,8 +28,60 @@ public class AdminCsService {
     private AdminCsDAO dao;
 
     // create
+    /**
+     * 2023/02/16 // 심규영 // 관리자 고객센터 게시물 작성
+     * 넣는 값
+     *      table => 테이블 이름
+     *      cate => 카테고리(notice, faq)
+     *      title => 게시물 제목
+     *      content => 게시물 내용
+     *      regip => ip번호
+     *      cate1 => faq 카테고리1 번호
+     *      cate2 => faq 카테고리2 번호
+     *      type => notice 카테고리 번호
+     */
+    public int createCsArticle(Map<String, String> map, String cate) {
+        map.put("cate", cate); // 카테고리
+        map.put("table", "km_cs_"+cate); // 테이블 이름
+        // regip는 controller에서 처리중
+
+        return dao.createCsArticle(map);
+    }
 
     // read
+
+    /**
+     * 2023/02/16 // 심규영 // 관리자 고객센터 문의하기 답변
+     * 들어오는 map(map) 정보
+     *      pg => 게시물이 있던 페이지 번호
+     *      no => 게시물 번호
+     * 들어가는 map(data) 정보
+     *      table => 테이블 이름
+     *      typeNo => No 속성 이름
+     *      no => 게시물 번호
+     *      cate => 카테고리 이름
+     *
+     *      if (cate == faq || cate == qna)
+     *      c1Name => 카테고리1 속성 이름
+     *      c2Name => 카테고리2 속성 이름
+     * @param map
+     */
+    public AdminCsVo selectCsArticle(Map<String, String> map, String cate) {
+        Map<String, String> data = new HashMap<>();
+        
+        // 데이터 입력
+        data.put("table", "km_cs_"+cate);
+        data.put("typeNo", cate+"No");
+        data.put("no", map.get("no"));
+        data.put("cate", cate);
+
+        if(cate.equals("faq") || cate.equals("qna")) {
+            data.put("c1Name", cate+"Cate1");
+            data.put("c2Name", cate+"Cate2");
+        }
+
+        return dao.selectCsArticle(data);
+    }
 
     /**
      * 2023/02/15 // 심규영 // 게시물 불러오기
@@ -128,7 +180,34 @@ public class AdminCsService {
 
     // update
 
+    /**
+     * 2023/02/16 // 심규영 // 관리자 고객센터 문의하기 답변
+     * 들어오는 값
+     *      content => 관리자 답변 내용
+     *      no      => 게시물 번호
+     */
+    public int updateQnaArticle(String content, String no) {
+        return dao.updateQnaArticle(content, no);
+    }
+
     // delete
+
+    /**
+     * 2023/02/16 // 심규영 // 관리자 고객센터 게시글 삭제 메소드
+     * map에 들어오는 값
+     *      table   => 테이블 이름
+     *      cateNo  => 해당 테이블 No 속성 이름
+     *      no      => 게시물 번호
+     */
+    public int deleteCsArticle(String no, String cate) {
+        Map<String, String> data = new HashMap<>();
+
+        data.put("table", "km_cs_"+cate);
+        data.put("cateNo", cate+"No");
+        data.put("no", no);
+
+        return dao.deleteCsArticle(data);
+    }
 
     // service
 
@@ -163,16 +242,21 @@ public class AdminCsService {
         // 글 작성 전 cate가 faq일 경우
         // cate1과 cate2값으로 글 갯수 카운트
         // 글 갯수가 10개 이상일 경우 -1리턴
-        if(cate.equals("cate")) {
+        if(cate.equals("faq")) {
             AdminCsListParamDTO param = AdminCsListParamDTO.builder().cate1(map.get("cate1")).cate2(map.get("cate2")).build();
             int total = selectCountCsArticle(cate, param);
+            log.info("total : "+total);
+            log.info("cate1 : "+map.get("cate1"));
+            log.info("cate2 : "+map.get("cate2"));
+
             if(total >= 10) {
                 result = -1;
                 return result;
             }
         }
-        
+
         // 글 작성
+        result = createCsArticle(map, cate);
 
         return result;
     }

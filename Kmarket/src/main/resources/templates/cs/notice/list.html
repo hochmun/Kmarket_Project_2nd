@@ -16,43 +16,52 @@
             <aside>
                 <h2>공지사항</h2>
                 <ul>
-                    <li th:classappend="${noCate == null} ? 'on' : 'off'"><a th:href="@{/cs/notice/list}">전체</a></li>
-                    <li th:classappend="${noCate == 10} ? 'on' : 'off'"><a th:href="@{/cs/notice/list?noCate=10}">고객서비스</a></li>
-                    <li th:classappend="${noCate == 11} ? 'on' : 'off'"><a th:href="@{/cs/notice/list?noCate=11}">안전거래</a></li>
-                    <li th:classappend="${noCate == 12} ? 'on' : 'off'"><a th:href="@{/cs/notice/list?noCate=12}">위해상품</a></li>
-                    <li th:classappend="${noCate == 13} ? 'on' : 'off'"><a th:href="@{/cs/notice/list?noCate=13}">이벤트당첨</a></li>
+                    <li th:classappend="${cate1 == null || cate1 == ''} ? 'on' : 'off'"><a th:href="@{/cs/notice/list}">전체</a></li>
+                    <li th:classappend="${cate1 == '10'} ? 'on' : 'off'"><a th:href="@{/cs/notice/list?noCate1=10}">고객서비스</a></li>
+                    <li th:classappend="${cate1 == '11'} ? 'on' : 'off'"><a th:href="@{/cs/notice/list?noCate1=11}">안전거래</a></li>
+                    <li th:classappend="${cate1 == '12'} ? 'on' : 'off'"><a th:href="@{/cs/notice/list?noCate1=12}">위해상품</a></li>
+                    <li th:classappend="${cate1 == '13'} ? 'on' : 'off'"><a th:href="@{/cs/notice/list?noCate1=13}">이벤트당첨</a></li>
                 </ul>
             </aside>
             <article>
-                <nav th:if="${noCate == null}">
+                <nav th:if="${cate1 == null || cate1 == ''}">
                     <h1>전체</h1>
                     <h2>공지사항 전체 내용입니다.</h2>
                 </nav>
-                <nav th:if="${noCate == 10}">
+                <nav th:if="${cate1 == '10'}">
                     <h1>고객서비스</h1>
                     <h2>고객서비스 공지사항 내용입니다.</h2>
                 </nav>
-                <nav th:if="${noCate == 11}">
+                <nav th:if="${cate1 == '11'}">
                     <h1>안전거래</h1>
                     <h2>안전거래 공지사항 내용입니다.</h2>
                 </nav>
-                <nav th:if="${noCate == 12}">
+                <nav th:if="${cate1 == '12'}">
                     <h1>위해상품</h1>
                     <h2>위해상품 공지사항 내용입니다.</h2>
                 </nav>
-                <nav th:if="${noCate == 13}">
+                <nav th:if="${cate1 == '13'}">
                     <h1>이벤트당첨</h1>
                     <h2>이벤트당첨 공지사항 내용입니다.</h2>
                 </nav>
 
-                <table>
-                    <tr th:each="vo:${vos}">
-                        <td><a th:href="@{/cs/notice/view(noCate=${vo.noticeCate},no=${vo.noticeNo})}" th:text="${'['+vo.noticeCate+'] '+vo.noticeTitle}"></a></td>
-                        <td>[[${vo.noticeRdate}]]</td>
+                <th:block th:with="isArts=${cate1 == null || cate1 == ''}">
+                    <table th:if="${isArts}">
+                    <tr th:each="arts:${NotArts}">
+                        <td><a th:href="@{/cs/notice/view(noCate=${cate1},no=${arts.noticeNo})}" th:text="${arts.noticeTitle}"></a></td>
+                        <td>[[${arts.noticeRdate}]]</td>
                     </tr>
-                </table>
+                    </table>
 
-                <section th:replace="~{fragment/paging_fragment::csNoticePaging}"></section>
+                    <table th:unless="${isArts}">
+                        <tr th:each="vo:${vos}">
+                            <td><a th:href="@{/cs/notice/view(noCate=${cate1},no=${vo.noticeNo})}" th:text="${vo.noticeTitle}"></a></td>
+                            <td>[[${vo.noticeRdate}]]</td>
+                        </tr>
+                    </table>
+                </th:block>
+
+                    <section th:replace="~{fragment/paging_fragment::csNoticePaging}"></section>
 
             </article>
         </section>
