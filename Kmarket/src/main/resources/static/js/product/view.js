@@ -2,6 +2,7 @@
     날짜 : 2023/02/10
     이름 : 이해빈
     내용 : 상품 view 자바스크립트
+        - 2023/02/16 상품평보기 클릭시 스크롤 기능 추가
 */
 
 window.onload = function(){
@@ -31,36 +32,6 @@ window.onload = function(){
 
     arrival.innerHTML = dateFormat;
 
-
-    // 상품 수량 더하기
-    document.querySelector('.increase').addEventListener('click', ()=>{
-
-        let num = document.querySelector('input[name=num]');
-        let count = parseInt(num.value) + 1;
-        num.setAttribute('value', count);
-
-        // 총 주문금액
-        let total = parseInt(price * (1 - discount / 100) * count);
-        total = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        document.querySelector('.total > span').innerHTML = total;
-
-    });
-    // 상품 수량 빼기
-    document.querySelector('.decrease').addEventListener('click', ()=>{
-
-        let num = document.querySelector('input[name=num]');
-
-        if(num.value > 1) {
-            let count = parseInt(num.value) - 1;
-            num.setAttribute('value', count);
-
-            // 총 주문금액
-            let total = parseInt(price * (1 - discount / 100) * count);
-            total = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-            document.querySelector('.total > span').innerHTML = total;
-
-        }
-    });
 };
 
 
@@ -119,3 +90,40 @@ function order(type){
     };
 };
 
+function increase(){
+
+    let num = document.querySelector('input[name=num]');
+    let count = parseInt(num.value) + 1;
+    num.setAttribute('value', count);
+
+    // 총 주문금액
+    let total = parseInt(price * (1 - discount / 100) * count + delivery);
+    total = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    document.querySelector('.total > span').innerHTML = total;
+
+}
+
+function decrease(){
+
+    let num = document.querySelector('input[name=num]');
+
+    if(num.value > 1) {
+        let count = parseInt(num.value) - 1;
+        num.setAttribute('value', count);
+
+        // 총 주문금액
+        let total = parseInt(price * (1 - discount / 100) * count + delivery);
+        total = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        document.querySelector('.total > span').innerHTML = total;
+
+    }
+
+}
+
+// 상품 리뷰란으로 이동
+function goReview(){
+
+    const location = document.querySelector('.review').offsetTop;
+    window.scrollTo({top:location, behavior:'smooth'});
+
+}
