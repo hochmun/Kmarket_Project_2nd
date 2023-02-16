@@ -16,22 +16,22 @@ public class NoticeListController {
     private CsNoticeService service;
 
     @GetMapping(value = {"cs/notice/list"})
-    public String list(Model model, String noCate1, String pg){
+    public String list(Model model, String noCate, String pg){
         pg = (pg == null) ? "1" : pg;
 
         // noCate 값이 없을시 '전체'로 이동
-        if (noCate1 == null || noCate1.equals("")) {
-            noCate1 = "%%";
+        if (noCate == null || noCate.equals("")) {
+            noCate = "%%";
         }
 
         // noCate 값을 정해진 값 이외의 값으로 입력시 에러페이지로 이동
-        if (!noCate1.equals("%%") && !noCate1.equals("10") && !noCate1.equals("11") && !noCate1.equals("12") && !noCate1.equals("13")) {
+        if (!noCate.equals("%%") && !noCate.equals("10") && !noCate.equals("11") && !noCate.equals("12") && !noCate.equals("13")) {
             return "alert";
         }
 
         int currentPage = service.getCurrentPage(pg);
         int start = service.getLimitStart(currentPage);
-        long total = service.getTotalCount(noCate1);
+        long total = service.getTotalCount(noCate);
         int lastPage = service.getLastPageNum(total);
         int pageStartNum = service.getPageStartNum(total, start);
         int groups[] = service.getPageGroup(currentPage, lastPage);
@@ -40,7 +40,7 @@ public class NoticeListController {
         List<Cs_NoticeVO> NotArts = service.selectNotArticlesAll(start);
 
         // 공지사항 글 카테고리별 불러오기
-        List<Cs_NoticeVO> vos = service.selectNotArticles(start, noCate1);
+        List<Cs_NoticeVO> vos = service.selectNotArticles(start, noCate);
 
         model.addAttribute("NotArts", NotArts);
         model.addAttribute("vos", vos);
@@ -48,7 +48,7 @@ public class NoticeListController {
         model.addAttribute("lastPage", lastPage);
         model.addAttribute("pageStartNum", pageStartNum);
         model.addAttribute("groups", groups);
-        model.addAttribute("cate1", noCate1);
+        model.addAttribute("cate1", noCate);
 
         return "cs/notice/list";
     }

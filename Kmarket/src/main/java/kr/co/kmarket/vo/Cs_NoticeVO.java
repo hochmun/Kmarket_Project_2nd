@@ -28,6 +28,14 @@ public class Cs_NoticeVO {
         this.noticeCate = Integer.parseInt(noticeCate);
     }
 
+    // noticeNo int -> String
+    public int getNoticeNo() {
+        return noticeNo;
+    }
+    public void setNoticeNo(String noticeNo) {
+        this.noticeNo = Integer.parseInt(noticeNo);
+    }
+
     // 작성일 자르기
     public String getNoticeRdate(){
         return noticeRdate.substring(2, 10);

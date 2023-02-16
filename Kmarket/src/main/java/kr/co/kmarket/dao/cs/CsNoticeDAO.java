@@ -37,6 +37,13 @@ public interface CsNoticeDAO {
     public Cs_NoticeVO selectNotArticle(@Param("noticeNo") Integer noticeNo);
 
     /**
+     * 23/02/08 notice list 카테고리 불러오기
+     * @autor 김재준
+     * @return
+     */
+    public List<Cs_NoticeVO> selectNotCate();
+
+    /**
      * 23/02/08 notice 글 count
      * @autor 김재준
      * @return
