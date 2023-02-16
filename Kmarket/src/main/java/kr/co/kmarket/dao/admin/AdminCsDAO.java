@@ -17,7 +17,20 @@ import java.util.Map;
 @Repository
 public interface AdminCsDAO {
     // create
-    public void createCsArticle();
+
+    /**
+     * 2023/02/16 // 심규영 // 관리자 고객센터 게시물 작성
+     * 넣는 값
+     *      table => 테이블 이름
+     *      cate => 카테고리(notice, faq)
+     *      title => 게시물 제목
+     *      content => 게시물 내용
+     *      regip => ip번호
+     *      cate1 => faq 카테고리1 번호
+     *      cate2 => faq 카테고리2 번호
+     *      type => notice 카테고리 번호
+     */
+    public int createCsArticle(Map<String, String> map);
 
     // read
     public void selectCsArticle();

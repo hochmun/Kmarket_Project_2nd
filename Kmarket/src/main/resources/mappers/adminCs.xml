@@ -5,6 +5,22 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.kmarket.dao.admin.AdminCsDAO">
     <!-- create -->
+    <!-- 2023/02/16 // 심규영 // 관리자 고객센터 글 작성 -->
+    <insert id="createCsArticle" parameterType="hashmap">
+        INSERT INTO ${table} SET
+            ${cate}Title    = #{title},
+            ${cate}Content  = #{content},
+            ${cate}Regip    = #{regip},
+            ${cate}Rdate    = NOW(),
+            <if test="cate == 'faq'">
+            faqCate1        = #{cate1},
+            faqCate2        = #{cate2}
+            </if>
+            <if test="cate == 'notice'">
+            noticeCate      = #{type}
+            </if>
+            ;
+    </insert>
 
     <!-- read -->
     <!-- 2023/02/15 // 심규영 // 관리자 고객센터 게시물 read -->
@@ -55,7 +71,6 @@
     </select>
 
     <!-- upload -->
-
 
     <!-- delete -->
 

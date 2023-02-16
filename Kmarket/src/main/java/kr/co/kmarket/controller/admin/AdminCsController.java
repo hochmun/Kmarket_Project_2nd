@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -119,7 +120,9 @@ public class AdminCsController {
     @ResponseBody
     @PostMapping("admin/cs/{cate}/write")
     public Map<String, Object> write(@RequestBody Map<String, String> map,
-                                     @PathVariable("cate") String cate) {
+                                     @PathVariable("cate") String cate,
+                                     HttpServletRequest req) {
+        map.put("regip", req.getRemoteAddr());
         int result = service.CsWritePostProcess(map, cate);
 
         Map<String, Object> data = new HashMap<>();
