@@ -12,7 +12,7 @@
 
     <!-- notice list count - 전체 글 수 -->
     <select id="selectNotCountTotal" resultType="int">
-        select count(`noticeNo`) from `km_cs_notice`;
+        select count(`noticeNo`) from `km_cs_notice` where `noticeCate`=#{noticeCate};
     </select>
 
     <!-- notice list 작성글 상세보기 -->
