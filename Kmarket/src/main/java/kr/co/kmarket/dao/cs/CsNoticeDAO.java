@@ -19,13 +19,7 @@ public interface CsNoticeDAO {
      * @param start
      * @return
      */
-    public List<Cs_NoticeVO> selectNotArticles(@Param("start") int start, @Param("noCate") Integer noCate);
-
-    /**
-     * 23/02/10 notice list cate1Name 가져오기
-     * @autor 김재준
-     */
-    public Cs_NoticeVO selectNotCateName(@Param("noCate") Integer noCate);
+    public List<Cs_NoticeVO> selectNotArticles(@Param("start") int start);
 
 
     /**
@@ -40,5 +34,5 @@ public interface CsNoticeDAO {
      * @autor 김재준
      * @return
      */
-    public int selectNotCountTotal(@Param("noCate") Integer noCate);
+    public int selectNotCountTotal();
 }
