@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.kmarket.dao.cs.CsNoticeDAO">
+
+    <select id="selectNotArticles" resultType="kr.co.kmarket.vo.Cs_NoticeVO">
+        select * from `km_cs_notice`
+        order by `noticeNo` desc
+        limit #{start}, 10;
+    </select>
+
+    <!-- notice list count - 전체 글 수 -->
+    <select id="selectNotCountTotal" resultType="int">
+        select count(`noticeNo`) from `km_cs_notice` where `noticeCate`=#{noticeCate};
+    </select>
+
+    <!-- notice list 작성글 상세보기 -->
+    <select id="selectNotArticle" resultMap="selectArticleResultMap">
+        select * from `km_cs_notice`
+        where `noticeNo`=#{noticeNo};
+    </select>
+    <!-- 조회(select) 결과를 상세하게 매핑하기 위한 사용자 정의 Map -->
+    <resultMap id="selectArticleResultMap" type="kr.co.kmarket.vo.Cs_NoticeVO">
+        <id property="noticeNo" column="noticeNo"/>
+        <result property="noticeCate" column="noticeCate"/>
+        <result property="noticeTitle" column="noticeTitle"/>
+        <result property="noticeContent" column="noticeContent"/>
+        <result property="noticeRdate" column="noticeRdate"/>
+        <result property="noticeRegip" column="noticeRegip"/>
+        <result property="noticeHit" column="noticeHit"/>
+    </resultMap>
+
+
+</mapper>

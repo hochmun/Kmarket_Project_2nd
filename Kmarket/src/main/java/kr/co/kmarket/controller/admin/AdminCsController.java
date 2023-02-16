@@ -3,6 +3,7 @@ package kr.co.kmarket.controller.admin;
 import kr.co.kmarket.dto.AdminCsListParamDTO;
 import kr.co.kmarket.security.MyUserDetails;
 import kr.co.kmarket.service.admin.AdminCsService;
+import kr.co.kmarket.vo.Cs_Cate1VO;
 import kr.co.kmarket.vo.Cs_Cate2VO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -99,9 +100,32 @@ public class AdminCsController {
     @GetMapping("admin/cs/{cate}/write")
     public String write(@PathVariable("cate") String cate,
                         Model model) {
+        // 종합 처리 메소드
+        // 포함 할 수 있는 내용
+        //      cate1VOs => cs_cate1 리스트
+        Map<String, Object> data = service.CsWriteDataProcess(cate);
+
         model.addAttribute("cate", cate);
+        model.addAttribute("data", data);
 
         return "admin/cs/write";
+    }
+
+    /**
+     * 2023/02/16 // 심규영 // 글작성 포스트 처리
+     * map에 들어올 수 있는 내용
+     *
+     */
+    @ResponseBody
+    @PostMapping("admin/cs/{cate}/write")
+    public Map<String, Object> write(@RequestBody Map<String, String> map,
+                                     @PathVariable("cate") String cate) {
+        int result = service.CsWritePostProcess(map, cate);
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("result", result);
+
+        return data;
     }
 
     /**

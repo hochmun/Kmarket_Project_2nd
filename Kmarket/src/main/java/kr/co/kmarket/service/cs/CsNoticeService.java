@@ -22,18 +22,9 @@ public class CsNoticeService {
      * @param start
      * @return
      */
-    public List<Cs_NoticeVO> selectNotArticles(@Param("start") int start, @Param("noCate1") Integer noCate){
-        return dao.selectNotArticles(start, noCate);
+    public List<Cs_NoticeVO> selectNotArticles(@Param("start") int start){
+        return dao.selectNotArticles(start);
     }
-
-    /**
-     * 23/02/10 notice list cate1Name 가져오기
-     * @autor 김재준
-     */
-    public Cs_NoticeVO selectNotCateName(@Param("noCate") Integer noCate){
-        return dao.selectNotCateName(noCate);
-    }
-
 
     /**
      * 23/02/08 notice list 작성글 선택
@@ -42,15 +33,6 @@ public class CsNoticeService {
      */
     public Cs_NoticeVO selectNotArticle(@Param("noticeNo") Integer noticeNo){
         return dao.selectNotArticle(noticeNo);
-    }
-
-    /**
-     * 23/02/08 notice 글 count
-     * @autor 김재준
-     * @return
-     */
-    public int selectNotCountTotal(@Param("noCate") Integer noCate){
-        return dao.selectNotCountTotal(noCate);
     }
 
 
@@ -83,8 +65,8 @@ public class CsNoticeService {
      * @autor 김재준
      * @return
      */
-    public long getTotalCount(Integer noCate){
-        return dao.selectNotCountTotal(noCate);
+    public long getTotalCount(){
+        return dao.selectNotCountTotal();
     }
 
     /**
