@@ -14,6 +14,7 @@ public class NoticeViewController {
     private CsNoticeService service;
 
     @GetMapping(value = {"cs/notice/view"})
+
     public String view(Model model, Integer noticeNo, String noCate1){
 
         // noCate 값이 없을시 '전체'로 이동
