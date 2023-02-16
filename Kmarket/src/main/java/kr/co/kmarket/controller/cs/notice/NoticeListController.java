@@ -19,7 +19,7 @@ public class NoticeListController {
     public String list(Model model, Cs_NoticeVO vo, Integer noCate, String pg){
         pg = (pg == null) ? "1" : pg;
 
-        if (noCate == null || noCate == 0) {
+        if (noCate == null) {
             noCate = 10;
             return "redirect:/cs/notice/list?noCate=10";
         }

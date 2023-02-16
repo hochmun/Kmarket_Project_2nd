@@ -44,15 +44,6 @@ public class CsNoticeService {
         return dao.selectNotArticle(noticeNo);
     }
 
-    /**
-     * 23/02/08 notice 글 count
-     * @autor 김재준
-     * @return
-     */
-    public int selectNotCountTotal(@Param("noCate") Integer noCate){
-        return dao.selectNotCountTotal(noCate);
-    }
-
 
     /* 23/02/09 페이징 */
 
