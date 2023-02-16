@@ -67,7 +67,9 @@ public class AdminCsController {
      */
     @GetMapping("admin/cs/{cate}/modify")
     public String modify(@PathVariable("cate") String cate,
-                         Model model) {
+                         Model model,
+                         @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        model.addAttribute("name", myUserDetails.getUser().getName());
         model.addAttribute("cate", cate);
 
         return "admin/cs/modify";
@@ -87,8 +89,20 @@ public class AdminCsController {
      */
     @GetMapping("admin/cs/{cate}/view")
     public String view(@PathVariable("cate") String cate,
-                       Model model) {
+                       Model model,
+                       @RequestParam Map<String, String> map,
+                       @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        // 데이터를 담을 map
+        Map<String, Object> data = new HashMap<>();
+
+        // 게시물 불러오기
+        AdminCsVo article = service.selectCsArticle(map, cate);
+        data.put("article", article);
+        
+        // 모델 전송
+        model.addAttribute("name", myUserDetails.getUser().getName());
         model.addAttribute("cate", cate);
+        model.addAttribute("data", data);
 
         return "admin/cs/view";
     }
@@ -101,12 +115,14 @@ public class AdminCsController {
      */
     @GetMapping("admin/cs/{cate}/write")
     public String write(@PathVariable("cate") String cate,
-                        Model model) {
+                        Model model,
+                        @AuthenticationPrincipal MyUserDetails myUserDetails) {
         // 종합 처리 메소드
         // 포함 할 수 있는 내용
         //      cate1VOs => cs_cate1 리스트
         Map<String, Object> data = service.CsWriteDataProcess(cate);
 
+        model.addAttribute("name", myUserDetails.getUser().getName());
         model.addAttribute("cate", cate);
         model.addAttribute("data", data);
 
@@ -146,7 +162,8 @@ public class AdminCsController {
     @GetMapping("admin/cs/{cate}/reply")
     public String reply(@PathVariable("cate") String cate,
                         Model model,
-                        @RequestParam Map<String, String> map) {
+                        @RequestParam Map<String, String> map,
+                        @AuthenticationPrincipal MyUserDetails myUserDetails) {
         // 정보를 담을 map 생성
         Map<String, Object> data = new HashMap<>();
         data.put("etcText", map);
@@ -156,6 +173,7 @@ public class AdminCsController {
         data.put("article", article);
 
         // 모델 전송
+        model.addAttribute("name", myUserDetails.getUser().getName());
         model.addAttribute("cate", cate);
         model.addAttribute("data", data);
 

@@ -74,9 +74,12 @@ public class AdminCsService {
         data.put("typeNo", cate+"No");
         data.put("no", map.get("no"));
         data.put("cate", cate);
-        data.put("c1Name", cate+"Cate1");
-        data.put("c2Name", cate+"Cate2");
-        
+
+        if(cate.equals("faq") || cate.equals("qna")) {
+            data.put("c1Name", cate+"Cate1");
+            data.put("c2Name", cate+"Cate2");
+        }
+
         return dao.selectCsArticle(data);
     }
 

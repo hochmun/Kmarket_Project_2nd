@@ -352,25 +352,25 @@
     </section>
 
     <!-- 2023/02/09 // 심규영 // 자주하는질문 보기 -->
-    <section th:fragment="faqView">
+    <section th:fragment="faqView(data)">
 
         <table>
             <tr>
                 <td><strong>유형</strong></td>
                 <td>
-                    카테고리1 이름 - 카테고리2 이름
+                    [[${data.article.c1Name}]] - [[${data.article.c2Name}]]
                 </td>
             </tr>
             <tr>
                 <td>제목</td>
                 <td>
-                    제목 내용
+                    [[${data.article.faqTitle}]]
                 </td>
             </tr>
             <tr>
                 <td>내용</td>
                 <td>
-                    <pre>컨텐츠 내용</pre>
+                    <pre>[[${data.article.faqContent}]]</pre>
                 </td>
             </tr>
         </table>
@@ -384,25 +384,26 @@
     </section>
 
     <!-- 2023/02/09 // 심규영 // 공지사항 보기 -->
-    <section th:fragment="noticeView">
+    <section th:fragment="noticeView(data)">
 
         <table>
             <tr>
                 <td>유형</td>
-                <td>
-                    고객서비스
-                </td>
+                <td th:if="${data.article.noticeCate eq 10}">고객서비스</td>
+                <td th:if="${data.article.noticeCate eq 11}">안전거래</td>
+                <td th:if="${data.article.noticeCate eq 12}">위해상품</td>
+                <td th:if="${data.article.noticeCate eq 13}">이벤트상품</td>
             </tr>
             <tr>
                 <td>제목</td>
                 <td>
-                    공지사항 제목
+                    [[${data.article.noticeTitle}]]
                 </td>
             </tr>
             <tr>
                 <td>내용</td>
                 <td>
-                    공지사항 내용
+                    [[${data.article.noticeContent}]]
                 </td>
             </tr>
         </table>
@@ -415,31 +416,31 @@
     </section>
 
     <!-- 2023/02/09 // 심규영 // 문의하기 보기 -->
-    <section th:fragment="qnaView">
+    <section th:fragment="qnaView(data)">
 
         <table>
             <tr>
                 <td>유형</td>
                 <td>
-                    회원 - 가입
+                    [[${data.article.c1Name}]] - [[${data.article.c2Name]]]
                 </td>
             </tr>
             <tr>
                 <td>제목</td>
                 <td>
-                    공지사항 제목
+                    [[${data.article.qnaTitle}]]
                 </td>
             </tr>
             <tr>
                 <td>내용</td>
                 <td>
-                    공지사항 내용
+                    [[${data.article.qnaContent}]]
                 </td>
             </tr>
             <tr>
                 <td>답변</td>
                 <td>
-                    <pre>답변 내용</pre>
+                    <pre>[[${data.article.qnaAdminContent}]]</pre>
                 </td>
             </tr>
         </table>
