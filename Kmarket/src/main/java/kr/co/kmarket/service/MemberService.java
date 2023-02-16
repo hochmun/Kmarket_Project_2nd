@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
 import java.util.List;
 
 @Service
@@ -30,9 +32,10 @@ public class MemberService {
         return dao.insertSellerMember(vo);
     }
     /*아이디찾기*/
-    public int search_id(String name, String hp){
+    public String search_id(String name, String hp) throws Exception{
         return dao.search_id(name, hp);
     }
+
     public member_termsVO selectTerms(){
         return dao.selectTerms();
     }

@@ -3,6 +3,34 @@
 <th:block th:replace="~{member/_header}"></th:block>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
+$(document).on('click','#ok',function(){
+	let name = $("input[name='name']").val();
+ 	let hp = $("input[name='hp']").val();
+
+ 	var postData = {'name' : name , 'hp' : hp};
+
+	$.ajax({
+        url:'/member/search_id_Result',
+        type:'POST',
+        data: postData,
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        dataType : "json",
+        success:function(data){
+            if(data == 0){
+                $("input[name='name']").text("회원정보를 다시 확인해주세요.");
+                $("input[name='name']").val('');
+                $("input[name='hp']").val('');
+            }else{
+                $("input[name='name']").text(data);
+                $("input[name='name']").val('');
+                $("input[name='hp']").val('');
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown){
+        	alert('정보를 다시 입력해주시길 바랍니다.' );
+        }
+    });
+});
 
 </script>
     <main id="member">
@@ -10,7 +38,7 @@
             <nav>
                 <h1>아이디찾기</h1>
             </nav>
-            <form th:action="@{/member/search_id}" method="post">
+            <form>
                 <table border="0">
                     <tr>
                         <td>이름</td>
@@ -21,7 +49,7 @@
                         <td><input type="text" name="hp" placeholder="전화번호 입력"></td>
                     </tr>
                 </table>
-                <input type="submit" value="ok"/>
+                <input type="submit" value="ok" id="ok"/>
                 <span>
                     <a th:href="@{/member/login}">로그인</a>
                     <a th:href="@{/member/search_pwd}">비밀번호 찾기</a>

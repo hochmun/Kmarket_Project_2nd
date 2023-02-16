@@ -7,12 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.Console;
 import java.net.http.HttpRequest;
 import java.util.HashMap;
@@ -36,11 +34,18 @@ public class MemberController {
     public String search_id(){
         return "member/search_id";
     }
-    @PostMapping("member/search_id")
-    public String search_id(String name,String hp){
-
-        return "member/search_id";
+    @GetMapping("member/search_id_Result")
+    public String search_id_Result(){
+        return "member/search_id_Result";
     }
+    @ResponseBody
+    @PostMapping("member/search_id_Result")
+    public String search_id_Result(@RequestParam("name") String name,
+                                   @RequestParam("hp") String hp) throws Exception {
+        String result = service.search_id(name, hp);
+        return result;
+    }
+
     @GetMapping("member/search_pwd")
     public String search_pwd(){
         return "member/search_pwd";

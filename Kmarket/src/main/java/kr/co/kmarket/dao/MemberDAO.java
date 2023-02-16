@@ -14,7 +14,7 @@ public interface MemberDAO {
 
     public int insertMember(memberVO vo);
     public int insertSellerMember(memberVO vo);
-    public int search_id(String name, String hp);
+    public String search_id(String name, String hp);
     public member_termsVO selectTerms();
     public memberVO selectMember(String uid);
     public List<memberVO> selectMembers();

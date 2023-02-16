@@ -1,0 +1,29 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<th:block th:replace="~{member/_header}"></th:block>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+</script>
+    <main id="member">
+        <div class="login">
+            <nav>
+                <h1>아이디찾기결과</h1>
+            </nav>
+            <form action="#">
+                <table border="0">
+                    <tr>
+                        <td>아이디</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <span>
+                    <a th:href="@{/member/login}">로그인</a>
+                    <a th:href="@{/member/search_pwd}">비밀번호 찾기</a>
+                    <a th:href="@{/member/join}">회원가입</a>
+                    <a th:href="@{/member/login}">취소</a>
+                </span>
+            </form>
+        </div>
+    </main>
+<th:block th:replace="~{member/_footer}"></th:block>
