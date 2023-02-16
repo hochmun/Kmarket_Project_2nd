@@ -60,7 +60,7 @@ window.onload = function(){
                 discount = parseInt(td[9].innerText.replace(/%/g, ""));
 
                 totPrice += _price;
-                totDisprice += _price * (discount / 100);
+                totDisprice += parseInt(_price * (discount / 100));
 
                 totPoint += parseInt(td[11].innerText.replace(/,/g, ""));;
 

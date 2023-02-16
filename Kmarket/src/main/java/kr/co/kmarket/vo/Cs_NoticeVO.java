@@ -19,4 +19,17 @@ public class Cs_NoticeVO {
     private String noticeRdate;
     private String noticeRegip;
     private int noticeHit;
+
+    // noticeCate int -> String
+    public int getNoticeCate() {
+        return noticeCate;
+    }
+    public void setNoticeCate(String noticeCate) {
+        this.noticeCate = Integer.parseInt(noticeCate);
+    }
+
+    // 작성일 자르기
+    public String getNoticeRdate(){
+        return noticeRdate.substring(2, 10);
+    }
 }

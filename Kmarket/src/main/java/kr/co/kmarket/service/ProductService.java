@@ -2,15 +2,20 @@ package kr.co.kmarket.service;
 
 import kr.co.kmarket.dao.ProductDAO;
 import kr.co.kmarket.dto.CartDTO;
-import kr.co.kmarket.vo.productVO;
-import kr.co.kmarket.vo.product_cate2VO;
+import kr.co.kmarket.vo.*;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+@Slf4j
 @Service
 public class ProductService {
 
@@ -91,9 +96,98 @@ public class ProductService {
      * @since 23/02/14
      * @author 이해빈
      */
-    public int deleteCart(HashMap<String, Object> checkboxArr){
-        return dao.deleteCart(checkboxArr);
+    public int deleteCarts(HashMap<String, Object> checkboxArr){
+        return dao.deleteCarts(checkboxArr);
     };
+
+
+    /**
+     * 주문내용 DB 업데이트
+     * @since 23/02/15
+     * @author 이해빈
+     */
+    @Transactional
+    public int updateOrder(List<String> cartNos, Map<String, Object> orderinfo){
+
+        int result = 0;
+        int size = cartNos.size();
+
+        // 회원 정보 포인트 업데이트
+        result += dao.updatePoint(orderinfo);
+
+        // 주문 테이블 업데이트
+        result += dao.updateOrder(orderinfo);
+
+        // 주문 테이블 업데이트 후 ordNo 값을 리턴받음
+        BigInteger ordNoBigInt = (BigInteger) orderinfo.get("ordNo");
+        int ordNo = ordNoBigInt.intValueExact();
+
+        orderinfo.put("ordNo", ordNo);
+
+        // view -> 주문의경우
+        if(size == 1 && Integer.parseInt(cartNos.get(0))==0){
+
+            // 주문번호 가져오기
+            List<String> prodNos = (List<String>) orderinfo.get("prodNoArr");
+            int prodNo = Integer.parseInt(prodNos.get(0));
+
+            orderinfo.put("ordNo", ordNo);
+            orderinfo.put("prodNo", prodNo);
+
+            // 주문 상품 테이블 업데이트
+            result += dao.insertOrderItem2(orderinfo);
+
+
+        }else{ // 장바구니 -> 주문의 경우
+            for(int i = 0; i < cartNos.size(); i++) {
+                int cartNo = Integer.parseInt(cartNos.get(i));
+
+                // 주문 상품 테이블 업데이트
+                result += dao.insertOrderItem(cartNo, ordNo);
+
+                // 주문한 상품 장바구니에서 삭제
+                result += dao.deleteCart(cartNo);
+
+            }
+        }
+
+
+        // 모든 테이블 업데이트가 정상적으로 실행되었을 경우 주문번호를 리턴, 그렇지 않으면 0 리텅
+        if(size > 0 && result == size * 2 + 2){ // 장바구니 -> 주문
+            return ordNo;
+        }else if(size == 1 && result == 3){ // view -> 주문
+            return ordNo;
+        }else{
+            return 0;
+        }
+    };
+
+    /**
+     * 주문정보 가져오기
+     * @since 23/02/15
+     * @author 이해빈
+     */
+    public product_orderVO selectOrder(int ordNo){
+        return dao.selectOrder(ordNo);
+    }
+
+    /**
+     * 주문한 아이템 가져오기
+     * @since 23/02/15
+     * @author 이해빈
+     */
+    public List<product_order_itemVO> selectOrderItems(@Param("ordNo") int ordNo){
+        return dao.selectOrderItems(ordNo);
+    }
+
+    /**
+     * 상품 리뷰 가져오기
+     * @since 23/02/16
+     * @author 이해빈
+     * */
+    public List<product_reviewVO> selectReviews(int prodNo, int start){
+        return dao.selectReviews(prodNo, start);
+    }
 
     /**
      * 현재 페이지
@@ -114,14 +208,14 @@ public class ProductService {
      * @since 23/02/09
      * @author 이해빈
      */
-    public int getLastPageNum(int total) {
+    public int getLastPageNum(int total, int count) {
 
         int lastPage = 0;
 
-        if(total % 10 == 0) {
-            lastPage = (total / 10);
+        if(total % count == 0) {
+            lastPage = (total / count);
         }else {
-            lastPage = (total / 10) + 1;
+            lastPage = (total / count) + 1;
         }
 
         return lastPage;
@@ -146,15 +240,25 @@ public class ProductService {
 
         return group;
     }
-    
+
     /**
      * 페이지 시작값
      * @since 23/02/09
      * @author 이해빈
      */
     // 페이지 시작값
-    public int getLimitStart(int currentPage) {
-        return (currentPage - 1) * 10;
+    public int getLimitStart(int currentPage, int count) {
+        return (currentPage - 1) * count ;
+    }
+
+
+    /**
+     * 상품 리뷰 total 값 가져오기
+     * @since 23/02/16
+     * @author 이해빈
+     * */
+    public int getCountTotalForReview(@Param("prodNo") int prodNo){
+        return dao.getCountTotalForReview(prodNo);
     }
 
 }
