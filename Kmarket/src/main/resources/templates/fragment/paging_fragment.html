@@ -32,7 +32,7 @@
                 <a th:href="@{/cs/qna/list(cate1=${cate1},pg=${groups[0]- 1})}" class="prev">이전</a>
             </th:block>
             <th:block th:each="num:${#numbers.sequence(groups[0], groups[1])}">
-                <a th:href="@{/cs/qna/list(cate1=${cate1},pg=${num})}" th:class="${num == currentPage ? 'num current' : 'num'}">[[${num}]]</a>
+                <a th:href="@{/cs/qna/list(cate1=${cate1},pg=${num})}" th:class="${num == currentPage ? 'on' : 'off'}">[[${num}]]</a>
             </th:block>
             <th:block th:if="${groups[1] < lastPage}">
                 <a th:href="@{/cs/qna/list(cate1=${cate1},pg=${groups[1] + 1})}" class="next">다음</a>
@@ -42,14 +42,15 @@
     <!-- 2023/02/15 // 김재준 // notice 페이징 -->
     <div class="page" th:fragment="csNoticePaging">
         <th:block th:if="${groups[0] > 1}">
-            <a th:href="@{/cs/notice/list(noCate=${noCate},pg=${groups[0]- 1})}" class="prev">이전</a>
+            <a th:href="@{/cs/notice/list(noCate1=${cate1},pg=${groups[0]- 1})}" class="prev">이전</a>
         </th:block>
         <th:block th:each="num:${#numbers.sequence(groups[0], groups[1])}">
-            <a th:href="@{/cs/notice/list(noCate=${noCate},pg=${num})}" th:class="${num == currentPage ? 'num current' : 'num'}">[[${num}]]</a>
+            <a th:href="@{/cs/notice/list(noCate1=${cate1},pg=${num})}" th:class="${num == currentPage ? 'on' : 'off'}">[[${num}]]</a>
         </th:block>
         <th:block th:if="${groups[1] < lastPage}">
-            <a th:href="@{/cs/notice/list(noCate=${noCate},pg=${groups[1] + 1})}" class="next">다음</a>
+            <a th:href="@{/cs/notice/list(noCate1=${cate1},pg=${groups[1] + 1})}" class="next">다음</a>
         </th:block>
     </div>
+
 </body>
 </html>

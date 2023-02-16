@@ -556,7 +556,6 @@
     background-image: url('/Kmarket/img/cs_sprites.png');
     background-position: -628px -652px;
   }
-  #cs > .notice > .list > article > .page > .num {}
   #cs > .notice > .list > article > .page > .on {
     background: #006cff;
     border-radius: 17px;
