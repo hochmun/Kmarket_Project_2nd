@@ -49,12 +49,12 @@
                                 <td colspan="7">장바구니에 상품이 없습니다.</td>
                             </tr>
                             <tr th:each="cdto : ${cdtos}">
-                                <td><input type="checkbox" name="chk" th:value="${cdto.cartNo}"></td>
+                                <td><input type="checkbox" name="chk" th:value="${cdto.cartNo}" th:attr="data-prodNo=${cdto.prodNo}"></td>
                                 <td>
                                     <article>
-                                        <a href="#"><img src="|@{/}thumb/${cdto.prodCate1}/${cdto.prodCate2}/${cdto.thumb1}|" alt=""></a>
+                                        <a th:href="@{/product/view(cate1=${cdto.prodCate1},cate2=${cdto.prodCate2},prodNo=${cdto.prodNo})}"><img th:src="|@{/}thumb/${cdto.prodCate1}/${cdto.prodCate2}/${cdto.thumb1}|" alt=""></a>
                                         <div>
-                                            <h2><a href="#">[[${cdto.prodName}]]</a></h2>
+                                            <h2><a th:href="@{/product/view(cate1=${cdto.prodCate1},cate2=${cdto.prodCate2},prodNo=${cdto.prodNo})}">[[${cdto.prodName}]]</a></h2>
                                             <p>[[${cdto.descript}]]</p>
                                         </div>
                                     </article>
@@ -65,7 +65,7 @@
                                 <td>[[${#numbers.formatInteger(cdto.point * cdto.count , 1, 'COMMA')}]]</td>
                                 <td th:if="${cdto.delivery ne 0}">[[${#numbers.formatInteger(cdto.delivery, 1, 'COMMA')}]]</td>
                                 <td th:if="${cdto.delivery eq 0}">무료배송</td>
-                                <td>[[${#numbers.formatInteger((cdto.price * cdto.count * (1 - cdto.discount / 100.0)), 1, 'COMMA')}]]</td>
+                                <td>[[${#numbers.formatInteger((cdto.price * cdto.count * (1 - cdto.discount / 100.0) + cdto.delivery), 1, 'COMMA')}]]</td>
                             </tr>
                         </tbody>
                     </table>
@@ -124,14 +124,14 @@
                             <tr>
                                 <td>우편번호</td>
                                 <td>
-                                    <input type="text" name="zip" id="zip" th:value="${member.zip}"/>
+                                    <input type="text" name="zip" id="zip" th:value="${member.zip}" readonly/>
                                     <input type="button" value="검색" onclick="zipcode()"/>
                                 </td>
                             </tr>
                             <tr>
                                 <td>기본주소</td>
                                 <td>
-                                    <input type="text" name="addr1" id="addr1" th:value="${member.addr1}"/>
+                                    <input type="text" name="addr1" id="addr1" th:value="${member.addr1}" readonly/>
                                 </td>
                             </tr>
                             <tr>
@@ -163,7 +163,7 @@
                             <div>
                                 <span>신용카드</span>
                                 <p>
-                                    <label><input type="radio" name="payment" value="type1"/>신용카드 결제</label>
+                                    <label><input type="radio" name="payment" value="type1" checked="checked"/>신용카드 결제</label>
                                     <label><input type="radio" name="payment" value="type2"/>체크카드 결제</label>                                
                                 </p>
                             </div>

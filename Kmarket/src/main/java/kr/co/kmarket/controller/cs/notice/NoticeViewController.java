@@ -16,7 +16,7 @@ public class NoticeViewController {
     @GetMapping(value = {"cs/notice/view"})
     public String view(Model model, Integer noticeNo, Integer noCate){
 
-        Cs_NoticeVO vos = service.selectNotCateName(noCate);
+        //Cs_NoticeVO vos = service.selectNotCateName(noCate);
 
         Cs_NoticeVO vo = service.selectNotArticle(noticeNo);
 

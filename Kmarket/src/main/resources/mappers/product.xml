@@ -70,7 +70,7 @@
         UPDATE `km_product` SET `hit` = `hit`+ 1 WHERE `prodNo`=#{prodNo};
     </update>
 
-    <delete id="deleteCart" parameterType="java.util.Map">
+    <delete id="deleteCarts" parameterType="java.util.Map">
 
         DELETE FROM `km_product_cart`
         WHERE `cartNo` IN
@@ -78,5 +78,74 @@
             #{cartNo}
         </foreach>
     </delete>
+
+    <update id="updatePoint" parameterType="map">
+        UPDATE `km_member`
+        SET
+        `point` = `point`- #{usedPoint},
+        `point` = `point`+ #{savePoint}
+        WHERE `uid`= #{ordUid};
+    </update>
+
+    <insert id="updateOrder" parameterType="map" keyProperty="ordNo" useGeneratedKeys="true">
+        INSERT INTO `km_product_order`
+        SET
+            `ordUid`        = #{ordUid},
+            `ordCount`      = #{ordCount},
+            `ordPrice`      = #{ordPrice},
+            `ordDiscount`   = #{ordDiscount},
+            `ordDelivery`   = #{ordDelivery},
+            `ordTotPrice`   = #{ordTotPrice},
+            `savePoint`     = #{savePoint},
+            `usedPoint`     = #{usedPoint},
+            `recipName`     = #{recipName},
+            `recipHp`       = #{recipHp},
+            `recipZip`      = #{recipZip},
+            `recipAddr1`    = #{recipAddr1},
+            `recipAddr2`    = #{recipAddr2},
+            `ordPayment`    = #{ordPayment},
+            `ordComplete`   = #{ordComplete},
+            `ordDate`       = NOW();
+    </insert>
+
+    <insert id="insertOrderItem">
+        INSERT INTO `km_product_order_item` (`ordNo`, `prodNo`, `count`, `price`, `discount`, `point`, `delivery`, `total`)
+        SELECT #{ordNo}, `prodNo`, `count`, `price`, `discount`, `point`, `delivery`, `total` FROM `km_product_cart` AS a  WHERE a.`cartNo` = #{cartNo};
+    </insert>
+
+    <insert id="insertOrderItem2" parameterType="map">
+        INSERT INTO `km_product_order_item`
+        (`ordNo`, `prodNo`, `count`, `price`, `discount`, `point`, `delivery`, `total`)
+        SELECT #{ordNo}, #{prodNo}, #{ordCount}, `price`, `discount`, `point`, `delivery`, #{ordTotPrice}
+        FROM `km_product` as a
+        WHERE `prodNo`= #{prodNo};
+    </insert>
+
+    <delete id="deleteCart">
+        DELETE FROM `km_product_cart` WHERE `cartNo` = #{cartNo};
+    </delete>
+
+    <select id="selectOrder" resultType="kr.co.kmarket.vo.product_orderVO">
+        SELECT a.*, b.name, b.hp FROM `km_product_order` AS a
+        JOIN `km_member` AS b
+        ON a.ordUid = b.uid
+        WHERE `ordNo` = #{ordNo};
+    </select>
+
+    <select id="selectOrderItems" resultType="kr.co.kmarket.vo.product_order_itemVO">
+        SELECT a.*, b.prodCate1, b.prodCate2, b.prodName, b.thumb1, b.descript FROM `km_product_order_item` AS a
+        JOIN `km_product` AS b
+        ON a.prodNo = b.prodNo
+        WHERE `ordNo` = #{ordNo};
+    </select>
+    
+    <select id="selectReviews" resultType="kr.co.kmarket.vo.product_reviewVO">
+        SELECT * FROM `km_product_review` WHERE `prodNo`= #{prodNo}
+        ORDER BY `revNo` DESC LIMIT #{start},5;
+    </select>
+
+    <select id="getCountTotalForReview" resultType="int">
+        SELECT COUNT(`revNo`) FROM `km_product_review` WHERE `prodNo` = #{prodNo};
+    </select>
 
 </mapper>

@@ -15,7 +15,7 @@ window.onload = function(){
     const dispoint = document.querySelector('.final > table tr:nth-child(5) > td:nth-child(2)');
 
 
-    // 체크 박스 관련 함수
+    // 체크 박스 관련 변수
     const checkAll = document.querySelector('input[name=all]');
     const checkboxes = document.querySelectorAll('input[name=chk]');
 
@@ -77,6 +77,14 @@ window.onload = function(){
     // 주문하기
     document.getElementById('payment').addEventListener('click', ()=>{
 
+        // 배송정보 관련 변수
+        const recipName = document.querySelector('input[name=orderer]').value;
+        const recipHp = document.querySelector('input[name=hp]').value;
+        const recipZip = document.querySelector('input[name=zip]').value;
+        const recipAddr1 = document.querySelector('input[name=addr1]').value;
+        const recipAddr2 = document.querySelector('input[name=addr2]').value;
+
+
         let isOk = confirm('주문하시겠습니까?');
 
         if(!isOk){
@@ -84,11 +92,16 @@ window.onload = function(){
         }
 
         // 선택된 상품들만 배열에 넣기
-        let checkboxArr = [];
+        let checkboxArr = [];  // 장바구니 번호
+        let prodNoArr = [];    // 상품번호
         for(let i=0; i < checkboxes.length; i++){
             if(checkboxes[i].checked){
                 let no = checkboxes[i].value;
+                let prodNo = checkboxes[i].getAttribute('data-prodNo');
+
                 checkboxArr.push(no);
+                prodNoArr.push(prodNo);
+
             }
         }
 
@@ -97,20 +110,35 @@ window.onload = function(){
             return false;
         }
 
+        // 배송 정보
+        if(recipName == ''){
+            alert('수령자의 이름을 입력해주세요.');
+            return false;
+        }
+
+        if(recipHp == ''){
+            alert('수령자 휴대폰번호를 입력해주세요.');
+            return false;
+        }
+
+        if(recipZip == ''){
+            alert('배송지 우편번호를 입력해주세요.');
+            return false;
+        }
+
+        if(recipAddr1 == ''){
+            alert('배송지 주소를 입력하세요.');
+            return false;
+        }
+
         // 결제 방법
-
         let ordPayment = '';
-
         const payments = document.querySelectorAll('input[name=payment]');
         for(let i=0; i < payments.length; i++){
             if(payments[i].checked){
-
+                ordPayment = payments[i].value.slice(-1);
             }
         }
-
-        alert(ordPayment);
-
-        return false;
 
         let orderinfo = {
             "ordCount" : newStr(count.innerText),
@@ -120,25 +148,23 @@ window.onload = function(){
             "ordTotPrice" : newStr(total.innerText),
             "savePoint" : newStr(point.innerText),
             "usedPoint" : newStr(dispoint.innerText),
-            "recipName" : document.querySelector('input[name=orderer]').value,
-            "recipHp" : document.querySelector('input[name=hp]').value,
-            "recipZip" : document.querySelector('input[name=zip]').value,
-            "recipAddr1" : document.querySelector('input[name=addr1]').value,
-            "recipAddr2" : document.querySelector('input[name=addr2]').value,
+            "recipName" : recipName,
+            "recipHp" : recipHp,
+            "recipZip" : recipZip,
+            "recipAddr1" : recipAddr1,
+            "recipAddr2" : recipAddr2,
             "ordPayment" : ordPayment,
-            "ordComplete" : '',
+            "ordComplete" : 1,
+            "prodNoArr" : prodNoArr
         }
 
-        console.log(orderinfo);
-
-        return false;
 
         // AJAX 전송
         const xhr = new XMLHttpRequest();
         xhr.open('post','/Kmarket/product/order');
         xhr.responseType = "json";
         xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(JSON.stringify({"checkboxArr": checkboxArr}));
+        xhr.send(JSON.stringify({"checkboxArr": checkboxArr, "orderinfo" : orderinfo}));
 
         xhr.onreadystatechange = function(){
 
@@ -187,7 +213,7 @@ window.onload = function(){
                 discount = parseInt(td[9].innerText.replace(/%/g, ""));
 
                 totPrice += _price;
-                totDisprice += _price * (discount / 100);
+                totDisprice += parseInt(_price * (discount / 100));
 
                 totPoint += parseInt(td[11].innerText.replace(/,/g, ""));;
 
