@@ -21,11 +21,11 @@ public class NoticeListController {
 
         // noCate 값이 없을시 '전체'로 이동
         if (noCate1 == null || noCate1.equals("")) {
-            noCate1 = "";
+            noCate1 = "%%";
         }
 
         // noCate 값을 정해진 값 이외의 값으로 입력시 에러페이지로 이동
-        if (!noCate1.equals("") && !noCate1.equals("10") && !noCate1.equals("11") && !noCate1.equals("12") && !noCate1.equals("13")) {
+        if (!noCate1.equals("%%") && !noCate1.equals("10") && !noCate1.equals("11") && !noCate1.equals("12") && !noCate1.equals("13")) {
             return "alert";
         }
 
