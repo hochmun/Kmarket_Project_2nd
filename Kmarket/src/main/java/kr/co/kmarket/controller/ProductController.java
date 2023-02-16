@@ -37,17 +37,20 @@ public class ProductController {
         // 카테고리 이름 가져오기
         product_cate2VO cateName = service.getCateName(cate1, cate2);
 
+        // 게시글 출력 갯수
+        int count = 10;
+
         // 현재 페이지 번호
         int currentPage = service.getCurrentPage(pg);
 
         // 페이지 시작값
-        int start = service.getLimitStart(currentPage);
+        int start = service.getLimitStart(currentPage, count);
 
         // 전체 게시물 갯수
         int total = service.getCountTotal(cate1, cate2);
 
         // 페이지 마지막 번호
-        int lastPageNum = service.getLastPageNum(total);
+        int lastPageNum = service.getLastPageNum(total, count);
 
         // 페이지 그룹 start, end 번호
         int[] pageGroup = service.getPageGroupNum(currentPage, lastPageNum);
@@ -70,11 +73,13 @@ public class ProductController {
 
     /**
      * 상품 view GetMapping
-     * @since 23/02/10
+     * @since 23/02/10, 
      * @author 이해빈
+     * 
+     * 23/02/16 상품 리뷰보기
      */
     @GetMapping("product/view")
-    public String view(int cate1, int cate2, int prodNo, Model model){
+    public String view(int cate1, int cate2, int prodNo, Model model, String pg){
 
         // 카테고리 이름 가져오기
         product_cate2VO cateName = service.getCateName(cate1, cate2);
@@ -82,10 +87,28 @@ public class ProductController {
         // 상품 가져오기
         productVO product = service.selectProduct(prodNo);
 
+
+        // 리뷰쪽 페이징
+
+        int count = 5; // 출력갯수
+        int currentPage = service.getCurrentPage(pg); // 현재 페이지
+        int start = service.getLimitStart(currentPage, count); // 페이지 시작값
+        int total = service.getCountTotalForReview(prodNo); // 전체 게시물 갯수
+        int lastPageNum = service.getLastPageNum(total, count); // 페이지 마지막 번호
+        int[] pageGroup = service.getPageGroupNum(currentPage, lastPageNum); // 페이지 그룹 start, end
+
+        // 리뷰 가져오기
+        List<product_reviewVO> reviews = service.selectReviews(prodNo, start);
+
         model.addAttribute("cate1", cate1);
         model.addAttribute("cate2", cate2);
         model.addAttribute("cateName", cateName);
         model.addAttribute("product", product);
+        model.addAttribute("reviews", reviews);
+
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("lastPageNum", lastPageNum);
+        model.addAttribute("pageGroup", pageGroup);
 
         return "product/view";
     }
@@ -159,14 +182,10 @@ public class ProductController {
         // DB 업데이트
         int ordNo = service.updateOrder(cartNos, orderinfo);
 
-        log.info("컨트롤러 ordNo :" + ordNo);
-
         // 세션에 주문한 상품 저장
         if(ordNo > 0){
             result = 1;
             session.setAttribute("ordNo", ordNo);
-
-            log.info("컨트롤러 세션에 저장된 ordNo :" + session.getAttribute("ordNo"));
 
         }
 
@@ -203,19 +222,23 @@ public class ProductController {
     @GetMapping("product/complete")
     public String complete(Model model, HttpSession session){
 
+
+        // 세션에 주문번호 값이 없을 경우 메인으로 return
+        if(session.getAttribute("ordNo") == null){
+            return "redirect:/index";
+        }
+
         // 세션에 저장된 주문번호 가져오기
         int ordNo = (int) session.getAttribute("ordNo");
-        
+
         //세션에서 주문번호 삭제
         session.removeAttribute("ordNo");
 
         // 주문 내용 가져오기
         product_orderVO orderinfo = service.selectOrder(ordNo);
-        
+
         // 주문한 상품 목록 가져오기
         List<product_order_itemVO> items = service.selectOrderItems(ordNo);
-
-        log.info("items :" +items);
 
         model.addAttribute("orderinfo", orderinfo);
         model.addAttribute("items", items);

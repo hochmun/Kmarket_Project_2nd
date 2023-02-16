@@ -1,12 +1,10 @@
 package kr.co.kmarket.dao;
 
 import kr.co.kmarket.dto.CartDTO;
-import kr.co.kmarket.vo.productVO;
-import kr.co.kmarket.vo.product_cate2VO;
-import kr.co.kmarket.vo.product_orderVO;
-import kr.co.kmarket.vo.product_order_itemVO;
+import kr.co.kmarket.vo.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -131,7 +129,20 @@ public interface ProductDAO {
      */
     public List<product_order_itemVO> selectOrderItems(@Param("ordNo") int ordNo);
 
+    
+    /**
+     * 상품 리뷰 가져오기
+     * @since 23/02/16
+     * @author 이해빈
+     * */
+    public List<product_reviewVO> selectReviews(@Param("prodNo") int prodNo, @Param("start") int start);
 
+    /**
+     * 상품 리뷰 total 값 가져오기
+     * @since 23/02/16
+     * @author 이해빈
+     * */
+    public int getCountTotalForReview(@Param("prodNo") int prodNo);
 
 }
 

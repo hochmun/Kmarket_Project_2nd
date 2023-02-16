@@ -46,9 +46,9 @@
                                 <td><input type="checkbox" name="chk" th:value="${cart.cartNo}"></td>
                                 <td>
                                     <article>
-                                        <a href="#"><img th:src="|@{/}thumb/${cart.prodCate1}/${cart.prodCate2}/${cart.thumb1}|" alt=""></a>
+                                        <a th:href="@{/product/view(cate1=${cart.prodCate1},cate2=${cart.prodCate2},prodNo=${cart.prodNo})}"><img th:src="|@{/}thumb/${cart.prodCate1}/${cart.prodCate2}/${cart.thumb1}|" alt=""></a>
                                         <div>
-                                            <h2><a href="#">[[${cart.prodName}]]</a></h2>
+                                            <h2><a th:href="@{/product/view(cate1=${cart.prodCate1},cate2=${cart.prodCate2},prodNo=${cart.prodNo})}">[[${cart.prodName}]]</a></h2>
                                             <p>[[${cart.descript}]]</p>
                                         </div>
                                     </article>

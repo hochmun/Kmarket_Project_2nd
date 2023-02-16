@@ -139,6 +139,13 @@
         WHERE `ordNo` = #{ordNo};
     </select>
     
+    <select id="selectReviews" resultType="kr.co.kmarket.vo.product_reviewVO">
+        SELECT * FROM `km_product_review` WHERE `prodNo`= #{prodNo}
+        ORDER BY `revNo` DESC LIMIT #{start},5;
+    </select>
 
+    <select id="getCountTotalForReview" resultType="int">
+        SELECT COUNT(`revNo`) FROM `km_product_review` WHERE `prodNo` = #{prodNo};
+    </select>
 
 </mapper>

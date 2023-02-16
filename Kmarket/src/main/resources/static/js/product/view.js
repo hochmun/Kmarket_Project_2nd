@@ -2,6 +2,7 @@
     날짜 : 2023/02/10
     이름 : 이해빈
     내용 : 상품 view 자바스크립트
+        - 2023/02/16 상품평보기 클릭시 스크롤 기능 추가
 */
 
 window.onload = function(){
@@ -116,5 +117,13 @@ function decrease(){
         document.querySelector('.total > span').innerHTML = total;
 
     }
+
+}
+
+// 상품 리뷰란으로 이동
+function goReview(){
+
+    const location = document.querySelector('.review').offsetTop;
+    window.scrollTo({top:location, behavior:'smooth'});
 
 }

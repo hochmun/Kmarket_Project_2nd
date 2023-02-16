@@ -63,7 +63,7 @@
                         <nav>
                             <h3>[[${product.prodName}]]</h3>
                             <p>[[${product.descript}]]</p>
-                            <h5 class="rating star4"><a href="#">상품평보기</a></h5>
+                            <h5 class="rating star4"><a href="#" onclick="goReview()">상품평보기</a></h5>
                         </nav>
                         <nav>
                             <div class="org_price">
@@ -206,73 +206,30 @@
                     <nav>
                         <h1>상품리뷰</h1>
                     </nav>
-                    <ul>
+                    <ul th:each="review, i:${reviews}">
                         <li>
                             <div>
-                                <h5 class="rating star4">상품평</h5>
-                                <span>seo******	2018-07-10</span>
+                                <h5 th:class="'rating star'+${review.rating}">상품평</h5>
+                                <span>[[${review.uid.substring(0,3)}]]******	2018-07-10</span>
                             </div>
-                            <h3>상품명1/BLUE/L</h3>
+                            <h3>[[${product.prodName}]]</h3>
                             <p>
-                                가격대비 정말 괜찮은 옷이라 생각되네요 핏은 음...제가 입기엔 어깨선이 맞고 루즈핏이라 하기도 좀 힘드네요. 아주 약간 루즈한정도...?그래도 이만한 옷은 없다고 봅니다 깨끗하고 포장도 괜찮고 다음에도 여기서 판매하는 제품들을 구매하고 싶네요 정말 만족하고 후기 남깁니다 많이 파시길 바래요 ~ ~ ~
-                            </p>
-                        </li>
-                        <li>
-                            <div>
-                                <h5 class="rating star4">상품평</h5>
-                                <span>seo******	2018-07-10</span>
-                            </div>
-                            <h3>상품명1/BLUE/L</h3>
-                            <p>
-                                가격대비 정말 괜찮은 옷이라 생각되네요 핏은 음...제가 입기엔 어깨선이 맞고 루즈핏이라 하기도 좀 힘드네요. 아주 약간 루즈한정도...?그래도 이만한 옷은 없다고 봅니다 깨끗하고 포장도 괜찮고 다음에도 여기서 판매하는 제품들을 구매하고 싶네요 정말 만족하고 후기 남깁니다 많이 파시길 바래요 ~ ~ ~
-                            </p>
-                        </li>
-                        <li>
-                            <div>
-                                <h5 class="rating star4">상품평</h5>
-                                <span>seo******	2018-07-10</span>
-                            </div>
-                            <h3>상품명1/BLUE/L</h3>
-                            <p>
-                                가격대비 정말 괜찮은 옷이라 생각되네요 핏은 음...제가 입기엔 어깨선이 맞고 루즈핏이라 하기도 좀 힘드네요. 아주 약간 루즈한정도...?그래도 이만한 옷은 없다고 봅니다 깨끗하고 포장도 괜찮고 다음에도 여기서 판매하는 제품들을 구매하고 싶네요 정말 만족하고 후기 남깁니다 많이 파시길 바래요 ~ ~ ~
-                            </p>
-                        </li>
-                        <li>
-                            <div>
-                                <h5 class="rating star4">상품평</h5>
-                                <span>seo******	2018-07-10</span>
-                            </div>
-                            <h3>상품명1/BLUE/L</h3>
-                            <p>
-                                가격대비 정말 괜찮은 옷이라 생각되네요 핏은 음...제가 입기엔 어깨선이 맞고 루즈핏이라 하기도 좀 힘드네요. 아주 약간 루즈한정도...?그래도 이만한 옷은 없다고 봅니다 깨끗하고 포장도 괜찮고 다음에도 여기서 판매하는 제품들을 구매하고 싶네요 정말 만족하고 후기 남깁니다 많이 파시길 바래요 ~ ~ ~
-                            </p>
-                        </li>
-                        <li>
-                            <div>
-                                <h5 class="rating star4">상품평</h5>
-                                <span>seo******	2018-07-10</span>
-                            </div>
-                            <h3>상품명1/BLUE/L</h3>
-                            <p>
-                                가격대비 정말 괜찮은 옷이라 생각되네요 핏은 음...제가 입기엔 어깨선이 맞고 루즈핏이라 하기도 좀 힘드네요. 아주 약간 루즈한정도...?그래도 이만한 옷은 없다고 봅니다 깨끗하고 포장도 괜찮고 다음에도 여기서 판매하는 제품들을 구매하고 싶네요 정말 만족하고 후기 남깁니다 많이 파시길 바래요 ~ ~ ~
+                                [[${review.content}]]
                             </p>
                         </li>
                     </ul>
                     <div class="paging">
-                        <span class="prev">
-                            <a href="#"><&nbsp;이전</a>
+                        <span th:if="${pageGroup[0]>1}" class="prev">
+                            <a th:href="@{/product/view(cate1=${cate1},cate2=${cate2},prodNo=${product.prodNo},pg=${pageGroup[0]-1})}"><&nbsp;이전</a>
                         </span>
                         <span class="num">
-                            <a href="#" class="on">1</a>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <a href="#">4</a>
-                            <a href="#">5</a>
-                            <a href="#">6</a>
-                            <a href="#">7</a>
+                            <th:block th:each="num:${#numbers.sequence(pageGroup[0], pageGroup[1])}">
+                                <a th:href="@{/product/view(cate1=${cate1},cate2=${cate2},prodNo=${product.prodNo},pg=${num})}"
+                                   th:class="${num == currentPage ? 'on':'off'}">[[${num}]]</a>
+                            </th:block>
                         </span>
-                        <span class="next">
-                            <a href="#">다음&nbsp;></a>
+                        <span th:if="${pageGroup[1]<lastPageNum}" class="next">
+                            <a th:href="@{/product/view(cate1=${cate1},cate2=${cate2},prodNo=${product.prodNo},pg=${pageGroup[1]+1})}">다음&nbsp;></a>
                         </span>
                     </div>
                 </article>

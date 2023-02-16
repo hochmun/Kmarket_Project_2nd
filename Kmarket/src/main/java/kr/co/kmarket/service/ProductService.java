@@ -2,10 +2,7 @@ package kr.co.kmarket.service;
 
 import kr.co.kmarket.dao.ProductDAO;
 import kr.co.kmarket.dto.CartDTO;
-import kr.co.kmarket.vo.productVO;
-import kr.co.kmarket.vo.product_cate2VO;
-import kr.co.kmarket.vo.product_orderVO;
-import kr.co.kmarket.vo.product_order_itemVO;
+import kr.co.kmarket.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -184,6 +181,15 @@ public class ProductService {
     }
 
     /**
+     * 상품 리뷰 가져오기
+     * @since 23/02/16
+     * @author 이해빈
+     * */
+    public List<product_reviewVO> selectReviews(int prodNo, int start){
+        return dao.selectReviews(prodNo, start);
+    }
+
+    /**
      * 현재 페이지
      * @since 23/02/09
      * @author 이해빈
@@ -202,14 +208,14 @@ public class ProductService {
      * @since 23/02/09
      * @author 이해빈
      */
-    public int getLastPageNum(int total) {
+    public int getLastPageNum(int total, int count) {
 
         int lastPage = 0;
 
-        if(total % 10 == 0) {
-            lastPage = (total / 10);
+        if(total % count == 0) {
+            lastPage = (total / count);
         }else {
-            lastPage = (total / 10) + 1;
+            lastPage = (total / count) + 1;
         }
 
         return lastPage;
@@ -234,15 +240,25 @@ public class ProductService {
 
         return group;
     }
-    
+
     /**
      * 페이지 시작값
      * @since 23/02/09
      * @author 이해빈
      */
     // 페이지 시작값
-    public int getLimitStart(int currentPage) {
-        return (currentPage - 1) * 10;
+    public int getLimitStart(int currentPage, int count) {
+        return (currentPage - 1) * count ;
+    }
+
+
+    /**
+     * 상품 리뷰 total 값 가져오기
+     * @since 23/02/16
+     * @author 이해빈
+     * */
+    public int getCountTotalForReview(@Param("prodNo") int prodNo){
+        return dao.getCountTotalForReview(prodNo);
     }
 
 }
