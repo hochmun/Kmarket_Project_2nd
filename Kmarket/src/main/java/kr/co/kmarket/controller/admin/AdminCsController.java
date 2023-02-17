@@ -68,10 +68,21 @@ public class AdminCsController {
      */
     @GetMapping("admin/cs/{cate}/modify")
     public String modify(@PathVariable("cate") String cate,
+                         @RequestParam Map<String, String> etcText,
                          Model model,
                          @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        // 데이터를 담을 Map 생성
+        Map<String, Object> data = new HashMap<>();
+        data.put("etcText", etcText);
+        
+        // 게시물 불러오기
+        AdminCsVo article = service.selectCsArticle(etcText, cate);
+        data.put("article", article);
+
+        // 모델 전송
         model.addAttribute("name", myUserDetails.getUser().getName());
         model.addAttribute("cate", cate);
+        model.addAttribute("data", data);
 
         return "admin/cs/modify";
     }
