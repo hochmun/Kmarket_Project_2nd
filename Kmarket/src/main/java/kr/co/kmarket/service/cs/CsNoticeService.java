@@ -41,11 +41,8 @@ public class CsNoticeService {
      * @return
      */
     public Cs_NoticeVO selectNotArticle(Integer noticeNo){
-        return dao.selectNotArticle(noticeNo);
-    }
-
-    public List<Cs_NoticeVO> selectNotCate(){
-        return dao.selectNotCate();
+        Cs_NoticeVO vo = dao.selectNotArticle(noticeNo);
+        return vo;
     }
 
     /* 23/02/09 페이징 */
