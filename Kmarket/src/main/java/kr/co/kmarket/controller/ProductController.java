@@ -50,7 +50,7 @@ public class ProductController {
                 sort = "sold";
             }
         }
-        
+
         // 게시글 출력 갯수
         int count = 10;
 
