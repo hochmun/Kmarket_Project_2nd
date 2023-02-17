@@ -15,7 +15,7 @@
         select a.*, c.cate2 from `km_cs_notice` as a
         join `km_cs_cate1` as b on a.noticeCate=b.cate1
         join `km_cs_cate2` as c on b.cate1=c.cate1 and a.noticeCate=c.cate2
-        where b.cate1=#{cate1}
+        where b.cate1 like #{cate1}
         order by `noticeNo` desc
         limit #{start}, 10;
     </select>
@@ -25,13 +25,17 @@
         select count(`noticeNo`) from `km_cs_notice` where `noticeCate` LIKE #{noticeCate};
     </select>
 
+    <select id="selectNotCate" resultType="kr.co.kmarket.vo.Cs_NoticeVO">
+        select * from `km_cs_notice`;
+    </select>
+
     <!-- notice list 작성글 상세보기 -->
-    <select id="selectNotArticle" resultMap="selectArticleResultMap">
+    <select id="selectNotArticle" resultMap="selectNotArticleResultMap">
         select * from `km_cs_notice`
-        where `noticeNo`=#{noticeNo};
+        where `noticeNo` like #{noticeNo};
     </select>
     <!-- 조회(select) 결과를 상세하게 매핑하기 위한 사용자 정의 Map -->
-    <resultMap id="selectArticleResultMap" type="kr.co.kmarket.vo.Cs_NoticeVO">
+    <resultMap id="selectNotArticleResultMap" type="kr.co.kmarket.vo.Cs_NoticeVO">
         <id property="noticeNo" column="noticeNo"/>
         <result property="noticeCate" column="noticeCate"/>
         <result property="noticeTitle" column="noticeTitle"/>
@@ -40,6 +44,5 @@
         <result property="noticeRegip" column="noticeRegip"/>
         <result property="noticeHit" column="noticeHit"/>
     </resultMap>
-
 
 </mapper>

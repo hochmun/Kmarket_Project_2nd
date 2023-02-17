@@ -15,7 +15,6 @@ public class CsNoticeService {
 
     @Autowired
     public CsNoticeDAO dao;
-
     /**
      * 23/02/16 notice list all 불러오기
      * @autor 김재준
@@ -32,8 +31,8 @@ public class CsNoticeService {
      * @param start
      * @return
      */
-    public List<Cs_NoticeVO> selectNotArticles(@Param("start") int start, String noCate1){
-        return dao.selectNotArticles(start, noCate1);
+    public List<Cs_NoticeVO> selectNotArticles(@Param("start") int start, String noCate){
+        return dao.selectNotArticles(start, noCate);
     }
 
     /**
@@ -41,10 +40,13 @@ public class CsNoticeService {
      * @autor 김재준
      * @return
      */
-    public Cs_NoticeVO selectNotArticle(@Param("noticeNo") Integer noticeNo){
+    public Cs_NoticeVO selectNotArticle(Integer noticeNo){
         return dao.selectNotArticle(noticeNo);
     }
 
+    public List<Cs_NoticeVO> selectNotCate(){
+        return dao.selectNotCate();
+    }
 
     /* 23/02/09 페이징 */
 
@@ -75,8 +77,8 @@ public class CsNoticeService {
      * @autor 김재준
      * @return
      */
-    public long getTotalCount(String noCate1){
-        return dao.selectNotCountTotal(noCate1);
+    public long getTotalCount(String noCate){
+        return dao.selectNotCountTotal(noCate);
     }
 
     /**
