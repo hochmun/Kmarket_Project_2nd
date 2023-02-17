@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -264,15 +264,23 @@
             <tr>
                 <td>유형</td>
                 <td>
-                    <select name="cate1">
+                    <select name="cate1" onchange="cate1Change()">
 
-                        <option value="cate1">cate1이름</option>
+                        <th:block th:each="cate1VO:${data.cate1VOs}">
+                            <option th:value="${cate1VO.cate1}"
+                                    th:text="${cate1VO.cate1Name}"
+                                    th:selected="${cate1VO.cate1 eq data.article.faqCate1}">cate1이름</option>
+                        </th:block>
 
                     </select>
 
                     <select name="cate2">
 
-                        <option value="카테2 번호">카테2 이름</option>
+                        <th:block th:each="cate2VO:${data.cate2VOs}">
+                            <option th:value="${cate2VO.cate2}"
+                                    th:text="${cate2VO.cate2Name}"
+                                    th:selected="${cate2VO.cate2 eq data.article.faqCate2}">카테2 이름</option>
+                        </th:block>
 
                     </select>
 
@@ -299,8 +307,8 @@
             </tr>
         </table>
         <div class="btn2ro" style="margin-left: 500px;">
-            <a href="#">취소하기</a>
-            <a href="#">수정하기</a>
+            <a href="#" onclick="goBack(1)">취소하기</a>
+            <a href="#" th:onclick="articleModify('faq', [[${data.article.faqNo}]])">수정하기</a>
         </div>
     </section>
 
@@ -341,8 +349,8 @@
             </tr>
         </table>
         <div class="btn2ro" style="margin-left: 500px;">
-            <a href="#">취소하기</a>
-            <a href="#" class="btnNoticeModify">수정하기</a>
+            <a href="#" onclick="goBack(1)">취소하기</a>
+            <a href="#" th:onclick="articleModify('notice', [[${data.article.noticeNo}]])" class="btnNoticeModify">수정하기</a>
         </div>
 
     </section>

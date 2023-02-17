@@ -74,6 +74,12 @@
         ;
     </select>
 
+    <!-- 2023/02/17 // 심규영 // 관리자 고객센터 게시물 자신(no)를 제외한 최대 갯수 불러오기 -->
+    <select id="selectCountCsFaqArticleWithNo" parameterType="hashmap" resultType="int">
+        SELECT COUNT(faqNo) FROM km_cs_faq
+        WHERE faqCate1 = ${cate1} AND faqCate2 = ${cate2} AND faqNo != ${no}
+    </select>
+
     <!-- 2023/02/15 // 심규영 // 고객센터 카테고리1 리스트 불러오기 -->
     <select id="selectCsCate1s" resultType="kr.co.kmarket.vo.Cs_Cate1VO">
         SELECT * FROM `km_cs_cate1`;
@@ -85,6 +91,21 @@
     </select>
 
     <!-- upload -->
+    <!-- 2023/02/17 // 심규영 // 관리자 고객센터 글 수정 쿼리문 -->
+    <update id="uploadCsArticle" parameterType="hashmap">
+        UPDATE km_cs_${cate} SET
+            ${cate}Title    = #{title},
+            ${cate}Content  = #{content},
+        <if test="cate == 'faq'">
+            faqCate1        = ${cate1},
+            faqCate2        = ${cate2}
+        </if>
+        <if test="cate == 'notice'">
+            noticeCate      = ${type}
+        </if>
+        WHERE ${cate}No = ${no};
+    </update>
+
     <!-- 2023/02/16 // 심규영 // 관리자 고객센터 문의하기 답변 쿼리문 -->
     <update id="updateQnaArticle">
         UPDATE `km_cs_qna` SET

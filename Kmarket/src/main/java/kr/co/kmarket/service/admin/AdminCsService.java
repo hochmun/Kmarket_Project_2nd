@@ -162,6 +162,24 @@ public class AdminCsService {
     }
 
     /**
+     * 2023/02/17 // 심규영 // 게시물 자신(no)을 제외한 총 갯수 계산
+     * 들어가는 값
+     *      cate1 => 수정 하는 게시물의 카테고리1 값
+     *      cate2 => 수정 하는 게시물의 카테고리2 값
+     *      no    => 수정 하는 게시물의 게시물 번호
+     * @return
+     */
+    public int selectCountCsFaqArticleWithNo(Map<String, String> map) {
+        Map<String, String> data = new HashMap<>();
+
+        data.put("no", map.get("no"));
+        data.put("cate1", map.get("cate1"));
+        data.put("cate2", map.get("cate2"));
+
+        return dao.selectCountCsFaqArticleWithNo(data);
+    }
+
+    /**
      * 2023/02/15 // 심규영 // 고객센터 카테고리1 리스트 불러오기
      * @return
      */
@@ -179,6 +197,41 @@ public class AdminCsService {
     }
 
     // update
+
+    /**
+     * 2023/02/17 // 심규영 // 관리자 고객센터 글 수정 기능
+     * 들어가는 값
+     *      cate    => 카테고리 이름(faq, notice)
+     *      no      => 수정하는 게시물 번호
+     *      title   => 수정되는 게시물 제목
+     *      content => 수정되는 게시물 내용
+     *
+     *      // cate 가 faq 일때
+     *      cate1   => 수정되는 faq 카테고리1 번호
+     *      cate2   => 수정되는 faq 카테고리2 번호
+     *
+     *      // cate 가 notice 일때
+     *      type    => 수정되는 notice 카테고리 번호
+     */
+    public int uploadCsArticle(Map<String, String> map, String cate) {
+        Map<String, String> data = new HashMap<>();
+
+        data.put("cate", cate);
+        data.put("no", map.get("no"));
+        data.put("title", map.get("title"));
+        data.put("content", map.get("content"));
+
+        if(cate.equals("faq")) {
+            data.put("cate1", map.get("cate1"));
+            data.put("cate2", map.get("cate2"));
+        }
+
+        if(cate.equals("notice")) {
+            data.put("type", map.get("type"));
+        }
+
+        return dao.uploadCsArticle(data);
+    }
 
     /**
      * 2023/02/16 // 심규영 // 관리자 고객센터 문의하기 답변
@@ -245,9 +298,6 @@ public class AdminCsService {
         if(cate.equals("faq")) {
             AdminCsListParamDTO param = AdminCsListParamDTO.builder().cate1(map.get("cate1")).cate2(map.get("cate2")).build();
             int total = selectCountCsArticle(cate, param);
-            log.info("total : "+total);
-            log.info("cate1 : "+map.get("cate1"));
-            log.info("cate2 : "+map.get("cate2"));
 
             if(total >= 10) {
                 result = -1;
@@ -257,6 +307,26 @@ public class AdminCsService {
 
         // 글 작성
         result = createCsArticle(map, cate);
+
+        return result;
+    }
+
+    public int CsModifyPostProcess(String cate, Map<String, String> etcText) {
+        int result = 0;
+
+        // cate가 faq일 경우 cate1의 cate2 게시물 갯수 확인
+        // 해당 게시물(no)를 제외한 게시물 갯수가 10개 이상이면 수정 실패(-1 리턴)
+        if(cate.equals("faq")) {
+            int total = selectCountCsFaqArticleWithNo(etcText);
+
+            if(total >= 10) {
+                result = -1;
+                return result;
+            }
+        }
+
+        // 글 수정
+        result = uploadCsArticle(etcText, cate);
 
         return result;
     }

@@ -78,6 +78,14 @@ public class AdminCsController {
         // 게시물 불러오기
         AdminCsVo article = service.selectCsArticle(etcText, cate);
         data.put("article", article);
+        
+        // ca|te가 faq일 경우 cs_cate1, cs_cate2 리스트 불러오기
+        if(cate.equals("faq")){
+            List<Cs_Cate1VO> cate1VOs = service.selectCsCate1s();
+            List<Cs_Cate2VO> cate2VOs = service.selectCsCate2sWithCate1(article.getFaqCate2()+"");
+            data.put("cate1VOs", cate1VOs);
+            data.put("cate2VOs", cate2VOs);
+        }
 
         // 모델 전송
         model.addAttribute("name", myUserDetails.getUser().getName());
@@ -85,6 +93,32 @@ public class AdminCsController {
         model.addAttribute("data", data);
 
         return "admin/cs/modify";
+    }
+
+    /**
+     * 2023/02/17 // 심규영 // 관리자 고객센터 수정 포스트 처리
+     * 들어오는 값
+     *      no          => 수정할 게시물 번호
+     *      title       => 수정된 게시글 제목
+     *      content     => 수정된 게시글 내용
+     *      // if cate==faq
+     *          cate1   => 수정된 게시글 카테고리1
+     *          cate2   => 수정된 게시글 카테고리2
+     *      // else if cate==notice
+     *          type    => 수정된 공지사항 카테고리
+     */
+    @ResponseBody
+    @PostMapping("admin/cs/{cate}/modify")
+    public Map<String, Object> modify(@PathVariable("cate") String cate,
+                                      @RequestBody Map<String, String> etcText) {
+        // 데이터를 담아 리턴할 맵 생성
+        Map<String, Object> data = new HashMap<>();
+
+        // 결과 값
+        int result = service.CsModifyPostProcess(cate, etcText);
+        data.put("result", result);
+
+        return data;
     }
 
     /**
