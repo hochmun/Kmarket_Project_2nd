@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -80,7 +80,7 @@
                 <td th:text="${article.faqHit}">12323</td>
                 <td th:text="${article.faqRdate}">2023-02-08</td>
                 <td>
-                    <a href="#">[삭제]</a>
+                    <a href="#" th:onclick="articleDelete('faq',[[${article.faqNo}]], 'list')">[삭제]</a>
                     <a th:href="|@{/}admin/cs/${cate}/modify?no=${article.faqNo}|">[수정]</a>
                 </td>
             </tr>
@@ -92,7 +92,7 @@
 
         </table>
 
-        <input type="button" value="선택삭제">
+        <input type="button" value="선택삭제" onclick="articlesDelete('faq')">
         <a th:href="|@{/}admin/cs/${cate}/write|" class="w-btn w-btn-green">작성하기</a>
 
     </section>
@@ -134,7 +134,7 @@
                 <td th:text="${article.noticeHit}">32132</td>
                 <td th:text="${article.noticeRdate}">23-02-09</td>
                 <td>
-                    <a href="#" class="deleteSingle">[삭제]</a>
+                    <a href="#" class="deleteSingle" th:onclick="articleDelete('notice',[[${article.noticeNo}]], 'list')">[삭제]</a>
                     <a th:href="|@{/}admin/cs/${cate}/modify?no=${article.noticeNo}|">[수정]</a>
                 </td>
             </tr>
@@ -146,8 +146,8 @@
         </table>
 
         <div class="btn2ro">
-            <a href="#" class="w-btn w-btn-indigo deleteAll">선택삭제</a>
-            <a th:href="|@{/}admin/cs/${cate}/write|" class="w-btn w-btn-green">작성하기</a>
+            <a href="#" class="deleteAll" onclick="articlesDelete('notice')">선택삭제</a>
+            <a th:href="|@{/}admin/cs/${cate}/write|">작성하기</a>
         </div>
 
         <div class="paging">
@@ -235,7 +235,7 @@
         </table>
 
         <div class="btn1ro">
-            <a href="#" class="deleteAll">선택삭제</a>
+            <a href="#" class="deleteAll" onclick="articlesDelete('qna')">선택삭제</a>
         </div>
 
         <div class="paging">
@@ -264,15 +264,23 @@
             <tr>
                 <td>유형</td>
                 <td>
-                    <select name="cate1">
+                    <select name="cate1" onchange="cate1Change()">
 
-                        <option value="cate1">cate1이름</option>
+                        <th:block th:each="cate1VO:${data.cate1VOs}">
+                            <option th:value="${cate1VO.cate1}"
+                                    th:text="${cate1VO.cate1Name}"
+                                    th:selected="${cate1VO.cate1 eq data.article.faqCate1}">cate1이름</option>
+                        </th:block>
 
                     </select>
 
                     <select name="cate2">
 
-                        <option value="카테2 번호">카테2 이름</option>
+                        <th:block th:each="cate2VO:${data.cate2VOs}">
+                            <option th:value="${cate2VO.cate2}"
+                                    th:text="${cate2VO.cate2Name}"
+                                    th:selected="${cate2VO.cate2 eq data.article.faqCate2}">카테2 이름</option>
+                        </th:block>
 
                     </select>
 
@@ -299,8 +307,8 @@
             </tr>
         </table>
         <div class="btn2ro" style="margin-left: 500px;">
-            <a href="#">취소하기</a>
-            <a href="#">수정하기</a>
+            <a href="#" onclick="goBack(1)">취소하기</a>
+            <a href="#" th:onclick="articleModify('faq', [[${data.article.faqNo}]])">수정하기</a>
         </div>
     </section>
 
@@ -341,8 +349,8 @@
             </tr>
         </table>
         <div class="btn2ro" style="margin-left: 500px;">
-            <a href="#">취소하기</a>
-            <a href="#" class="btnNoticeModify">수정하기</a>
+            <a href="#" onclick="goBack(1)">취소하기</a>
+            <a href="#" th:onclick="articleModify('notice', [[${data.article.noticeNo}]])" class="btnNoticeModify">수정하기</a>
         </div>
 
     </section>

@@ -78,6 +78,16 @@ public interface AdminCsDAO {
     public int selectCountCsArticle(Map<String, String> map);
 
     /**
+     * 2023/02/17 // 심규영 // 게시물 자신(no)을 제외한 총 갯수 계산
+     * 들어가는 값
+     *      cate1 => 수정 하는 게시물의 카테고리1 값
+     *      cate2 => 수정 하는 게시물의 카테고리2 값
+     *      no    => 수정 하는 게시물의 게시물 번호
+     * @return
+     */
+    public int selectCountCsFaqArticleWithNo(Map<String, String> map);
+
+    /**
      * 2023/02/15 // 심규영 // 고객센터 카테고리1 리스트 불러오기
      * @return
      */
@@ -91,7 +101,23 @@ public interface AdminCsDAO {
     public List<Cs_Cate2VO> selectCsCate2sWithCate1(int cate1);
 
     // upload
-    public void uploadCsArticle();
+
+    /**
+     * 2023/02/17 // 심규영 // 관리자 고객센터 글 수정 기능
+     * 들어가는 값
+     *      cate    => 카테고리 이름(faq, notice)
+     *      no      => 수정하는 게시물 번호
+     *      title   => 수정되는 게시물 제목
+     *      content => 수정되는 게시물 내용
+     *
+     *      // cate 가 faq 일때
+     *      cate1   => 수정되는 faq 카테고리1 번호
+     *      cate2   => 수정되는 faq 카테고리2 번호
+     *
+     *      // cate 가 notice 일때
+     *      type    => 수정되는 notice 카테고리 번호
+     */
+    public int uploadCsArticle(Map<String, String> map);
 
     /**
      * 2023/02/16 // 심규영 // 관리자 고객센터 문의하기 답변
