@@ -32,7 +32,37 @@ window.onload = function(){
 
     arrival.innerHTML = dateFormat;
 
+
+    // 리뷰 페이지 업데이트
+    document.addEventListener('click', function(e){
+        if(e.target.matches('div.paging a')){
+            e.preventDefault(); // 링크의 동작을 막음
+            updateReviewPage(e.target.href);
+        }
+    });
 };
+
+
+// 리뷰 페이지 업데이트 함수
+function updateReviewPage(href){
+    const xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState === 4 && xhr.status === 200){
+
+            let responseText = xhr.responseText; // 서버에서 응답 데이터를 불러움
+            let parser = new DOMParser();
+            let newDoc = parser.parseFromString(responseText, 'text/html'); // HTML 파싱
+            let newPaging = newDoc.querySelector('.review'); // 새로운 페이징 영역 추출
+            let oldPaging = document.querySelector('.review'); // 현재 페이징 영역 추출
+            oldPaging.innerHTML = newPaging.innerHTML;
+            console.log(newPaging);
+        }
+    };
+
+    xhr.open('GET', href, true);
+    xhr.send();
+
+}
 
 
 function order(type){
@@ -127,3 +157,4 @@ function goReview(){
     window.scrollTo({top:location, behavior:'smooth'});
 
 }
+

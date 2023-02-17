@@ -227,6 +227,10 @@ public class ProductService {
             lastPage = (total / count) + 1;
         }
 
+        if(lastPage == 0){
+            lastPage = 1;
+        }
+
         return lastPage;
     }
 
