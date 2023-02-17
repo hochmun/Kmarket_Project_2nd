@@ -1,0 +1,34 @@
+<!--
+  날짜 : 2023/02/09
+  이름 : 김재준
+  내용 : company/introduce
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{company/_header}"></th:block>
+<main id="introduce">
+    <div class="cover">
+        <div>
+            <h1>회사소개</h1>
+            <p>
+                KMARKET으로 모든 일상이 연결되는 세상을<br>
+                만들어가기 위해 노력합니다.
+            </p>
+        </div>
+    </div>
+    <section class="content">
+        <h2>INTRODUCTION</h2>
+        <p>
+            Kmarket은 2014년 1월 1일 신세계백화점, 이마트 등 신세계그룹의 모든 상품을 온라인에서 한 눈에 보고, 한 번의 결제만으로 편하게 구매할 수 있는 통합 온라인 쇼핑 플랫폼으로 탄생했습니다. 차별화된 상품, 다양한 서비스, 편리한 혜택으로 삶의 가치를 높이는 쇼핑 경험을 제공합니다.
+        </p>
+        <h2>BUSINESS AREAS</h2>
+        <img th:src="@{/img/introduce_img1.png}" alt="">
+        <img th:src="@{/img/introduce_img2.png}" alt="">
+
+        <h2>KMARKET ONLINE</h2>
+        <img th:src="@{/img/introduce_img3.png}" alt="">
+
+        <h2>KMARKET OFFLINE</h2>
+        <img th:src="@{/img/introduce_img4.jpg}" alt="">
+    </section>
+</main>
+<th:block th:replace="~{company/_footer}"/>

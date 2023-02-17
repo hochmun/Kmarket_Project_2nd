@@ -1,0 +1,59 @@
+<!--
+  날짜 : 2023/02/09
+  이름 : 김재준
+  내용 : company/manage
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{company/_header}"></th:block>
+<main id="manage">
+    <div class="cover">
+        <div>
+            <h1>투명경영</h1>
+            <p>
+                KMARKET은 투명하고 건전한<br>
+                기업문화 정착을 위해 노력하고<br>
+                있습니다.
+            </p>
+        </div>
+    </div>
+    <section class="content">
+        <h2>투명경영</h2>
+        <p>
+            KMARKET은 투명하고 건전한 기업문화 정착을 위해 CSR 전담조직 운영 및 다양한 제도를 운영하는 등 적극적으로 투명 경영을 실천하고 있습니다.
+        </p>
+        <ul>
+            <li>
+                <img th:src="@{/img/manage_img1.svg}" alt="">
+                <h4>CSR 전담조직 운영</h4>
+                <p>사회적 책임경영의 체계적 운영</p>
+            </li>
+            <li>
+                <img th:src="@{/img/manage_img2.svg}" alt="">
+                <h4>재무건전성 확보</h4>
+                <p>투명한 회계정책 내부회계 관리제도 전자회계시스템도입</p>
+            </li>
+            <li>
+                <img th:src="@{/img/manage_img3.svg}" alt="">
+                <h4>3대 신고제도</h4>
+                <p>클린 신고 지인거래 신고</p>
+            </li>
+            <li>
+                <img th:src="@{/img/manage_img4.svg}" alt="">
+                <h4>CSR 마일리지 제도</h4>
+                <p>임직원 참여 동기부여 우수 실천 임직원 보상</p>
+            </li>
+        </ul>
+
+        <h2>투명경영을 통한 기업 신뢰도 제고</h2>
+        <p>KMARKET은 투명한 기업문화 정착을 위해 다양한 노력을 기울이고 있습니다. 임직원의 부정부실 예방 및 준법활동을 지속적으로 실천하고 있으며, 내부회계 관리 제도, 전자회계시스템 도입 등 투명한 회계 정책을 통해 재무 건전성 확보를 위해 힘쓰고 있습니다.</p>
+
+        <h2>CSR 전담조직 운영</h2>
+        <p>KMARKET은 사회적 책임경영의 전략적인 실천을 위해 CSR전담 조직을 운영하여 사회적 책임경영의 체계적인 운영에 노력하고 있습니다.</p>
+
+        <h2>3대 신고제도와 CSR 마일리지 제도 운영</h2>
+        <p>
+            KMARKET은 사회적 책임 경영의 실천도 제고를 위해 다양한 CSR경영 제도를 운영하고 있습니다. 본인 몫은 본인이 계산하는 신세계 페이(Shinsegae Pay), 외부에서 받은 금품과 편의를 스스로 신고하는 클린신고 제도, 거래관계에서 사전에 지인관계를 신고하는 지인거래 신고제도를 통해 투명한 거래문화를 정착시키고, 개인이나 조직간의 관계를 수평적으로 전환시키는 계기를 마련하고 있습니다. 또한 CSR 마일리지 제도의 운영을 통해 우수 실천 임직원에 대해서는 별도의 혜택을 부여하고 있습니다.
+        </p>
+    </section>
+</main>
+<th:block th:replace="~{company/_footer}"/>
