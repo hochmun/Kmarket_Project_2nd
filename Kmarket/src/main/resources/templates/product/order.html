@@ -148,7 +148,7 @@
                         <h1>할인정보</h1>
       
                         <div>
-                            <p>현재 포인트 : <span>[[${member.point}]]</span>점</p>
+                            <p>현재 포인트 : <span>[[${#numbers.formatInteger(member.point, 1, 'COMMA')}]]</span>점</p>
                             <label>
                                 <input type="text" name="point" value="0"/>점
                                 <input type="button" id="pointDiscount" value="적용"/>
