@@ -23,7 +23,7 @@
       <li><i class="fa fa-bars" aria-hidden="true"></i>카테고리</li>
       <li th:each="cate1:${cate1s}">
 
-        <a href="#">
+        <a th:href="@{/product/list(cate1=${cate1.cate1},sort=sold)}">
         <th:block th:switch="${cate1.cate1}">
           <th:block th:case="10"><i class="fas fa-shopping-bag"></i></th:block>
           <th:block th:case="11"><i class="fas fa-tshirt"></i></th:block>
@@ -137,7 +137,7 @@
     <ul class="category">
       <li><i class="fa fa-bars" aria-hidden="true"></i>카테고리</li>
       <li>
-        <a href="#"><i class="fas fa-shopping-bag"></i>브랜드 패션<i class="fas fa-angle-right"></i></a>
+        <a th:href="@{/product/list(cate1=10,sort=sold)}"><i class="fas fa-shopping-bag"></i>브랜드 패션<i class="fas fa-angle-right"></i></a>
         <ol>
           <li><a th:href="@{/product/list(cate1=10,cate2=10,sort=sold)}">브랜드 여성의류</a></li>
           <li><a th:href="@{/product/list(cate1=10,cate2=11,sort=sold)}">브랜드 남성의류</a></li>
@@ -148,7 +148,7 @@
         </ol>
       </li>
       <li>
-        <a href="#"><i class="fas fa-tshirt"></i>패션의류·잡화·뷰티<i class="fas fa-angle-right"></i></a>
+        <a th:href="@{/product/list(cate1=11,sort=sold)}"><i class="fas fa-tshirt"></i>패션의류·잡화·뷰티<i class="fas fa-angle-right"></i></a>
         <ol>
           <li><a th:href="@{/product/list(cate1=11,cate2=10,sort=sold)}">여성의류</a></li>
           <li><a th:href="@{/product/list(cate1=11,cate2=11,sort=sold)}">남성의류</a></li>
@@ -161,7 +161,7 @@
         </ol>
       </li>
       <li>
-        <a href="#"><i class="fas fa-baby-carriage"></i>유아동<i class="fas fa-angle-right"></i></a>
+        <a th:href="@{/product/list(cate1=12,sort=sold)}"><i class="fas fa-baby-carriage" aria-hidden="true"></i>유아동<i class="fas fa-angle-right"></i></a>
         <ol>
           <li><a th:href="@{/product/list(cate1=12,cate2=10,sort=sold)}">출산/육아</a></li>
           <li><a th:href="@{/product/list(cate1=12,cate2=11,sort=sold)}">장난감/완구</a></li>
@@ -170,7 +170,7 @@
         </ol>
       </li>
       <li>
-        <a href="#"><i class="fas fa-utensils"></i>식품·생필품<i class="fas fa-angle-right" ></i></a>
+        <a th:href="@{/product/list(cate1=13,sort=sold)}"><i class="fas fa-utensils"></i>식품·생필품<i class="fas fa-angle-right" ></i></a>
         <ol>
           <li><a th:href="@{/product/list(cate1=13,cate2=10,sort=sold)}">신선식품</a></li>
           <li><a th:href="@{/product/list(cate1=13,cate2=11,sort=sold)}">가공식품</a></li>
@@ -181,7 +181,7 @@
         </ol>
       </li>
       <li>
-        <a href="#"><i class="fas fa-home"></i>홈데코·문구·취미·반려<i class="fas fa-angle-right"></i></a>
+        <a th:href="@{/product/list(cate1=14,sort=sold)}"><i class="fas fa-home"></i>홈데코·문구·취미·반려<i class="fas fa-angle-right"></i></a>
         <ol>
           <li><a th:href="@{/product/list(cate1=14,cate2=10,sort=sold)}">가구/DIY</a></li>
           <li><a th:href="@{/product/list(cate1=14,cate2=11,sort=sold)}">침구/커튼</a></li>
@@ -195,7 +195,7 @@
         </ol>
       </li>
       <li>
-        <a href="#"><i class="fas fa-tv"></i>컴퓨터·디지털·가전<i class="fas fa-angle-right"></i></a>
+        <a th:href="@{/product/list(cate1=15,sort=sold)}"><i class="fas fa-tv"></i>컴퓨터·디지털·가전<i class="fas fa-angle-right"></i></a>
         <ol>
           <li><a th:href="@{/product/list(cate1=15,cate2=10,sort=sold)}">노트북/PC</a></li>
           <li><a th:href="@{/product/list(cate1=15,cate2=11,sort=sold)}">모니터/프린터</a></li>
@@ -212,7 +212,7 @@
         </ol>
       </li>
       <li>
-        <a href="#"><i class="fas fa-running"></i>스포츠·건강·렌탈<i class="fas fa-angle-right"></i></a>
+        <a th:href="@{/product/list(cate1=16,sort=sold)}"><i class="fas fa-running"></i>스포츠·건강·렌탈<i class="fas fa-angle-right"></i></a>
         <ol>
           <li><a th:href="@{/product/list(cate1=16,cate2=10,sort=sold)}">스포츠의류/운동화</a></li>
           <li><a th:href="@{/product/list(cate1=16,cate2=11,sort=sold)}">휘트니스/수영</a></li>
@@ -227,14 +227,14 @@
         </ol>
       </li>
       <li>
-        <a href="#"><i class="fas fa-car"></i>자동차·공구<i class="fas fa-angle-right"></i></a>
+        <a th:href="@{/product/list(cate1=17,sort=sold)}"><i class="fas fa-car"></i>자동차·공구<i class="fas fa-angle-right"></i></a>
         <ol>
           <li><a th:href="@{/product/list(cate1=17,cate2=10,sort=sold)}">자동차용품</a></li>
           <li><a th:href="@{/product/list(cate1=17,cate2=11,sort=sold)}">공구/안전/산업용품</a></li>
         </ol>
       </li>
       <li>
-        <a href="#"><i class="fas fa-book"></i>여행·도서·티켓·e쿠폰<i class="fas fa-angle-right"></i></a>
+        <a th:href="@{/product/list(cate1=18,sort=sold)}"><i class="fas fa-book"></i>여행·도서·티켓·e쿠폰<i class="fas fa-angle-right"></i></a>
         <ol>
           <li><a th:href="@{/product/list(cate1=18,cate2=10,sort=sold)}">여행/항공권</a></li>
           <li><a th:href="@{/product/list(cate1=18,cate2=11,sort=sold)}">도서/음반/e교육</a></li>

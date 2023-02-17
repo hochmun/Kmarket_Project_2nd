@@ -6,13 +6,28 @@
     <select id="getCateName" resultType="kr.co.kmarket.vo.product_cate2VO">
         SELECT a.c1Name, b.c2Name FROM `km_product_cate1` AS a
         JOIN `km_product_cate2` AS b
-        ON a.cate1 = b.cate1 WHERE b.cate1=#{cate1} AND b.cate2=#{cate2};
+        ON a.cate1 = b.cate1 WHERE b.cate1=#{cate1}
+
+        <if test="cate2 != 0">
+            AND b.cate2= #{cate2};
+        </if>
+        <if test="cate2 == 0">
+            AND b.cate2= 10;
+        </if>
+
     </select>
     <select id="getCountTotal" resultType="int">
-        SELECT COUNT(`prodNo`) FROM `km_product` WHERE `prodCate1`=#{cate1} AND `prodCate2`=#{cate2};
+        SELECT COUNT(`prodNo`) FROM `km_product` WHERE `prodCate1`=#{cate1}
+        <if test="cate2 != 0">
+            AND `prodCate2`=#{cate2}
+        </if>
     </select>
     <select id="selectProducts" resultType="kr.co.kmarket.vo.productVO">
-        SELECT * FROM `km_product` WHERE `prodCate1`=#{cate1} AND `prodCate2`=#{cate2}
+        SELECT * FROM `km_product` WHERE `prodCate1`=#{cate1}
+
+        <if test="cate2 != 0">
+            AND `prodCate2`=#{cate2}
+        </if>
 
         <if test="sort == 'sold'">
             ORDER BY `sold` DESC LIMIT #{start}, 10;

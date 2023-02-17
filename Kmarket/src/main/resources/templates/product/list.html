@@ -16,7 +16,7 @@
                 <!-- 제목, 페이지 네비게이션 -->
                 <nav>
                     <h1>상품목록</h1>
-                    <p>HOME > <span>[[${cateName.c1Name}]]</span> > <strong>[[${cateName.c2Name}]]</strong></p>
+                    <p>HOME > <span>[[${cateName.c1Name}]]</span> <strong th:if="${cate2 != 0}">> [[${cateName.c2Name}]]</strong></p>
                 </nav>
 
                 <!-- 정렬 메뉴 -->

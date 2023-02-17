@@ -30,9 +30,12 @@ public class ProductController {
      * 상품 list GetMapping
      * @since 23/02/09
      * @author 이해빈
+     *
+     * 2023/02/17 상품 전체 list 불러오기 기능
      */
     @GetMapping("product/list")
-    public String list(Model model, int cate1, int cate2, String sort, String pg){
+    public String list(Model model, int cate1, @RequestParam(value="cate2", required = false, defaultValue = "0") int cate2, String sort, String pg){
+
 
         // 카테고리 이름 가져오기
         product_cate2VO cateName = service.getCateName(cate1, cate2);
