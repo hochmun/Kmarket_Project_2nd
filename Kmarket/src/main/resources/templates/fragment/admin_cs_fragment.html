@@ -76,7 +76,7 @@
                 <td th:text="${article.c1Name}">cate1</td>
                 <td th:text="${article.c2Name}" style="text-align: center;">cate2</td>
                 <td><a th:text="${article.faqTitle}"
-                       th:href="|@{/}admin/cs/${cate}/view?no=${article.faqNo}&cate1=${article.faqCate1}&cate2=${article.faqCate2}|">제목</a></td>
+                       th:href="|@{/}admin/cs/${cate}/view?no=${article.faqNo}&pg=${data.etcText.pg}&cate1=${article.faqCate1}&cate2=${article.faqCate2}|">제목</a></td>
                 <td th:text="${article.faqHit}">12323</td>
                 <td th:text="${article.faqRdate}">2023-02-08</td>
                 <td>
@@ -352,7 +352,7 @@
     </section>
 
     <!-- 2023/02/09 // 심규영 // 자주하는질문 보기 -->
-    <section th:fragment="faqView(data)">
+    <section th:fragment="faqView(data, cate)">
 
         <table>
             <tr>
@@ -376,15 +376,15 @@
         </table>
 
         <div class="aGroup">
-            <a href="#" class="w-btn w-btn-indigo btnDelete">삭제</a>
-            <a href="#" class="w-btn w-btn-green">수정</a>
-            <a href="#" class="w-btn w-btn-indigo">목록</a>
+            <a href="#" class="btnDelete" th:onclick="articleDelete('faq',[[${data.article.faqNo}]], 'view')">삭제</a>
+            <a th:href="|@{/}admin/cs/${cate}/modify?no=${data.article.faqNo}&pg=${data.etcText.pg}|">수정</a>
+            <a th:href="|@{/}admin/cs/${cate}/list?pg=${data.etcText.pg}&cate1=${data.etcText.cate1}&cate2=${data.etcText.cate2}|">목록</a>
         </div>
 
     </section>
 
     <!-- 2023/02/09 // 심규영 // 공지사항 보기 -->
-    <section th:fragment="noticeView(data)">
+    <section th:fragment="noticeView(data, cate)">
 
         <table>
             <tr>
@@ -408,21 +408,21 @@
             </tr>
         </table>
         <div class="btn3ro" style="padding-left: 400px;">
-            <a href="#" class="w-btn w-btn-indigo btnNoticeDelete">삭제</a>
-            <a href="#" class="w-btn w-btn-green">수정</a>
-            <a href="#"  class="w-btn w-btn-indigo">목록</a>
+            <a href="#" class="btnNoticeDelete" th:onclick="articleDelete('notice',[[${data.article.noticeNo}]], 'view')">삭제</a>
+            <a th:href="|@{/}admin/cs/${cate}/modify?no=${data.article.noticeNo}&pg=${data.etcText.pg}|">수정</a>
+            <a th:href="|@{/}admin/cs/${cate}/list?pg=${data.etcText.pg}&type=${data.etcText.type}|">목록</a>
         </div>
 
     </section>
 
     <!-- 2023/02/09 // 심규영 // 문의하기 보기 -->
-    <section th:fragment="qnaView(data)">
+    <section th:fragment="qnaView(data, cate)">
 
         <table>
             <tr>
                 <td>유형</td>
                 <td>
-                    [[${data.article.c1Name}]] - [[${data.article.c2Name]]]
+                    [[${data.article.c1Name}]] - [[${data.article.c2Name}]]
                 </td>
             </tr>
             <tr>
@@ -445,8 +445,8 @@
             </tr>
         </table>
         <div class="btn3ro" style="margin-left: 500px;">
-            <a href="#" class="btnNoticeDelete">삭제</a>
-            <a href="#">목록</a>
+            <a href="#" class="btnNoticeDelete" th:onclick="articleDelete('qna',[[${data.article.qnaNo}]], 'view')">삭제</a>
+            <a th:href="|@{/}admin/cs/${cate}/list?pg=${data.etcText.pg}&cate1=${data.etcText.cate1}&cate2=${data.etcText.cate2}|">목록</a>
         </div>
 
     </section>
