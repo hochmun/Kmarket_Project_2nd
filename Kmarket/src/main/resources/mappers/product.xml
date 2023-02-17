@@ -148,4 +148,19 @@
         SELECT COUNT(`revNo`) FROM `km_product_review` WHERE `prodNo` = #{prodNo};
     </select>
 
+    <insert id="insertUsedPoint" parameterType="map">
+        INSERT INTO `km_member_point` SET
+        `uid`       = #{ordUid},
+        `ordNo`     = #{ordNo},
+        `point`     = -#{usedPoint},
+        `pointDate` = NOW()
+    </insert>
+    <insert id="insertSavePoint" parameterType="map">
+        INSERT INTO `km_member_point` SET
+        `uid`       = #{ordUid},
+        `ordNo`     = #{ordNo},
+        `point`     = #{savePoint},
+        `pointDate` = NOW()
+    </insert>
+
 </mapper>

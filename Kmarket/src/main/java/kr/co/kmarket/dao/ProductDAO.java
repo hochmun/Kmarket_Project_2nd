@@ -84,7 +84,15 @@ public interface ProductDAO {
      * @author 이해빈
      */
     public int updatePoint(Map<String, Object> orderinfo);
-    
+
+    /**
+     * 상품 주문관련 상품 포인트 테이블 업데이트
+     * @since 23/02/16
+     * @author 이해빈
+     */
+    public int insertUsedPoint(Map<String, Object> orderinfo);
+    public int insertSavePoint(Map<String, Object> orderinfo);
+
     /**
      * 상품 주문(km_product_order) 테이블 업데이트
      * @since 23/02/15
