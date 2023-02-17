@@ -42,7 +42,7 @@
         `rdate`=NOW();
     </insert>
     <!--아이디 찾기-->
-    <select id="search_id" parameterType="String">
+    <select id="search_id" resultType="kr.co.kmarket.vo.memberVO">
         SELECT `uid` FROM `km_member` WHERE `name`=#{name} AND `hp`=#{hp};
     </select>
 

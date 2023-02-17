@@ -4,6 +4,7 @@ import kr.co.kmarket.dao.MemberDAO;
 import kr.co.kmarket.repository.UserRepo;
 import kr.co.kmarket.vo.member_termsVO;
 import kr.co.kmarket.vo.memberVO;
+import org.apache.catalina.Manager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -31,9 +32,10 @@ public class MemberService {
         vo.setPass(encoder.encode(vo.getPass1()));
         return dao.insertSellerMember(vo);
     }
+
     /*아이디찾기*/
-    public String search_id(String name, String hp) throws Exception{
-        return dao.search_id(name, hp);
+    public int search_id(String name, String hp) throws Exception{
+        return dao.search_id(name,hp);
     }
 
     public member_termsVO selectTerms(){

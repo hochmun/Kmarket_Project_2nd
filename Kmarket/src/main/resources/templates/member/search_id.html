@@ -1,36 +1,65 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <th:block th:replace="~{member/_header}"></th:block>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 <script>
-$(document).on('click','#ok',function(){
-	let name = $("input[name='name']").val();
- 	let hp = $("input[name='hp']").val();
+function fb() {
 
- 	var postData = {'name' : name , 'hp' : hp};
+let hp = /^\d{2,3}-\d{3,4}-\d{4}$/;
 
-	$.ajax({
-        url:'/member/search_id_Result',
-        type:'POST',
-        data: postData,
-        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-        dataType : "json",
-        success:function(data){
-            if(data == 0){
-                $("input[name='name']").text("회원정보를 다시 확인해주세요.");
-                $("input[name='name']").val('');
-                $("input[name='hp']").val('');
-            }else{
-                $("input[name='name']").text(data);
-                $("input[name='name']").val('');
-                $("input[name='hp']").val('');
-            }
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown){
-        	alert('정보를 다시 입력해주시길 바랍니다.' );
-        }
-    });
+if ($("#name").val() == null || $("#name").val() == "") {
+alert("이름을 입력해주세요.");
+$("#name").focus();
+
+return false;
+}
+
+if ($("#hp").val() == null || $("#tel").val() == "") {
+alert("전화번호를 입력해주세요.");
+$("#tel").focus();
+
+return false;
+}
+
+if(!hp.test($("#hp").val())){
+alert("전화번호 형식에 맞게 입력해주세요.");
+return false;
+}
+if (confirm("아이디를 찾으시겠습니까?")) {
+
+$("#searchid").submit();
+
+return false;
+}
+}
+
+let name  = $("input[name='name']").val();
+let hp = $("input[name='hp']").val();
+
+let jsonData = {
+"name": name,
+"hp": hp
+};
+
+$.ajax({
+url: '/Kmarket/member/search_id_Result',
+type: 'post',
+data: jsonData,
+dataType: 'json',
+success: function(data){
+
+if(data.result > 0){
+    location.href = "/Kmarket/member/search_id_Result";
+}else{
+    alert('일치하는 회원이 없습니다.\n이름과 이메일을 다시 확인 하시기 바랍니다.');
+}
+
+}
 });
+
+
 
 </script>
     <main id="member">
@@ -38,18 +67,18 @@ $(document).on('click','#ok',function(){
             <nav>
                 <h1>아이디찾기</h1>
             </nav>
-            <form>
+            <form commandName="memberVO" id="searchid" th:action="@{/member/search_id_Result}" method="post">
                 <table border="0">
                     <tr>
                         <td>이름</td>
-                        <td><input type="text" name="name" placeholder="이름 입력"></td>
+                        <td><input type="text" name="name" id="name" placeholder="이름 입력"></td>
                     </tr>
                     <tr>
                         <td>전화번호</td>
-                        <td><input type="text" name="hp" placeholder="전화번호 입력"></td>
+                        <td><input type="text" name="hp" id="hp" placeholder="전화번호 입력"></td>
                     </tr>
                 </table>
-                <input type="submit" value="ok" id="ok"/>
+                <input type="button" value="ok" id="ok" class="ok" onclick="fb()"/>
                 <span>
                     <a th:href="@{/member/login}">로그인</a>
                     <a th:href="@{/member/search_pwd}">비밀번호 찾기</a>
