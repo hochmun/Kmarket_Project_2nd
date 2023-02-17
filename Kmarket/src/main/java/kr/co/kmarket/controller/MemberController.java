@@ -4,15 +4,19 @@ import kr.co.kmarket.service.MemberService;
 import kr.co.kmarket.vo.member_termsVO;
 import kr.co.kmarket.vo.memberVO;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.Response;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpUtils;
 import java.io.Console;
-import java.net.http.HttpRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,12 +42,10 @@ public class MemberController {
     public String search_id_Result(){
         return "member/search_id_Result";
     }
-    @ResponseBody
     @PostMapping("member/search_id_Result")
-    public String search_id_Result(@RequestParam("name") String name,
-                                   @RequestParam("hp") String hp) throws Exception {
-        String result = service.search_id(name, hp);
-        return result;
+    public String search_id_Result(@Param("name") String name, @Param("hp") String hp) throws Exception {
+        int result =Integer.parseInt(String.valueOf(service.search_id(name,hp)));
+        return "member/search_id_Result"+result;
     }
 
     @GetMapping("member/search_pwd")
