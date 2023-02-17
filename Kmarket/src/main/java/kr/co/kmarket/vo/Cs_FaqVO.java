@@ -22,7 +22,7 @@ public class Cs_FaqVO {
     private String faqRdate;
 
     // 추가필드
-    private String cate1Name;
-    private String cate2Name;
+    private int cate1;
+    private int cate2;
 
 }

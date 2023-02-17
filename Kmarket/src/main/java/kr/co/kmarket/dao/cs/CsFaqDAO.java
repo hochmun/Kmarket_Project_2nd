@@ -24,7 +24,6 @@ public interface CsFaqDAO {
 
     /**
      * 23/02/13 카테1 값으로 카테2 정보 가져오기
-     * @param csCate1
      * @autor 김재준
      * @return
      */
@@ -35,7 +34,7 @@ public interface CsFaqDAO {
      * @autor 김재준
      * @return
      */
-    public List<Cs_FaqVO> selectCsFaqListWithCsCate1();
+    public List<Cs_FaqVO> selectCsFaqListWithCsCate1(@Param("faqCate1") Integer faqCate1,@Param("faqCate2") Integer faqCate2);
 
     /* View */
 

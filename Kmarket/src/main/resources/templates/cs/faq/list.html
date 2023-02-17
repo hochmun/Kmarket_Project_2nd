@@ -16,9 +16,11 @@
         <section class="list">
             <aside>
                 <h2>자주묻는 질문</h2>
-                <ul th:each="vo2:${vos2}">
+                <th:block th:each="vo2:${vos2}">
+                <ul>
                     <li th:classappend="${vo2.cate1} == ${csCate1} ? 'on' : 'off'"><a th:href="@{/cs/faq/list(csCate1=${vo2.cate1})}">[[${vo2.cate1Name}]]</a></li>
                 </ul>
+                </th:block>
             </aside>
             <article>
                 <nav>
@@ -33,21 +35,17 @@
                 <th:block th:each="vo3:${vos3}">
                     <div>
                         <h3>[[${vo3.cate2Name}]]</h3>
-                        <th:block th:with="count = 0">
                             <ul>
-                                <th:block th:each="vo:${vos}">
+                                <th:block th:each="vo, voStat : ${vos}">
                                     <th:block th:if="${vo.faqCate2 eq vo3.cate2} and ${vo.faqCate1 eq vo3.cate1}">
-                                        <th:block th:with="count = ${count + 1}">
-                                            <li th:classappend="${count > 3} ? 'hide' : ''"><a th:href="@{/cs/faq/view(faqNo=${vo.faqNo},csCate1=${vo.faqCate1})}"><span>Q.</span>[[${vo.faqTitle}]]</a></li>
+                                        <th:block th:with="count=${voStat.count + 1}">
+                                            <li th:classappend="${count > 3} ? 'hide' : ''"><a th:href="@{/cs/faq/view(faqNo=${vo.faqNo},faqCate1=${vo.faqCate1})}"><span>Q.</span>[[${vo.faqTitle}]]</a></li>
                                         </th:block>
                                     </th:block>
-                                </th:block>
-                                <th:block th:if="${count} == 0">
-                                    <li><a>등록된 게시물이 없습니다.</a></li>
+                                    <li th:if="${count == 0}"><a>등록된 게시물이 없습니다.</a></li>
                                 </th:block>
                                 <li class="more" onclick="moreView(this)"><a href="#">더보기</a></li>
                             </ul>
-                        </th:block>
                     </div>
                 </th:block>
             </article>
