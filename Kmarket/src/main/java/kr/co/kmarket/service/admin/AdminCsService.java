@@ -51,19 +51,19 @@ public class AdminCsService {
     // read
 
     /**
-     * 2023/02/16 // 심규영 // 관리자 고객센터 문의하기 답변
-     * 들어오는 map(map) 정보
-     *      pg => 게시물이 있던 페이지 번호
-     *      no => 게시물 번호
-     * 들어가는 map(data) 정보
-     *      table => 테이블 이름
-     *      typeNo => No 속성 이름
-     *      no => 게시물 번호
-     *      cate => 카테고리 이름
+     * 2023/02/16 // 심규영 // 관리자 고객센터 문의하기 답변 <br>
+     * 들어오는 map(map) 정보 <br>
+     *      pg      => 게시물이 있던 페이지 번호 <br>
+     *      no      => 게시물 번호 <br>
+     * 들어가는 map(data) 정보 <br>
+     *      table   => 테이블 이름 <br>
+     *      typeNo  => No 속성 이름 <br>
+     *      no      => 게시물 번호 <br>
+     *      cate    => 카테고리 이름 <br>
      *
-     *      if (cate == faq || cate == qna)
-     *      c1Name => 카테고리1 속성 이름
-     *      c2Name => 카테고리2 속성 이름
+     *      if (cate == faq || cate == qna) <br>
+     *      c1Name  => 카테고리1 속성 이름 <br>
+     *      c2Name  => 카테고리2 속성 이름
      * @param map
      */
     public AdminCsVo selectCsArticle(Map<String, String> map, String cate) {

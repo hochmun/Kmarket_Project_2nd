@@ -58,19 +58,31 @@ public class AdminCsController {
 
     /**
      * 관리자 고객센터 수정 페이지
-     * 자주묻는 질문, 공지사항
+     * 자주묻는 질문, 공지사항 (faq, notice)
      * 들어오는 정보
      *      no => 게시물 번호
+     *      pg => 게시물이 있던 페이지 번호
      * @since 2023/02/09 // 심규영
      * @param cate
      * @return
      */
     @GetMapping("admin/cs/{cate}/modify")
     public String modify(@PathVariable("cate") String cate,
+                         @RequestParam Map<String, String> etcText,
                          Model model,
                          @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        // 데이터를 담을 Map 생성
+        Map<String, Object> data = new HashMap<>();
+        data.put("etcText", etcText);
+        
+        // 게시물 불러오기
+        AdminCsVo article = service.selectCsArticle(etcText, cate);
+        data.put("article", article);
+
+        // 모델 전송
         model.addAttribute("name", myUserDetails.getUser().getName());
         model.addAttribute("cate", cate);
+        model.addAttribute("data", data);
 
         return "admin/cs/modify";
     }
@@ -94,6 +106,7 @@ public class AdminCsController {
                        @AuthenticationPrincipal MyUserDetails myUserDetails) {
         // 데이터를 담을 map
         Map<String, Object> data = new HashMap<>();
+        data.put("etcText", map);
 
         // 게시물 불러오기
         AdminCsVo article = service.selectCsArticle(map, cate);

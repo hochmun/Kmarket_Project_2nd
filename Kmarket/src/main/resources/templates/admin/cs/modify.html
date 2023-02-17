@@ -12,7 +12,7 @@
 			<section id="admin-product-list">
                 <nav th:replace="~{fragment/admin_cs_fragment::adminCsNav(cate = ${cate}, title = '수정')}"></nav>
  				<!-- 상품목록 컨텐츠 시작 -->
-                <section th:replace="~{fragment/admin_cs_fragment::${cate + 'Modify'}}"></section>
+                <section th:replace="~{fragment/admin_cs_fragment::${cate + 'Modify'}(data = ${data}, cate = ${cate})}"></section>
                 <p class="ico info">
                     <strong>Tip!</strong>
                     전자상거래 등에서의 상품 등의 정보제공에 관한 고시에 따라 총 35개 상품군에 대해 상품 특성 등을 양식에 따라 입력할 수 있습니다.
