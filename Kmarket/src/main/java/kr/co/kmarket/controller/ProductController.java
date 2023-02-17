@@ -34,12 +34,23 @@ public class ProductController {
      * 2023/02/17 상품 전체 list 불러오기 기능
      */
     @GetMapping("product/list")
-    public String list(Model model, int cate1, @RequestParam(value="cate2", required = false, defaultValue = "0") int cate2, String sort, String pg){
+    public String list(Model model, @RequestParam(value="cate1", required = false, defaultValue = "0") int cate1,
+                                    @RequestParam(value="cate2", required = false, defaultValue = "0") int cate2,
+                                    @RequestParam(value="search", required = false) String search, String sort, String pg){
 
 
-        // 카테고리 이름 가져오기
-        product_cate2VO cateName = service.getCateName(cate1, cate2);
+        product_cate2VO cateName = null;
 
+        // 메인에서 검색해서 들어온 경우가 아닌 겨우
+        if(cate1 != 0){
+            // 카테고리 이름 가져오기
+            cateName = service.getCateName(cate1, cate2);
+        }else{ // 메인에서 검색해 들어온 경우
+            if(sort == null){
+                sort = "sold";
+            }
+        }
+        
         // 게시글 출력 갯수
         int count = 10;
 
@@ -50,7 +61,7 @@ public class ProductController {
         int start = service.getLimitStart(currentPage, count);
 
         // 전체 게시물 갯수
-        int total = service.getCountTotal(cate1, cate2);
+        int total = service.getCountTotal(cate1, cate2, search);
 
         // 페이지 마지막 번호
         int lastPageNum = service.getLastPageNum(total, count);
@@ -59,12 +70,13 @@ public class ProductController {
         int[] pageGroup = service.getPageGroupNum(currentPage, lastPageNum);
 
         // 현재 페이지 상품 가져오기
-        List<productVO> products = service.selectProducts(cate1, cate2, sort, start);
+        List<productVO> products = service.selectProducts(cate1, cate2, sort, start, search);
 
         model.addAttribute("cate1", cate1);
         model.addAttribute("cate2", cate2);
         model.addAttribute("cateName", cateName);
         model.addAttribute("sort", sort);
+        model.addAttribute("search", search);
 
         model.addAttribute("products", products);
         model.addAttribute("currentPage", currentPage);
