@@ -25,7 +25,7 @@ function cate2Change() {
 function cate1Change() {
     const select = document.querySelector('select[name=cate1]');
 
-    if(select == '') return;
+    if(select.value == '') return;
 
     const jsondata = {"cate1":select.value};
 
@@ -243,6 +243,8 @@ function articleDelete(type, no, type2) {
      event.preventDefault();
 
      const jsondata = {"no":no};
+     console.log(typeof(jsondata));
+     console.log(typeof(JSON.stringify(jsondata)));
 
      const xhr = new XMLHttpRequest();
      xhr.open("POST", "/Kmarket/admin/cs/"+type+"/delete", true);
@@ -274,6 +276,38 @@ function articleDelete(type, no, type2) {
 
      xhr.setRequestHeader("Content-type", "application/json");
      xhr.send(JSON.stringify(jsondata));
+}
+
+// 2023/02/17 // 심규영 // 다중 게시글 삭제 스크립트
+// type  => 삭제하는 게시물 종류 (faq, notice, qna)
+function articlesDelete(type) {
+    // 이벤트 실행 취소
+    event.preventDefault();
+
+    // 삭제 의사 묻기
+    const deleteOk = confirm('삭제 하시겠습니까?');
+    if(deleteOk == false) return;
+
+    // 체크된 input 가져오기
+    const checkedArticle = document.querySelectorAll('input[name=상품코드]:checked')
+
+    // 가져온 목록 0일 경우 리턴
+    if(checkedArticle.length == 0) {
+        alert('상품을 선택해 주세요');
+        return;
+    }
+
+    // 게시물 no를 담을 문자열
+    let arrayArticleNo = '';
+
+    // 문자열에 , 단위로 no 담기
+    checkedArticle.forEach((input)=>{arrayArticleNo += input.parentElement.nextElementSibling.innerText+',';})
+
+    console.log(typeof(arrayArticleNo));
+    
+
+    // 전송
+    articleDelete(type, arrayArticleNo, 'list');
 }
 
 // 페이지 뒤로 이동

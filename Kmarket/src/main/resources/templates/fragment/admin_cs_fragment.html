@@ -80,7 +80,7 @@
                 <td th:text="${article.faqHit}">12323</td>
                 <td th:text="${article.faqRdate}">2023-02-08</td>
                 <td>
-                    <a href="#">[삭제]</a>
+                    <a href="#" th:onclick="articleDelete('faq',[[${article.faqNo}]], 'list')">[삭제]</a>
                     <a th:href="|@{/}admin/cs/${cate}/modify?no=${article.faqNo}|">[수정]</a>
                 </td>
             </tr>
@@ -92,7 +92,7 @@
 
         </table>
 
-        <input type="button" value="선택삭제">
+        <input type="button" value="선택삭제" onclick="articlesDelete('faq')">
         <a th:href="|@{/}admin/cs/${cate}/write|" class="w-btn w-btn-green">작성하기</a>
 
     </section>
@@ -134,7 +134,7 @@
                 <td th:text="${article.noticeHit}">32132</td>
                 <td th:text="${article.noticeRdate}">23-02-09</td>
                 <td>
-                    <a href="#" class="deleteSingle">[삭제]</a>
+                    <a href="#" class="deleteSingle" th:onclick="articleDelete('notice',[[${article.noticeNo}]], 'list')">[삭제]</a>
                     <a th:href="|@{/}admin/cs/${cate}/modify?no=${article.noticeNo}|">[수정]</a>
                 </td>
             </tr>
@@ -146,8 +146,8 @@
         </table>
 
         <div class="btn2ro">
-            <a href="#" class="w-btn w-btn-indigo deleteAll">선택삭제</a>
-            <a th:href="|@{/}admin/cs/${cate}/write|" class="w-btn w-btn-green">작성하기</a>
+            <a href="#" class="deleteAll" onclick="articlesDelete('notice')">선택삭제</a>
+            <a th:href="|@{/}admin/cs/${cate}/write|">작성하기</a>
         </div>
 
         <div class="paging">
@@ -235,7 +235,7 @@
         </table>
 
         <div class="btn1ro">
-            <a href="#" class="deleteAll">선택삭제</a>
+            <a href="#" class="deleteAll" onclick="articlesDelete('qna')">선택삭제</a>
         </div>
 
         <div class="paging">
