@@ -206,6 +206,9 @@
                     <nav>
                         <h1>상품리뷰</h1>
                     </nav>
+                    <ul th:if="${reviews.size == 0}">
+                        <p class="empty">등록된 리뷰가 없습니다.</p>
+                    </ul>
                     <ul th:each="review, i:${reviews}">
                         <li>
                             <div>

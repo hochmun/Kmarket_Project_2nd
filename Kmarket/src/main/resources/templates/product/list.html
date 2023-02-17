@@ -16,17 +16,17 @@
                 <!-- 제목, 페이지 네비게이션 -->
                 <nav>
                     <h1>상품목록</h1>
-                    <p>HOME > <span>[[${cateName.c1Name}]]</span> > <strong>[[${cateName.c2Name}]]</strong></p>
+                    <p th:if="${cate1 != 0}">HOME > <span>[[${cateName.c1Name}]]</span> <strong th:if="${cate2 != 0}">> [[${cateName.c2Name}]]</strong></p>
                 </nav>
 
                 <!-- 정렬 메뉴 -->
                 <ul class="sort">
-                    <li><a th:href="@{/product/list(cate1=${cate1},cate2=${cate2},sort=sold)}" th:class="${sort eq 'sold'?'on':'off'}">판매많은순</a></li>
-                    <li><a th:href="@{/product/list(cate1=${cate1},cate2=${cate2},sort=lowprice)}" th:class="${sort eq 'lowprice'?'on':'off'}">낮은가격순</a></li>
-                    <li><a th:href="@{/product/list(cate1=${cate1},cate2=${cate2},sort=highprice)}" th:class="${sort eq 'highprice'?'on':'off'}">높은가격순</a></li>
-                    <li><a th:href="@{/product/list(cate1=${cate1},cate2=${cate2},sort=score)}" th:class="${sort eq 'score'?'on':'off'}">평점높은순</a></li>
-                    <li><a th:href="@{/product/list(cate1=${cate1},cate2=${cate2},sort=review)}" th:class="${sort eq 'review'?'on':'off'}">후기많은순</a></li>
-                    <li><a th:href="@{/product/list(cate1=${cate1},cate2=${cate2},sort=rdate)}" th:class="${sort eq 'rdate'?'on':'off'}">최근등록순</a></li>
+                    <li><a th:href="@{/product/list(cate1=${cate1},cate2=${cate2},sort=sold,search=${search})}" th:class="${sort eq 'sold'?'on':'off'}">판매많은순</a></li>
+                    <li><a th:href="@{/product/list(cate1=${cate1},cate2=${cate2},sort=lowprice,search=${search})}" th:class="${sort eq 'lowprice'?'on':'off'}">낮은가격순</a></li>
+                    <li><a th:href="@{/product/list(cate1=${cate1},cate2=${cate2},sort=highprice,search=${search})}" th:class="${sort eq 'highprice'?'on':'off'}">높은가격순</a></li>
+                    <li><a th:href="@{/product/list(cate1=${cate1},cate2=${cate2},sort=score,search=${search})}" th:class="${sort eq 'score'?'on':'off'}">평점높은순</a></li>
+                    <li><a th:href="@{/product/list(cate1=${cate1},cate2=${cate2},sort=review,search=${search})}" th:class="${sort eq 'review'?'on':'off'}">후기많은순</a></li>
+                    <li><a th:href="@{/product/list(cate1=${cate1},cate2=${cate2},sort=rdate,search=${search})}" th:class="${sort eq 'rdate'?'on':'off'}">최근등록순</a></li>
                 </ul>
 
                 <!-- 상품목록 -->
@@ -64,18 +64,18 @@
                 <div class="paging">
                     <th:block th:if="${pageGroup[0]>1}">
                         <span class="prev">
-                            <a th:href="@{/product/list(cate1=${cate1},cate2=${cate2},sort=${sort},pg=${pageGroup[0]-1})}"><&nbsp;이전</a>
+                            <a th:href="@{/product/list(cate1=${cate1},cate2=${cate2},sort=${sort},pg=${pageGroup[0]-1},search=${search})}"><&nbsp;이전</a>
                         </span>
                     </th:block>
                     <span class="num">
                         <th:block th:each="num:${#numbers.sequence(pageGroup[0], pageGroup[1])}">
-                            <a th:href="@{/product/list(cate1=${cate1},cate2=${cate2},sort=${sort},pg=${num})}"
+                            <a th:href="@{/product/list(cate1=${cate1},cate2=${cate2},sort=${sort},pg=${num},search=${search})}"
                                th:class="${num == currentPage ? 'on':'off'}">[[${num}]]</a>
                         </th:block>
                     </span>
                     <th:block th:if="${pageGroup[1]<lastPageNum}">
                         <span class="next">
-                            <a th:href="@{/product/list(cate1=${cate1},cate2=${cate2},sort=${sort},pg=${pageGroup[1]+1})}">다음&nbsp;></a>
+                            <a th:href="@{/product/list(cate1=${cate1},cate2=${cate2},sort=${sort},pg=${pageGroup[1]+1},search=${search})}">다음&nbsp;></a>
                         </span>
                     </th:block>
                 </div>
