@@ -1,11 +1,14 @@
 package kr.co.kmarket.controller.cs.notice;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import kr.co.kmarket.service.cs.CsNoticeService;
 import kr.co.kmarket.vo.Cs_NoticeVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.thymeleaf.spring5.processor.SpringOptionInSelectFieldTagProcessor;
 
 import java.util.List;
 
@@ -16,7 +19,7 @@ public class NoticeViewController {
     private CsNoticeService service;
 
     @GetMapping(value = {"cs/notice/view"})
-    public String view(Model model, Integer noticeNo, String noCate){
+    public String view(Model model, Integer noticeNo, String noCate) {
         // noCate 값이 없을시 '전체'로 이동
         if (noCate == null || noCate.equals("")) {
             noCate = "%%";

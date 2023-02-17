@@ -30,12 +30,12 @@
     </select>
 
     <!-- notice list 작성글 상세보기 -->
-    <select id="selectNotArticle" resultMap="selectArticleResultMap">
+    <select id="selectNotArticle" resultMap="selectNotArticleResultMap">
         select * from `km_cs_notice`
         where `noticeNo` like #{noticeNo};
     </select>
     <!-- 조회(select) 결과를 상세하게 매핑하기 위한 사용자 정의 Map -->
-    <resultMap id="selectArticleResultMap" type="kr.co.kmarket.vo.Cs_NoticeVO">
+    <resultMap id="selectNotArticleResultMap" type="kr.co.kmarket.vo.Cs_NoticeVO">
         <id property="noticeNo" column="noticeNo"/>
         <result property="noticeCate" column="noticeCate"/>
         <result property="noticeTitle" column="noticeTitle"/>

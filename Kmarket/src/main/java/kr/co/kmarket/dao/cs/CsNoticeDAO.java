@@ -34,7 +34,7 @@ public interface CsNoticeDAO {
      * @autor 김재준
      * @return
      */
-    public Cs_NoticeVO selectNotArticle(@Param("noticeNo") Integer noticeNo);
+    public Cs_NoticeVO selectNotArticle(Integer noticeNo);
 
     /**
      * 23/02/08 notice list 카테고리 불러오기
