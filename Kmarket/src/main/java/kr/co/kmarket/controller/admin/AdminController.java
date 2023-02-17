@@ -21,10 +21,16 @@ public class AdminController {
     @GetMapping("admin/index")
     public String index(@AuthenticationPrincipal MyUserDetails myUserDetails,
                         Model model) {
-        String name = myUserDetails.getUser().getName();
+        // 쇼핑몰 운영 현황 가져오기
 
-        model.addAttribute("name", name);
+        // 공지사항 게시물 5개 가져오기
 
+        // 고객문의 게시물 5개 가져오기
+
+        // 모델 전송
+        model.addAttribute("name", myUserDetails.getUser().getName());
+    
+        // 리턴
         return "admin/index";
     }
 
