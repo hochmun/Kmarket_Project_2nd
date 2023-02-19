@@ -700,9 +700,12 @@
     border-bottom: 1px solid #ccc;
   }
 
-  #cs > .faq > .list > article > div > ul > li:nth-child(n+4) {
+
+/*
+  #cs > .faq > .list > article > div > ul > li:nth-child(n+11) {
     display: none;
-  }
+  }*/
+
 
   #cs > .faq > .list > article > div > ul a {
     display: block;

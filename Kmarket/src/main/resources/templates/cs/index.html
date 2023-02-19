@@ -3,8 +3,7 @@
   이름 : 김재준
   내용 : cs/index
 -->
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{cs/_header}"></th:block>
 <section id="cs">
     <div class="main">
@@ -14,26 +13,13 @@
         <section class="notice">
             <h1>공지사항<a th:href="@{/cs/notice/list}">전체보기</a></h1>
             <ul>
+                <th:block th:each="vo1:${vos1}">
                 <li>
-                    <a th:href="@{/cs/notice/view}" class="title">[안내] 해외결제 사칭 문자 주의</a>
-                    <span class="date">22.10.31</span>
+                    <a th:href="@{/cs/notice/view(noCate=${vo1.noticeCate},no=${vo1.noticeNo})}" class="title">[[${vo1.noticeTitle}]]</a>
+                    <span class="date" th:text="${#strings.substring(vo1.noticeRdate, 0, 8)}"></span>
+
                 </li>
-                <li>
-                    <a href="#" class="title">[안내] 해외결제 사칭 문자 주의</a>
-                    <span class="date">22.10.31</span>
-                </li>
-                <li>
-                    <a href="#" class="title">[안내] 해외결제 사칭 문자 주의</a>
-                    <span class="date">22.10.31</span>
-                </li>
-                <li>
-                    <a href="#" class="title">[안내] 해외결제 사칭 문자 주의</a>
-                    <span class="date">22.10.31</span>
-                </li>
-                <li>
-                    <a href="#" class="title">[안내] 해외결제 사칭 문자 주의</a>
-                    <span class="date">22.10.31</span>
-                </li>
+                </th:block>
             </ul>
         </section>
 
@@ -41,25 +27,25 @@
             <h1>자주 묻는 질문<a th:href="@{/cs/faq/list}">전체보기</a></h1>
             <ol>
                 <li>
-                    <a th:href="@{/cs/faq/list}"><span>회원</span></a>
+                    <a th:href="@{/cs/faq/list?csCate1=10}"><span>회원</span></a>
                 </li>
                 <li>
-                    <a href="#"><span>쿠폰/이벤트</span></a>
+                    <a th:href="@{/cs/faq/list?csCate1=11}"><span>쿠폰/이벤트</span></a>
                 </li>
                 <li>
-                    <a href="#"><span>주문/결제</span></a>
+                    <a th:href="@{/cs/faq/list?csCate1=12}"><span>주문/결제</span></a>
                 </li>
                 <li>
-                    <a href="#"><span>배송</span></a>
+                    <a th:href="@{/cs/faq/list?csCate1=13}"><span>배송</span></a>
                 </li>
                 <li>
-                    <a href="#"><span>취소/반품/교환</span></a>
+                    <a th:href="@{/cs/faq/list?csCate1=14}"><span>취소/반품/교환</span></a>
                 </li>
                 <li>
-                    <a href="#"><span>여행/숙박/항공</span></a>
+                    <a th:href="@{/cs/faq/list?csCate1=15}"><span>여행/숙박/항공</span></a>
                 </li>
                 <li>
-                    <a href="#"><span>안전거래</span></a>
+                    <a th:href="@{/cs/faq/list?csCate1=16}"><span>안전거래</span></a>
                 </li>
             </ol>
         </section>
@@ -67,43 +53,17 @@
         <section class="qna">
             <h1>문의하기<a th:href="@{/cs/qna/list(cate1=10)}">전체보기</a></h1>
             <ul>
+                <th:block th:each="vo2:${vos2}">
                 <li>
-                    <a th:href="@{/cs/qna/view}" class="title">[회원] 개인회원과 법인회원에 차이가 있나요?</a>
+                    <a th:href="@{/cs/qna/view(cate1=${vo2.qnaCate1},qnaNo=${vo2.qnaNo})}" class="title">[[${vo2.qnaTitle}]]</a>
                     <p>
-                        <span class="uid">chh**</span>
-                        <span class="date">22.10.31</span>
+                        <span class="uid">[[${#strings.substring(vo2.uid, 0, 4)}]]<th:block th:begin="5" end="${fn:length(vo2.uid)}" step="1">*</th:block></span>
+                        <span class="date">[[${#strings.substring(vo2.qnaRdate, 0, 8)}]]</span>
                     </p>
                 </li>
-                <li>
-                    <a href="#" class="title">[쿠폰/이벤트] 스마일포인트는 어디에 사용하나요?</a>
-                    <p>
-                        <span class="uid">chh**</span>
-                        <span class="date">22.10.31</span>
-                    </p>
-                </li>
-                <li>
-                    <a href="#" class="title">[주문/결제] 신용카드 결제 중 오류가 난 경우 어떻게 하나요?</a>
-                    <p>
-                        <span class="uid">chh**</span>
-                        <span class="date">22.10.31</span>
-                    </p>
-                </li>
-                <li>
-                    <a href="#" class="title">[배송] 주문한 상품은 언제 배송되나요?</a>
-                    <p>
-                        <span class="uid">chh**</span>
-                        <span class="date">22.10.31</span>
-                    </p>
-                </li>
-                <li>
-                    <a href="#" class="title">[취소/반품/교환] 주문을 취소하고 싶어요.</a>
-                    <p>
-                        <span class="uid">chh**</span>
-                        <span class="date">22.10.31</span>
-                    </p>
-                </li>
+                </th:block>
             </ul>
-            <a th:href="@{/cs/qna/write}" class="ask">문의글 작성 ></a>
+            <a th:href="@{/cs/qna/write(cate1=10)}" class="ask">문의글 작성 ></a>
         </section>
 
         <section class="tel">

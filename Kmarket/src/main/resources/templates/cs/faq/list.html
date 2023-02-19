@@ -17,9 +17,9 @@
             <aside>
                 <h2>자주묻는 질문</h2>
                 <th:block th:each="vo2:${vos2}">
-                <ul>
-                    <li th:classappend="${vo2.cate1} == ${csCate1} ? 'on' : 'off'"><a th:href="@{/cs/faq/list(csCate1=${vo2.cate1})}">[[${vo2.cate1Name}]]</a></li>
-                </ul>
+                    <ul>
+                        <li th:classappend="${vo2.cate1} == ${csCate1} ? 'on' : 'off'"><a th:href="@{/cs/faq/list(csCate1=${vo2.cate1})}">[[${vo2.cate1Name}]]</a></li>
+                    </ul>
                 </th:block>
             </aside>
             <article>
@@ -31,23 +31,18 @@
                     </th:block>
                     <h2>가장 자주 묻는 질문입니다.</h2>
                 </nav>
-
-                <th:block th:each="vo3:${vos3}">
-                    <div>
+                    <div th:each="vo3:${vos3}">
                         <h3>[[${vo3.cate2Name}]]</h3>
-                            <ul>
-                                <th:block th:each="vo, voStat : ${vos}">
-                                    <th:block th:if="${vo.faqCate2 eq vo3.cate2} and ${vo.faqCate1 eq vo3.cate1}">
-                                        <th:block th:with="count=${voStat.count + 1}">
-                                            <li th:classappend="${count > 3} ? 'hide' : ''"><a th:href="@{/cs/faq/view(faqNo=${vo.faqNo},faqCate1=${vo.faqCate1})}"><span>Q.</span>[[${vo.faqTitle}]]</a></li>
-                                        </th:block>
-                                    </th:block>
-                                    <li th:if="${count == 0}"><a>등록된 게시물이 없습니다.</a></li>
-                                </th:block>
-                                <li class="more" onclick="moreView(this)"><a href="#">더보기</a></li>
-                            </ul>
+                        <ul>
+                        <th:block th:each="vo:${vos}" th:if="${vo.faqCate1 eq vo3.cate1 and vo.faqCate2 eq vo3.cate2}">
+                                <li th:class="${#lists.size(vos) > 3} ? 'hide'"><a th:href="@{/cs/faq/view(faqNo=${vo.faqNo},faqCate1=${vo.faqCate1})}"><span>Q.</span>[[${vo.faqTitle}]]</a></li>
+                        </th:block>
+                        <li th:if="${#lists.size(vos) lt 1}">
+                            <a>게시물이 없습니다.</a>
+                        </li>
+                        <li class="more" onclick="moreView(this)"><a href="#">더보기</a></li>
+                        </ul>
                     </div>
-                </th:block>
             </article>
         </section>
     </div>
