@@ -39,3 +39,21 @@ $(function() {
     });
   });
 });
+
+const faqList = document.querySelector('.faq-list');
+
+if (faqList === null) {
+  const newLi = document.createElement('li');
+  const newLink = document.createElement('a');
+
+  newLink.textContent = '게시물이 없습니다.';
+
+  newLi.appendChild(newLink);
+
+  const parent = document.querySelector('body > main > div.container');
+  parent.querySelector('ul').appendChild(newLi);
+}
+
+
+
+

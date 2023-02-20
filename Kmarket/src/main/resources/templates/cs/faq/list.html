@@ -35,19 +35,12 @@
                 <div th:each="vo3: ${vos3}">
                     <h3 th:text="${vo3.cate2Name}"></h3>
                     <ul class="faq-list">
-                        <th:block th:if="${#lists.isEmpty(vos)} == false">
-                            <th:block th:each="vo: ${vos}" th:if="${vo.faqCate1 eq vo3.cate1 and vo.faqCate2 eq vo3.cate2}">
-                                <li>
-                                    <a th:href="@{/cs/faq/view(faqNo=${vo.faqNo},faqCate1=${vo.faqCate1})}">
-                                        <span>Q.</span>
-                                        [[${vo.faqTitle}]]
-                                    </a>
-                                </li>
-                            </th:block>
-                        </th:block>
-                        <th:block th:unless="${#lists.isEmpty(vos)} == false">
-                            <li>
-                                <a>게시물이 없습니다.</a>
+                        <th:block th:each="vo: ${vos}" th:if="${vo.faqCate1 eq vo3.cate1 and vo.faqCate2 eq vo3.cate2}">
+                            <li class="faq-arts">
+                                <a th:href="@{/cs/faq/view(faqNo=${vo.faqNo},faqCate1=${vo.faqCate1})}">
+                                    <span>Q.</span>
+                                    [[${vo.faqTitle}]]
+                                </a>
                             </li>
                         </th:block>
                         <li class="more"><a href="#">더보기</a></li>
