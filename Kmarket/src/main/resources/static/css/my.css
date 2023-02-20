@@ -1,0 +1,1251 @@
+/* 초기화 */
+* {
+    margin: 0;
+    padding: 0;
+    font: normal 12px "Noto Sans CJK KR";
+}
+
+ul, ol {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+    color: #111;
+}
+input, textarea {
+    outline: none;
+}
+
+#wrapper {
+    width: 100%;
+}
+
+/* header */
+header {
+    width: 100%;
+    height: auto;
+}
+
+header > div {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+header > .top {
+    height: 35px;
+    border-bottom: 1px solid #e9e9e9;
+}
+
+header > .top > div {
+    width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+    text-align: right;
+}
+
+header > .top > div > a {
+    display: inline-block;
+    height: 100%;
+    line-height: 35px;
+    border-left: 1px solid #e9e9e9;
+    padding: 0 10px;
+    color: #646464;
+}
+header > .top > div > a:last-child {
+    border-right: 1px solid #e9e9e9;
+}
+
+header > .top > div > a:hover {
+    color: #333;
+    border-bottom: 1px solid #444;
+}
+
+header > .logo {
+    height: 115px;
+    border-bottom: 1px solid #d0d0d0;
+}
+header > .logo > div {
+    position: relative;
+    width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+}
+header > .logo > div > a {
+    display: inline-block;
+    margin-top: 30px;
+}
+header > .logo > div > form {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -185px;
+    margin-top: -22px;
+    display: inline-block;
+    width: 370px;
+    height: 45px;
+}
+header > .logo > div > form > input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #e9e9e9;
+    border-radius: 5px;
+    font-size: 20px;
+    padding-left: 10px;
+    padding-right: 30px;
+    box-sizing: border-box;
+}
+
+header > .logo > div > form > button {
+    position: absolute;
+    right: 6px;
+    top: 10px;
+    background: #fff;
+    border: none;
+    font-size: 20px;
+    color: #333;
+    outline: none;
+}
+
+header > .menu {
+    height: 46px;
+    background: #f2f2f2;
+    border-bottom: 1px solid #ddd;
+    box-sizing: border-box;
+}
+header > .menu > div {
+    width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+header > .menu > div > ul {
+    display: inline-block;
+    margin-top: 16px;
+}
+header > .menu > div > ul:nth-child(1) {
+    float: left;
+}
+header > .menu > div > ul:nth-child(2) {
+    float: right;
+}
+header > .menu > div > ul > li {
+    float: left;
+}
+header > .menu > div > ul > li > a {
+    border-left: 1px solid #e9e9e9;
+    padding: 0 10px;
+}
+header > .menu > div > ul > li:last-child > a {
+    border-right: 1px solid #e9e9e9;
+} 
+
+/* footer */
+footer {
+    width: 100%;
+    height: 192px;
+    background: #f8f8f8;
+    border-top: 1px solid #e9e9e9;
+    box-sizing: border-box;
+}
+footer > ul {
+    width: 1200px;
+    height: 39px;
+    margin: 0 auto;
+    padding: 15px 0;
+    border-bottom: 1px solid #e9e9e9;
+    box-sizing: border-box;
+    text-align: center;
+}
+footer > ul > li {
+    display: inline-block;
+    font-weight: bold;
+    border-right: 1px solid #d7d7d7;
+    padding: 0 10px;
+}
+footer > ul > li:first-child {
+    border-left: 1px solid #d7d7d7;
+}
+
+footer > div {
+    width: 1200px;
+    height: auto;
+    padding-top: 20px;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+footer p {
+    float: left;
+    height: 100%;
+    font-size: 11px;
+    line-height: 15px;
+    color: #676767;
+}
+footer p:nth-of-type(2) {
+    width: 300px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+footer p > strong {
+    display: inline-block;
+    padding: 6px 15px 7px 0;
+    color: #464646;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* my 공통 */
+#my {}
+#my > nav {
+    width: 100%;
+    height: auto;
+    background-color: #e8e8e8;
+    border-bottom: 1px solid #c9c9c9;
+}
+#my > nav > div {
+    width: 980px;
+    height: 100%;
+    padding: 16px 0;
+    box-sizing: border-box;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+#my > nav img {margin-top: 22px;}
+#my > nav > div > ol {
+    float: right;
+    width: 400px;
+    height: 86px;
+    overflow: hidden;
+}
+#my > nav > div > ol > li {            
+    float: left;
+    width: 25%;
+    height: 100%;
+    text-align: center;
+    border-left: 1px solid #fff;
+    border-right: 1px solid #c5c5c5;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-position: center 30px;
+}
+
+#my > nav > div > ol > li:first-child {border-left: none;}
+#my > nav > div > ol > li:last-child {border-right: none;}
+#my > nav > div > ol > li:nth-child(1) {background-image: url('../img/ico_delivery.png');}
+#my > nav > div > ol > li:nth-child(2) {background-image: url('../img/ico_point.jpg');}
+#my > nav > div > ol > li:nth-child(3) {background-image: url('../img/ico_coupon.jpg');}
+#my > nav > div > ol > li:nth-child(4) {background-image: url('../img/ico_qna.png');}
+#my > nav > div > ol > li > a {
+    display: block;
+    width: 100%;
+    height: 100%;            
+    color: #888;
+    box-sizing: border-box;
+}
+#my > nav > div > ol > li > a > span {
+    position: relative;
+    top: 46px;
+    display: block;
+    color: #444;                        
+}
+
+#my > div {
+    position: relative;
+    width: 980px;
+    min-height: 600px;
+    margin: 0 auto;            
+}
+#my > div > ul {
+    position: absolute;
+    left: 0;            
+    top: -12px;
+    width: 148px;
+    height: auto;
+    border: 1px solid #003262;
+    box-sizing: border-box;            
+}
+
+#my > div > ul > li {
+    width: 100%;
+    height: 62px;
+    background-color: #006bff;
+    border-top: 1px solid #2681ff;
+    border-bottom: 1px solid #0056cd;
+    box-sizing: border-box;
+}
+
+#my > div > ul > li.on {
+    background-color: #075acc;
+    border-top: 1px solid #054cbc;
+}
+
+#my > div > ul > li:hover {
+    background-color: #075acc;
+    border-top: 1px solid #054cbc;
+}        
+
+#my > div > ul > span.menu_else {
+    display: block;
+    position: absolute;
+    right: -9px;
+    top: -2px;
+    width: 8px;
+    height: 13px;
+    background-image: url('../img/my_sprites.png');
+    background-position: -160px -50px;
+}
+
+#my > div > ul > li > a {
+    display: block;
+    width: 100%;
+    height: 100%;            
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 62px;
+    text-indent: 12px;                        
+    color: #fff;
+}
+
+#my > div > section {            
+    width: 832px;
+    height: auto;
+    margin-left: 148px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+#my > div > section .banner {
+    width: 810px;
+    object-fit: none;
+}
+
+#my > div > section > article {
+    margin-top: 20px;
+}
+#my > div > section > article > h3 {            
+    font-size: 20px;
+    font-weight: bold;
+    color: #444;
+}
+
+/* my - home(홈) */
+#my > .home > section > article > .more {
+    float: right;
+    display: inline-block;
+    width: 35px;
+    height: 14px;
+    margin-top: -10px;
+    background-image: url('../img/my_sprites.png');
+    background-position: 0 -279px;
+    font-size: 0;
+}
+
+#my > .home > section > article > table {
+    width: 100%;
+    height: auto;
+    border-top: 2px solid #444;
+    margin-top: 6px;
+    border-collapse: collapse;            
+}
+#my > .home > section > article > table * {
+    font-family: '돋움';
+    color: #444;
+}
+
+#my > .home > section > article > table tr {}
+#my > .home > section > article > table th {
+    padding: 6px;
+    background-color: #a5a7a5;
+    box-sizing: border-box;
+    color: #fff;
+}
+#my > .home > section > article > table td {
+    padding: 10px;            
+    border-left: 1px solid #f1f1f1;
+    border-bottom: 1px solid #aaa;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+#my > .home > section > article > table td:first-child {border-left: none;}
+
+
+#my > .home > section > article > table .thumb {
+    float:left;
+}
+#my > .home > section > article > table ul {
+    float:left;
+    margin-left: 10px;
+    margin-right: 10px;
+
+}
+#my > .home > section > article > table ul > li {
+    margin: 4px 0;
+}        
+#my > .home > section > article > table .prodPrice {
+    margin-top: 6px;
+    font-family: '고딕';
+    font-size: 16px;
+    font-weight: bold;
+    color: #222;
+}
+#my > .home > section > article > table .prodPrice::after {
+    content: '원';
+    font-size: 12px;            
+}
+#my > .home > section > article > table .confirm > a {
+    display: block;
+    width: 90px;
+    height: 19px;            
+    background-image: url('../img/my_sprites.png');
+    font-size: 0;            
+}
+
+#my > .home > section > article > table .receive {
+    background-position: -369px -179px;
+}
+#my > .home > section > article > table .review {
+    background-position: -369px -202px;
+}        
+#my > .home > section > article > table a.refund {
+    margin-top: 2px;
+    font-family: '돋움';
+    font-size: 11px;
+    color: #676767;
+    text-indent: 5px;
+    line-height: 19px;
+    background-position: -500px -399px;
+}
+#my > .home > section > article > table a.exchange {
+    margin-top: 2px;
+    font-family: '돋움';
+    font-size: 11px;
+    color: #676767;
+    text-indent: 5px;
+    line-height: 19px;
+    background-position: -500px -399px;
+}
+
+#my > .home > section > article > table .rating {
+    display: block;
+    width: 84px;
+    height: 20px;
+    font-size: 0px;
+    background-image: url('../img/my_rating_star.png');
+    background-repeat: no-repeat;
+    background-position: 36px 0px;    
+}
+#my > .home > section > article > table .rating.star1 {background-position: 0 -40px;}
+#my > .home > section > article > table .rating.star2 {background-position: 0 -80px;}
+#my > .home > section > article > table .rating.star3 {background-position: 0 -120px;}
+#my > .home > section > article > table .rating.star4 {background-position: 0 -160px;}
+#my > .home > section > article > table .rating.star5 {background-position: 0 -200px;}
+
+#my > .home > section > article > table .notAnswerYet {color: #999;}
+#my > .home > section > article > table .answered {color: #01a900;}
+
+#my > .home > section > .myinfo * {
+    font-family: '돋움';
+}
+#my > .home > section > .myinfo > h3 {
+    width: 96px;
+    height: 15px;
+    background-image: url('../img/my_sprites.png');
+    background-position: -144px -281px;
+    font-size: 0;
+}
+
+#my > .home > section > .myinfo > div {
+    width: 100%;
+    height: 104px;
+    background-color: #f5f5f5;
+    border: 1px solid #e5e5e5;
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+#my > .home > section > .myinfo > div > div {
+    float: left;
+    width: 33.33%;
+    height: 100%;
+    padding: 16px;
+    border-right: 1px solid #eaeaea;
+    border-left: 1px solid #fdfdfd;
+    box-sizing: border-box;
+}
+#my > .home > section > .myinfo > div > div:first-child {border-left: none;}
+#my > .home > section > .myinfo > div > div:last-child {border-right: none;}
+
+#my > .home > section > .myinfo > div > div > span {
+    display: inline-block;
+    height: 11px;
+    background-image: url('../img/my_sprites.png');
+    font-size: 0;
+}
+
+#my > .home > section > .myinfo .address > span {
+    width: 73px;
+    background-position: -499px -179px;
+}
+#my > .home > section > .myinfo .email > span {
+    width: 51px;
+    background-position: -499px -202px;
+}
+#my > .home > section > .myinfo .hp > span {
+    width: 76px;
+    background-position: -499px -227px;
+}
+
+#my > .home > section > .myinfo > div > div > a {
+    display: inline-block;
+    width: 33px;
+    height: 11px;
+    margin-left: 10px;
+    background-image: url('../img/my_sprites.png');
+    background-position: -423px -822px;
+    font-size: 0;
+}
+
+#my > .home > section > .myinfo > div > div > p {
+    font-size: 11px;
+    color: #999;
+    margin-top: 16px;
+    line-height: 18px;
+}
+
+/* my - ordered(전체주문내역) */
+#my > .ordered {}        
+#my > .ordered > section > article > .byDate {
+    width: 100%;
+    height: auto;
+    margin-top: 16px;
+    padding: 16px;
+    background-color: #f7f7f7;
+    border: 1px solid #c7c7c7;
+    box-sizing: border-box;
+    overflow: hidden;            
+}
+#my > .ordered > section > article > .byDate > * {
+    float: left;
+}
+
+#my > .ordered > section > article > .byDate * {
+    font-family: '돋움';
+    color: #444;
+}
+#my > .ordered > section > article > .byDate > .tit {
+    width: 52px;
+    height: 11px;
+    margin-right: 20px;
+    margin-top: 6px;
+    background: url('../img/my_sprites.png') no-repeat 0px -227px;
+    font-size: 0;
+}
+
+#my > .ordered > section > article > .byDate > ul {
+    background-image: url('../img/my_sprites.png');
+    
+}
+#my > .ordered > section > article > .byDate > ul > li {
+    float: left;
+    width: 54px;
+    height: 100%;            
+    box-sizing: border-box;
+}
+
+#my > .ordered > section > article > .byDate > ul a {
+    display: block;
+    width: 54px;
+    height: 27px;
+    text-align: center;
+    line-height: 27px;
+}
+
+#my > .ordered > section > article > .byDate > ul a:hover {
+    background: url('../img/my_sprites.png') no-repeat -377px -908px;
+    color: rgb(255, 255, 255);
+}
+#my > .ordered > section > article > .byDate > ul a.on {
+    background: url('../img/my_sprites.png') no-repeat -377px -908px;
+    color: rgb(255, 255, 255);
+}
+#my > .ordered > section > article > .byDate > ul a > em {
+    font-weight: bold;
+    color: #111;
+}
+#my > .ordered > section > article > .byDate > ul a:hover > em {color: #fff;}
+#my > .ordered > section > article > .byDate > ul a.on > em {color: #fff;}
+
+#my > .ordered > section > article > .byDate > .date_3ea {
+    width: 165px;
+    height: 29px;
+    background-position: -485px -908px;
+}
+#my > .ordered > section > article > .byDate > .date_5ea {
+    width: 273px;
+    height: 29px;
+    background-position: -377px -937px;
+}        
+
+#my > .ordered > section > article > .byDate > p {
+    width: 190px;
+    height: 29px;
+    background: url('../img/my_sprites.png') no-repeat -461px -879px;
+    padding: 5px;
+    box-sizing: border-box;
+}
+#my > .ordered > section > article > .byDate > p > span {
+    display: inline-block;
+    margin: 0 4px;
+}
+#my > .ordered > section > article > .byDate input[type=date] {
+    width: 80px;
+    border: none;
+}
+
+#my > .ordered > section > article > .byDate > .btnConfirm {
+    width: 69px;
+    height: 27px;
+    border: none;
+    font-size: 0;
+    background: url('../img/my_sprites.png') no-repeat -491px -80px;
+}        
+
+#my > .ordered > section > article > table {
+    width: 100%;
+    height: auto;
+    border-top: 2px solid #444;
+    margin-top: 6px;
+    border-collapse: collapse;            
+}
+#my > .ordered > section > article > table * {
+    font-family: '돋움';
+    color: #444;
+}
+
+#my > .ordered > section > article > table th {
+    padding: 6px;
+    background-color: #a5a7a5;
+    box-sizing: border-box;
+    color: #fff;
+}
+#my > .ordered > section > article > table td {
+    padding: 10px;            
+    border-left: 1px solid #f1f1f1;
+    border-bottom: 1px solid #aaa;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+#my > .ordered > section > article > table td:first-child {border-left: none;}
+
+#my > .ordered > section > article > table .thumb {
+    float:left;
+}
+#my > .ordered > section > article > table ul {
+    float:left;
+    margin-left: 10px;
+    margin-right: 10px;
+
+}
+#my > .ordered > section > article > table ul > li {
+    margin: 4px 0;
+}        
+#my > .ordered > section > article > table .prodPrice {
+    margin-top: 6px;
+    font-family: '고딕';
+    font-size: 16px;
+    font-weight: bold;
+    color: #222;
+}
+#my > .ordered > section > article > table .prodPrice::after {
+    content: '원';
+    font-size: 12px;            
+}
+#my > .ordered > section > article > table .confirm > a {
+    display: block;
+    width: 90px;
+    height: 19px;            
+    background-image: url('../img/my_sprites.png');
+    font-size: 0;            
+}
+
+#my > .ordered > section > article > table .receive {
+    background-position: -369px -179px;
+}
+#my > .ordered > section > article > table .review {
+    background-position: -369px -202px;
+}        
+#my > .ordered > section > article > table a.refund {
+    margin-top: 2px;
+    font-family: '돋움';
+    font-size: 11px;
+    color: #676767;
+    text-indent: 5px;
+    line-height: 19px;
+    background-position: -500px -399px;
+}
+#my > .ordered > section > article > table a.exchange {
+    margin-top: 2px;
+    font-family: '돋움';
+    font-size: 11px;
+    color: #676767;
+    text-indent: 5px;
+    line-height: 19px;
+    background-position: -500px -399px;
+}
+
+#my > .ordered > section > article > .page {
+    margin: 20px 0;
+    text-align: center;
+}
+
+#my > .ordered > section > article > .page > a {
+    display: inline-block;
+    width: 19px;
+    height: 19px;            
+    box-sizing: border-box;
+    vertical-align: top;
+    color: #777;
+}
+#my > .ordered > section > article > .page > a.on {
+    font-weight: bold;
+    color: #1179ea;
+}
+
+#my > .ordered > section > article > .page > .prev {
+    background: url('../img/my_sprites2.png') no-repeat 0 -300px;
+    font-size: 0;
+}
+
+#my > .ordered > section > article > .page > .next {
+    background: url('../img/my_sprites2.png') no-repeat -120px -300px;
+    font-size: 0;
+}
+/* my - point(포인트내역) */
+#my > .point > section > article > .byDate {
+    width: 100%;
+    height: auto;
+    margin-top: 16px;
+    padding: 16px;
+    background-color: #f7f7f7;
+    border: 1px solid #c7c7c7;
+    box-sizing: border-box;
+    overflow: hidden;            
+}
+#my > .point > section > article > .byDate > * {
+    float: left;
+}
+
+#my > .point > section > article > .byDate * {
+    font-family: '돋움';
+    color: #444;
+}
+#my > .point > section > article > .byDate > .tit {
+    width: 52px;
+    height: 11px;
+    margin-right: 20px;
+    margin-top: 6px;
+    background: url('../img/my_sprites.png') no-repeat 0px -227px;
+    font-size: 0;
+}
+
+#my > .point > section > article > .byDate > ul {
+    background-image: url('../img/my_sprites.png');
+    
+}
+#my > .point > section > article > .byDate > ul > li {
+    float: left;
+    width: 54px;
+    height: 100%;            
+    box-sizing: border-box;
+}
+
+#my > .point > section > article > .byDate > ul a {
+    display: block;
+    width: 54px;
+    height: 27px;
+    text-align: center;
+    line-height: 27px;
+}
+
+#my > .point > section > article > .byDate > ul a:hover {
+    background: url('../img/my_sprites.png') no-repeat -377px -908px;
+    color: rgb(255, 255, 255);
+}
+#my > .point > section > article > .byDate > ul a.on {
+    background: url('../img/my_sprites.png') no-repeat -377px -908px;
+    color: rgb(255, 255, 255);
+}
+#my > .point > section > article > .byDate > ul a > em {
+    font-weight: bold;
+    color: #111;
+}
+#my > .point > section > article > .byDate > ul a:hover > em {color: #fff;}
+#my > .point > section > article > .byDate > ul a.on > em {color: #fff;}
+
+#my > .point > section > article > .byDate > .date_3ea {
+    width: 165px;
+    height: 29px;
+    background-position: -485px -908px;
+}
+#my > .point > section > article > .byDate > .date_5ea {
+    width: 273px;
+    height: 29px;
+    background-position: -377px -937px;
+}        
+
+#my > .point > section > article > .byDate > p {
+    width: 190px;
+    height: 29px;
+    background: url('../img/my_sprites.png') no-repeat -461px -879px;
+    padding: 5px;
+    box-sizing: border-box;
+}
+#my > .point > section > article > .byDate > p > span {
+    display: inline-block;
+    margin: 0 4px;
+}
+#my > .point > section > article > .byDate input[type=date] {
+    width: 80px;
+    border: none;
+}
+
+#my > .point > section > article > .byDate > .btnConfirm {
+    width: 69px;
+    height: 27px;
+    border: none;
+    font-size: 0;
+    background: url('../img/my_sprites.png') no-repeat -491px -80px;
+}        
+
+#my > .point > section > article > table {
+    width: 100%;
+    height: auto;
+    border-top: 2px solid #444;
+    margin-top: 6px;
+    border-collapse: collapse;            
+}
+#my > .point > section > article > table * {
+    font-family: '돋움';
+    color: #444;
+}
+
+#my > .point > section > article > table th {
+    padding: 6px;
+    background-color: #a5a7a5;
+    box-sizing: border-box;
+    color: #fff;
+}
+#my > .point > section > article > table td {
+    padding: 10px;            
+    border-left: 1px solid #f1f1f1;
+    border-bottom: 1px solid #aaa;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+#my > .point > section > article > table td:first-child {border-left: none;}
+
+#my > .point > section > article > table ul {
+    float:left;
+    margin-left: 10px;
+    margin-right: 10px;
+
+}
+#my > .point > section > article > table ul > li {
+    margin: 4px 0;
+}        
+
+#my > .point > section > article > .page {
+    margin: 20px 0;
+    text-align: center;
+}
+
+#my > .point > section > article > .page > a {
+    display: inline-block;
+    width: 19px;
+    height: 19px;            
+    box-sizing: border-box;
+    vertical-align: top;
+    color: #777;
+}
+#my > .point > section > article > .page > a.on {
+    font-weight: bold;
+    color: #1179ea;
+}
+
+#my > .point > section > article > .page > .prev {
+    background: url('../img/my_sprites2.png') no-repeat 0 -300px;
+    font-size: 0;
+}
+
+#my > .point > section > article > .page > .next {
+    background: url('../img/my_sprites2.png') no-repeat -120px -300px;
+    font-size: 0;
+}
+
+/* my - coupon(쿠폰) */
+#my > .coupon > section > article > p {
+    margin: 10px 0;
+    font-family: '돋움';
+    font-size: 11px;
+    color: #888;
+}
+
+#my > .coupon > section > article > .bg {
+    position: relative;
+    width: 100%;
+    height: 209px;
+    background-image: url('../img/my_coupon_bg.gif');
+    background-size: contain;
+}       
+
+#my > .coupon > section > article > .bg > dl {            
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    width: 160px;
+    height: auto;            
+    margin-top: 20px;            
+    overflow: hidden;
+}
+#my > .coupon > section > article > .bg dt {
+    float: left;
+    font-family: '돋움';
+    color: #676767;
+    margin-top: 10px;
+}
+#my > .coupon > section > article > .bg dd {
+    float: right;
+}
+#my > .coupon > section > article > .bg dd > strong {
+    font-family: 'Tahoma';
+    font-size: 22px;
+    font-weight: bold;
+    color: #ec0e0e;
+}
+#my > .coupon > section > article > .bg dd > span {
+    font-family: '돋움';
+    font-weight: bold;
+    color: #ec0e0e;
+}
+
+
+#my > .coupon > section > article > table {
+    width: 100%;
+    height: auto;            
+    margin-top: 6px;
+    border-collapse: collapse;            
+}
+#my > .coupon > section > article > table * {
+    font-family: '돋움';
+    color: #444;
+}
+
+#my > .coupon > section > article > table th {
+    padding: 6px;
+    background-color: #f7f7f7;
+    border-top: 1px solid #444;
+    border-left: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    box-sizing: border-box;
+    color: #444;
+}
+#my > .coupon > section > article > table th:first-child {border-left: none;}
+
+#my > .coupon > section > article > table td {
+    padding: 10px;            
+    border-left: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+#my > .coupon > section > article > table td:first-child {border-left: none;}
+
+#my > .coupon > section > article > table ul {
+    float:left;
+    margin-left: 10px;
+    margin-right: 10px;
+
+}
+#my > .coupon > section > article > table ul > li {
+    margin: 4px 0;
+}        
+
+#my > .coupon > section > article > .info {
+    margin: 16px;
+    list-style: square;            
+}
+
+#my > .coupon > section > article > .info > li {
+    font-family: '돋움';
+    font-size: 11px;
+    color: #777;
+    letter-spacing: -1px;
+    padding-bottom: 8px;
+}
+
+/* my - review(나의리뷰) */
+#my > .review > section > article > table {
+    width: 100%;
+    height: auto;
+    border-top: 2px solid #444;
+    margin-top: 6px;
+    border-collapse: collapse;            
+}
+#my > .review > section > article > table * {
+    font-family: '돋움';
+    color: #444;
+}
+
+#my > .review > section > article > table th {
+    padding: 6px;
+    background-color: #a5a7a5;
+    box-sizing: border-box;
+    color: #fff;
+}
+#my > .review > section > article > table td {
+    padding: 10px;            
+    border-left: 1px solid #f1f1f1;
+    border-bottom: 1px solid #aaa;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+#my > .review > section > article > table td:first-child {border-left: none;}
+
+#my > .review > section > article > table ul {
+    float:left;
+    margin-left: 10px;
+    margin-right: 10px;
+
+}
+#my > .review > section > article > table ul > li {
+    margin: 4px 0;
+}        
+
+#my > .review > section > article > table .prodName {
+    text-decoration: underline;
+}
+
+        
+#my > .review > section > article > table .rating {
+    display: block;
+    width: 84px;
+    height: 20px;
+    font-size: 0px;
+    background-image: url('../img/my_rating_star.png');
+    background-repeat: no-repeat;
+    background-position: 36px 0px;    
+}
+#my > .review > section > article > table .rating.star1 {background-position: 0 -40px;}
+#my > .review > section > article > table .rating.star2 {background-position: 0 -80px;}
+#my > .review > section > article > table .rating.star3 {background-position: 0 -120px;}
+#my > .review > section > article > table .rating.star4 {background-position: 0 -160px;}
+#my > .review > section > article > table .rating.star5 {background-position: 0 -200px;}
+
+
+#my > .review > section > article > .page {
+    margin: 20px 0;
+    text-align: center;
+}
+
+#my > .review > section > article > .page > a {
+    display: inline-block;
+    width: 19px;
+    height: 19px;            
+    box-sizing: border-box;
+    vertical-align: top;
+    color: #777;
+}
+#my > .review > section > article > .page > a.on {
+    font-weight: bold;
+    color: #1179ea;
+}
+
+#my > .review > section > article > .page > .prev {
+    background: url('../img/my_sprites2.png') no-repeat 0 -300px;
+    font-size: 0;
+}
+
+#my > .review > section > article > .page > .next {
+    background: url('../img/my_sprites2.png') no-repeat -120px -300px;
+    font-size: 0;
+}
+
+/* my - qna(문의하기) */
+#my > .qna > section > article > table {
+    width: 100%;
+    height: auto;
+    border-top: 2px solid #444;
+    margin-top: 6px;
+    border-collapse: collapse;            
+}
+#my > .qna > section > article > table * {
+    font-family: '돋움';
+    color: #444;
+}
+
+#my > .qna > section > article > table th {
+    padding: 6px;
+    background-color: #a5a7a5;
+    box-sizing: border-box;
+    color: #fff;
+}
+#my > .qna > section > article > table td {
+    padding: 10px;            
+    border-left: 1px solid #f1f1f1;
+    border-bottom: 1px solid #aaa;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+#my > .qna > section > article > table td:first-child {border-left: none;}
+#my > .qna > section > article > table td.tit a:hover {
+    text-decoration: underline;
+}
+
+#my > .qna > section > article > table ul .prodName > a {
+    font-size: 11px;
+    color: #999;
+}
+#my > .qna > section > article > table ul > li {
+    margin: 2px 0;
+}
+
+#my > .qna > section > article > table .notAnswerYet {color: #999;}
+#my > .qna > section > article > table .answered {color: #01a900;}
+
+#my > .qna > section > article > table .answerRow {
+    display: none;
+    background-color: #fafafa;            
+}
+#my > .qna > section > article > table .answerRow td {}
+#my > .qna > section > article > table .answerRow div {
+    padding-left: 26px;
+    padding-top: 26px;
+    box-sizing: border-box;
+}
+#my > .qna > section > article > table .answerRow div.question {
+    background: url('../img/my_ico_question.gif') no-repeat 0px 24px;
+}
+#my > .qna > section > article > table .answerRow div.answer {
+    background: url('../img/my_ico_answer.gif') no-repeat 0px 24px;
+}
+#my > .qna > section > article > table .answerRow div > p {
+    margin-bottom: 10px;
+}
+#my > .qna > section > article > table .answerRow div > p.tit {
+    font-weight: bold;
+    color: #666;
+}
+#my > .qna > section > article > table .answerRow div > p.tit > .date {
+    float: right;
+    color: #888;
+}
+#my > .qna > section > article > table .answerRow div > p.content {}
+
+#my > .qna > section > article > .page {
+    margin: 20px 0;
+    text-align: center;
+}
+
+#my > .qna > section > article > .page > a {
+    display: inline-block;
+    width: 19px;
+    height: 19px;            
+    box-sizing: border-box;
+    vertical-align: top;
+    color: #777;
+}
+#my > .qna > section > article > .page > a.on {
+    font-weight: bold;
+    color: #1179ea;
+}
+
+#my > .qna > section > article > .page > .prev {
+    background: url('../img/my_sprites2.png') no-repeat 0 -300px;
+    font-size: 0;
+}
+
+#my > .qna > section > article > .page > .next {
+    background: url('../img/my_sprites2.png') no-repeat -120px -300px;
+    font-size: 0;
+}
+
+/* my - info(나의설정) */
+#my > .info > section > article > table {
+    width: 100%;
+    height: auto;
+    border-top: 2px solid #444;
+    margin-top: 6px;
+    border-collapse: collapse;            
+}
+#my > .info > section > article > table * {
+    font-family: '돋움';
+}
+
+#my > .info > section > article > table th {
+    padding: 6px;
+    background-color: #a5a7a5;
+    box-sizing: border-box;
+    color: #fff;
+}
+#my > .info > section > article > table td {
+    padding: 10px;            
+    border-left: 1px solid #f1f1f1;
+    border-bottom: 1px solid #f1f1f1;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+#my > .info > section > article > table td:first-child {
+    width: 120px;
+    border-left: none;
+    background-color: #f7f7f7;
+}
+#my > .info > section > article > table input {
+    padding: 2px;
+    box-sizing: border-box;
+    border: 1px solid #999;
+}
+
+#my > .info > section > article > table .address > input {
+    display: block;
+    width: 300px;
+    margin-top: 2px;
+}
+
+#my > .info > section > article > table .hp > input {
+    width: 60px;
+}
+
+#my > .info > section > article > table select {
+    padding: 2px;
+}
+
+#my button {
+    padding: 2px;            
+    border: 1px solid #999;
+}
+
+#my button:hover {            
+    background-color: #e9e9e9;
+    cursor: pointer;
+}
+
+#my #btnWithdraw {
+    background: #e74929;
+    border: 1px solid #c84f3c;
+    color: #fff;
+    cursor: pointer;
+}
+
+#my #btnInfoChange {
+    display: block;
+    width: 160px;
+    height: 30px;
+    margin: 10px auto;
+    background-image: url('../img/btn_my_change.png');
+    color: #fff;
+    font-family: '돋움';
+    border: none;
+}

@@ -1,33 +1,33 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
     <!-- 2023/02/09 // 심규영 // 관리자 메인 쇼핑몰 운형 현황 정보 -->
-    <article th:fragment="mallStatus">
+    <article th:fragment="mallStatus(mainStatusDTO)">
       <table>
         <tr>
           <td>
             <strong>주문건수(건)</strong>
-            <span>131</span>
+            <span th:text="${#numbers.formatInteger(mainStatusDTO.countOrdNo, 1, 'COMMA')}">131</span>
           </td>
           <td>
             <strong>주문금액(원)</strong>
-            <span>1,131,000</span>
+            <span th:text="${#numbers.formatInteger(mainStatusDTO.sumOrdTotPrice, 1, 'COMMA')}">1,131,000</span>
           </td>
           <td>
             <strong>회원가입(명)</strong>
-            <span>1014</span>
+            <span th:text="${#numbers.formatInteger(mainStatusDTO.countMember, 1, 'COMMA')}">1014</span>
           </td>
           <td>
             <strong>쇼핑몰 방문(명)</strong>
             <span>1014</span>
           </td>
           <td>
-            <strong>신규게시물(건)</strong>
-            <span>100</span>
+            <strong>신규 상품(건)</strong>
+            <span th:text="${#numbers.formatInteger(mainStatusDTO.countProductRdateMonth, 1, 'COMMA')}">100</span>
           </td>
         </tr>
         <tr>
@@ -86,15 +86,43 @@
           <td>
             <p>
               <span>어제</span>
-              <span>4</span>
+              <span th:text="${#numbers.formatInteger(mainStatusDTO.countOrdNoDay, 1, 'COMMA')}">4</span>
             </p>
             <p>
               <span>주간</span>
-              <span>10</span>
+              <span th:text="${#numbers.formatInteger(mainStatusDTO.countOrdNoWeek, 1, 'COMMA')}">10</span>
             </p>
             <p>
               <span>월간</span>
-              <span>30</span>
+              <span th:text="${#numbers.formatInteger(mainStatusDTO.countOrdNoMonth, 1, 'COMMA')}">30</span>
+            </p>
+          </td>
+          <td>
+            <p>
+              <span>어제</span>
+              <span th:text="${#numbers.formatInteger(mainStatusDTO.sumOrdTotPriceDay, 1, 'COMMA')}">4</span>
+            </p>
+            <p>
+              <span>주간</span>
+              <span th:text="${#numbers.formatInteger(mainStatusDTO.sumOrdTotPriceWeek, 1, 'COMMA')}">10</span>
+            </p>
+            <p>
+              <span>월간</span>
+              <span th:text="${#numbers.formatInteger(mainStatusDTO.sumOrdTotPriceMonth , 1, 'COMMA')}">30</span>
+            </p>
+          </td>
+          <td>
+            <p>
+              <span>어제</span>
+              <span th:text="${#numbers.formatInteger(mainStatusDTO.countMemberDay , 1, 'COMMA')}">4</span>
+            </p>
+            <p>
+              <span>주간</span>
+              <span th:text="${#numbers.formatInteger(mainStatusDTO.countMemberWeek , 1, 'COMMA')}">10</span>
+            </p>
+            <p>
+              <span>월간</span>
+              <span th:text="${#numbers.formatInteger(mainStatusDTO.countMemberMonth , 1, 'COMMA')}">30</span>
             </p>
           </td>
           <td>
@@ -114,43 +142,15 @@
           <td>
             <p>
               <span>어제</span>
-              <span>4</span>
+              <span th:text="${#numbers.formatInteger(mainStatusDTO.countProductRdateDay , 1, 'COMMA')}">4</span>
             </p>
             <p>
               <span>주간</span>
-              <span>10</span>
+              <span th:text="${#numbers.formatInteger(mainStatusDTO.countProductRdateWeek , 1, 'COMMA')}">10</span>
             </p>
             <p>
               <span>월간</span>
-              <span>30</span>
-            </p>
-          </td>
-          <td>
-            <p>
-              <span>어제</span>
-              <span>4</span>
-            </p>
-            <p>
-              <span>주간</span>
-              <span>10</span>
-            </p>
-            <p>
-              <span>월간</span>
-              <span>30</span>
-            </p>
-          </td>
-          <td>
-            <p>
-              <span>어제</span>
-              <span>4</span>
-            </p>
-            <p>
-              <span>주간</span>
-              <span>10</span>
-            </p>
-            <p>
-              <span>월간</span>
-              <span>30</span>
+              <span th:text="${#numbers.formatInteger(mainStatusDTO.countProductRdateMonth , 1, 'COMMA')}">30</span>
             </p>
           </td>
         </tr>
@@ -186,51 +186,23 @@
     </article>
 
     <!-- 2023/02/09 // 심규영 // 관리자 메인 공지사항 -->
-    <article th:fragment="adminMainNotice">
-      <p>
-        <span>[공지] 케이마켓 판매자님들은 주기적인 비밀번호 변경을 하세요.</span>
-        <span>20-07-08 12:23</span>
-      </p>
-      <p>
-        <span>[공지] 1주년 기념 신규가입 사은품 안내</span>
-        <span>20-07-08 12:23</span>
-      </p>
-      <p>
-        <span>[공지] 1주년 기념 신규가입 사은품 안내</span>
-        <span>20-07-08 12:23</span>
-      </p>
-      <p>
-        <span>[공지] 1주년 기념 신규가입 사은품 안내</span>
-        <span>20-07-08 12:23</span>
-      </p>
-      <p>
-        <span>[공지] 1주년 기념 신규가입 사은품 안내</span>
-        <span>20-07-08 12:23</span>
-      </p>
+    <article th:fragment="adminMainNotice(noticeVOs)">
+      <th:block th:each="article:${noticeVOs}">
+        <p>
+          <span th:text="${article.noticeTitle}">[공지] 케이마켓 판매자님들은 주기적인 비밀번호 변경을 하세요.</span>
+          <span th:text="${article.noticeRdate}">20-07-08 12:23</span>
+        </p>
+      </th:block>
     </article>
 
     <!-- 2023/02/09 // 심규영 // 관리자 메인 고객문의 -->
-    <article th:fragment="adminMainQna">
-      <p>
-        <span>[문의] 상품이 잘못 왔습니다.</span>
-        <span>20-07-08 12:23</span>
-      </p>
-      <p>
-        <span>[문의] 안녕하세요. 주문자 입니다. 구매한 상품에 문제가 있어서 이렇게 문의글을 남깁니다.</span>
-        <span>20-07-08 12:23</span>
-      </p>
-      <p>
-        <span>[문의] 상품이 잘못 왔습니다.</span>
-        <span>20-07-08 12:23</span>
-      </p>
-      <p>
-        <span>[문의] 상품이 잘못 왔습니다.</span>
-        <span>20-07-08 12:23</span>
-      </p>
-      <p>
-        <span>[문의] 상품이 잘못 왔습니다.</span>
-        <span>20-07-08 12:23</span>
-      </p>
+    <article th:fragment="adminMainQna(qnaVOs)">
+      <th:block th:each="article:${qnaVOs}">
+        <p>
+          <span th:text="${article.qnaTitle}">[공지] 케이마켓 판매자님들은 주기적인 비밀번호 변경을 하세요.</span>
+          <span th:text="${article.qnaRdate}">20-07-08 12:23</span>
+        </p>
+      </th:block>
     </article>
 
     <!-- 2023/02/09 // 심규영 // 관리자 상품 목록 -->

@@ -1,0 +1,111 @@
+<!--
+    날짜: 2023/02/08
+    이름: 이해빈
+    내용: 마이페이지 home html 작업
+-->
+<!-- 2023/02/20 // 심규영 // 마이페이지 헤더,푸터 등등 중복 처리 -->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>케이마켓::대한민국 1등 온라인 쇼핑몰</title>
+    <th:block th:replace="~{fragment/head_fragment::basicHead}"></th:block>
+    <link rel="stylesheet" href="../css/my.css">
+</head>
+<body>
+    <div id="wrapper">
+        <header th:replace="~{fragment/header_fragment::myHeader}"></header>
+        <div id="my">
+            <nav th:replace="~{fragment/my_fragment::my_nav}"></nav>
+
+            <div class="point">
+                <ul th:replace="~{fragment/my_fragment::menu_else}"></ul>
+
+                <section>
+                    <a href="#"><img src="../img/my_banner2.png" alt="패션, 타운 하나로 끝" class="banner"></a>
+                    <article>
+                        <h3>포인트내역</h3>
+
+                        <div class="byDate">
+                            <span class="tit">기간별조회</span>                            
+                            <ul class="date_3ea">
+                                <li><a href="#"><em>1</em>주일</a></li>
+                                <li><a href="#"><em>15</em>일</a></li>
+                                <li><a href="#" class="on"><em>1</em>개월</a></li>
+                            </ul>
+                            <ul class="date_5ea">
+                                <li><a href="#"><em>11</em>월</a></li>
+                                <li><a href="#"><em>10</em>월</a></li>
+                                <li><a href="#"><em>9</em>월</a></li>
+                                <li><a href="#"><em>8</em>월</a></li>
+                                <li><a href="#"><em>7</em>월</a></li>
+                            </ul>
+                            <p>
+                                <input type="date" name="begin"><span>~</span><input type="date" name="end">
+                            </p>
+                            <button class="btnConfirm">조회하기</button>
+                        </div>
+
+                        <table border="0">
+                            <tr>
+                                <th>날짜</th>
+                                <th>구분</th>
+                                <th>주문번호</th>                                
+                                <th>적립금액</th>
+                                <th>비고</th>
+                                <th>유효기간</th>
+                            </tr>
+                            <tr>
+                                <td class="date">2022-12-13</td>
+                                <td class="type">적립</td>
+                                <td class="ordNo">2022121001</td>                                
+                                <td class="point">340</td>
+                                <td class="desc">상품 구매확정</td>
+                                <td class="expire">2024-12-12</td>
+                            </tr>
+                            <tr>
+                                <td class="date">2022-12-13</td>
+                                <td class="type">적립</td>
+                                <td class="ordNo">2022121001</td>
+                                <td class="point">100</td>
+                                <td class="desc">상품 리뷰 작성 추가 포인트</td>
+                                <td class="expire">2024-12-12</td>
+                            </tr>
+                            <tr>
+                                <td class="date">2022-12-13</td>
+                                <td class="type">적립</td>
+                                <td class="ordNo">2022121001</td>
+                                <td class="point">340</td>
+                                <td class="desc">상품 구매확정</td>
+                                <td class="expire">2024-12-12</td>
+                            </tr>
+                            <tr>
+                                <td class="date">2022-12-13</td>
+                                <td class="type">적립</td>
+                                <td class="ordNo">2022121001</td>
+                                <td class="point">340</td>
+                                <td class="desc">상품 구매확정</td>
+                                <td class="expire">2024-12-12</td>
+                            </tr>
+                            
+                        </table>
+
+                        <p class="page">
+                            <a href="#" class="prev">이전</a>
+                            <a href="#" class="num on">1</a>
+                            <a href="#" class="num">2</a>
+                            <a href="#" class="num">3</a>
+                            <a href="#" class="next">다음</a>
+                        </p>
+
+                    </article>                  
+
+                    
+
+                </section>
+
+            </div>
+        </div>
+        <th:block th:replace="~{fragment/footer_fragment::mainFooter}"></th:block>
+    </div>    
+</body>
+</html>

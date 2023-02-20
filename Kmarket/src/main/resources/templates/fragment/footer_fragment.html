@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -9,9 +9,9 @@
     <footer th:fragment="mainFooter">
         <ul>
             <li><a th:href="@{/company/index}">회사소개</a></li>
-            <li><a href="#">서비스이용약관</a></li>
-            <li><a href="#">개인정보처리방침</a></li>
-            <li><a href="#">전자금융거래약관</a></li>
+            <li><a th:href="@{/termsPolicy/buyer}">서비스이용약관</a></li>
+            <li><a th:href="@{/termsPolicy/privacy}">개인정보처리방침</a></li>
+            <li><a th:href="@{/termsPolicy/finance}">전자금융거래약관</a></li>
         </ul>
         <div>
             <p><img th:src="@{/img/footer_logo.png}" alt="로고"></p>

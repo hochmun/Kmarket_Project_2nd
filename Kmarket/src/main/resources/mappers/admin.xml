@@ -6,9 +6,35 @@
 <mapper namespace="kr.co.kmarket.dao.admin.AdminDAO">
     <!-- insert -->
     <!-- select -->
-    <!-- 2023/02/17 // 심규영 // 관리자 공지사항 5개 가져오는 쿼리문 -->
-    <select id="selectNoticeArticle5">
+    <!-- 2023/02/20 // 심규영 // 관리자 메인 상태 가져오는 쿼리문 -->
+    <select id="selectAdminMainStatus" resultType="kr.co.kmarket.dto.AdminMainStatusDTO">
+        SELECT
+        COUNT(`ordNo`) AS countOrdNo,
+        (SELECT COUNT(`ordNo`) FROM `km_product_order` WHERE `ordDate` BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY ) AND NOW() ) AS countOrdNoDay,
+        (SELECT COUNT(`ordNo`) FROM `km_product_order` WHERE `ordDate` BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() ) AS countOrdNoWeek,
+        (SELECT COUNT(`ordNo`) FROM `km_product_order` WHERE `ordDate` BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() ) AS countOrdNoMonth,
+        SUM(`ordTotPrice`) AS sumOrdTotPrice,
+        (SELECT SUM(`ordTotPrice`) FROM `km_product_order` WHERE `ordDate` BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY ) AND NOW() ) AS sumOrdTotPriceDay,
+        (SELECT SUM(`ordTotPrice`) FROM `km_product_order` WHERE `ordDate` BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() ) AS sumOrdTotPriceWeek,
+        (SELECT SUM(`ordTotPrice`) FROM `km_product_order` WHERE `ordDate` BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() ) AS sumOrdTotPriceMonth,
+        (SELECT COUNT(`pass`) FROM `km_member`) AS countMember,
+        (SELECT COUNT(`pass`) FROM `km_member` WHERE `rdate` BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY ) AND NOW() ) AS countMemberDay,
+        (SELECT COUNT(`pass`) FROM `km_member` WHERE `rdate` BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() ) AS countMemberWeek,
+        (SELECT COUNT(`pass`) FROM `km_member` WHERE `rdate` BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() ) AS countMemberMonth,
+        (SELECT COUNT(`rdate`) FROM `km_product` WHERE `rdate` BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY ) AND NOW() ) AS countProductRdateDay,
+        (SELECT COUNT(`rdate`) FROM `km_product` WHERE `rdate` BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() ) AS countProductRdateWeek,
+        (SELECT COUNT(`rdate`) FROM `km_product` WHERE `rdate` BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() ) AS countProductRdateMonth
+        FROM `km_product_order`;
+    </select>
 
+    <!-- 2023/02/17 // 심규영 // 관리자 공지사항 5개 가져오는 쿼리문 -->
+    <select id="selectNoticeArticle5" resultType="kr.co.kmarket.vo.Cs_NoticeVO">
+        SELECT * FROM `km_cs_notice` ORDER BY `noticeRdate` DESC LIMIT 5;
+    </select>
+
+    <!-- 2023/02/20 // 심규영 // 관리자 메인 문의사항 5개 가져오는 쿼리문 -->
+    <select id="selectQnaArticle5" resultType="kr.co.kmarket.vo.Cs_QnaVO">
+        SELECT * FROM `km_cs_qna` ORDER BY `qnaRdate` DESC LIMIT 5;
     </select>
     <!-- upload -->
     <!-- delete -->
