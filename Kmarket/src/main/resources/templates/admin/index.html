@@ -1,6 +1,7 @@
 <!-- 2023/02/09 // 심규영 // 최초작성 -->
 <!DOCTYPE html>
-<html xmlns="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <th:block th:replace="~{fragment/head_fragment::basicHead}"></th:block>
     <th:block th:replace="~{fragment/head_fragment::adminHead}"></th:block>
@@ -18,8 +19,11 @@
                     </p>
                 </nav>
 
-                <h4>쇼핑몰 운영현황</h4>
-                <article th:replace="~{fragment/admin_fragment::mallStatus}"></article>
+                <!-- 쇼핑몰 운영현황은 관리자만 표시 -->
+                <th:block sec:authorize="hasRole('ROLE_5')">
+                    <h4>쇼핑몰 운영현황</h4>
+                    <article th:replace="~{fragment/admin_fragment::mallStatus(mainStatusDTO = ${mainStatusDTO})}"></article>
+                </th:block>
 
                 <h4>주문 업무현황</h4>
                 <article th:replace="~{fragment/admin_fragment::orderStatus}"></article>
@@ -27,12 +31,12 @@
                 <div>
                     <div>
                         <h4>공지사항</h4>
-                        <article th:replace="~{fragment/admin_fragment::adminMainNotice}"></article>
+                        <article th:replace="~{fragment/admin_fragment::adminMainNotice(noticeVOs = ${noticeVOs})}"></article>
                     </div>
 
                     <div>
                         <h4>고객문의</h4>
-                        <article th:replace="~{fragment/admin_fragment::adminMainQna}"></article>
+                        <article th:replace="~{fragment/admin_fragment::adminMainQna(qnaVOs = ${qnaVOs})}"></article>
                     </div>
                 </div>
             </section>
