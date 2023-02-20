@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -15,7 +15,7 @@
                 </th:block>
                 <th:block sec:authorize="isAuthenticated()">
                     <a sec:authorize="hasAnyRole('ROLE_5','ROLE_2')" th:href="@{/admin/index}">관리자</a>
-                    <a href="#">마이페이지</a>
+                    <a th:href="@{/my/home}">마이페이지</a>
                     <a th:href="@{/member/logout}">로그아웃</a>
                     <a th:href="@{/product/cart}">
                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
@@ -27,7 +27,7 @@
         <div class="logo">
             <div>
                 <a th:href="@{/index}"><img th:src="@{/img/header_logo.png}" alt="로고"></a>
-                <form action="/Kmarket/product/list">
+                <form th:action="@{/product/list}">
                     <input type="text" name="search">
                     <button><i class="fa fa-search"></i></button>
                 </form>
@@ -64,6 +64,26 @@
                 <a th:href="@{/member/logout}">로그아웃 |</a>
                 <a th:href="@{/cs/index}">고객센터</a>
             </p>
+        </div>
+    </header>
+
+    <header th:fragment="myHeader">
+        <div class="top">
+            <div>
+                <a href="./member/login.html">로그인</a>
+                <a href="#">회원가입</a>
+                <a href="#">마이페이지</a>
+                <a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;장바구니</a>
+            </div>
+        </div>
+        <div class="logo">
+            <div>
+                <a href="../index.html"><img src="../img/header_logo.png" alt="로고"/></a>
+                <form action="#">
+                    <input type="text" name="search"/>
+                    <button><i class="fa fa-search"></i></button>
+                </form>
+            </div>
         </div>
     </header>
 </body>

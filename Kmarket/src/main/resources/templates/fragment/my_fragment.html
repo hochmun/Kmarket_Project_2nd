@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <!-- 2023/02/20 // 심규영 // 마이페이지 중복 처리, 사이드 메뉴 -->
+    <ul th:fragment="menu_else">
+        <span class="menu_else"></span>
+        <li class="on"><a href="#">전체주문내역</a></li>
+        <!--<li><a href="#">관심상품</a></li>-->
+        <li><a href="#">포인트내역</a></li>
+        <li><a href="#">쿠폰</a></li>
+        <li><a href="#">나의리뷰</a></li>
+        <li><a href="#">문의하기</a></li>
+        <li><a href="#">나의설정</a></li>
+    </ul>
+
+    <!-- 2023/02/20 // 심규영 // 마이페이지 중복 처리, nav 메뉴 -->
+    <nav th:fragment="my_nav">
+        <div>
+            <a href="./home.html"><img src="../img/my_logo.jpg" alt="나의쇼핑정보"></a>
+
+            <ol>
+                <li><a href="#">주문·배송<span class="delivery">1</span></a></li>
+                <li><a href="#">할인쿠폰<span class="coupon">1</span></a></li>
+                <li><a href="#">포인트<span class="point">1,000</span></a></li>
+                <li><a href="#">문의내역<span class="qna">1</span></a></li>
+            </ol>
+
+        </div>
+    </nav>
+</body>
+</html>
