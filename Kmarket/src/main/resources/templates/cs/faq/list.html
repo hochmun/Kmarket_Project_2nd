@@ -5,6 +5,7 @@
 -->
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{cs/_cs_header}"></th:block>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script th:src="@{/js/cs/faqList.js}"></script>
 <section id="cs">
     <div class="faq">
@@ -31,18 +32,27 @@
                     </th:block>
                     <h2>가장 자주 묻는 질문입니다.</h2>
                 </nav>
-                    <div th:each="vo3:${vos3}">
-                        <h3>[[${vo3.cate2Name}]]</h3>
-                        <ul>
-                        <th:block th:each="vo:${vos}" th:if="${vo.faqCate1 eq vo3.cate1 and vo.faqCate2 eq vo3.cate2}">
-                                <li th:class="${#lists.size(vos) > 3} ? 'hide'"><a th:href="@{/cs/faq/view(faqNo=${vo.faqNo},faqCate1=${vo.faqCate1})}"><span>Q.</span>[[${vo.faqTitle}]]</a></li>
+                <div th:each="vo3: ${vos3}">
+                    <h3 th:text="${vo3.cate2Name}"></h3>
+                    <ul class="faq-list">
+                        <th:block th:if="${#lists.isEmpty(vos)} == false">
+                            <th:block th:each="vo: ${vos}" th:if="${vo.faqCate1 eq vo3.cate1 and vo.faqCate2 eq vo3.cate2}">
+                                <li>
+                                    <a th:href="@{/cs/faq/view(faqNo=${vo.faqNo},faqCate1=${vo.faqCate1})}">
+                                        <span>Q.</span>
+                                        [[${vo.faqTitle}]]
+                                    </a>
+                                </li>
+                            </th:block>
                         </th:block>
-                        <li th:if="${#lists.size(vos) lt 1}">
-                            <a>게시물이 없습니다.</a>
-                        </li>
-                        <li class="more" onclick="moreView(this)"><a href="#">더보기</a></li>
-                        </ul>
-                    </div>
+                        <th:block th:unless="${#lists.isEmpty(vos)} == false">
+                            <li>
+                                <a>게시물이 없습니다.</a>
+                            </li>
+                        </th:block>
+                        <li class="more"><a href="#">더보기</a></li>
+                    </ul>
+                </div>
             </article>
         </section>
     </div>

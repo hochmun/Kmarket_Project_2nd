@@ -701,10 +701,10 @@
   }
 
 
-/*
-  #cs > .faq > .list > article > div > ul > li:nth-child(n+11) {
+
+  #cs > .faq > .list > article > div > ul > li:nth-child(n+4) {
     display: none;
-  }*/
+  }
 
 
   #cs > .faq > .list > article > div > ul a {
