@@ -1,22 +1,59 @@
-// 처음 시작시 태그 숨기기
-window.addEventListener('load',()=>{
-	const hides = document.getElementsByClassName('hide');
-	for(const hide of hides ) hide.setAttribute('style','display:none;');
+$(function() {
+  var visibleCount = 3;
+
+  $('.faq-list').each(function() {
+    var $faqList = $(this);
+    var $listItems = $faqList.find('li');
+    var itemCount = $listItems.length;
+    var remainingCount = itemCount - visibleCount;
+
+    $listItems.each(function(i, item) {
+      if (i >= visibleCount) {
+        $(this).hide();
+      }
+    });
+
+    $faqList.find('li.more').click(function(e) {
+      e.preventDefault();
+      if (visibleCount === 3) {
+        visibleCount = 10;
+        $faqList.find('li.more a').text('접기');
+      } else {
+        visibleCount = 3;
+        $faqList.find('li.more a').text('더보기');
+      }
+
+      $listItems.each(function(i, item) {
+        if (i < visibleCount) {
+          $(this).show();
+        } else {
+          $(this).hide();
+        }
+      });
+
+      if (visibleCount == itemCount) {
+        $faqList.find('li.more').hide();
+      } else {
+        $faqList.find('li.more').show();
+      }
+    });
+  });
 });
 
-// 닫기 열기
-function moreView(tag) {
-	event.preventDefault();
-	let text = tag.innerText;
-	if (text == '더보기') {
-		const ele = tag.parentElement;
-		const hides = ele.getElementsByClassName('hide');
-		for(const hide of hides) hide.removeAttribute('style');
-		tag.children[0].innerText = '간단히 보기';
-	} else {
-		const ele = tag.parentElement;
-		const hides = ele.getElementsByClassName('hide');
-		for(const hide of hides) hide.setAttribute('style','display:none;');
-		tag.children[0].innerText = '더보기';
-	}
+const faqList = document.querySelector('.faq-list');
+
+if (faqList === null) {
+  const newLi = document.createElement('li');
+  const newLink = document.createElement('a');
+
+  newLink.textContent = '게시물이 없습니다.';
+
+  newLi.appendChild(newLink);
+
+  const parent = document.querySelector('body > main > div.container');
+  parent.querySelector('ul').appendChild(newLi);
 }
+
+
+
+

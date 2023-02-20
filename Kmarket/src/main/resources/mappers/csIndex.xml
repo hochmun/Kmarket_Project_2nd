@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.kmarket.dao.cs.CsIndexDAO">
+    <!-- ================================================= -->
+    <!-- CsIndex -->
+
+    <!-- Notice list - 최근 5개 글 목록 -->
+    <select id="selectCsNoticeListLimit5" resultType="kr.co.kmarket.vo.Cs_NoticeVO">
+        select * from `km_cs_notice`
+        order by `noticeNo` desc
+        limit 5;
+    </select>
+
+    <!-- QnA list - 최근 5개 글 목록 -->
+    <select id="selectCsQnaListLimit5" resultType="kr.co.kmarket.vo.Cs_QnaVO">
+        select * from `km_cs_qna`
+        order by `qnaNo` desc
+        limit 5;
+    </select>
+
+</mapper>

@@ -41,4 +41,22 @@
         <result property="noticeHit" column="noticeHit"/>
     </resultMap>
 
+
+    <!-- ================================================= -->
+    <!-- CsIndex -->
+
+    <!-- Notice list - 최근 5개 글 목록 -->
+    <select id="selectCsNoticeListLimit5" resultType="kr.co.kmarket.vo.Cs_NoticeVO">
+        select * from `km_cs_notice`
+        order by `noticeNo` desc
+        limit 5;
+    </select>
+
+    <!-- QnA list - 최근 5개 글 목록 -->
+    <select id="selectCsQnaListLimit5" resultType="kr.co.kmarket.vo.Cs_QnaVO">
+        select * from `km_cs_qna`
+        order by `qnaNo` desc
+        limit 5;
+    </select>
+
 </mapper>
