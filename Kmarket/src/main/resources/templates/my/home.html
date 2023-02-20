@@ -1,0 +1,271 @@
+<!--
+    날짜: 2023/02/08
+    이름: 이해빈
+    내용: 마이페이지 home html 작업
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>케이마켓::대한민국 1등 온라인 쇼핑몰</title>    
+    <link rel="shortcut icon" type="image/x-icon" href="../img/favicon.ico" />    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://kit.fontawesome.com/20962f3e4b.js" crossorigin="anonymous"></script>    
+    <link rel="stylesheet" href="../css/my.css">
+</head>
+<body>
+    <div id="wrapper">
+        <header>
+            <div class="top">
+                <div>
+                    <a href="./member/login.html">로그인</a>
+                    <a href="#">회원가입</a>
+                    <a href="#">마이페이지</a>
+                    <a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;장바구니</a>
+                </div>
+            </div>
+            <div class="logo">
+                <div>
+                    <a href="../index.html"><img src="../img/header_logo.png" alt="로고"/></a>
+                    <form action="#">
+                        <input type="text" name="search"/>
+                        <button><i class="fa fa-search"></i></button>
+                    </form>
+                </div>
+            </div>
+        </header>
+        <div id="my">
+            <nav>
+                <div>
+                    <a href="./home.html"><img src="../img/my_logo.jpg" alt="나의쇼핑정보"></a>
+
+                    <ol>
+                        <li><a href="#">주문·배송<span class="delivery">1</span></a></li>
+                        <li><a href="#">할인쿠폰<span class="coupon">1</span></a></li>
+                        <li><a href="#">포인트<span class="point">1,000</span></a></li>
+                        <li><a href="#">문의내역<span class="qna">1</span></a></li>
+                    </ol>
+
+                </div>
+            </nav>
+
+            <div class="home">
+				<ul>
+                    <span class="menu_else"></span>
+                    <li><a href="./ordered.html">전체주문내역</a></li>
+                    <!--<li><a href="./favorite.html">관심상품</a></li>-->
+                    <li><a href="./point.html">포인트내역</a></li>
+                    <li><a href="./coupon.html">쿠폰</a></li>
+                    <li><a href="./review.html">나의리뷰</a></li>
+                    <li><a href="./qna.html">문의하기</a></li>
+                    <li><a href="./info.html">나의설정</a></li>
+                </ul>
+
+                <section>
+                    <a href="#"><img src="../img/my_banner1.jpg" alt="패션, 타운 하나로 끝" class="banner"></a>
+
+                    <article class="latest">
+                        <h3>최근주문내역</h3>
+                        <a href="#" class="more">더보기</a>
+                        <table border="0">
+                            <tr>
+                                <th>날짜</th>
+                                <th>상품정보</th>
+                                <th>상태</th>
+                                <th>확인/신청</th>
+                            </tr>
+                            <tr>
+                                <td class="date">2022-12-13</td>
+                                <td>
+                                    <a href="#" class="thumb"><img src="https://via.placeholder.com/80x80" alt=""></a>
+                                    <ul>
+                                        <li class="company">상호명</li>
+                                        <li class="prodName"><a href="#">상품명</a></li>
+                                        <li>수량 : <span class="prodCount">1</span>개 / 주문번호 : <span class="ordNo">1012211341</span></li>
+                                        <li class="prodPrice">34,000</li>
+                                    </ul>
+                                </td>
+                                <td class="status">배송완료</td>
+                                <td class="confirm">
+                                    <a href="#" class="receive">수취확인</a>
+                                    <a href="#" class="review">상품평</a>
+                                    <a href="#" class="refund">반품신청</a>
+                                    <a href="#" class="exchange">교환신청</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </article>
+
+                    <article class="point">
+                        <h3>포인트적립내역</h3>
+                        <a href="#" class="more">더보기</a>
+                        <table border="0">
+                            <tr>
+                                <th>날짜</th>
+                                <th>구분</th>
+                                <th>주문번호</th>
+                                <th>적립금액</th>                                
+                                <th>비고</th>
+                                <th>유효기간</th>
+                            </tr>
+                            <tr>
+                                <td>2022-12-10</td>
+                                <td>적립</td>
+                                <td>2022121001</td>
+                                <td>340</td>
+                                <td>상품 구매확정</td>
+                                <td>2024-12-10</td>
+                            </tr>
+                        </table>
+                    </article>
+                    <article class="review">
+                        <h3>상품평</h3>
+                        <a href="#" class="more">더보기</a>
+                        <table border="0">
+                            <tr>
+                                <th>번호</th>
+                                <th>상품명</th>
+                                <th>내용</th>
+                                <th>평점</th>
+                                <th>작성일</th>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>상품명</td>
+                                <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
+                                <td><span class="rating star1">상품평</span></td>
+                                <td>2022-12-10</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>상품명</td>
+                                <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
+                                <td><span class="rating star2">상품평</span></td>
+                                <td>2022-12-10</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>상품명</td>
+                                <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
+                                <td><span class="rating star3">상품평</span></td>
+                                <td>2022-12-10</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>상품명</td>
+                                <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
+                                <td><span class="rating star4">상품평</span></td>
+                                <td>2022-12-10</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>상품명</td>
+                                <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
+                                <td><span class="rating star5">상품평</span></td>
+                                <td>2022-12-10</td>
+                            </tr>
+                        </table>
+                    </article>
+
+                    <article class="qna">
+                        <h3>문의내역</h3>
+                        <a href="#" class="more">더보기</a>
+                        <table border="0">
+                            <tr>
+                                <th>번호</th>
+                                <th>문의채널</th>
+                                <th>문의유형</th>                                
+                                <th>제목</th>
+                                <th>작성일</th>
+                                <th>상태</th>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>고객센터</td>
+                                <td>주문/결제</td>                                
+                                <td>신용카드 결제 중 오류가 난 경우 어떻게 하나요?</td>
+                                <td>2024-12-12</td>
+                                <td><span class="notAnswerYet">검토중</span></td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>고객센터</td>
+                                <td>주문/결제</td>                                
+                                <td>신용카드 결제 중 오류가 난 경우 어떻게 하나요?</td>
+                                <td>2024-12-12</td>
+                                <td><span class="answered">답변완료</span></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>판매자게시판</td>
+                                <td>배송</td>                                
+                                <td>배송기간이 보통 얼마나 걸리나요?</td>
+                                <td>2024-12-12</td>
+                                <td><span class="answered">답변완료</span></td>
+                            </tr>
+                        </table>
+                    </article>
+
+                    <article class="myinfo">
+                        <h3>확인해주세요!</h3>
+
+                        <div>
+                            <div class="address">
+                                <span>기본 배송지설정</span>
+                                <a href="#" class="setting">변경</a>
+                            </div>
+                            <div class="email">
+                                <span>email 설정</span>
+                                <a href="#" class="setting">변경</a>
+                                <p>
+                                    <span>abc123@gmail.com</span><br/>
+                                    (최종수정일 <span>2021-12-10</span>)
+                                </p>
+                            </div>
+                            <div class="hp">
+                                <span>휴대폰 설정</span>
+                                <a href="#" class="setting">변경</a>
+                                <p>
+                                    <span>abc123@gmail.com</span><br/>
+                                    (최종수정일 <span>2021-12-10</span>)
+                                </p>
+                            </div>
+                        </div>
+
+
+                    </article>
+
+                </section>
+
+            </div>
+        </div>        
+        <footer>
+            <ul>
+                <li><a href="#">회사소개</a></li>
+                <li><a href="#">서비스이용약관</a></li>
+                <li><a href="#">개인정보처리방침</a></li>
+                <li><a href="#">전자금융거래약관</a></li>
+            </ul>
+            <div>
+                <p><img src="../img/footer_logo.png" alt="로고"></p>
+                <p>
+                    <strong>(주)KMARKET</strong><br />
+                    부산시 강남구 테헤란로 152 (역삼동 강남파이낸스센터)<br />
+                    대표이사 : 홍길동<br />
+                    사업자등록번호 : 220-81-83676 사업자정보확인<br />
+                    통신판매업신고 : 강남 10630호 Fax : 02-589-8842
+                </p>
+                <p>
+                    <strong>고객센터</strong><br />
+                    Tel : 1234-5678 (평일 09:00~18:00)<br />
+                    스마일클럽/SVIP 전용 : 1522-5700 (365일 09:00~18:00)<br />
+                    경기도 부천시 원미구 부일로 223(상동) 투나빌딩 6층<br />
+                    Fax : 051-123-4567 | Mail : kmarket@kmarket.co.kr<br />
+                </p>
+            </div>              
+        </footer>
+    </div>    
+</body>
+</html>
