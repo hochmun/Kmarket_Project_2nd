@@ -22,6 +22,12 @@ public interface ProductDAO {
      */
     public List<productVO> selectProducts(@Param("cate1") int cate1, @Param("cate2") int cate2,
                                           @Param("sort") String sort, @Param("start") int start, @Param("search") String search);
+    /**
+     * 상품 검색 list
+     * @since 23/02/21
+     * @author 이해빈
+     */
+    public List<productVO> selectProductsForSearch(@Param("sort")String sort, @Param("start")int start, @Param("keyword") String keyword);
 
     /**
      * 상품 카테고리명 가져오기 dao
@@ -36,6 +42,13 @@ public interface ProductDAO {
      * @author 이해빈
      */
     public int getCountTotal(@Param("cate1") int cate1, @Param("cate2") int cate2, @Param("search") String search);
+
+    /**
+     * 상품 검색결과 갯수
+     * @since 23/02/21
+     * @author 이해빈
+     */
+    public int getCountTotalForSearch(@Param("keyword") String keyword);
 
     /**
      * 상품 가져오기

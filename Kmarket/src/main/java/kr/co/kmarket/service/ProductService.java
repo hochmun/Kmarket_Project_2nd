@@ -32,6 +32,15 @@ public class ProductService {
     }
 
     /**
+     * 상품 검색 list
+     * @since 23/02/21
+     * @author 이해빈
+     */
+    public List<productVO> selectProductsForSearch(String sort, int start, String keyword){
+        return dao.selectProductsForSearch(sort, start, keyword);
+    }
+
+    /**
      * 상품 카테고리명 가져오기 service
      * @since 23/02/09
      * @author 이해빈
@@ -47,7 +56,18 @@ public class ProductService {
      */
     public int getCountTotal(int cate1, int cate2, String search) {
         return dao.getCountTotal(cate1, cate2, search);
+    } 
+    /**
+     * 상품 검색결과 갯수
+     * @since 23/02/21
+     * @author 이해빈
+     */
+    public int getCountTotalForSearch(String keyword) {
+        return dao.getCountTotalForSearch(keyword);
     }
+    
+    
+    
 
     /**
      * 상품 가져오기
