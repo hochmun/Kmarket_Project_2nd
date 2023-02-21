@@ -3,7 +3,6 @@
 <th:block th:replace="~{member/_header}"></th:block>
 <script>
 function fb() {
-let hp = /^\d{2,3}-\d{3,4}-\d{4}$/;
 
 if ($("#uid").val() == null || $("#uid").val() == "") {
 alert("아이디를 입력해주세요.");
@@ -21,6 +20,11 @@ if(!hp.test($("#hp").val())){
 alert("휴대폰 형식에 맞게 입력해주세요.");
 return false;
 }
+
+if (confirm("비밀번호를 변경하시겠습니까?")) {
+$('#searchchange').submit();
+return false;
+}
 }
 </script>
     <main id="member">
@@ -28,14 +32,14 @@ return false;
             <nav>
                 <h1>비밀번호찾기</h1>
             </nav>
-            <form th:action="@{/member/search_pwd_Change}" id="searchpw">
+            <form th:action="@{/member/sear}" id="searchpwchange">
                 <table border="0">
                     <tr>
-                        <td>아이디</td>
+                        <td>변경하실 비밀번호</td>
                         <td><input type="text" name="uid" id="uid" placeholder="아이디 입력"></td>
                     </tr>
                     <tr>
-                        <td>휴대폰 번호</td>
+                        <td>변경하실 비밀번호 확인</td>
                         <td><input type="text" name="hp" id="hp" placeholder="휴대폰번호 입력"></td>
                     </tr>
                 </table>

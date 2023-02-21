@@ -42,8 +42,8 @@
         `rdate`=NOW();
     </insert>
     <!--아이디 찾기-->
-    <select id="search_id" resultType="kr.co.kmarket.vo.memberVO">
-        SELECT `uid` FROM `km_member` WHERE `name`=#{name} AND `hp`=#{hp};
+    <!----><select id="search_id" resultType="String" >
+        SELECT `uid` FROM `km_member` WHERE `name`=#{name};
     </select>
 
     <!-- 2023/02/13 이해빈 회원 정보 가져오기 -->

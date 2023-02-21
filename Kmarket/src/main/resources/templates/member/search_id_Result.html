@@ -1,11 +1,8 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <th:block th:replace="~{member/_header}"></th:block>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <main id="member">
         <div class="login">
-            <input type="hidden" name="name">
-            <input type="hidden" name="hp">
             <nav>
                 <h1>아이디찾기결과</h1>
             </nav>
@@ -13,7 +10,7 @@
                 <table border="0">
                     <tr>
                         <td>아이디</td>
-                        <td>${id}</td>
+                        <td>[[${id}]]</td>
                     </tr>
                 </table>
                 <span>
