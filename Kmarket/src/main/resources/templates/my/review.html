@@ -1,0 +1,49 @@
+<!-- 2023/02/21 // 김재준 // 마이페이지 헤더,푸터 등등 중복 처리 -->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>케이마켓::대한민국 1등 온라인 쇼핑몰</title>
+    <th:block th:replace="~{fragment/head_fragment::basicHead}"></th:block>
+    <link rel="stylesheet" href="../css/my.css">
+</head>
+<body>
+<div id="wrapper">
+    <header th:replace="~{fragment/header_fragment::myHeader}"></header>
+    <div id="my">
+        <nav th:replace="~{fragment/my_fragment::my_nav}"></nav>
+
+        <div class="review">
+            <ul th:replace="~{fragment/my_fragment::menu_else}"></ul>
+
+            <section>
+                    <a href="#"><img src="../img/my_banner2.png" alt="패션, 타운 하나로 끝" class="banner"></a>
+                    <article>
+                        <h3>나의리뷰</h3>
+
+                        <table border="0">
+                            <tr>
+                                <th>번호</th>
+                                <th>상품명</th>
+                                <th>내용</th>                                
+                                <th>평점</th>
+                                <th>작성일</th>
+                            </tr>
+                            <tr th:each="rev:${reviews}">
+                                <td class="no">[[${rev.revNo}]]</td>
+                                <td class="prodName"><a href="#">[[${(rev.prodName).substring(0, 8)}]]...</a></td>
+                                <td class="content">[[${rev.content}]]</td>
+                                <td class="score"><span th:class="'rating star'+${rev.rating}"></span></td>
+                                <td class="date">[[${rev.rdate}]]</td>
+                            </tr>
+                        </table>
+
+                        <section th:replace="~{fragment/paging_fragment::myReviewPaging}"></section>
+                    </article>
+                </section>
+
+            </div>
+        </div>
+    <th:block th:replace="~{fragment/footer_fragment::mainFooter}"></th:block>
+    </div>    
+</body>
+</html>

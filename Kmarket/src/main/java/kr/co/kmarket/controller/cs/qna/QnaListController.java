@@ -5,6 +5,7 @@ import kr.co.kmarket.security.MyUserDetails;
 import kr.co.kmarket.service.cs.CsQnaService;
 import kr.co.kmarket.vo.Cs_Cate1VO;
 import kr.co.kmarket.vo.Cs_QnaVO;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,6 +21,7 @@ import java.util.List;
 
 
 @Controller
+@Slf4j
 public class QnaListController {
 
     @Autowired
@@ -57,8 +59,6 @@ public class QnaListController {
         model.addAttribute("groups", groups);
         model.addAttribute("vos", vos);
         model.addAttribute("cate1", cate1);
-
-
 
         return "cs/qna/list";
     }

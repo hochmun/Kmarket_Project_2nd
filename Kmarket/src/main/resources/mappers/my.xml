@@ -6,6 +6,34 @@
 <mapper namespace="kr.co.kmarket.dao.MyDAO">
     <!-- create -->
     <!-- read -->
+
+    <select id="selectQnaArticles" resultType="kr.co.kmarket.vo.Cs_QnaVO">
+        select a.*, b.cate1Name from `km_cs_qna` as a
+        join `km_cs_cate1` as b
+        on a.qnaCate1 = b.cate1
+        JOIN `km_cs_cate2` AS c
+        ON a.qnaCate2 = c.cate2 and b.cate1 = c.cate1
+        order by `qnaNo` desc
+        limit #{start}, 10;
+    </select>
+
+    <select id="selectCountTotal" resultType="int">
+        select count(`qnaNo`) from `km_cs_qna` as a
+        join `km_cs_cate1` as b
+        on a.qnaCate1 = b.cate1
+    </select>
+
+    <select id="selectReviews" resultType="kr.co.kmarket.vo.product_reviewVO">
+        SELECT a.*, b.prodName FROM `km_product_review` as a
+        join `km_product` as b
+        on a.prodNo = b.prodNo
+        ORDER BY `revNo` DESC LIMIT #{start}, 5;
+    </select>
+
+    <select id="getCountTotalForReview" resultType="int">
+        SELECT COUNT(`revNo`) FROM `km_product_review` WHERE `revNo` = `revNo`;
+    </select>
+
     <!-- 2023/02/21 // 심규영 // 최근 주문 내역 불러오기 -->
     <select id="selectMyOrder" resultType="kr.co.kmarket.vo.product_orderVO">
         SELECT
@@ -50,6 +78,7 @@
         ORDER BY a.qnaRdate DESC
         LIMIT 5;
     </select>
+
     <!-- upload -->
     <!-- delete -->
 </mapper>
