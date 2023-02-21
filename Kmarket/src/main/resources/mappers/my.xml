@@ -6,6 +6,50 @@
 <mapper namespace="kr.co.kmarket.dao.MyDAO">
     <!-- create -->
     <!-- read -->
+    <!-- 2023/02/21 // 심규영 // 최근 주문 내역 불러오기 -->
+    <select id="selectMyOrder" resultType="kr.co.kmarket.vo.product_orderVO">
+        SELECT
+            a.ordDate,
+            c.company,
+            c.prodName,
+            b.`count`,
+            a.ordNo,
+            b.total,
+            a.ordComplete,
+            c.prodCate1,
+            c.prodCate2,
+            c.thumb1
+        FROM km_product_order AS a
+        JOIN km_product_order_item AS b ON a.ordNo =b.ordNo
+        JOIN km_product AS c ON c.prodNo = b.prodNo
+        WHERE a.ordUid = #{uid}
+        ORDER BY a.ordDate DESC
+        LIMIT 5;
+    </select>
+
+    <!-- 2023/02/21 // 심규영 // 최근 포인트 사용 내역 불러오는 쿼리문 -->
+    <select id="selectMyPointList5" resultType="kr.co.kmarket.vo.member_pointVO">
+        SELECT
+            *
+        FROM km_member_point AS a
+        WHERE a.uid = #{uid}
+        ORDER BY a.pointDate DESC
+        LIMIT 5;
+    </select>
+
+    <!-- 2023/02/21 // 심규영 // 최근 문의내역 5개 불러오는 쿼리문 -->
+    <select id="selectMyQnaList5" resultType="kr.co.kmarket.vo.Cs_QnaVO">
+        SELECT
+            a.*,
+            b.cate1Name,
+            c.cate2Name
+        FROM km_cs_qna AS a
+        JOIN km_cs_cate1 AS b ON a.qnaCate1 = b.cate1
+        JOIN km_cs_cate2 AS c ON a.qnaCate2 = c.cate2 AND a.qnaCate1 = c.cate1
+        WHERE a.uid = #{uid}
+        ORDER BY a.qnaRdate DESC
+        LIMIT 5;
+    </select>
     <!-- upload -->
     <!-- delete -->
 </mapper>

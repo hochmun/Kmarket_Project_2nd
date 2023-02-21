@@ -9,7 +9,10 @@
 <head>
     <title>케이마켓::대한민국 1등 온라인 쇼핑몰</title>
     <th:block th:replace="~{fragment/head_fragment::basicHead}"></th:block>
-    <link rel="stylesheet" href="../css/my.css">
+    <link rel="stylesheet" th:href="@{/css/star-rating-svg.css}">
+    <link rel="stylesheet" th:href="@{/css/my.css}">
+    <script th:src="@{/js/my/jquery.star-rating-svg.min.js}"></script>
+    <script th:src="@{/js/my/popup.js}"></script>
 </head>
 <body>
     <div id="wrapper">
@@ -25,26 +28,33 @@
 
                     <article class="latest">
                         <h3>최근주문내역</h3>
-                        <a href="#" class="more">더보기</a>
-                        <table border="0">
+                        <a th:href="@{/my/ordered}" class="more">더보기</a>
+                        <table>
                             <tr>
                                 <th>날짜</th>
                                 <th>상품정보</th>
                                 <th>상태</th>
                                 <th>확인/신청</th>
                             </tr>
-                            <tr>
-                                <td class="date">2022-12-13</td>
-                                <td>
-                                    <a href="#" class="thumb"><img src="https://via.placeholder.com/80x80" alt=""></a>
+                            <tr th:each="orderVO:${orderVOs}">
+                                <td class="date" th:text="${#strings.substring(orderVO.ordDate,0,11)}">2022-12-13</td>
+
+                                <td class="info">
+                                    <a href="#" class="thumb"><img th:src="|@{/}thumb/${orderVO.prodCate1}/${orderVO.prodCate2}/${orderVO.thumb1}|" alt=""></a>
                                     <ul>
-                                        <li class="company">상호명</li>
-                                        <li class="prodName"><a href="#">상품명</a></li>
-                                        <li>수량 : <span class="prodCount">1</span>개 / 주문번호 : <span class="ordNo">1012211341</span></li>
-                                        <li class="prodPrice">34,000</li>
+                                        <li class="company"><a href="#" th:text="${orderVO.company}">상호명</a></li>
+                                        <li class="prodName"><a href="#" th:text="${orderVO.prodName}">상품명</a></li>
+                                        <li class="orderNo">수량 : <span class="prodCount" th:text="${orderVO.count}">1</span>개 / 주문번호 : <a href="#" th:text="${orderVO.ordNo}"></a></li>
+                                        <li class="prodPrice" th:text="${#numbers.formatInteger(orderVO.total, 1, 'COMMA')}">34,000</li>
                                     </ul>
                                 </td>
-                                <td class="status">배송완료</td>
+
+                                <td class="status" th:if="${orderVO.ordComplete == 1}">확인중</td>
+                                <td class="status" th:if="${orderVO.ordComplete == 2}">배송중</td>
+                                <td class="status" th:if="${orderVO.ordComplete == 3}">배송완료</td>
+                                <td class="status" th:if="${orderVO.ordComplete == 4}">기타</td>
+                                <td class="status" th:if="${orderVO.ordComplete == 5}">상품 구매 확정</td>
+
                                 <td class="confirm">
                                     <a href="#" class="receive">수취확인</a>
                                     <a href="#" class="review">상품평</a>
@@ -57,8 +67,8 @@
 
                     <article class="point">
                         <h3>포인트적립내역</h3>
-                        <a href="#" class="more">더보기</a>
-                        <table border="0">
+                        <a th:href="@{/my/point}" class="more">더보기</a>
+                        <table>
                             <tr>
                                 <th>날짜</th>
                                 <th>구분</th>
@@ -67,20 +77,24 @@
                                 <th>비고</th>
                                 <th>유효기간</th>
                             </tr>
-                            <tr>
-                                <td>2022-12-10</td>
-                                <td>적립</td>
-                                <td>2022121001</td>
-                                <td>340</td>
-                                <td>상품 구매확정</td>
-                                <td>2024-12-10</td>
+                            <tr th:each="pointVO:${pointVOs}">
+                                <td th:text="${pointVO.pointDateString}">2022-12-10</td>
+
+                                <td th:if="${pointVO.point gt 0}">적립</td>
+                                <td th:if="${pointVO.point lt 0}">사용</td>
+
+                                <td th:text="${pointVO.ordNo}">2022121001</td>
+                                <td th:text="${pointVO.point}">340</td>
+                                <td>상품 구매</td>
+                                <td th:text="${pointVO.lastDateString}">2024-12-10</td>
                             </tr>
                         </table>
                     </article>
+
                     <article class="review">
                         <h3>상품평</h3>
                         <a href="#" class="more">더보기</a>
-                        <table border="0">
+                        <table>
                             <tr>
                                 <th>번호</th>
                                 <th>상품명</th>
@@ -129,7 +143,7 @@
                     <article class="qna">
                         <h3>문의내역</h3>
                         <a href="#" class="more">더보기</a>
-                        <table border="0">
+                        <table>
                             <tr>
                                 <th>번호</th>
                                 <th>문의채널</th>
@@ -138,29 +152,16 @@
                                 <th>작성일</th>
                                 <th>상태</th>
                             </tr>
-                            <tr>
-                                <td>5</td>
+                            <tr th:each="qnaVO:${qnaVOs}">
+                                <td th:text="${qnaVO.qnaNo}">5</td>
                                 <td>고객센터</td>
-                                <td>주문/결제</td>                                
-                                <td>신용카드 결제 중 오류가 난 경우 어떻게 하나요?</td>
-                                <td>2024-12-12</td>
-                                <td><span class="notAnswerYet">검토중</span></td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>고객센터</td>
-                                <td>주문/결제</td>                                
-                                <td>신용카드 결제 중 오류가 난 경우 어떻게 하나요?</td>
-                                <td>2024-12-12</td>
-                                <td><span class="answered">답변완료</span></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>판매자게시판</td>
-                                <td>배송</td>                                
-                                <td>배송기간이 보통 얼마나 걸리나요?</td>
-                                <td>2024-12-12</td>
-                                <td><span class="answered">답변완료</span></td>
+                                <td th:text="${qnaVO.cate1Name + ' // ' + qnaVO.cate2Name}">주문/결제</td>
+                                <td th:text="${qnaVO.qnaTitle}">신용카드 결제 중 오류가 난 경우 어떻게 하나요?</td>
+                                <td th:text="${qnaVO.qnaRdate}">2024-12-12</td>
+
+                                <td th:if="${qnaVO.qnaType eq 1}"><span class="notAnswerYet">검토중</span></td>
+                                <td th:if="${qnaVO.qnaType eq 2}"><span class="answered">답변완료</span></td>
+
                             </tr>
                         </table>
                     </article>
@@ -190,8 +191,6 @@
                                 </p>
                             </div>
                         </div>
-
-
                     </article>
 
                 </section>
@@ -199,6 +198,258 @@
             </div>
         </div>
         <th:block th:replace="~{fragment/footer_fragment::mainFooter}"></th:block>
+
+        <!-- 판매자정보 팝업 -->
+        <div id="popSeller" class="popup">
+            <div>
+                <nav>
+                    <h1>판매자 정보</h1>
+                    <button class="btnClose">X</button>
+                </nav>
+                <section>
+                    <table border="0">
+                        <tr>
+                            <th>판매자 등급</th>
+                            <td class="level">파워딜러</td>
+                        </tr>
+                        <tr>
+                            <th>상호</th>
+                            <td class="company">(주)회사명</td>
+                        </tr>
+                        <tr>
+                            <th>대표자</th>
+                            <td class="ceo">홍길동</td>
+                        </tr>
+                        <tr>
+                            <th>전화번호</th>
+                            <td class="tel">051-123-1000</td>
+                        </tr>
+                        <tr>
+                            <th>FAX</th>
+                            <td class="fax">051-123-1001</td>
+                        </tr>
+                        <tr>
+                            <th>Email</th>
+                            <td class="email">company@abc.com</td>
+                        </tr>
+                        <tr>
+                            <th>사업자번호</th>
+                            <td class="bizNum">123-12-123457</td>
+                        </tr>
+                        <tr>
+                            <th>영업소재지</th>
+                            <td class="address">
+                                [210**] 부산광역시 부산진구 대연동 121 10층 1004호
+                            </td>
+                        </tr>
+                    </table>
+                    <p>
+                        ※ 위 정보는 전자상거래법 제 20조 제 2항 및 동법 시행령 제 25조 제 2항에 의거하여<br>
+                        소비자보호에 의거 공개합니다.
+                    </p>
+
+                    <div>
+                        <button class="btnPositive btnQuestion">문의하기</button>
+                    </div>
+
+                </section>
+            </div>
+        </div>
+        <!-- 판매자정보 팝업 끝 -->
+
+        <!-- 주문상세 팝업 -->
+        <div id="popOrder" class="popup">
+            <div>
+                <nav>
+                    <h1>주문상세</h1>
+                    <button class="btnClose">X</button>
+                </nav>
+                <section>
+                    <article class="order">
+                        <h3>주문정보</h3>
+                        <table border="0">
+                            <tr>
+                                <th>날짜</th>
+                                <th>상품정보</th>
+                                <th>결제금액</th>
+                                <th>상태</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="date">2022-12-13</p>
+                                    주문번호 : <span class="ordNo">1012211341</span>
+                                </td>
+                                <td>
+                                    <img src="https://via.placeholder.com/80x80" alt="">
+                                    <ul>
+                                        <li class="company">상호명</li>
+                                        <li class="prodName">상품명</li>
+                                        <li>수량 : <span class="prodCount">1</span>개</li>
+                                        <li class="prodPrice">34,000</li>
+                                    </ul>
+                                </td>
+                                <td class="payment">
+                                    <ol>
+                                        <li class="price">
+                                            <span>판매가</span>
+                                            <span>34,000원</span>
+                                        </li>
+                                        <li class="discount">
+                                            <span>할인</span>
+                                            <span>- 3,000원</span>
+                                        </li>
+                                        <li class="total">
+                                            <span>결제금액</span>
+                                            <span>34,000원</span>
+                                        </li>
+                                    </ol>
+                                </td>
+                                <td class="status">배송완료</td>
+                            </tr>
+                        </table>
+                    </article>
+                    <article class="delivery">
+                        <h3>배송정보</h3>
+                        <table border="0">
+                            <tr>
+                                <th>주문자</th>
+                                <td class="name">홍길동</td>
+                            </tr>
+                            <tr>
+                                <th>연락처</th>
+                                <td class="hp">010-1234-1001</td>
+                            </tr>
+                            <tr>
+                                <th>배송지</th>
+                                <td class="address">[210**] 부산광역시 부산진구 대연동 121 10층 1004호</td>
+                            </tr>
+                            <tr>
+                                <th>배송요청사항</th>
+                                <td class="request">없음</td>
+                            </tr>
+                        </table>
+                    </article>
+                </section>
+            </div>
+        </div>
+        <!-- 주문상세 팝업 끝 -->
+
+        <!-- 문의하기 팝업 -->
+        <div id="popQuestion" class="popup">
+            <div>
+                <nav>
+                    <h1>문의하기</h1>
+                    <button class="btnClose">X</button>
+                </nav>
+                <section>
+                    <form action="#">
+                        <table border="0">
+                            <tr>
+                                <th>문의종류</th>
+                                <td class="kind">
+                                    <label><input type="radio" name="kind"/>상품</label>
+                                    <label><input type="radio" name="kind"/>배송</label>
+                                    <label><input type="radio" name="kind"/>반품/취소</label>
+                                    <label><input type="radio" name="kind"/>교환</label>
+                                    <label><input type="radio" name="kind"/>기타</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td class="email">
+                                    <input type="text" name="email" value="chh**@gmail.com"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>제목</th>
+                                <td class="title">
+                                    <input type="text" name="title" placeholder="제목입력"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>내용</th>
+                                <td class="content">
+                                    <textarea name="content" placeholder="내용입력"></textarea>
+                                </td>
+                            </tr>
+                        </table>
+                        <p>
+                            ※ 정확한 정보를 입력하셔야 빠른 답변을 받으실수 있습니다.
+                        </p>
+
+                        <div>
+                            <input type="submit" class="btnPositive" value="등록하기"/>
+                            <button class="btnNegative btnCancel">취소</button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+        <!-- 문의하기 팝업 끝 -->
+
+        <!-- 수취확인 팝업 -->
+        <div id="popReceive" class="popup">
+            <div>
+                <nav>
+                    <h1>수취확인</h1>
+                    <button class="btnClose">X</button>
+                </nav>
+                <section>
+                    <p>
+                        상품을 잘 받으셨나요?<br>
+                        상품을 받으셨으면 수취확인을 눌러 구매확정을 진행하세요.<br>
+                        구매확정 후 포인트를 지급해 드립니다.
+                    </p>
+
+                    <div>
+                        <button class="btnPositive btnConfirm">확인</button>
+                        <button class="btnNegative btnCancel">취소</button>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <!-- 수취확인 팝업 끝 -->
+
+        <!-- 상품평쓰기 팝업 -->
+        <div id="popReview" class="popup">
+            <div>
+                <nav>
+                    <h1>상품평 작성하기</h1>
+                    <button class="btnClose">X</button>
+                </nav>
+                <section>
+                    <form action="#">
+                        <table border="0">
+                            <tr>
+                                <th>상품명</th>
+                                <td class="productName">상품명 출력</td>
+                            </tr>
+                            <tr>
+                                <th>만족도</th>
+                                <td class="rating">
+                                    <div class="my-rating"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>내용</th>
+                                <td class="review">
+                                    <textarea name="review" placeholder="내용입력"></textarea>
+                                </td>
+                            </tr>
+                        </table>
+                        <p>
+                            ※ 상품평을 작성하시면 구매확정 포인트와 더불어 추가 포인트를 지급합니다.
+                        </p>
+
+                        <div>
+                            <input type="submit" class="btnPositive" value="작성완료"/>
+                            <button class="btnNegative btnCancel">취소</button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+        <!-- 상품평쓰기 팝업 끝 -->
     </div>    
 </body>
 </html>

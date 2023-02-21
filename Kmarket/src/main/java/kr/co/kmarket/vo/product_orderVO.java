@@ -39,4 +39,15 @@ public class product_orderVO {
     private String hp;
     private String prodNo;
 
+    // 추가 필드 km_product
+    private int prodCate1;
+    private int prodCate2;
+    private String thumb1;
+    private String company;
+    private String prodName;
+
+    // 추가 필드 km_product_order_item
+    private int count;
+    private int total;
+
 }
