@@ -42,18 +42,11 @@ $(function() {
 
 window.addEventListener('load',()=>{
 
-   console.log('1');
-
   const faqLists = document.querySelectorAll('.faq-list');
 
-
   faqLists.forEach((faqList)=>{
-
-        console.log(faqList.childElementCount);
-
       if (faqList.childElementCount == 1) {
 
-        console.log('2');
         const newLi = document.createElement('li');
         const newLink = document.createElement('a');
 
@@ -65,8 +58,7 @@ window.addEventListener('load',()=>{
 
       }
   });
-  
-})
+});
 
 
 
