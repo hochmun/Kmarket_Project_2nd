@@ -36,13 +36,6 @@ public interface CsFaqDAO {
      */
     public List<Cs_FaqVO> selectCsFaqListWithCsCate1(@Param("faqCate1") Integer faqCate1,@Param("faqCate2") Integer faqCate2);
 
-    /**
-     * 23/02/20 faq list 게시물 count
-     * @autor 김재준
-     * @return
-     */
-    public int selectCountCsFaqList(@Param("faqCate1") Integer faqCate1,@Param("faqCate2") Integer faqCate2);
-
     /* View */
 
     /**
