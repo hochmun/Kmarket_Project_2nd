@@ -1249,3 +1249,221 @@ footer p > strong {
     font-family: '돋움';
     border: none;
 }
+
+/* 마이페이지 팝업 */
+.popup {
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.popup.on {display: block;}
+
+.popup > div {
+    display: table;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+    margin-top: 200px;
+    background: #fff;
+
+}
+
+.popup > div > nav {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    box-sizing: border-box;
+    background: #4291e9;
+    overflow: hidden;
+}
+.popup > div > nav > h1 {
+    float: left;
+    font-size: 18px;
+    color: white;
+
+}
+.popup > div > nav > button {
+    float: right;
+    width: 30px;
+    height: 30px;
+    background-image: url('../img/ico_sprites.png');
+    background-color: transparent;
+    background-position: 227px -25px;
+    border: none;
+    font-size: 0;
+    color: white;
+    cursor: pointer;
+}
+.popup > div > section {
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.popup > div > section > article {}
+.popup > div > section > article > h3 {
+    font-size: 15px;
+    margin-bottom: 4px;
+}
+.popup > div > section > article > table {
+    width: 100%;
+    border-top: 2px solid #444;
+    border-bottom: 1px solid #aaa;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+.popup > div > section > article > table td {
+    padding: 10px;
+    box-sizing: border-box;
+    border-left: 1px solid #f1f1f1;
+    vertical-align: top;
+}
+.popup > div > section > article > table td:first-child {
+    border-left: none;
+}
+
+.popup > div > section > article:nth-child(1) > table td:nth-child(1) {width: 150px;}
+.popup > div > section > article:nth-child(1) > table td:nth-child(2) {width: 300px;}
+.popup > div > section > article:nth-child(1) > table td:nth-child(3) {width: 160px;}
+.popup > div > section > article:nth-child(1) > table td:nth-child(4) {width: 80px; text-align: center; vertical-align: middle;}
+.popup > div > section > article:nth-child(1) > table th {
+    background: #a5a7a5;
+    padding: 4px;
+    box-sizing: border-box;
+    color: white;
+}
+.popup > div > section > article:nth-child(1) > table img {
+    float: left;
+}
+.popup > div > section > article:nth-child(1) > table ul {
+    float: left;
+    margin-left: 10px;
+}
+.popup > div > section > article:nth-child(1) > table ul > li {
+    line-height: 18px;
+}
+
+.popup > div > section > article:nth-child(1) > table ol {}
+.popup > div > section > article:nth-child(1) > table ol > li {
+    line-height: 18px;
+    overflow: hidden;
+}
+.popup > div > section > article:nth-child(1) > table ol > li > span {
+    display: inline-block;
+}
+.popup > div > section > article:nth-child(1) > table ol > li > span:nth-child(1){float: left;}
+.popup > div > section > article:nth-child(1) > table ol > li > span:nth-child(2){float: right;}
+
+.popup > div > section > article:nth-child(2) table th {width: 150px;}
+.popup > div > section > article:nth-child(2) table tr {
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.popup > div > section > table {
+    width: 100%;
+    border-top: 2px solid #444;
+    border-bottom: 1px solid #aaa;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+.popup > div > section > table th {
+    width: 120px;
+}
+.popup > div > section > table tr {
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.popup > div > section > table tr > td {
+    padding: 10px;
+    border-left: 1px solid #f1f1f1;
+    box-sizing: border-box;
+}
+
+.popup > div > section > table tr > td:nth-child(2) {
+    width: 360px;
+}
+
+.popup > div > section > div {
+    text-align: center;
+}
+
+.popup > div > section > form > table {
+    width: 600px;
+    border-top: 2px solid #444;
+    border-bottom: 1px solid #aaa;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+.popup > div > section > form > table label {
+    margin-right: 10px;
+}
+
+.popup > div > section > form > table input[type=text] {
+    width: 100%;
+    padding: 4px;
+    box-sizing: border-box;
+    border: 1px solid #f1f1f1;
+    vertical-align: middle;
+}
+.popup > div > section > form > table textarea {
+    width: 100%;
+    height: 160px;
+    padding: 4px;
+    box-sizing: border-box;
+    border: 1px solid #f1f1f1;
+    vertical-align: middle;
+    resize: none;
+}
+.popup > div > section > form > table th {
+    width: 120px;
+}
+.popup > div > section > form > table tr {
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.popup > div > section > form > table tr > td {
+    padding: 10px;
+    border-left: 1px solid #f1f1f1;
+    box-sizing: border-box;
+}
+
+.popup > div > section > form > table tr > td:nth-child(2) {
+    width: 360px;
+}
+
+.popup > div > section > form > div {
+    padding: 16px 0;
+    text-align: center;
+}
+
+.popup > div > section > p {
+    padding: 26px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.btnPositive {
+    padding: 6px 12px;
+    background: #0e9d05;
+    border: 1px solid #0b8404;
+    box-sizing: border-box;
+    color: white;
+    margin: 10px auto;
+    cursor: pointer;
+}
+
+.btnNegative {
+    padding: 6px 12px;
+    background: #9e9e9e;
+    border: 1px solid #7f7f7f;
+    box-sizing: border-box;
+    color: white;
+    margin: 10px auto;
+    cursor: pointer;
+}

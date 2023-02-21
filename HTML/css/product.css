@@ -1206,3 +1206,207 @@
 #product > .complete > .alert > ul {list-style: inherit;}
 #product > .complete > .alert > ul > li {line-height: 20px;}
 #product > .complete > .alert > ul > li > span {position: relative;left: -6px;}
+
+/* product search */
+#product > .search {}
+#product > .search > .group {
+  width: 100%;
+  margin: 16px 0;
+  border: 1px solid #d7d7d7;  
+}
+
+#product > .search > .group > h3 {
+  border-bottom: 1px solid #d7d7d7;
+  color: #111;
+  font-size: 17px;
+  font-weight: bold;
+  line-height: 30px;
+  padding: 10px 15px;
+}
+
+#product > .search > .group > h3 > strong {
+  color: #d50c0d;
+  font-size: 18px;
+  margin-right: 6px;
+}
+#product > .search > .group > h3 > em {color: #888; font-size: 14px;}
+#product > .search > .group > h3 span {color: #d50c0d;}
+
+#product > .search > .group > form {
+  border-bottom: 1px solid #d7d7d7;
+  padding: 10px 15px;
+}
+#product > .search > .group > form > input[type=text] {
+  height: 30px;
+  border: 1px solid #bbb;
+  padding: 0 10px;
+}
+
+#product > .search > .group > form > input[type=submit] {
+  height: 32px;
+  padding: 0 5px;
+  font-weight: bold;  
+  background: #d50c0c;
+  color: #fff;
+  border: 0;
+}
+#product > .search > .group > form > span {
+  float: right;
+  margin-top: 0px;
+}
+#product > .search > .group > form > span > label {
+  margin-right: 10px;
+}
+
+#product > .search > .group > form > span > input {
+  width: 100px;
+  height: 30px;
+  border: 1px solid #bbb;
+  padding: 0 10px;
+}
+
+#product > .search > .group > .info {
+  padding: 15px;
+  background: #f5f5f5;
+  color: #737373;
+}
+
+#product > .search > .sort {
+  margin: 0 0 20px 0;
+  border-top: 2px solid #111;
+  border-bottom: 1px solid #dfdfdf;
+  overflow: hidden;
+}
+#product > .search > .sort > li {
+  float: left;
+  position: relative;
+  padding: 15px 0;
+  line-height: 15px;
+}
+#product > .search > .sort > li > a {
+  display: block;
+  padding: 0 10px;
+  border-right: 1px solid #ddd;
+}
+#product > .search > .sort > li > a.on {font-weight: bold;}
+
+#product > .search > table {
+  width: 100%;
+  height: auto;
+  border-collapse: collapse;
+}
+#product > .search > table tr {
+  border-bottom: 1px solid #ececec;
+}
+#product > .search > table tr > td {  
+  vertical-align: top;
+  padding-top: 20px;
+  padding-left: 16px;
+  box-sizing: border-box;
+}
+#product > .search > table tr > td:nth-child(1) {width: 20%; padding: 0;}
+#product > .search > table tr > td:nth-child(2) {width: 40%;}
+#product > .search > table tr > td:nth-child(3) {width: 20%;}
+#product > .search > table tr > td:nth-child(4) {width: 20%;}
+
+#product > .search > table .thumb {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+#product > .search > table .thumb > img {
+  width: 120px;
+}
+#product > .search > table .name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #111;
+  margin-bottom: 6px;
+}
+#product > .search > table .desc {
+  font-size: 12px;
+  color: #333;
+}
+
+#product > .search > table .desc:hover {
+  text-decoration: underline;
+}
+
+#product > .search > table .org-price {
+  font-size: 12px;
+  color: #aaa;
+}
+#product > .search > table .dis-price {
+  font-size: 16px;
+  text-decoration: none;
+}
+#product > .search > table .org-price::after {content: "원";}
+#product > .search > table .dis-price::after {content: "원";}
+#product > .search > table .discount {
+  color: #eb000a;
+  font-size: 10px;
+}
+#product > .search > table .discount::after {content: "↓";}
+
+#product > .search > table .free-delivery {
+  display: inline-block;
+  font-size: 0;
+  vertical-align: text-bottom;
+  width: 55px;
+  height: 13px;
+  background: url('../img/ico_free_delivery.gif') no-repeat;
+  margin-top: 4px;
+}
+
+#product > .search > table .seller {  
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+#product > .search > table .rating {
+  margin-top: 12px;
+}
+
+#product > .search > .paging {
+  width: 100%;
+  padding: 30px 0;
+  text-align: center;
+}
+
+#product > .search > .paging > .prev {}
+#product > .search > .paging > .next {}
+#product > .search > .paging > .num {}
+
+#product > .search > .paging > span > a {
+  color: #777;
+  font-family: "돋움", Dotum, Tahoma, sans-serif;
+  font-size: 11px;
+  letter-spacing: -1px;
+}
+
+#product > .search > .paging > span > a:hover {
+  text-decoration: underline;
+}
+
+#product > .search > .paging > .num > a {
+  display: inline-block;
+  min-width: 14px;
+  margin: 0 2px;
+  padding: 8px 9px;
+  border: 1px solid #c4c4c4;
+  background: url() 0 0 repeat-x;
+  color: #000;
+  font-family: Tahoma;
+  font-size: 12px;
+  text-align: center;
+  text-decoration: none;
+}
+#product > .search > .paging > .num > a:hover {
+  border: 1px solid #454c5f;
+  text-decoration: none;
+}
+#product > .search > .paging > .num > a.on {
+  color: #fe434c;
+  font-weight: bold;
+}
