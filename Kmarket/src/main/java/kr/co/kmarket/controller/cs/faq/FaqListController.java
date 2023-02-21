@@ -41,10 +41,12 @@ public class FaqListController {
         model.addAttribute("vos3", vos3);
         model.addAttribute("csCate1", csCate1);
 
+        /*
         log.info("vos : " + vos);
         log.info("vos2 : " + vos2);
         log.info("vos3 : " + vos3);
         log.info("csCate1 : " + csCate1);
+         */
 
         return "cs/faq/list";
     }

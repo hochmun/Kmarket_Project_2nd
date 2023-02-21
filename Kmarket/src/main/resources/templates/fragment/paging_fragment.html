@@ -52,5 +52,30 @@
         </th:block>
     </div>
 
+    <!-- 2023/02/21 // 김재준 // my/qna 페이징 -->
+    <p class="page" th:fragment="myQnaPaging">
+        <th:block th:if="${groups[0] > 1}">
+            <a th:href="@{/my/qna(pg=${groups[0]- 1})}" class="prev">이전</a>
+        </th:block>
+        <th:block th:each="num:${#numbers.sequence(groups[0], groups[1])}">
+            <a th:href="@{/my/qna(pg=${num})}" th:class="${num == currentPage ? 'on' : 'off'}">[[${num}]]</a>
+        </th:block>
+        <th:block th:if="${groups[1] < lastPage}">
+            <a th:href="@{/my/qna(pg=${groups[1] + 1})}" class="next">다음</a>
+        </th:block>
+    </p>
+    <!-- 2023/02/21 // 김재준 // my/review 페이징 -->
+    <p class="page" th:fragment="myReviewPaging">
+        <th:block th:if="${groups[0] > 1}">
+            <a th:href="@{/my/review(pg=${groups[0]- 1})}" class="prev">이전</a>
+        </th:block>
+        <th:block th:each="num:${#numbers.sequence(groups[0], groups[1])}">
+            <a th:href="@{/my/review(pg=${num})}" th:class="${num == currentPage ? 'on' : 'off'}">[[${num}]]</a>
+        </th:block>
+        <th:block th:if="${groups[1] < lastPage}">
+            <a th:href="@{/my/review(pg=${groups[1] + 1})}" class="next">다음</a>
+        </th:block>
+    </p>
+
 </body>
 </html>

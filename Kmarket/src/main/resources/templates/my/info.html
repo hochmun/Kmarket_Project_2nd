@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>케이마켓::대한민국 1등 온라인 쇼핑몰</title>    
+    <link rel="shortcut icon" type="image/x-icon" href="../img/favicon.ico" />    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://kit.fontawesome.com/20962f3e4b.js" crossorigin="anonymous"></script>    
+    <link rel="stylesheet" href="../css/my.css">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <header>
+            <div class="top">
+                <div>
+                    <a href="./member/login.html">로그인</a>
+                    <a href="#">회원가입</a>
+                    <a href="#">마이페이지</a>
+                    <a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;장바구니</a>
+                </div>
+            </div>
+            <div class="logo">
+                <div>
+                    <a href="../index.html"><img src="../img/header_logo.png" alt="로고"/></a>
+                    <form action="#">
+                        <input type="text" name="search"/>
+                        <button><i class="fa fa-search"></i></button>
+                    </form>
+                </div>
+            </div>
+        </header>
+        <div id="my">
+            <nav>
+                <div>
+                    <a href="./home.html"><img src="../img/my_logo.jpg" alt="나의쇼핑정보"></a>
+                    <ol>
+                        <li><a href="#">주문·배송<span class="delivery">1</span></a></li>
+                        <li><a href="#">할인쿠폰<span class="coupon">1</span></a></li>
+                        <li><a href="#">포인트<span class="point">1,000</span></a></li>
+                        <li><a href="#">문의내역<span class="qna">1</span></a></li>
+                    </ol>
+                </div>
+            </nav>
+
+            <div class="info">
+				<ul>
+                    <span class="menu_else"></span>
+                    <li class="on"><a href="#">전체주문내역</a></li>
+                    <!--<li><a href="#">관심상품</a></li>-->
+                    <li><a href="#">포인트내역</a></li>
+                    <li><a href="#">쿠폰</a></li>
+                    <li><a href="#">나의리뷰</a></li>
+                    <li><a href="#">문의하기</a></li>
+                    <li><a href="#">나의설정</a></li>
+                </ul>
+
+                <section>
+                    <a href="#"><img src="../img/my_banner2.png" alt="패션, 타운 하나로 끝" class="banner"></a>
+                    <article>
+                        <h3>회원정보 설정</h3>
+
+                        <table border="0">
+                            <tr>
+                                <td>사용자 ID</td>
+                                <td>chh****</td>
+                            </tr>
+                            <tr>
+                                <td>비밀번호</td>
+                                <td>
+                                    <button id="btnChangePass">비밀번호 수정</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>이름</td>
+                                <td>김*학</td>
+                            </tr>
+                            <tr>
+                                <td>생년월일</td>
+                                <td>1983년 05월 03일</td>
+                            </tr>
+                            <tr>
+                                <td>E-mail</td>
+                                <td>
+                                    <input type="text" name="email1" value="chakh101">@
+                                    <input type="text" name="email2" value="naver.com">
+                                    <select>
+                                        <option>직접입력</option>
+                                        <option>naver.com</option>
+                                        <option>daum.net</option>
+                                        <option>gmail.com</option>
+                                        <option>nate.com</option>
+                                        <option>outlook.com</option>
+                                    </select>
+                                    <button id="btnChangeEmail">수정하기</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>휴대폰</td>
+                                <td>
+                                    <p class="hp">
+                                        <input type="text" name="hp1" value="010"/>-
+                                        <input type="text" name="hp2" value="1234"/>-
+                                        <input type="text" name="hp3" value="1001"/>
+                                        <button id="btnChangeHp">수정하기</button>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>주소</td>
+                                <td>
+                                    <input type="text" name="zip"/>
+                                    <button id="btnFindZip">주소검색</button>
+                                    <p class="address">
+                                        <input type="text" name="addr1"/>
+                                        <input type="text" name="addr2"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>회원탈퇴</td>
+                                <td>
+                                    <button id="btnWithdraw">탈퇴하기</button>
+                                </td>
+                            </tr>
+                        </table>
+                        <button id="btnInfoChange">수정하기</button>
+                    </article>
+                </section>
+
+            </div>
+        </div>        
+        <footer>
+            <ul>
+                <li><a href="#">회사소개</a></li>
+                <li><a href="#">서비스이용약관</a></li>
+                <li><a href="#">개인정보처리방침</a></li>
+                <li><a href="#">전자금융거래약관</a></li>
+            </ul>
+            <div>
+                <p><img src="../img/footer_logo.png" alt="로고"></p>
+                <p>
+                  <strong>(주)KMARKET</strong><br />
+                  부산시 강남구 테헤란로 152 (역삼동 강남파이낸스센터)<br />
+                  대표이사 : 홍길동<br />
+                  사업자등록번호 : 220-81-83676 사업자정보확인<br />
+                  통신판매업신고 : 강남 10630호 Fax : 02-589-8842
+                </p>
+                <p>
+                  <strong>고객센터</strong><br />
+                  Tel : 1234-5678 (평일 09:00~18:00)<br />
+                  스마일클럽/SVIP 전용 : 1522-5700 (365일 09:00~18:00)<br />
+                  경기도 부천시 원미구 부일로 223(상동) 투나빌딩 6층<br />
+                  Fax : 051-123-4567 | Mail : kmarket@kmarket.co.kr<br />
+                </p>
+            </div>              
+        </footer>
+    </div>    
+</body>
+</html>

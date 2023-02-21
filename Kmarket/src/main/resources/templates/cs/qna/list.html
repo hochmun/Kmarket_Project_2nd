@@ -33,6 +33,8 @@
                 <table>
                   <tr th:each="arts:${QnaArts}">
                     <td><a th:href="@{/cs/qna/view(cate1=${cate1},qnaNo=${arts.qnaNo})}" th:text="${'['+arts.cate2Name+'] '+arts.qnaTitle}"></a></td>
+                    <td th:if="${arts.qnaType == 1}" style="color:#707070;">검토중</td>
+                    <td th:unless="${arts.qnaType == 1}" style="color:#007bff;">답변완료</td>
                     <td>[[${(arts.uid).substring(0, 4)}]]***</td>
                     <td>[[${arts.qnaRdate}]]</td>
                   </tr>
