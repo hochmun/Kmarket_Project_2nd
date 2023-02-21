@@ -9,9 +9,9 @@
     <footer th:fragment="mainFooter">
         <ul>
             <li><a th:href="@{/company/index}">회사소개</a></li>
-            <li><a th:href="@{/termsPolicy/buyer}">서비스이용약관</a></li>
-            <li><a th:href="@{/termsPolicy/privacy}">개인정보처리방침</a></li>
-            <li><a th:href="@{/termsPolicy/finance}">전자금융거래약관</a></li>
+            <li><a th:href="@{/termsPolicy/policy?type=10}">서비스이용약관</a></li>
+            <li><a th:href="@{/termsPolicy/policy?type=12}">개인정보처리방침</a></li>
+            <li><a th:href="@{/termsPolicy/policy?type=14}">전자금융거래약관</a></li>
         </ul>
         <div>
             <p><img th:src="@{/img/footer_logo.png}" alt="로고"></p>

@@ -27,9 +27,14 @@
         </if>
 
         <if test="search != null">
-            `prodName` LIKE '%${search}%'
+            AND `prodName` LIKE '%${search}%'
         </if>
     </select>
+
+    <select id="getCountTotalForSearch" resultType="int">
+        SELECT COUNT(`prodNo`) FROM `km_product` WHERE  `prodName` LIKE '%${keyword}%'
+    </select>
+
     <select id="selectProducts" resultType="kr.co.kmarket.vo.productVO">
         SELECT * FROM `km_product` WHERE
 
@@ -42,8 +47,37 @@
         </if>
 
         <if test="search != null">
-            `prodName` LIKE '%${search}%'
+            AND `prodName` LIKE '%${search}%'
         </if>
+
+        <if test="sort == 'sold'">
+            ORDER BY `sold` DESC LIMIT #{start}, 10;
+        </if>
+
+        <if test="sort == 'lowprice'">
+            ORDER BY `price` ASC LIMIT #{start}, 10;
+        </if>
+
+        <if test="sort == 'highprice'">
+            ORDER BY `price` DESC LIMIT #{start}, 10;
+        </if>
+
+        <if test="sort == 'score'">
+            ORDER BY `score` DESC LIMIT #{start}, 10;
+        </if>
+
+        <if test="sort == 'review'">
+            ORDER BY `review` DESC LIMIT #{start}, 10;
+        </if>
+
+        <if test="sort == 'rdate'">
+            ORDER BY `rdate` DESC LIMIT #{start}, 10;
+        </if>
+
+    </select>
+
+    <select id="selectProductsForSearch" resultType="kr.co.kmarket.vo.productVO">
+        SELECT * FROM `km_product` WHERE `prodName` LIKE '%${keyword}%'
 
         <if test="sort == 'sold'">
             ORDER BY `sold` DESC LIMIT #{start}, 10;
