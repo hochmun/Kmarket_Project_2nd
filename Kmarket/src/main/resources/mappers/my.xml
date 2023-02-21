@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 2023/02/21 // 심규영 // 마이페이지 xml 생성 -->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.kmarket.dao.MyDAO">
+    <!-- create -->
+    <!-- read -->
+    <!-- upload -->
+    <!-- delete -->
+</mapper>
