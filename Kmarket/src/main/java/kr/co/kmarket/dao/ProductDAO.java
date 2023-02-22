@@ -30,6 +30,14 @@ public interface ProductDAO {
     public List<productVO> selectProductsForSearch(@Param("sort")String sort, @Param("start")int start, @Param("keyword") String keyword);
 
     /**
+     * 상품 2차 검색 list
+     * @since 23/02/21
+     * @author 이해빈
+     */
+    public List<productVO> selectProductsForSearch2(HashMap<String, Object> map);
+
+
+    /**
      * 상품 카테고리명 가져오기 dao
      * @since 23/02/09
      * @author 이해빈

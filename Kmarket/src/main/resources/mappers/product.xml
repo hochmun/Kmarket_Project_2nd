@@ -105,6 +105,32 @@
 
     </select>
 
+    <select id="selectProductsForSearch2" parameterType="java.util.HashMap" resultType="kr.co.kmarket.vo.productVO">
+
+        select * from (
+            select * from `km_product`
+            where `prodName` like concat('%', #{keyword}, '%')
+        ) as a
+        <where>
+            <foreach collection="keywords.split(' ')" item="key" separator=" ">
+                <if test="chk1">
+                    <trim prefix="(" suffix=")" prefixOverrides="or">
+                        `prodName` like concat('%', #{key}, '%')
+                    </trim>
+                </if>
+                <if test="chk2">
+                    <trim prefix="(" suffix=")" prefixOverrides="or">
+                        `descript` like concat('%', #{key}, '%')
+                    </trim>
+                </if>
+            </foreach>
+            <if test="chk3">
+                and `price` between #{min} and #{max}
+            </if>
+        </where>
+
+    </select>
+
     <select id="selectProduct" resultType="kr.co.kmarket.vo.productVO">
         select * from `km_product` where `prodNo`=#{prodNo};
     </select>

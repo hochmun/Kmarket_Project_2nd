@@ -402,13 +402,42 @@ public class ProductController {
         model.addAttribute("sort", sort);
         model.addAttribute("total", total);
 
-        log.info("products :" + products);
-        log.info("keyword :" + keyword);
-        log.info("total :" + total);
-        log.info("sort :" + sort);
-
-
         return "product/search";
+    }
+
+    /**
+     * 상품 2차 검색
+     * @since 23/02/21
+     * @author 이해빈
+     *
+     * map에 들어있는 값
+     * keyword : 1차 검색 키워드
+     * keywords : 2차 검색 키워드
+     * min : 최소가격
+     * max : 최대가격
+     * chk1 : 상품명 check 여부
+     * chk2 : 상품설명 check 여부
+     * chk3 : 상품가격 check 여부
+     */
+    @ResponseBody
+    @PostMapping("product/search")
+    public Map<String, Object> search(@RequestBody HashMap<String, Object> map) {
+
+        int result = 0;
+
+        log.info("전달받은 map :" + map);
+
+        // 상품 가져오기
+        List<productVO> products = service.selectProductsForSearch2(map);
+
+        log.info("검색결과 : " + products);
+        log.info("product size" + products.size());
+
+
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("result", result);
+
+        return resultMap;
     }
 
 }

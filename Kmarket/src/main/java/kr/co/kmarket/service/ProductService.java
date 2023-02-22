@@ -41,6 +41,15 @@ public class ProductService {
     }
 
     /**
+     * 상품 검색 list
+     * @since 23/02/21
+     * @author 이해빈
+     */
+    public List<productVO> selectProductsForSearch2(HashMap<String, Object> map){
+        return dao.selectProductsForSearch2(map);
+    }
+
+    /**
      * 상품 카테고리명 가져오기 service
      * @since 23/02/09
      * @author 이해빈

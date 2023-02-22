@@ -20,7 +20,7 @@
             <nav>
             <h1>상품 검색 결과</h1>
             <p>
-                HOME > <span>상품검색</span> > <strong>[[${keyword}]]</strong>
+                HOME > <span>상품검색</span> > <strong id="keyword">[[${keyword}]]</strong>
             </p>
             </nav>
 
@@ -31,9 +31,9 @@
                 <input type="text" name="search"/>
                 <input type="submit" value="검색"/>
                 <span>
-                    <label><input type="checkbox" name="chk" value="상품명" checked>상품명</label>
-                    <label><input type="checkbox" name="chk" value="상품설명">상품설명</label>
-                    <label><input type="checkbox" name="chk" value="상품가격">상품가격</label>
+                    <label><input type="checkbox" name="chk1" value="상품명" checked>상품명</label>
+                    <label><input type="checkbox" name="chk2" value="상품설명">상품설명</label>
+                    <label><input type="checkbox" name="chk3" value="상품가격">상품가격</label>
                     <input type="text" name="min"/>원&nbsp;~&nbsp;<input type="text" name="max"/>원
                 </span>
             </form>
