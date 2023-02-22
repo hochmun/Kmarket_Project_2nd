@@ -3,6 +3,7 @@
 <th:block th:replace="~{member/_header}"></th:block>
 <script>
 function fb() {
+let email = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 
 if ($("#uid").val() == null || $("#uid").val() == "") {
 alert("아이디를 입력해주세요.");
@@ -10,40 +11,38 @@ $("#uid").focus();
 return false;
 }
 
-if ($("#hp").val() == null || $("#hp").val() == "") {
-alert("휴대폰번호를 입력해주세요.");
-$("#hp").focus();
+if ($("#email").val() == null || $("#email").val() == "") {
+alert("이메일을 입력해주세요.");
+$("#email").focus();
 return false;
 }
 
-if(!hp.test($("#hp").val())){
-alert("휴대폰 형식에 맞게 입력해주세요.");
+if(!email.test($("#email").val())){
+alert("이메일 형식에 맞게 입력해주세요.");
 return false;
+}
 }
 
-if (confirm("비밀번호를 변경하시겠습니까?")) {
-$('#searchchange').submit();
-return false;
-}
-}
 </script>
     <main id="member">
         <div class="login">
             <nav>
                 <h1>비밀번호찾기</h1>
             </nav>
-            <form th:action="@{/member/sear}" id="searchpwchange">
+            <form action="#" id="searchpw">
                 <table border="0">
                     <tr>
-                        <td>변경하실 비밀번호</td>
+                        <td>아이디</td>
                         <td><input type="text" name="uid" id="uid" placeholder="아이디 입력"></td>
                     </tr>
                     <tr>
-                        <td>변경하실 비밀번호 확인</td>
-                        <td><input type="text" name="hp" id="hp" placeholder="휴대폰번호 입력"></td>
+                        <td>Email</td>
+                        <td>
+                            <input type="text" name="email" id="email" placeholder="이메일 입력">
+                        </td>
                     </tr>
                 </table>
-                <input type="button" value="ok" onclick="fb()"/>
+                <input type="button" value="ok" id="ok" onclick="fb()"/>
                 <span>
                     <a th:href="@{/member/login}">로그인</a>
                     <a th:href="@{/member/search_id}">아이디 찾기</a>

@@ -45,6 +45,10 @@
     <!----><select id="search_id" resultType="String" >
         SELECT `uid` FROM `km_member` WHERE `name`=#{name};
     </select>
+    <!--비밀번호 찾기-->
+    <update id="search_pw">
+        update `km_member` set `pw` = #{pw} where `uid` = #{uid};
+    </update>
 
     <!-- 2023/02/13 이해빈 회원 정보 가져오기 -->
     <select id="selectMember" resultType="kr.co.kmarket.vo.memberVO">
