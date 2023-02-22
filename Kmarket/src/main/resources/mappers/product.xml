@@ -35,6 +35,37 @@
         SELECT COUNT(`prodNo`) FROM `km_product` WHERE  `prodName` LIKE '%${keyword}%'
     </select>
 
+    <select id="getCountTotalForSearch2" parameterType="kr.co.kmarket.dto.SearchDTO" resultType="int">
+
+        select count(`prodNo`) from (
+            select * from `km_product`
+            where `prodName` like concat('%', #{keyword}, '%')
+        ) as a
+
+        <where>
+            (
+            <foreach collection="keywords.split(' ')" item="key" separator=" ">
+                <if test="chk1">
+                    `prodName` like concat('%', #{key}, '%') or
+                </if>
+                <if test="chk2">
+                    `descript` like concat('%', #{key}, '%') or
+                </if>
+
+            </foreach>
+            prodName like ''
+            )
+            <if test="chk3">
+                and `price` * (1-`discount`/100) >= ${min}
+                <if test="max != ''">
+                    and `price` * (1-`discount`/100) &lt; ${max}
+                </if>
+
+            </if>
+        </where>
+;
+    </select>
+
     <select id="selectProducts" resultType="kr.co.kmarket.vo.productVO">
         SELECT * FROM `km_product` WHERE
 
@@ -104,6 +135,62 @@
         </if>
 
     </select>
+
+
+    <select id="selectProductsForSearch2" parameterType="kr.co.kmarket.dto.SearchDTO" resultType="kr.co.kmarket.vo.productVO">
+        select * from (
+            select * from `km_product`
+            where `prodName` like concat('%', #{dto.keyword}, '%')
+        ) as a
+
+        <where>
+            (
+            <foreach collection="dto.keywords.split(' ')" item="key" separator=" ">
+                <if test="dto.chk1">
+                    `prodName` like concat('%', #{key}, '%') or
+                </if>
+                <if test="dto.chk2">
+                    `descript` like concat('%', #{key}, '%') or
+                </if>
+
+            </foreach>
+            prodName like ''
+            )
+            <if test="dto.chk3">
+                and `price` * (1-`discount`/100) >= #{dto.min}
+                <if test="dto.max != ''">
+                    and `price` * (1-`discount`/100) &lt; #{dto.max}
+                </if>
+
+            </if>
+        </where>
+
+        <if test="sort == 'sold'">
+            ORDER BY `sold` DESC LIMIT #{start}, 10;
+        </if>
+
+        <if test="sort == 'lowprice'">
+            ORDER BY `price` ASC LIMIT #{start}, 10;
+        </if>
+
+        <if test="sort == 'highprice'">
+            ORDER BY `price` DESC LIMIT #{start}, 10;
+        </if>
+
+        <if test="sort == 'score'">
+            ORDER BY `score` DESC LIMIT #{start}, 10;
+        </if>
+
+        <if test="sort == 'review'">
+            ORDER BY `review` DESC LIMIT #{start}, 10;
+        </if>
+
+        <if test="sort == 'rdate'">
+            ORDER BY `rdate` DESC LIMIT #{start}, 10;
+        </if>
+
+    </select>
+
 
     <select id="selectProduct" resultType="kr.co.kmarket.vo.productVO">
         select * from `km_product` where `prodNo`=#{prodNo};

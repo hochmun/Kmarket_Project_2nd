@@ -19,7 +19,7 @@ public class TermsPolicyController {
     /**
      * 2023/02/21 // 이해빈 // termsPolicy 기능구현
      * */
-    @GetMapping("/termsPolicy/policy")
+    @GetMapping("termsPolicy/policy")
     public String termsPolicy(Model model, int type){
         Map<Integer, List<TermsPolicyVO>> policy = service.selectPolicy(type);
         String typeName = service.getTypeName(type);
@@ -28,7 +28,7 @@ public class TermsPolicyController {
         model.addAttribute("policys", policy);
         model.addAttribute("typeName", typeName);
 
-        return "/termsPolicy/policy";
+        return "termsPolicy/policy";
     }
 
     /**
