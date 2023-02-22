@@ -366,49 +366,6 @@ public class ProductController {
      * @author 이해빈
      */
 
-    /*
-    @GetMapping("product/search")
-    public String search(Model model, String keyword, String pg, String sort){
-
-        if(sort == null){
-            sort = "sold";
-        }
-
-        // 게시글 출력 갯수
-        int count = 10;
-
-        // 현재 페이지 번호
-        int currentPage = service.getCurrentPage(pg);
-
-        // 페이지 시작값
-        int start = service.getLimitStart(currentPage, count);
-
-        // 전체 게시물 갯수
-        int total = service.getCountTotalForSearch(keyword);
-
-        // 페이지 마지막 번호
-        int lastPageNum = service.getLastPageNum(total, count);
-
-        // 페이지 그룹 start, end 번호
-        int[] pageGroup = service.getPageGroupNum(currentPage, lastPageNum);
-
-        // 현재 페이지 상품 가져오기
-        List<productVO> products = service.selectProductsForSearch(sort, start, keyword);
-
-        model.addAttribute("products", products);
-        model.addAttribute("currentPage", currentPage);
-        model.addAttribute("lastPageNum", lastPageNum);
-        model.addAttribute("pageGroup", pageGroup);
-
-        model.addAttribute("keyword", keyword);
-        model.addAttribute("sort", sort);
-        model.addAttribute("total", total);
-
-        return "product/search";
-    }
-    */
-
-
     @GetMapping("product/search")
     public String search(Model model, String pg, String sort, SearchDTO dto){
 
@@ -458,7 +415,7 @@ public class ProductController {
             products = service.selectProductsForSearch2(sort, start, dto);
         }
 
-
+        /*
         log.info("keyword: " + keyword);
         log.info("keywords: " + keywords);
         log.info("chk1: " + dto.isChk1());
@@ -468,7 +425,7 @@ public class ProductController {
         log.info("max: " + dto.getMax());
         log.info("sort: " + sort);
         log.info("total: " + total);
-
+        */
 
         model.addAttribute("products", products);
         model.addAttribute("currentPage", currentPage);

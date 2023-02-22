@@ -86,7 +86,7 @@ public class ProductService {
     }
 
     /**
-     * 상품 검색결과 갯수
+     * 상품 2차 검색결과 갯수
      * @since 23/02/22
      * @author 이해빈
      */
@@ -94,8 +94,7 @@ public class ProductService {
         return dao.getCountTotalForSearch2(dto);
     }
     
-    
-    
+
 
     /**
      * 상품 가져오기
