@@ -51,6 +51,12 @@ public interface MyDAO {
     public productVO selectProduct(@Param("prodNo") Integer prodNo);
 
     /**
+     * 23/02/22 상품 조회수 +1
+     * @author 김재준
+     */
+    public void updateProductHit(@Param("prodNo") Integer prodNo);
+
+    /**
      * 2023/02/21 // 심규영 // 마이페이지 홈 최근 주문 내역 5개 불러오는 기능
      * @param uid
      */

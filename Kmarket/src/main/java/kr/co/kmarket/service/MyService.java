@@ -49,7 +49,12 @@ public class MyService {
      * @author 김재준
      */
     public productVO selectProduct(Integer prodNo){
-        return dao.selectProduct(prodNo);
+        productVO product = dao.selectProduct(prodNo);
+
+        // 조회수 + 1
+        dao.updateProductHit(prodNo);
+
+        return product;
     }
 
 

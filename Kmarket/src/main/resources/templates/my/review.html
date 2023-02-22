@@ -28,15 +28,13 @@
                                 <th>평점</th>
                                 <th>작성일</th>
                             </tr>
-                            <th:block th:each="prod:${products}">
                             <tr th:each="rev:${reviews}">
                                 <td class="no">[[${rev.revNo}]]</td>
-                                <td class="prodName"><a th:href="@{/product/view(prodNo=${product.prodNo})}">[[${(rev.prodName).substring(0, 8)}]]...</a></td>
+                                <td class="prodName"><a href="#">[[${(rev.prodName).substring(0, 8)}]]...</a></td>
                                 <td class="content">[[${rev.content}]]</td>
                                 <td class="score"><span th:class="'rating star'+${rev.rating}"></span></td>
                                 <td class="date">[[${rev.rdate}]]</td>
                             </tr>
-                            </th:block>
                         </table>
 
                         <section th:replace="~{fragment/paging_fragment::myReviewPaging}"></section>
