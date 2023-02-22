@@ -1,10 +1,6 @@
 package kr.co.kmarket.dao;
 
-import kr.co.kmarket.vo.Cs_Cate1VO;
-import kr.co.kmarket.vo.Cs_QnaVO;
-import kr.co.kmarket.vo.product_reviewVO;
-import kr.co.kmarket.vo.member_pointVO;
-import kr.co.kmarket.vo.product_orderVO;
+import kr.co.kmarket.vo.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -47,6 +43,12 @@ public interface MyDAO {
      * @param revNo
      * */
     public int getCountTotalForReview(@Param("revNo") Integer revNo);
+
+    /**
+     * 23/02/22 상품 view 가져오기
+     * @author 김재준
+     */
+    public productVO selectProduct(@Param("prodNo") Integer prodNo);
 
     /**
      * 2023/02/21 // 심규영 // 마이페이지 홈 최근 주문 내역 5개 불러오는 기능

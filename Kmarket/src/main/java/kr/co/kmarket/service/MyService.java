@@ -1,13 +1,11 @@
 package kr.co.kmarket.service;
 
 import kr.co.kmarket.dao.MyDAO;
-import kr.co.kmarket.vo.Cs_QnaVO;
-import kr.co.kmarket.vo.product_reviewVO;
-import kr.co.kmarket.vo.member_pointVO;
-import kr.co.kmarket.vo.product_orderVO;
+import kr.co.kmarket.vo.*;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -44,6 +42,14 @@ public class MyService {
      */
     public List<product_reviewVO> selectReviews(Integer revNo, int start){
         return dao.selectReviews(revNo, start);
+    }
+
+    /**
+     * 23/02/22 상품 view 가져오기
+     * @author 김재준
+     */
+    public productVO selectProduct(Integer prodNo){
+        return dao.selectProduct(prodNo);
     }
 
 
