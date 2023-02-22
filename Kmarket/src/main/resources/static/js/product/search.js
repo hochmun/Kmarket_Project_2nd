@@ -6,7 +6,50 @@
 
 window.onload = function(){
 
-    document.querySelector('input[type=submit]').addEventListener('click', function(){
+    document.querySelector('input[name=min]').value = 0;
+
+    document.querySelector('input[type=submit]').addEventListener('click', function(e){
+
+
+        let keyword = document.getElementById('keyword').innerText;
+        let keywords = document.querySelector('input[name=keywords]').value;
+        let min = document.querySelector('input[name=min]').value;
+        let max = document.querySelector('input[name=max]').value;
+
+
+        if(keywords == ''){
+            alert('검색어를 입력해 주세요');
+            return false;
+        }
+
+        // 상품가격 유효성 검사
+        let check = /^[0-9]+$/;
+
+        if(!check.test(min) && min != ''){
+            alert('숫자만 입력 가능합니다.');
+            return false;
+        } else {
+            min = parseInt(min)
+        }
+        if(!check.test(max) && max != ''){
+            alert('숫자만 입력 가능합니다.');
+            return false;
+        } else {
+            max = parseInt(max)
+        }
+
+        if(max < min && max != ''){
+            alert(min+'원 보다 큰 금액을 입력해 주세요.');
+            return false;
+        }
+
+    });
+
+
+
+    /*
+    document.querySelector('input[type=submit]').addEventListener('click', function(e){
+        e.preventDefault();
 
         let keyword = document.getElementById('keyword').innerText;
         let keywords = document.querySelector('input[name=search]').value;
@@ -28,10 +71,14 @@ window.onload = function(){
         if(!check.test(min) && min != ''){
             alert('숫자만 입력 가능합니다.');
             return false;
+        } else {
+            min = parseInt(min)
         }
         if(!check.test(max) && max != ''){
             alert('숫자만 입력 가능합니다.');
             return false;
+        } else {
+            max = parseInt(max)
         }
 
         if(max < min && max != ''){
@@ -64,19 +111,13 @@ window.onload = function(){
             if(xhr.readyState == XMLHttpRequest.DONE){
                 if(xhr.status == 200){
                     const data = xhr.response;
-                    console.log(data);
-
-                    if(data.result > 0){
-
-                    }
-
+                    console.log("data : "+data);
                 }else{
                     alert('요청을 실패하였습니다.\n 잠시 후 다시 시도해 주세요.');
                 }
             }
         };
-
-
-
     });
+    */
+
 }

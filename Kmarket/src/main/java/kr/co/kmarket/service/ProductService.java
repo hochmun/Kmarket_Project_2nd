@@ -2,6 +2,7 @@ package kr.co.kmarket.service;
 
 import kr.co.kmarket.dao.ProductDAO;
 import kr.co.kmarket.dto.CartDTO;
+import kr.co.kmarket.dto.SearchDTO;
 import kr.co.kmarket.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
@@ -41,6 +42,15 @@ public class ProductService {
     }
 
     /**
+     * 상품 2차 검색 list
+     * @since 23/02/21
+     * @author 이해빈
+     */
+    public List<productVO> selectProductsForSearch2(String sort, int start, SearchDTO dto){
+        return dao.selectProductsForSearch2(sort, start, dto);
+    }
+
+    /**
      * 상품 검색 list
      * @since 23/02/21
      * @author 이해빈
@@ -73,6 +83,15 @@ public class ProductService {
      */
     public int getCountTotalForSearch(String keyword) {
         return dao.getCountTotalForSearch(keyword);
+    }
+
+    /**
+     * 상품 검색결과 갯수
+     * @since 23/02/22
+     * @author 이해빈
+     */
+    public int getCountTotalForSearch2(SearchDTO dto) {
+        return dao.getCountTotalForSearch2(dto);
     }
     
     
