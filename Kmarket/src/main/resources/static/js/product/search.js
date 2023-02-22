@@ -6,7 +6,6 @@
 
 window.onload = function(){
 
-    document.querySelector('input[name=min]').value = 0;
 
     document.querySelector('input[type=submit]').addEventListener('click', function(e){
 
@@ -19,6 +18,7 @@ window.onload = function(){
 
         if(keywords == ''){
             alert('검색어를 입력해 주세요');
+            e.preventDefault();
             return false;
         }
 
@@ -27,12 +27,14 @@ window.onload = function(){
 
         if(!check.test(min) && min != ''){
             alert('숫자만 입력 가능합니다.');
+            e.preventDefault();
             return false;
         } else {
             min = parseInt(min)
         }
         if(!check.test(max) && max != ''){
             alert('숫자만 입력 가능합니다.');
+            e.preventDefault();
             return false;
         } else {
             max = parseInt(max)
@@ -40,6 +42,7 @@ window.onload = function(){
 
         if(max < min && max != ''){
             alert(min+'원 보다 큰 금액을 입력해 주세요.');
+            e.preventDefault();
             return false;
         }
 
