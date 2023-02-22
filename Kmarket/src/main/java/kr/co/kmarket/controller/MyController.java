@@ -3,12 +3,8 @@ package kr.co.kmarket.controller;
 import kr.co.kmarket.entity.UserEntity;
 import kr.co.kmarket.security.MyUserDetails;
 import kr.co.kmarket.service.MyService;
-import kr.co.kmarket.vo.Cs_Cate1VO;
-import kr.co.kmarket.vo.Cs_QnaVO;
-import kr.co.kmarket.vo.product_reviewVO;
+import kr.co.kmarket.vo.*;
 import lombok.extern.slf4j.Slf4j;
-import kr.co.kmarket.vo.member_pointVO;
-import kr.co.kmarket.vo.product_orderVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -93,7 +89,7 @@ public class MyController {
      * @return
      */
     @GetMapping("my/review")
-    public String review(Model model, String pg, Integer revNo) {
+    public String review(Model model, String pg, Integer revNo, Integer prodNo) {
         pg = (pg == null) ? "1" : pg;
 
         int count = 5;
@@ -106,15 +102,19 @@ public class MyController {
 
         List<product_reviewVO> reviews = service.selectReviews(revNo, start);
 
+        productVO product = service.selectProduct(prodNo);
+
         model.addAttribute("reviews", reviews);
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("lastPage", lastPage);
         model.addAttribute("pageStartNum", pageStartNum);
         model.addAttribute("groups", groups);
         model.addAttribute("revNo", revNo);
+        model.addAttribute("product", product);
 
         log.info("reviews : " + reviews);
         log.info("reviews.size : " + reviews.size());
+        log.info("product : " + product);
 
         return "my/review";
     }
