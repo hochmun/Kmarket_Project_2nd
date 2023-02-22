@@ -20,7 +20,7 @@ public interface MyDAO {
      * @param start
      * @param cate1
      */
-    public List<Cs_QnaVO> selectQnaArticles(@Param("start") int start, @Param("cate1") Integer cate1);
+    public List<Cs_QnaVO> selectQnaArticles(@Param("start") int start, @Param("cate1") Integer cate1, @Param("uid") String uid);
 
     /**
      * 23/02/21 qna 글 count
@@ -35,7 +35,8 @@ public interface MyDAO {
      * @param revNo
      * @param start
      * */
-    public List<product_reviewVO> selectReviews(@Param("revNo") Integer revNo, @Param("start") int start);
+    public List<product_reviewVO> selectReviews(@Param("revNo") Integer revNo, @Param("start") int start
+            , @Param("cate1") Integer cate1, @Param("cate2") Integer cate2, @Param("uid") String uid);
 
     /**
      * 23/02/21 상품 리뷰 total 값 가져오기
@@ -45,16 +46,11 @@ public interface MyDAO {
     public int getCountTotalForReview(@Param("revNo") Integer revNo);
 
     /**
-     * 23/02/22 상품 view 가져오기
-     * @author 김재준
-     */
-    public productVO selectProduct(@Param("prodNo") Integer prodNo);
-
-    /**
-     * 23/02/22 상품 조회수 +1
-     * @author 김재준
-     */
-    public void updateProductHit(@Param("prodNo") Integer prodNo);
+     * 23/02/21 리뷰란 상품명 클릭 시 product/view 하이퍼링크를 위한 상품 list
+     * @autor 김재준
+     * */
+    public List<productVO> selectProducts(@Param("cate1") Integer cate1, @Param("cate2") Integer cate2,
+                                          @Param("start") int start);
 
     /**
      * 2023/02/21 // 심규영 // 마이페이지 홈 최근 주문 내역 5개 불러오는 기능

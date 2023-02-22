@@ -23,6 +23,8 @@ public class product_reviewVO {
     private String rdate;
 
     // 추가필드
-    // my_review에 불러올 상품명 // 23/02/21 김재준
+    // my_review에 불러올 상품명, 카테고리 // 23/02/21 김재준
     private String prodName;
+    private int prodCate1;
+    private int prodCate2;
 }

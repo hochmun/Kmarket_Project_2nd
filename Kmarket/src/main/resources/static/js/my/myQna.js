@@ -5,9 +5,10 @@
 
 // QnA 목록에서 제목을 클릭하면 답변이 나오도록 하는 함수
 $(document).ready(function() {
-    $('table > tbody > tr').click(function() {
-        var qnaTitle = $(this).find('.tit a').text();
-        var answerRow = $(this).next('.answerRow');
+    $('.tit a').click(function(event) {
+        event.preventDefault(); // 기본 동작 취소
+        var qnaTitle = $(this).text();
+        var answerRow = $(this).parents('tr').next('.answerRow');
         if (answerRow.is(':visible')) {
             answerRow.hide();
         } else {
