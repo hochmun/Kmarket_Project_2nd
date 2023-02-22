@@ -1270,7 +1270,7 @@ footer p > strong {
     width: auto;
     height: auto;
     margin: 0 auto;
-    margin-top: 200px;
+    margin-top: 100px;
     background: #fff;
 
 }
@@ -1302,7 +1302,9 @@ footer p > strong {
     cursor: pointer;
 }
 .popup > div > section {
+    height: 700px;
     padding: 16px;
+    overflow: auto;
     box-sizing: border-box;
 }
 
@@ -1330,7 +1332,7 @@ footer p > strong {
 }
 
 .popup > div > section > article:nth-child(1) > table td:nth-child(1) {width: 150px;}
-.popup > div > section > article:nth-child(1) > table td:nth-child(2) {width: 300px;}
+.popup > div > section > article:nth-child(1) > table td:nth-child(2) {width: 500px;}
 .popup > div > section > article:nth-child(1) > table td:nth-child(3) {width: 160px;}
 .popup > div > section > article:nth-child(1) > table td:nth-child(4) {width: 80px; text-align: center; vertical-align: middle;}
 .popup > div > section > article:nth-child(1) > table th {

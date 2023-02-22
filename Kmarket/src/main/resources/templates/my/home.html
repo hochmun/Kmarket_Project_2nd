@@ -40,8 +40,9 @@
                                 <td class="date" th:text="${#strings.substring(orderVO.ordDate,0,11)}">2022-12-13</td>
 
                                 <td class="info">
-                                    <a href="#" class="thumb"><img th:src="|@{/}thumb/${orderVO.prodCate1}/${orderVO.prodCate2}/${orderVO.thumb1}|" alt=""></a>
+                                    <a href="#" class="thumb"><img th:src="|@{/}thumb/${orderVO.prodCate1}/${orderVO.prodCate2}/${orderVO.thumb1}|" alt="thumb1" style="width: 80px;"></a>
                                     <ul>
+                                        <li class="productSellerUid" style="display: none;" th:text="${orderVO.uid}"></li>
                                         <li class="company"><a href="#" th:text="${orderVO.company}">상호명</a></li>
                                         <li class="prodName"><a href="#" th:text="${orderVO.prodName}">상품명</a></li>
                                         <li class="orderNo">수량 : <span class="prodCount" th:text="${orderVO.count}">1</span>개 / 주문번호 : <a href="#" th:text="${orderVO.ordNo}"></a></li>
@@ -267,7 +268,7 @@
                 <section>
                     <article class="order">
                         <h3>주문정보</h3>
-                        <table border="0">
+                        <table>
                             <tr>
                                 <th>날짜</th>
                                 <th>상품정보</th>

@@ -56,7 +56,8 @@
             a.ordComplete,
             c.prodCate1,
             c.prodCate2,
-            c.thumb1
+            c.thumb1,
+            c.uid
         FROM km_product_order AS a
         JOIN km_product_order_item AS b ON a.ordNo =b.ordNo
         JOIN km_product AS c ON c.prodNo = b.prodNo
@@ -87,6 +88,38 @@
         WHERE a.uid = #{uid}
         ORDER BY a.qnaRdate DESC
         LIMIT 5;
+    </select>
+
+    <!-- 2023/02/22 // 심규영 // 판매자 정보 가져오는 쿼리문 -->
+    <select id="selectGetCompanyStatus" resultType="kr.co.kmarket.vo.memberVO">
+        SELECT * FROM km_member AS a
+        WHERE a.uid = #{uid};
+    </select>
+
+    <!-- 2023/02/22 // 심규영 // 주문 정보 가져오는 쿼리문 -->
+    <select id="selectGetOrderStatus" resultType="kr.co.kmarket.vo.product_orderVO">
+        SELECT
+            a.ordDate,
+            a.ordNo,
+            c.prodCate1,
+            c.prodCate2,
+            c.thumb1,
+            c.prodName,
+            b.`count`,
+            c.price,
+            FLOOR(b.`count` * b.price) AS countPrice,
+            FLOOR((b.`count` * b.price) * (b.discount / 100)) AS disPrice,
+            b.total,
+            a.ordComplete,
+            a.recipName,
+            a.recipHp,
+            a.recipZip,
+            a.recipAddr1,
+            a.recipAddr2
+        FROM km_product_order AS a
+        JOIN km_product_order_item AS b ON a.ordNo = b.ordNo
+        JOIN km_product AS c ON b.prodNo = c.prodNo
+        WHERE a.ordNo = #{ordNo};
     </select>
 
     <!-- upload -->

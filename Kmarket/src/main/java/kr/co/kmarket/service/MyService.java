@@ -180,6 +180,40 @@ public class MyService {
         return dao.selectMyQnaList5(uid);
     }
 
+    /**
+     * 2023/02/22 // 심규영 // 마이페이지 홈 판매자 정보 불러오는 기능
+     * @param uid
+     * @return
+     */
+    public memberVO selectGetCompanyStatus(@Param("uid") String uid) {
+        return dao.selectGetCompanyStatus(uid);
+    }
+
+    /**
+     * 2023/02/22 // 심규영 // 마이페이지 홈 주문 상세 정보 불러오는 기능
+     *      나오는 값
+     *          ordDate     => 주문 날짜
+     *          ordNo       => 주문 번호
+     *          prodCate1   => 상품 이미지 불러오기용 카테1값
+     *          prodCate2   => 상품 이미지 불러오기용 카테2값
+     *          thumb1      => 상품 이미지 이름
+     *          price       => 상품 개당 가격
+     *          cPrice      => 상품 가격 * 주문한 상품 갯수
+     *          disPrice    => 할인될 가격
+     *          total       => 상품 하나당 전체 지불할 가격(할인 적용 됨)
+     *          ordComplete => 주문 상태
+     *          recipName   => 수취인 이름
+     *          recipHp     => 수취인 번호
+     *          recipZip    => 수취인 주소 우편 번호
+     *          recipAddr1  => 수취인 주소
+     *          recipAddr2  => 수취인 자세한 주소
+     * @param ordNo
+     * @return
+     */
+    public List<product_orderVO> selectGetOrderStatus(int ordNo) {
+        return dao.selectGetOrderStatus(ordNo);
+    }
+
     // upload
 
     // delete
