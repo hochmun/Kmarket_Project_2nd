@@ -30,7 +30,7 @@
                             </tr>
                             <tr th:each="rev:${reviews}">
                                 <td class="no">[[${rev.revNo}]]</td>
-                                <td class="prodName"><a href="#">[[${(rev.prodName).substring(0, 8)}]]...</a></td>
+                                <td class="prodName"><a th:href="@{/product/view(cate1=${rev.prodCate1},cate2=${rev.prodCate2},prodNo=${rev.prodNo})}" target="_blank">[[${(rev.prodName).substring(0, 8)}]]...</a></td>
                                 <td class="content">[[${rev.content}]]</td>
                                 <td class="score"><span th:class="'rating star'+${rev.rating}"></span></td>
                                 <td class="date">[[${rev.rdate}]]</td>

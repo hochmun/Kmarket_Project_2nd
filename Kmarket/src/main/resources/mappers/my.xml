@@ -13,6 +13,7 @@
         on a.qnaCate1 = b.cate1
         JOIN `km_cs_cate2` AS c
         ON a.qnaCate2 = c.cate2 and b.cate1 = c.cate1
+        where a.uid = #{uid}
         order by `qnaNo` desc
         limit #{start}, 10;
     </select>
@@ -24,9 +25,10 @@
     </select>
 
     <select id="selectReviews" resultType="kr.co.kmarket.vo.product_reviewVO">
-        SELECT a.*, b.prodName FROM `km_product_review` as a
+        SELECT a.*, b.prodName, b.prodCate1, b.prodCate2 FROM `km_product_review` as a
         join `km_product` as b
         on a.prodNo = b.prodNo
+        where a.uid = #{uid}
         ORDER BY `revNo` DESC LIMIT #{start}, 5;
     </select>
 
@@ -34,15 +36,14 @@
         SELECT COUNT(`revNo`) FROM `km_product_review` WHERE `revNo` = `revNo`;
     </select>
 
-    <!-- 2023/02/21 // 김재준 // 상품 view 가져오기 -->
-    <select id="selectProduct" resultType="kr.co.kmarket.vo.productVO">
-        select * from `km_product` where `prodNo`=#{prodNo};
+    <select id="selectProducts" resultType="kr.co.kmarket.vo.productVO">
+    SELECT a.* FROM `km_product` as a
+        join `km_product_review` as b
+        on a.prodNo = b.prodNo
+        WHERE a.prodCate1=a.prodCate1 and
+        a.prodCate2=a.prodCate2 and
+        a.prodNo = b.prodNo LIMIT #{start}, 5;
     </select>
-
-    <!-- 2023/02/22 // 김재준 // 상품 조회수 + 1 -->
-    <update id="updateProductHit">
-        UPDATE `km_product` SET `hit` = `hit`+ 1 WHERE `prodNo`=#{prodNo};
-    </update>
 
     <!-- 2023/02/21 // 심규영 // 최근 주문 내역 불러오기 -->
     <select id="selectMyOrder" resultType="kr.co.kmarket.vo.product_orderVO">

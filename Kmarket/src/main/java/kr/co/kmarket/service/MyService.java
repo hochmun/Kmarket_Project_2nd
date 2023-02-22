@@ -1,6 +1,8 @@
 package kr.co.kmarket.service;
 
 import kr.co.kmarket.dao.MyDAO;
+import kr.co.kmarket.entity.UserEntity;
+import kr.co.kmarket.repository.UserRepo;
 import kr.co.kmarket.vo.*;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +31,8 @@ public class MyService {
      * @param cate1
      * @return
      */
-    public List<Cs_QnaVO> selectQnaArticles(int start, Integer cate1){
-        return dao.selectQnaArticles(start, cate1);
+    public List<Cs_QnaVO> selectQnaArticles(int start, Integer cate1, String uid){
+        return dao.selectQnaArticles(start, cate1, uid);
     }
 
     /**
@@ -40,24 +42,17 @@ public class MyService {
      * @param start
      * @return
      */
-    public List<product_reviewVO> selectReviews(Integer revNo, int start){
-        return dao.selectReviews(revNo, start);
+    public List<product_reviewVO> selectReviews(Integer revNo, int start, Integer cate1, Integer cate2, String uid){
+        return dao.selectReviews(revNo, start, cate1, cate2, uid);
     }
 
     /**
-     * 23/02/22 상품 view 가져오기
-     * @author 김재준
-     */
-    public productVO selectProduct(Integer prodNo){
-        productVO product = dao.selectProduct(prodNo);
-
-        // 조회수 + 1
-        dao.updateProductHit(prodNo);
-
-        return product;
+     * 23/02/21 리뷰란 상품명 클릭 시 product/view 하이퍼링크를 위한 상품 list
+     * @autor 김재준
+     * */
+    public List<productVO> selectProducts(Integer cate1, Integer cate2, Integer start){
+        return dao.selectProducts(cate1, cate2, start);
     }
-
-
 
     /*============================== 23/02/21 페이징 ==================================*/
 
