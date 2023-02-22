@@ -108,6 +108,7 @@ public class MyService {
         }else{
             lastPage = (int) ((total/count) + 1);
         }
+        if(lastPage == 0) lastPage = 1;
         return lastPage;
     }
 
