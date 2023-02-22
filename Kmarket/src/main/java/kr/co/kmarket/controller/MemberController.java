@@ -1,6 +1,8 @@
 package kr.co.kmarket.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import kr.co.kmarket.service.MemberService;
+import kr.co.kmarket.util.MailUtil;
 import kr.co.kmarket.vo.member_termsVO;
 import kr.co.kmarket.vo.memberVO;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.text.View;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -48,10 +51,7 @@ public class MemberController {
     public String search_pwd(){
         return "member/search_pwd";
     }
-    @GetMapping("member/search_pwd_Change")
-    public String search_pwd_Change(){
-        return "member/search_pwd_Change";
-    }
+
     @GetMapping("member/register")
     public String register(){
         return "member/register";
@@ -95,5 +95,6 @@ public class MemberController {
         resultMap.put("result", result);
         return resultMap;
     }
+
 
 }

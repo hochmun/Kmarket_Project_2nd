@@ -22,7 +22,6 @@ public class MemberService {
     private PasswordEncoder encoder;
     @Autowired
     private UserRepo repo;
-
     /*일반회원가입*/
     public int insertMember(memberVO vo){
         vo.setPass(encoder.encode(vo.getPass1()));
@@ -50,6 +49,9 @@ public class MemberService {
         }else {
             return id;
         }
+    }
+    public int search_pw(memberVO vo){
+        return dao.search_pw(vo);
     }
 
     public member_termsVO selectTerms(){
