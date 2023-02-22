@@ -4,7 +4,9 @@
 <head>
     <title>케이마켓::대한민국 1등 온라인 쇼핑몰</title>
     <th:block th:replace="~{fragment/head_fragment::basicHead}"></th:block>
-    <link rel="stylesheet" href="../css/my.css">
+    <link rel="stylesheet" th:href="@{/css/my.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script th:src="@{/js/my/myQna.js}"></script>
 </head>
 <body>
 <div id="wrapper">
@@ -29,7 +31,8 @@
                                 <th>작성일</th>
                                 <th>상태</th>
                             </tr>
-                            <tr th:each="arts:${QnaArts}">
+                            <th:block th:each="arts:${QnaArts}">
+                            <tr>
                                 <td class="no">[[${arts.qnaNo}]]</td>
                                 <td class="channel">고객센터</td>
                                 <td class="type">[[${arts.cate1Name}]]</td>
@@ -38,166 +41,36 @@
                                 <td class="status" th:if="${arts.qnaType == 1}"><span class="notAnswerYet">검토중</span></td>
                                 <td class="status" th:unless="${arts.qnaType == 1}"><span class="answered">답변완료</span></td>
                             </tr>
-
-                            <tr class="answerRow" th:each="arts:${QnaArts}">
-                                <td colspan="6">
-                                    <div class="question">
-                                        <p class="tit">
-                                            [[${arts.qnaTitle}}]]
-                                            <span class="date">2022-12-16 10:08:25</span>
-                                        </p>
-                                        <p class="content">
-                                            결제하다가 오류가 나서 결제가 안됩니다.
-                                        </p>
-                                    </div>
-                                    <div class="answer">
-                                        <p class="tit">
-                                            주문/결제 문의 답변입니다.
-                                            <span class="date">2022-12-17 10:08:25</span>
-                                        </p>
-                                        <p class="content">
-                                            다른 카드로 결제 하세요. 그러면 될거에요.
-                                        </p>
-                                    </div>
-                                </td>
-                            </tr>
-                            <!-- 판매자게시판 만들면 추가
                             <tr class="answerRow">
                                 <td colspan="6">
                                     <div class="question">
                                         <p class="tit">
-                                            신용카드 결제 중 오류가 난 경우 어떻게 하나요?
-                                            <span class="date">2022-12-16 10:08:25</span>
+                                            [[${arts.qnaTitle}]]
+                                            <span class="date" th:text="${arts.qnaRdate}"></span>
                                         </p>
                                         <p class="content">
-                                            결제하다가 오류가 나서 결제가 안됩니다.
+                                            [[${arts.qnaContent}]]
                                         </p>
                                     </div>
                                     <div class="answer">
                                         <p class="tit">
-                                            주문/결제 문의 답변입니다.
-                                            <span class="date">2022-12-17 10:08:25</span>
+                                            [[${arts.cate1Name}]] 문의 답변입니다.
+                                            <span class="date" th:text="${arts.qnaRdate}"></span>
                                         </p>
                                         <p class="content">
-                                            다른 카드로 결제 하세요. 그러면 될거에요.
+                                            [[${arts.qnaAdminContent}]]
                                         </p>
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="no">3</td>
-                                <td class="channel">판매자게시판</td>
-                                <td class="type">배송</td>                                
-                                <td class="tit">
-                                    <ul>
-                                        <li class="prodName"><a href="#">상품명</a></li>
-                                        <li class="question"><a href="#">배송기간이 보통 얼마나 걸리나요?</a></li>
-                                    </ul>
-                                </td>
-                                <td class="date">2024-12-12</td>
-                                <td class="status"><span class="answered">답변완료</span></td>
-                            </tr>
-                            <tr class="answerRow">
-                                <td colspan="6">
-                                    <div class="question">
-                                        <p class="tit">
-                                            배송기간이 보통 얼마나 걸리나요?
-                                            <span class="date">2022-12-16 10:08:25</span>
-                                        </p>
-                                        <p class="content">
-                                            알고싶어요. 알려주세요.
-                                        </p>
-                                    </div>
-                                    <div class="answer">
-                                        <p class="tit">
-                                            배송 문의 답변입니다.
-                                            <span class="date">2022-12-17 10:08:25</span>
-                                        </p>
-                                        <p class="content">
-                                            보통 한달 걸립니다.
-                                        </p>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="no">2</td>
-                                <td class="channel">판매자게시판</td>
-                                <td class="type">상품</td>
-                                <td class="tit">
-                                    <ul>
-                                        <li class="prodName"><a href="#">상품명</a></li>
-                                        <li class="question"><a href="#">흰색 상품은 없나요?</a></li>
-                                    </ul>
-                                </td>
-                                <td class="date">2024-12-12</td>
-                                <td class="status"><span class="answered">답변완료</span></td>
-                            </tr>
-                            <tr class="answerRow">
-                                <td colspan="6">
-                                    <div class="question">
-                                        <p class="tit">
-                                            흰색 상품은 없나요?
-                                            <span class="date">2022-12-16 10:08:25</span>
-                                        </p>
-                                        <p class="content">
-                                            흰색 살래요~
-                                        </p>
-                                    </div>
-                                    <div class="answer">
-                                        <p class="tit">
-                                            상품 문의 답변입니다.
-                                            <span class="date">2022-12-17 10:08:25</span>
-                                        </p>
-                                        <p class="content">
-                                            네 없어요.
-                                        </p>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="no">1</td>
-                                <td class="channel">판매자게시판</td>
-                                <td class="type">반품</td>
-                                <td class="tit">
-                                    <ul>
-                                        <li class="prodName"><a href="#">상품명</a></li>
-                                        <li class="question"><a href="#">사이즈가 너무 작아요. 반품 요청합니다.</a></li>
-                                    </ul>
-                                </td>
-                                <td class="date">2024-12-12</td>
-                                <td class="status"><span class="answered">답변완료</span></td>
-                            </tr>
-                            <tr class="answerRow">
-                                <td colspan="6">
-                                    <div class="question">
-                                        <p class="tit">
-                                            사이즈가 너무 작아요. 반품 요청합니다.
-                                            <span class="date">2022-12-16 10:08:25</span>
-                                        </p>
-                                        <p class="content">
-                                            반품 해주세요.
-                                        </p>
-                                    </div>
-                                    <div class="answer">
-                                        <p class="tit">
-                                            반품 문의 답변입니다.
-                                            <span class="date">2022-12-17 10:08:25</span>
-                                        </p>
-                                        <p class="content">
-                                            반품 안돼요.
-                                        </p>
-                                    </div>
-                                </td>
-                            </tr>
-                            -->
+                            </th:block>
                         </table>
                         <section th:replace="~{fragment/paging_fragment::myQnaPaging}"></section>
                     </article>
                 </section>
-
             </div>
         </div>
-        <th:block th:replace="~{fragment/footer_fragment::mainFooter}"></th:block>
+    <th:block th:replace="~{fragment/footer_fragment::mainFooter}"></th:block>
     </div>    
 </body>
 </html>

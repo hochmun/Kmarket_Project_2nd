@@ -34,6 +34,16 @@
         SELECT COUNT(`revNo`) FROM `km_product_review` WHERE `revNo` = `revNo`;
     </select>
 
+    <!-- 2023/02/21 // 김재준 // 상품 view 가져오기 -->
+    <select id="selectProduct" resultType="kr.co.kmarket.vo.productVO">
+        select * from `km_product` where `prodNo`=#{prodNo};
+    </select>
+
+    <!-- 2023/02/22 // 김재준 // 상품 조회수 + 1 -->
+    <update id="updateProductHit">
+        UPDATE `km_product` SET `hit` = `hit`+ 1 WHERE `prodNo`=#{prodNo};
+    </update>
+
     <!-- 2023/02/21 // 심규영 // 최근 주문 내역 불러오기 -->
     <select id="selectMyOrder" resultType="kr.co.kmarket.vo.product_orderVO">
         SELECT

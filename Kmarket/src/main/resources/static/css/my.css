@@ -1117,6 +1117,7 @@ footer p > strong {
 
 /* my/qna 답변 팝업 */
 #my > .qna > section > article > table .answerRow {
+    display: none;
     background-color: #fafafa;
 }
 #my > .qna > section > article > table .answerRow td {}
