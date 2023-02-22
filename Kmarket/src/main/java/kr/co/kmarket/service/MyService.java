@@ -210,6 +210,12 @@ public class MyService {
     }
 
     // upload
+    /**
+     * 2023/02/22  // 이해빈 // 회원정보 수정
+     * */
+    public int updateMember(memberVO vo){
+        return dao.updateMember(vo);
+    }
 
     // delete
 

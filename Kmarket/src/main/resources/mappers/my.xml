@@ -124,5 +124,15 @@
     </select>
 
     <!-- upload -->
+    <update id="updateMember">
+        UPDATE `km_member`
+        SET
+        `email` = #{email},
+        `hp` = #{hp},
+        `zip` = #{zip},
+        `addr1` = #{addr1},
+        `addr2` = #{addr2}
+        WHERE `uid` = #{uid}
+    </update>
     <!-- delete -->
 </mapper>

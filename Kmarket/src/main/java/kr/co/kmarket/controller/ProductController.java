@@ -390,7 +390,6 @@ public class ProductController {
         // 페이지 시작값
         int start = service.getLimitStart(currentPage, count);
 
-
         if(keywords == null || keywords.equals("")){ // 1차 검색일때
             // 전체 게시물 갯수
             total = service.getCountTotalForSearch(keyword);
@@ -415,17 +414,6 @@ public class ProductController {
             products = service.selectProductsForSearch2(sort, start, dto);
         }
 
-        /*
-        log.info("keyword: " + keyword);
-        log.info("keywords: " + keywords);
-        log.info("chk1: " + dto.isChk1());
-        log.info("chk2: " + dto.isChk2());
-        log.info("chk3: " + dto.isChk3());
-        log.info("min: " + dto.getMin());
-        log.info("max: " + dto.getMax());
-        log.info("sort: " + sort);
-        log.info("total: " + total);
-        */
 
         model.addAttribute("products", products);
         model.addAttribute("currentPage", currentPage);

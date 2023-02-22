@@ -101,6 +101,10 @@ public interface MyDAO {
     public List<product_orderVO> selectGetOrderStatus(@Param("ordNo") int ordNo);
 
     // upload
+    /**
+     * 2023/02/22  // 이해빈 // 회원정보 수정
+     * */
+    public int updateMember(memberVO vo);
 
     // delete
 
