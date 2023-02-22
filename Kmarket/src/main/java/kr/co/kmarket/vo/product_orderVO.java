@@ -45,6 +45,7 @@ public class product_orderVO {
     private String thumb1;
     private String company;
     private String prodName;
+    private String uid;
 
     // 추가 필드 km_product_order_item
     private int count;

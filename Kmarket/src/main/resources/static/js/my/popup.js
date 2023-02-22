@@ -3,6 +3,13 @@ $(function(){
     // 판매자 정보 팝업 띄우기
     $('.latest .info .company > a').click(function(e){
         e.preventDefault();
+
+        // 판매자 uid 가져오기
+        const sellerUid = $(this).parent().prev().text();
+
+        // 가져온 회사 이름으로 판매자 정보 가져오기
+
+
         $('#popSeller').addClass('on');
     });
 

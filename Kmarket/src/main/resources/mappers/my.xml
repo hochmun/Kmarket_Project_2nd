@@ -46,7 +46,8 @@
             a.ordComplete,
             c.prodCate1,
             c.prodCate2,
-            c.thumb1
+            c.thumb1,
+            c.uid
         FROM km_product_order AS a
         JOIN km_product_order_item AS b ON a.ordNo =b.ordNo
         JOIN km_product AS c ON c.prodNo = b.prodNo
