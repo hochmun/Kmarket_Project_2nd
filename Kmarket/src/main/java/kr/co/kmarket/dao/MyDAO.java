@@ -21,6 +21,24 @@ public interface MyDAO {
      */
     public int insertProductQna(Product_qnaVO vo);
 
+    /**
+     * 2023/02/23 // 심규영 // 상품 수취 확인 시 포인트 적립 기록
+     * @param ordNo
+     * @param uid
+     * @return
+     */
+    public int insertSaveMemberPoint(@Param("ordNo") String ordNo, @Param("uid") String uid);
+
+    /**
+     * 2023/02/23 // 심규영 // 리뷰 작성 기능
+     * <p>
+     *     들어가는 값(prodNo:상품번호,ordNo:주문번호,review:리뷰내용,uid:작성자아이디,starRating:별점,regip:작성주소)
+     * </p>
+     * @param data
+     * @return
+     */
+    public int insertProductReview(Map<String, String> data);
+
     // read
 
     /**
@@ -140,9 +158,21 @@ public interface MyDAO {
 
     // upload
 
-    public void updateProductOrderAndPoint(String ordNo);
+    /**
+     * 2023/02/22 // 심규영 // 마이페이지 수취 확인시 상품 주문 과 멤버 포인트 적립
+     * @param ordNo
+     */
+    public int updateProductOrderAndPoint(@Param("ordNo") String ordNo, @Param("uid") String uid);
+
+    /**
+     * 2023/02/23 // 심규영 // 상품 별점 점수 및 리뷰 갯수 수정
+     * <p>
+     *     필요한 값(starRating:별점, prodNo:상품번호)
+     * </p>
+     * @param data
+     */
+    public int updateProductScoreAndReivew(Map<String, String> data);
 
     // delete
 
-    // service
 }
