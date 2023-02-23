@@ -32,10 +32,10 @@
                 <input type="text" name="keywords" th:value="${keywords != null ? keywords : ''}"/>
                 <input type="submit" value="검색"/>
                 <span>
-                    <label><input type="checkbox" name="chk1" value="true" checked>상품명</label>
-                    <label><input type="checkbox" name="chk2" value="true">상품설명</label>
-                    <label><input type="checkbox" name="chk3" value="true">상품가격</label>
-                    <input type="text" name="min"/>원&nbsp;~&nbsp;<input type="text" name="max"/>원
+                    <label><input type="checkbox" name="chk1" th:value="true" checked>상품명</label>
+                    <label><input type="checkbox" name="chk2" th:value="true">상품설명</label>
+                    <label><input type="checkbox" name="chk3" th:value="true">상품가격</label>
+                    <input type="text" name="min" th:value="${min != null ? min : 0}"/>원&nbsp;~&nbsp;<input type="text" name="max" th:value="${max != null ? max : ''}"/>원
                 </span>
             </form>
             <p class="info">
