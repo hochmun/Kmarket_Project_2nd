@@ -140,6 +140,18 @@ $(function(){
     // 수취확인 팝업 띄우기
     $('.latest .confirm > .receive').click(function(e){
         e.preventDefault();
+
+        // 주문 상태 가져와서 비교하기
+        const ordStatus = $(this).parent().parent().find('.status').text();
+        if(ordStatus == '상품 구매 확정') {
+            alert('이미 수취 확인이 된 상품 입니다.');
+            return;
+        }
+
+        // 주문번호 가져오기
+        const ordNo = $(this).parent().parent().find('.orderNo > a').text();
+        $('#popReceive > input[type=hidden]').val(ordNo);
+
         $('#popReceive').addClass('on');
     });
 
@@ -152,12 +164,110 @@ $(function(){
     // 수취확인 클릭시
     $('#popReceive > div > section > div > button.btnPositive.btnConfirm').click(function(e){
         e.preventDefault();
+
+        // 주문 번호 가져오기
+        const ordNo = $('#popReceive > input[type=hidden]').val();
+
+        // 배열에 담기
+        const jsonContent = {"ordNo":ordNo}
+
+        // 포스트 전송
+        $.ajax({
+            url: '/Kmarket/my/home/receiptConfirm',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(jsonContent),
+            dataType: 'json',
+            success: (data) => {
+                if(data.result > 0) {
+                    alert('수취 확인이 완료 되었습니다.');
+                } else {
+                    alert('수취 확인을 실패 하였습니다.');
+                }
+            }
+        });
+
+        // 페이지 새로고침
+        window.location.reload();
     });
 
     // 상품평 작성 팝업 띄우기
     $('.latest .confirm > .review').click(function(e){
         e.preventDefault();
+
+        // 상품 번호 받기, 주문 번호 받기
+        const productNo = $(this).parent().parent().find('input[name=productNo]').val()
+        const orderNo = $(this).parent().parent().find('.orderNo > a').text();
+        $('#popReview').find('input[name=reviewProdNo]').val(productNo);
+        $('#popReview').find('input[name=reviewordNo]').val(orderNo);
+
+        // 별점 초기화
+        $(".my-rating").remove();
+        $('.rating').html('<div class="my-rating"></div>');
+        $(".my-rating").starRating({
+            starSize: 20,
+            useFullStars: true,
+            strokeWidth: 0,
+            useGradient: false,
+            minRating: 1,
+            ratedColors: ['#ffa400', '#ffa400', '#ffa400', '#ffa400', '#ffa400'],
+            callback: function(currentRating, $el){
+                $('input[name=starRating]').val(currentRating);
+            }
+        });
+
         $('#popReview').addClass('on');
+    });
+
+    // 상품평 작성 확인 클릭
+    $('#popReview .btnPositive').click(function(e){
+        e.preventDefault();
+
+        const prodNo = $('#popReview').find('input[name=reviewProdNo]').val();
+        const ordNo = $('#popReview').find('input[name=reviewordNo]').val();
+        const starRating = $('#popReview').find('input[name=starRating]').val();
+        const review = $('#popReview .review > textarea').val();
+
+        // 상품 번호 없음
+        if(prodNo == '') {
+            alert('상품 정보 오류 입니다.')
+            window.location.reload();
+        }
+
+        // 별점 선택 안함
+        if(starRating == '') {
+            alert('리뷰 하기전 별점을 선택하여 주십시오.')
+            return;
+        }
+
+        const jsonContent = {"prodNo":prodNo,"ordNo":ordNo,"starRating":starRating,"review":review}
+
+        // 포스트 전송
+        $.ajax({
+            url: '/Kmarket/my/home/insertReview',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(jsonContent),
+            dataType: 'json',
+            success: (data) => {
+                if(data.result > 0) {
+                    alert('리뷰 작성이 완료 되었습니다.');
+                    window.location.reload();
+                } else if(data.result == 0) {
+                    alert('리뷰는 중복으로 작성 하실수 없습니다.');
+                    window.location.reload();
+                } else {
+                    alert('리뷰 작성중 오류가 생겼습니다.');
+                    window.location.reload();
+                }
+            }
+        });
+    });
+
+    // 상품평 작성 팝업 닫기
+    $('#popReview > div > section > form > div > button').click(function(e){
+        e.preventDefault();
+        $('#popReview').removeClass('on');
     });
 
     // 팝업 닫기

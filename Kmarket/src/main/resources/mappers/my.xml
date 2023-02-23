@@ -19,6 +19,31 @@
             `pqnaRegip` = #{pqnaRegip};
     </insert>
 
+    <!-- 2023/02/23 // 심규영 // 수취확인 포인트 적립 기록 쿼리문 -->
+    <insert id="insertSaveMemberPoint">
+        INSERT INTO km_member_point(uid, ordNo, `point`, pointDate)
+        SELECT
+            b.ordUid AS uid,
+            b.ordNo AS ordNo,
+            b.`savePoint` AS `point`,
+            NOW()
+        FROM km_product_order AS b WHERE b.ordNo = #{ordNo} AND b.ordUid = #{uid};
+    </insert>
+
+    <!-- 2023/02/23 // 심규영 // 리뷰 작성 쿼리문 -->
+    <insert id="insertProductReview">
+        INSERT INTO km_product_review(prodNo, ordNo, uid, content, rating, regip, rdate)
+        SELECT
+            b.prodNo,
+            b.ordNo,
+            #{uid},
+            #{review},
+            ${starRating},
+            #{regip},
+            NOW()
+        FROM km_product_order_item AS b WHERE b.ordNo = ${ordNo} AND b.prodNo = ${prodNo};
+    </insert>
+
     <!-- read -->
     <!-- 23/02/21 // 김재준 // 마이페이지 qna 글 목록 불러오기 -->
     <select id="selectQnaArticles" resultType="kr.co.kmarket.vo.Cs_QnaVO">
@@ -230,7 +255,15 @@
         SET
             a.ordComplete = 5,
             b.`point` = b.`point` + a.`savePoint`
-        WHERE a.ordNo = #{ordNo} AND a.ordUid = #{ordUid} AND b.uid = a.ordUid;
+        WHERE a.ordNo = #{ordNo} AND a.ordUid = #{uid} AND a.ordComplete != 5 AND b.uid = a.ordUid;
+    </update>
+
+    <!-- 2023/02/23 // 심규영 // 상품 리뷰 점수 및 리뷰 갯수 수정 -->
+    <update id="updateProductScoreAndReivew">
+        UPDATE km_product SET
+            score = score + ${starRating},
+            review = review + 1
+        WHERE prodNo = ${prodNo}
     </update>
 
     <!-- delete -->

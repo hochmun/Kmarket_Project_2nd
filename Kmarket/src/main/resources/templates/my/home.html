@@ -37,6 +37,7 @@
                                 <th>확인/신청</th>
                             </tr>
                             <tr th:each="orderVO:${orderVOs}">
+                                <input type="hidden" name="productNo" th:value="${orderVO.prodNo}">
                                 <td class="date" th:text="${#strings.substring(orderVO.ordDate,0,11)}">2022-12-13</td>
 
                                 <td class="info">
@@ -86,7 +87,10 @@
 
                                 <td th:text="${pointVO.ordNo}">2022121001</td>
                                 <td th:text="${pointVO.point}">340</td>
-                                <td>상품 구매</td>
+
+                                <td th:if="${pointVO.point gt 0}">상품 구매 확정</td>
+                                <td th:if="${pointVO.point lt 0}">상품 구매</td>
+
                                 <td th:text="${pointVO.lastDateString}">2024-12-10</td>
                             </tr>
                         </table>
@@ -391,6 +395,7 @@
 
         <!-- 수취확인 팝업 -->
         <div id="popReceive" class="popup">
+            <input type="hidden" name="ordNo">
             <div>
                 <nav>
                     <h1>수취확인</h1>
@@ -421,6 +426,8 @@
                 </nav>
                 <section>
                     <form action="#">
+                        <input type="hidden" name="reviewProdNo">
+                        <input type="hidden" name="reviewordNo">
                         <table border="0">
                             <tr>
                                 <th>상품명</th>
@@ -428,6 +435,7 @@
                             </tr>
                             <tr>
                                 <th>만족도</th>
+                                <input type="hidden" name="starRating">
                                 <td class="rating">
                                     <div class="my-rating"></div>
                                 </td>
