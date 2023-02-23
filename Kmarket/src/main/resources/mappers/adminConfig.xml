@@ -23,4 +23,16 @@
     <select id="selectBanners" resultType="kr.co.kmarket.vo.BannerVO">
         SELECT * FROM `km_banner`;
     </select>
+
+    <update id="changeBannerStatus">
+        update `km_banner` set `bannerStatus` = #{status} where `bannerNo` = #{no};
+    </update>
+
+    <delete id="deleteBanner" parameterType="java.util.Map">
+        DELETE FROM `km_banner`
+        WHERE `bannerNo` IN
+        <foreach collection="checkboxArr" item="bannerNo" open="(" separator="," close=")">
+            #{bannerNo}
+        </foreach>
+    </delete>
 </mapper>

@@ -50,14 +50,14 @@
                             </tr>
 
                             <tr th:each="banner, i:${map.MAIN1}">
-                                <td><input type="checkbox" name="배너번호"/></td>
+                                <td><input type="checkbox" name="배너번호" th:value="${banner.bannerNo}"/></td>
                                 <td>[[${banner.bannerNo}]]</td>
                                 <td><img src="/img/topBanner1.png" class="thumb"></td>                            
                                 <td>
                                     <ul>
                                         <li class="name">[[${banner.bannerName}]]</li>
                                         <li class="size">크기 : [[${banner.bannerSize}]]</li>
-                                        <li class="size">배경색 : [[${banner.bannerColor}]]</li>
+                                        <li class="color">배경색 : [[${banner.bannerColor}]]</li>
                                         <li class="link"><a th:href="${banner.bannerLink}">배너링크</a></li>
                                     </ul>
                                 </td>
@@ -68,8 +68,9 @@
                                 <td>[[${banner.bannerEtime.substring(0,5)}]]</td>
                                 <td>[[${banner.bannerHit}]]</td>
                                 <td>
-                                    <a href="#" class="statusOff">[비활성]</a>
-                                    <a href="#" class="statusOn">[활성]</a>
+                                    <input type="hidden" name="bannerStatus" th:value="${banner.bannerStatus}">
+                                    <a href="#" th:onclick="'bannerStatus(' + ${banner.bannerNo} + ', 0)'">[비활성]</a>
+                                    <a href="#" th:onclick="'bannerStatus(' + ${banner.bannerNo} + ', 1)'">[활성]</a>
                                 </td>
                             </tr>
                         </table>
@@ -99,14 +100,14 @@
                                 <th>관리</th>
                             </tr>
                             <tr th:each="banner, i:${map.MAIN2}">
-                                <td><input type="checkbox" name="배너번호"/></td>
-                                <td>201603292</td>
+                                <td><input type="checkbox" name="배너번호" th:value="${banner.bannerNo}"/></td>
+                                <td>[[${banner.bannerNo}]]</td>
                                 <td><img src="/img/slider_item1.jpg" class="thumb"></td>                            
                                 <td>
                                     <ul>
                                         <li class="name">[[${banner.bannerName}]]</li>
                                         <li class="size">크기 : [[${banner.bannerSize}]]</li>
-                                        <li class="size">배경색 : [[${banner.bannerColor}]]</li>
+                                        <li class="color">배경색 : [[${banner.bannerColor}]]</li>
                                         <li class="link"><a th:href="${banner.bannerLink}">배너링크</a></li>
                                     </ul>                                
                                 </td>
@@ -117,8 +118,8 @@
                                 <td>[[${banner.bannerEtime.substring(0,5)}]]</td>
                                 <td>[[${banner.bannerHit}]]</td>
                                 <td>
-                                    <a href="#">[비활성]</a>
-                                    <a href="#">[활성]</a>
+                                    <a href="#" th:onclick="'bannerStatus(' + ${banner.bannerNo} + ', 0)'">[비활성]</a>
+                                    <a href="#" th:onclick="'bannerStatus(' + ${banner.bannerNo} + ', 1)'">[활성]</a>
                                 </td>
                             </tr>
                         </table>
@@ -147,14 +148,14 @@
                                 <th>관리</th>
                             </tr>
                             <tr th:each="banner, i:${map.PRODUCT1}">
-                                <td><input type="checkbox" name="배너번호"/></td>
-                                <td>201603292</td>
+                                <td><input type="checkbox" name="배너번호" th:value="${banner.bannerNo}"/></td>
+                                <td>[[${banner.bannerNo}]]</td>
                                 <td><img src="/img/vip_plcc_banner.png" class="thumb"></td>                            
                                 <td>
                                     <ul>
                                         <li class="name">[[${banner.bannerName}]]</li>
                                         <li class="size">크기 : [[${banner.bannerSize}]]</li>
-                                        <li class="size">배경색 : [[${banner.bannerColor}]]</li>
+                                        <li class="color">배경색 : [[${banner.bannerColor}]]</li>
                                         <li class="link"><a th:href="${banner.bannerLink}">배너링크</a></li>
                                     </ul>                                
                                 </td>
@@ -165,8 +166,8 @@
                                 <td>[[${banner.bannerEtime.substring(0,5)}]]</td>
                                 <td>[[${banner.bannerHit}]]</td>
                                 <td>
-                                    <a href="#">[비활성]</a>
-                                    <a href="#">[활성]</a>
+                                    <a href="#" th:onclick="'bannerStatus(' + ${banner.bannerNo} + ', 0)'">[비활성]</a>
+                                    <a href="#" th:onclick="'bannerStatus(' + ${banner.bannerNo} + ', 1)'">[활성]</a>
                                 </td>
                             </tr>
                         </table>
@@ -195,14 +196,14 @@
                                 <th>관리</th>
                             </tr>
                             <tr th:each="banner, i:${map.MEMBER1}">
-                                <td><input type="checkbox" name="배너번호"/></td>
-                                <td>201603292</td>
+                                <td><input type="checkbox" name="배너번호" th:value="${banner.bannerNo}"/></td>
+                                <td>[[${banner.bannerNo}]]</td>
                                 <td><img src="/member/img/member_login_banner.jpg" class="thumb"></td>                            
                                 <td>
                                     <ul>
                                         <li class="name">[[${banner.bannerName}]]</li>
                                         <li class="size">크기 : [[${banner.bannerSize}]]</li>
-                                        <li class="size">배경색 : [[${banner.bannerColor}]]</li>
+                                        <li class="color">배경색 : [[${banner.bannerColor}]]</li>
                                         <li class="link"><a th:href="${banner.bannerLink}">배너링크</a></li>
                                     </ul>                                
                                 </td>
@@ -213,8 +214,8 @@
                                 <td>[[${banner.bannerEtime.substring(0,5)}]]</td>
                                 <td>[[${banner.bannerHit}]]</td>
                                 <td>
-                                    <a href="#">[비활성]</a>
-                                    <a href="#">[활성]</a>
+                                    <a href="#" th:onclick="'bannerStatus(' + ${banner.bannerNo} + ', 0)'">[비활성]</a>
+                                    <a href="#" th:onclick="'bannerStatus(' + ${banner.bannerNo} + ', 1)'">[활성]</a>
                                 </td>
                             </tr>
                         </table>
@@ -243,14 +244,14 @@
                                 <th>관리</th>
                             </tr>
                             <tr th:each="banner, i:${map.MY1}">
-                                <td><input type="checkbox" name="배너번호"/></td>
-                                <td>201603292</td>
+                                <td><input type="checkbox" name="배너번호" th:value="${banner.bannerNo}"/></td>
+                                <td>[[${banner.bannerNo}]]</td>
                                 <td><img src="/my/img/my_banner1.jpg" class="thumb"></td>                            
                                 <td>
                                     <ul>
                                         <li class="name">[[${banner.bannerName}]]</li>
                                         <li class="size">크기 : [[${banner.bannerSize}]]</li>
-                                        <li class="size">배경색 : [[${banner.bannerColor}]]</li>
+                                        <li class="color">배경색 : [[${banner.bannerColor}]]</li>
                                         <li class="link"><a th:href="${banner.bannerLink}">배너링크</a></li>
                                     </ul>                                
                                 </td>
@@ -261,8 +262,8 @@
                                 <td>[[${banner.bannerEtime.substring(0,5)}]]</td>
                                 <td>[[${banner.bannerHit}]]</td>
                                 <td>
-                                    <a href="#">[비활성]</a>
-                                    <a href="#">[활성]</a>
+                                    <a href="#" th:onclick="'bannerStatus(' + ${banner.bannerNo} + ', 0)'">[비활성]</a>
+                                    <a href="#" th:onclick="'bannerStatus(' + ${banner.bannerNo} + ', 1)'">[활성]</a>
                                 </td>
                             </tr>
                         </table>
@@ -300,7 +301,8 @@
                                 <td>배너크기</td>
                                 <td>
                                     <p>배너의 크기를 입력하세요.</p>
-                                    <input type="text" name="bannerSize" placeholder="배너크기"/>
+                                    <input type="text" name="bannerSize"
+                                           placeholder="배너크기" readonly/>
                                 </td>
                             </tr>
                             <tr>
