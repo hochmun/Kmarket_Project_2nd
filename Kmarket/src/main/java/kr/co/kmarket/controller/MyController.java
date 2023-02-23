@@ -90,10 +90,23 @@ public class MyController {
 
     /**
      * 2023/02/20 // 심규영 // 기본 맵핑 생성
+     * 2023/02/33 // 이해빈 // 쿠폰 목록 가져오기
      * @return
      */
     @GetMapping("my/coupon")
-    public String coupon() {
+    public String coupon(Model model, @AuthenticationPrincipal MyUserDetails myUser) {
+
+        String uid = myUser.getUser().getUid();
+
+        // 전체 쿠폰 가져오기
+        List<CouponVO> coupons = service.selectCoupons(uid);
+
+        // 현재 사용가능한 쿠폰 갯수
+        int count = service.getCouponCount(uid);
+
+        model.addAttribute("coupons", coupons);
+        model.addAttribute("count", count);
+
         return "my/coupon";
     }
 

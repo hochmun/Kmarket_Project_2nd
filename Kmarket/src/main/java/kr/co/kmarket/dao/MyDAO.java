@@ -3,6 +3,7 @@ package kr.co.kmarket.dao;
 import kr.co.kmarket.vo.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -99,6 +100,16 @@ public interface MyDAO {
      * @return
      */
     public List<product_orderVO> selectGetOrderStatus(@Param("ordNo") int ordNo);
+
+    /**
+     * 23/02/22 // 이해빈 // 쿠폰 가져오기
+     */
+    public List<CouponVO> selectCoupons(String uid);
+
+    /**
+     * 23/02/22 // 이해빈 // 사용 가능한 쿠폰 갯수
+     */
+    public int getCouponCount(String uid);
 
     // upload
     /**
