@@ -139,5 +139,15 @@
     </select>
 
     <!-- upload -->
+
+    <!-- 2023/02/22 // 심규영 // 상품 수취 업테이트 및 포인트 적립 -->
+    <update id="updateProductOrderAndPoint">
+        UPDATE km_product_order AS a, km_member AS b
+        SET
+            a.ordComplete = 5,
+            b.`point` = b.`point` + a.`savePoint`
+        WHERE a.ordNo = #{ordNo} AND a.ordUid = #{ordUid} AND b.uid = a.ordUid;
+    </update>
+
     <!-- delete -->
 </mapper>

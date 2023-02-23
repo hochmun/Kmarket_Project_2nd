@@ -109,6 +109,8 @@ public interface MyDAO {
 
     // upload
 
+    public void updateProductOrderAndPoint(String ordNo);
+
     // delete
 
     // service
