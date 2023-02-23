@@ -56,6 +56,7 @@ public class MyController {
         model.addAttribute("orderVOs", orderVOs);
         model.addAttribute("pointVOs", pointVOs);
         model.addAttribute("qnaVOs", qnaVOs);
+        model.addAttribute("user", user);
 
         // 리턴
         return "my/home";

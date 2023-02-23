@@ -173,7 +173,7 @@ public class ProductService {
         orderinfo.put("ordNo", ordNo);
 
         // 포인트 테이블 업데이트
-        result += dao.insertSavePoint(orderinfo);
+        // result += dao.insertSavePoint(orderinfo);
 
         // 사용한 포인트가 있을 경우
         if(usedPoint > 0){
@@ -209,9 +209,9 @@ public class ProductService {
 
 
         // 모든 테이블 업데이트가 정상적으로 실행되었을 경우 주문번호를 리턴, 그렇지 않으면 0 리텅
-        if(size > 0 && result == size * 2 + 3){ // 장바구니 -> 주문
+        if(size > 0 && result == size * 2 + 2){ // 장바구니 -> 주문
             return ordNo;
-        }else if(size == 1 && result == 4){ // view -> 주문
+        }else if(size == 1 && result == 3){ // view -> 주문
             return ordNo;
         }else{
             return 0;

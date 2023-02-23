@@ -1302,9 +1302,7 @@ footer p > strong {
     cursor: pointer;
 }
 .popup > div > section {
-    height: 700px;
     padding: 16px;
-    overflow: auto;
     box-sizing: border-box;
 }
 

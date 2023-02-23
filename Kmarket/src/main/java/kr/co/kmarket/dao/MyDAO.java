@@ -12,6 +12,13 @@ import java.util.List;
 public interface MyDAO {
     // create
 
+    /**
+     * 2023/02/23 // 심규영 // 문의하기 작성 기능
+     * @param vo
+     * @return
+     */
+    public int insertProductQna(Product_qnaVO vo);
+
     // read
 
     /**
@@ -101,6 +108,8 @@ public interface MyDAO {
     public List<product_orderVO> selectGetOrderStatus(@Param("ordNo") int ordNo);
 
     // upload
+
+    public void updateProductOrderAndPoint(String ordNo);
 
     // delete
 
