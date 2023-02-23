@@ -28,6 +28,4 @@ public class CouponVO {
     private String couponEdate;
     private String couponUdate;
 
-
-
 }

@@ -464,3 +464,227 @@ button[type=submit] {
 #admin-product-list > section > form > table tr > td:nth-child(1) {width: 15%;}
 
 #admin-product-list > section > form > table img.thumb {width: 60px;}
+
+
+/* 배너관리 config-banner */
+#admin-config-banner {}
+#admin-config-banner > article > section {
+    overflow: hidden;
+}
+#admin-config-banner > section > div  {
+    margin-bottom: 10px;
+}
+
+#admin-config-banner section > table  {
+    border-top: 2px solid #8798a3;
+}
+#admin-config-banner section > table  tr > th{
+    padding: 10px 0;
+    background: #f6f6f6;
+}
+#admin-config-banner section > table  tr > td {
+    background: #fff;
+    text-align: center;
+    box-sizing: border-box;
+}
+#admin-config-banner section > table  tr > td:nth-child(1) {width: 20px;}
+#admin-config-banner section > table  tr > td:nth-child(2) {width: 80px;}
+#admin-config-banner section > table  tr > td:nth-child(3) {width: 80px;}
+#admin-config-banner section > table  tr > td:nth-child(4) {width: auto; text-align: left;}
+#admin-config-banner section > table  tr > td:nth-child(5) {width: 240px;}
+#admin-config-banner section > table  tr > td:nth-child(6) {width: 80px;}
+#admin-config-banner section > table  tr > td:nth-child(7) {width: 80px;}
+#admin-config-banner section > table  tr > td:nth-child(8) {width: 80px;}
+#admin-config-banner section > table  tr > td:nth-child(9) {width: 80px;}
+#admin-config-banner section > table  tr > td:nth-child(10) {width: 80px;}
+#admin-config-banner section > table  tr > td:nth-child(11) {width: 100px;}
+
+#admin-config-banner section > table img.thumb {width: 60px;}
+#admin-config-banner section > table ul > li {line-height: 19px;}
+
+#admin-config-banner section input[type=button] {
+    width: 100px;
+    margin-top: 10px;
+}
+
+#admin-config-banner .btnPositive {
+    float: right;
+    width: 100px;
+    padding: 6px;
+    margin-top: 10px;
+    border: 1px solid #8798a3;
+    font-size: 13px;
+    background-color: #fefefe;
+    color: #333;
+    vertical-align: middle;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+#admin-config-banner .btnNegative {
+    float: left;
+    width: 100px;
+    padding: 6px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    font-size: 13px;
+    background-color: #eaeaea;
+    color: #333;
+    vertical-align: middle;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+
+/* 관리자 - banner 팝업 관련 스타일 */
+
+.ui-tabs .ui-tabs-panel {
+    padding: 16px 0 0;
+}
+
+.ui-widget-content {
+    border: none;
+}
+
+.ui-widget.ui-widget-content {
+    border: none;
+}
+.ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br {
+    border-radius: 0;
+}
+
+.ui-corner-all, .ui-corner-top, .ui-corner-right, .ui-corner-tr {
+    border-radius: 0;
+}
+
+.popup {
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.popup.on {display: block;}
+
+.popup input {
+    width: 120px;
+    padding: 4px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.popup select {
+    width: 120px;
+    padding: 4px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+
+.popup > div {
+    display: table;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+    margin-top: 100px;
+    background: #fff;
+
+}
+
+.popup > div > nav {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    box-sizing: border-box;
+    background: #0e3a47;
+    overflow: hidden;
+}
+.popup > div > nav > h1 {
+    float: left;
+    font-size: 18px;
+    color: white;
+
+}
+.popup > div > nav > button {
+    float: right;
+    width: 30px;
+    height: 30px;
+    background-image: url('../../img/ico_sprites.png');
+    background-color: transparent;
+    background-position: 227px -25px;
+    border: none;
+    font-size: 0;
+    color: white;
+    cursor: pointer;
+}
+.popup > div > section {
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.popup > div > section > article {}
+.popup > div > section > article > h3 {
+    font-size: 15px;
+    margin-bottom: 4px;
+}
+
+.popup > div > section > article table {
+    width: 600px;
+    border-top: 2px solid #444;
+    border-bottom: 1px solid #aaa;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+.popup > div > section > article table label {
+    margin-right: 10px;
+}
+
+.popup > div > section > article table input[type=text] {
+    width: 100%;
+    padding: 4px;
+    box-sizing: border-box;
+    border: 1px solid #f1f1f1;
+    vertical-align: middle;
+}
+
+.popup > div > section > article table td:first-child {
+    width: 120px;
+    border-left: 0;
+}
+
+.popup > div > section > article table tr {
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.popup > div > section > article table tr > td {
+    padding: 10px;
+    border-left: 1px solid #f1f1f1;
+    box-sizing: border-box;
+}
+
+.popup > div > section > article table tr > td:nth-child(2) {
+    width: 360px;
+}
+
+.popup > div > section > article > form > div {
+    padding: 16px 0;
+    text-align: center;
+}
+
+.popup > div > section > article table p {
+    margin-bottom: 6px;
+}
+
+.btnPositive {
+    padding: 10px !important;
+    background: #0e9d05;
+    border: 1px solid #0b8404;
+    box-sizing: border-box;
+    color: white;
+    margin: 0 auto;
+    cursor: pointer;
+}
