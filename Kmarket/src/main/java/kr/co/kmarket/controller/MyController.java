@@ -83,14 +83,38 @@ public class MyController {
         // 유저 정보 불러오기
         UserEntity user = myUser.getUser();
 
-        // 오늘 날짜
+        // 현재 날짜
         LocalDate now = LocalDate.now();
-        // 오늘 날짜의 월
+        // 현재 월
         int month = now.getMonthValue();
 
-        // 날짜가 없을 경우 none 초기화
+        // 날짜가 없을 경우
         if(date == null) {
             date = "none";
+        }else if(date.equals("week")) {
+            // 1주일
+            now.minusWeeks(1);
+        }else if(date.equals("halfMonth")) {
+            // 보름
+            now.minusDays(15);
+        }else if(date.equals("month")) {
+            // 1개월
+            now.minusMonths(1);
+        }else if(date.equals("1")) {
+            // 4달전
+            now.minusMonths(4);
+        }else if(date.equals("2")) {
+            // 3달전
+            now.minusMonths(3);
+        }else if(date.equals("3")) {
+            // 2달전
+            now.minusMonths(2);
+        }else if(date.equals("4")) {
+            // 1달전
+            now.minusMonths(1);
+        }else if(date.equals("5")) {
+            // 이번달
+            now.minusMonths(0);
         }
 
         // 페이지 번호가 없을 경우 1로 초기화
@@ -107,45 +131,16 @@ public class MyController {
         // 최근 주문 내역
         List<product_orderVO> orderVOs = service.selectMyOrdered(user.getUid(), start, date);
 
-        model.addAttribute("type", "ordered");
         model.addAttribute("orderVOs", orderVOs);
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("lastPage", lastPage);
         model.addAttribute("pageStartNum", pageStartNum);
         model.addAttribute("groups", groups);
+        model.addAttribute("month", month);
 
+        log.info("orderVOs : {}", orderVOs);
+        log.info("date : {}", date);
         return "my/ordered";
-    }
-
-    /**
-     * 2023/02/22 // 김재준 // 주문 내역 기간별 검색
-     * @return
-     */
-    @PostMapping("my/searchDate")
-    @ResponseBody
-    public void searchDateMyOrder(Model model, String pg,
-                                  @RequestBody Map<String, String> map,
-                                  @AuthenticationPrincipal MyUserDetails myUser) {
-        // 유저 정보 불러오기
-        UserEntity user = myUser.getUser();
-        map.put("uid", myUser.getUser().getUid());
-
-        int count = 10;
-        int currentPage = service.getCurrentPage(pg);
-        int start = service.getLimitStart(currentPage, count);
-        long total = service.getCountTotalForOrder(user.getUid());
-        int lastPage = service.getLastPageNum(total, count);
-        int pageStartNum = service.getPageStartNum(total, start);
-        int groups[] = service.getPageGroup(currentPage, lastPage);
-
-        // 최근 주문 내역
-        List<product_orderVO> orderVOs = service.searchDateMyOrder(map);
-
-        model.addAttribute("orderVOs", orderVOs);
-        model.addAttribute("currentPage", currentPage);
-        model.addAttribute("lastPage", lastPage);
-        model.addAttribute("pageStartNum", pageStartNum);
-        model.addAttribute("groups", groups);
     }
 
     /**
@@ -173,7 +168,6 @@ public class MyController {
         // 포인트 적립 내역
         List<member_pointVO> pointVOs = service.selectMyPoint(user.getUid(), start);
 
-        model.addAttribute("type", "point");
         model.addAttribute("pointVOs", pointVOs);
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("lastPage", lastPage);
@@ -181,19 +175,6 @@ public class MyController {
         model.addAttribute("groups", groups);
 
         return "my/point";
-    }
-
-    /**
-     * 23/02/22 // 김재준 // 포인트 내역 기간별 검색
-     */
-    @PostMapping("my/searchDatePoint")
-    @ResponseBody
-    public void searchDatePoint(@RequestBody Map<String, String> map,
-                                @AuthenticationPrincipal MyUserDetails myUser) {
-        // 유저 정보 불러오기
-        map.put("uid", myUser.getUser().getUid());
-
-        service.searchDateMyOrder(map);
     }
 
     /**

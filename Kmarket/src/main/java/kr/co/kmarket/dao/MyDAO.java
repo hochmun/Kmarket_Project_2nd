@@ -85,10 +85,16 @@ public interface MyDAO {
     public int getCountTotalForPoint(@Param("uid") String uid);
 
     /**
+     * 23/02/23 포인트내역 기간별 출력
+     * @autor 김재준
+     */
+    public List<member_pointVO> searchDateMyPoint(Map<String, String> map);
+
+    /**
      * 2023/02/22 // 김재준 // 주문 내역 불러오기
      * @param uid
      */
-    public List<product_orderVO> selectMyOrdered(@Param("uid") String uid, @Param("start") int start, @Param(value = "date") LocalDate date);
+    public List<product_orderVO> selectMyOrdered(@Param("uid") String uid, @Param("start") int start, @Param("date") String date);
 
     /**
      * 23/02/22 전체주문내역 기간별 출력
