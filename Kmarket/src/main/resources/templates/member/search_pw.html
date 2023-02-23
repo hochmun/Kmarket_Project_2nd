@@ -5,12 +5,6 @@
 function fb() {
 let email = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 
-if ($("#uid").val() == null || $("#uid").val() == "") {
-alert("아이디를 입력해주세요.");
-$("#uid").focus();
-return false;
-}
-
 if ($("#email").val() == null || $("#email").val() == "") {
 alert("이메일을 입력해주세요.");
 $("#email").focus();
@@ -31,10 +25,6 @@ return false;
             </nav>
             <form action="#" id="searchpw">
                 <table border="0">
-                    <tr>
-                        <td>아이디</td>
-                        <td><input type="text" name="uid" id="uid" placeholder="아이디 입력"></td>
-                    </tr>
                     <tr>
                         <td>Email</td>
                         <td>

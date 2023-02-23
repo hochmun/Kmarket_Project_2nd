@@ -69,11 +69,11 @@ public class SecurityConfig {
 
 		return http.build();
 	}
-	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+
 
 	//자동로그인할때 필요한 토큰?
 	@Bean
