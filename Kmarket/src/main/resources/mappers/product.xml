@@ -234,8 +234,7 @@
     <update id="updatePoint" parameterType="map">
         UPDATE `km_member`
         SET
-        `point` = `point`- #{usedPoint},
-        `point` = `point`+ #{savePoint}
+        `point` = `point`- #{usedPoint}
         WHERE `uid`= #{ordUid};
     </update>
 
