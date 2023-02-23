@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.util.HashMap;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -65,6 +66,7 @@ public class MyController {
         model.addAttribute("orderVOs", orderVOs);
         model.addAttribute("pointVOs", pointVOs);
         model.addAttribute("qnaVOs", qnaVOs);
+        model.addAttribute("user", user);
 
         // 리턴
         return "my/home";
@@ -72,20 +74,126 @@ public class MyController {
 
     /**
      * 2023/02/20 // 심규영 // 기본 맵핑 생성
+     * 2023/02/22 // 김재준 // 주문 내역 출력
      * @return
      */
     @GetMapping("my/ordered")
-    public String ordered() {
+    public String ordered(Model model, String pg, String date,
+                          @AuthenticationPrincipal MyUserDetails myUser) {
+        // 유저 정보 불러오기
+        UserEntity user = myUser.getUser();
+
+        // 오늘 날짜
+        LocalDate now = LocalDate.now();
+        // 오늘 날짜의 월
+        int month = now.getMonthValue();
+
+        // 날짜가 없을 경우 none 초기화
+        if(date == null) {
+            date = "none";
+        }
+
+        // 페이지 번호가 없을 경우 1로 초기화
+        pg = (pg == null) ? "1" : pg;
+
+        int count = 10;
+        int currentPage = service.getCurrentPage(pg);
+        int start = service.getLimitStart(currentPage, count);
+        long total = service.getCountTotalForOrder(user.getUid());
+        int lastPage = service.getLastPageNum(total, count);
+        int pageStartNum = service.getPageStartNum(total, start);
+        int groups[] = service.getPageGroup(currentPage, lastPage);
+
+        // 최근 주문 내역
+        List<product_orderVO> orderVOs = service.selectMyOrdered(user.getUid(), start, date);
+
+        model.addAttribute("type", "ordered");
+        model.addAttribute("orderVOs", orderVOs);
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("lastPage", lastPage);
+        model.addAttribute("pageStartNum", pageStartNum);
+        model.addAttribute("groups", groups);
+
         return "my/ordered";
     }
 
     /**
+     * 2023/02/22 // 김재준 // 주문 내역 기간별 검색
+     * @return
+     */
+    @PostMapping("my/searchDate")
+    @ResponseBody
+    public void searchDateMyOrder(Model model, String pg,
+                                  @RequestBody Map<String, String> map,
+                                  @AuthenticationPrincipal MyUserDetails myUser) {
+        // 유저 정보 불러오기
+        UserEntity user = myUser.getUser();
+        map.put("uid", myUser.getUser().getUid());
+
+        int count = 10;
+        int currentPage = service.getCurrentPage(pg);
+        int start = service.getLimitStart(currentPage, count);
+        long total = service.getCountTotalForOrder(user.getUid());
+        int lastPage = service.getLastPageNum(total, count);
+        int pageStartNum = service.getPageStartNum(total, start);
+        int groups[] = service.getPageGroup(currentPage, lastPage);
+
+        // 최근 주문 내역
+        List<product_orderVO> orderVOs = service.searchDateMyOrder(map);
+
+        model.addAttribute("orderVOs", orderVOs);
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("lastPage", lastPage);
+        model.addAttribute("pageStartNum", pageStartNum);
+        model.addAttribute("groups", groups);
+    }
+
+    /**
      * 2023/02/20 // 심규영 // 기본 맵핑 생성
+     * 23/02/22 // 김재준 // 포인트 내역 출력
      * @return
      */
     @GetMapping("my/point")
-    public String point() {
+    public String point(Model model, String pg,
+                        @AuthenticationPrincipal MyUserDetails myUser) {
+        // 유저 정보 불러오기
+        UserEntity user = myUser.getUser();
+
+        // 페이지 번호가 없을 경우 1로 초기화
+        pg = (pg == null) ? "1" : pg;
+
+        int count = 10;
+        int currentPage = service.getCurrentPage(pg);
+        int start = service.getLimitStart(currentPage, count);
+        long total = service.getCountTotalForPoint(user.getUid());
+        int lastPage = service.getLastPageNum(total, count);
+        int pageStartNum = service.getPageStartNum(total, start);
+        int groups[] = service.getPageGroup(currentPage, lastPage);
+
+        // 포인트 적립 내역
+        List<member_pointVO> pointVOs = service.selectMyPoint(user.getUid(), start);
+
+        model.addAttribute("type", "point");
+        model.addAttribute("pointVOs", pointVOs);
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("lastPage", lastPage);
+        model.addAttribute("pageStartNum", pageStartNum);
+        model.addAttribute("groups", groups);
+
         return "my/point";
+    }
+
+    /**
+     * 23/02/22 // 김재준 // 포인트 내역 기간별 검색
+     */
+    @PostMapping("my/searchDatePoint")
+    @ResponseBody
+    public void searchDatePoint(@RequestBody Map<String, String> map,
+                                @AuthenticationPrincipal MyUserDetails myUser) {
+        // 유저 정보 불러오기
+        map.put("uid", myUser.getUser().getUid());
+
+        service.searchDateMyOrder(map);
     }
 
     /**
@@ -112,6 +220,7 @@ public class MyController {
 
     /**
      * 2023/02/21 // 김재준 // review 기본 맵핑 생성
+     * // 리뷰 출력
      * @return
      */
     @GetMapping("my/review")
@@ -129,7 +238,7 @@ public class MyController {
         // 시작 게시물 번호
         int start = service.getLimitStart(currentPage, count);
         // 전체 게시물 수
-        long total = service.getCountTotalForReview(revNo);
+        long total = service.getCountTotalForReview(user.getUid());
         // 마지막 페이지
         int lastPage = service.getLastPageNum(total, count);
         // 페이지 시작 번호
@@ -158,6 +267,7 @@ public class MyController {
 
     /**
      * 2023/02/21 // 김재준 // qna 기본 맵핑 생성
+     * // 문의 내역 출력
      * @return
      */
     @GetMapping("my/qna")
@@ -171,7 +281,7 @@ public class MyController {
         int count = 10;
         int currentPage = service.getCurrentPage(pg);
         int start = service.getLimitStart(currentPage, count);
-        long total = service.getTotalCount(cate1);
+        long total = service.getTotalCount(cate1, user.getUid());
         int lastPage = service.getLastPageNum(total, count);
         int pageStartNum = service.getPageStartNum(total, start);
         int groups[] = service.getPageGroup(currentPage, lastPage);
@@ -185,8 +295,6 @@ public class MyController {
         model.addAttribute("pageStartNum", pageStartNum);
         model.addAttribute("groups", groups);
         model.addAttribute("cate1", cate1);
-
-        log.info("user.getUid() : " + user.getUid());
 
         return "my/qna";
     }

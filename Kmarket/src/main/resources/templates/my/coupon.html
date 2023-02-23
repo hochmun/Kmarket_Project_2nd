@@ -10,33 +10,7 @@
     <title>케이마켓::대한민국 1등 온라인 쇼핑몰</title>
     <th:block th:replace="~{fragment/head_fragment::basicHead}"></th:block>
     <link rel="stylesheet" href="../css/my.css">
-    <script>
-        $(document).ready(function(){
-
-
-            let status = '';
-
-            let expire = ('.expire').val();
-
-            if()
-
-
-            let today = new Date();
-            let year = today.getFullYear();
-            let month = ('0' + (today.getMonth() + 1)).slice(-2);
-            let day = ('0' + today.getDate()).slice(-2);
-            let hours = ('0' + today.getHours()).slice(-2);
-            let minutes = ('0' + today.getMinutes()).slice(-2);
-            let seconds = ('0' + today.getSeconds()).slice(-2);
-
-            let now =
-
-            $('.status').text('사용불가');
-
-        });
-
-
-    </script>
+    <script th:src="@{/js/my/coupon.js}"></script>
 </head>
 <body>
     <div id="wrapper">
@@ -75,8 +49,11 @@
                                 <td class="tit">[[${coupon.couponName}]]</td>
                                 <td class="discount"><span>[[${#numbers.formatInteger(coupon.couponDisprice, 1, 'COMMA')}]]</span>원</td>
                                 <td class="condition"><span>[[${#numbers.formatInteger(coupon.couponUsePriceCondition, 1, 'COMMA')}]]</span>원 이상 구매시</td>
-                                <td class="expire" th:value="${coupon.couponEdate}">~ [[${coupon.couponEdate.substring(5,7) + '/' + coupon.couponEdate.substring(8,10)}]]</td>
-                                <!--<td class="status" th:if="${#dates.createNow() < #temporals.format(coupon.couponEdate, 'yyyy-MM-dd HH:mm:ss')&& coupon.couponStatus == 1}">사용가능</td>-->
+                                <td class="expire" th:attr="data-edate=${coupon.couponEdate}">~ [[${coupon.couponEdate.substring(5,7) + '/' + coupon.couponEdate.substring(8,10)}]]</td>
+                                <td class="status" th:attr="data-status=${coupon.couponStatus}"></td>
+                            </tr>
+                            <tr th:if="${coupons.size == 0}">
+                                <td colspan="5" align="center">보유중인 쿠폰이 없습니다. </td>
                             </tr>
                         </table>
                         
@@ -87,10 +64,7 @@
                             <li>항공 할인은 항공권 전용 할인으로 결제시점에 할인 혜택을 받을 수 있습니다.</li>
                             <li>항공권 예약취소 또는 환불시 적용했던 항공할인은 id당 1회 한하여 다시 발급됩니다.</li>
                         </ul>                        
-                    </article>                  
-
-                    
-
+                    </article>
                 </section>
 
             </div>

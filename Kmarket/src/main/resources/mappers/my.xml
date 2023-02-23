@@ -5,8 +5,22 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.kmarket.dao.MyDAO">
     <!-- create -->
-    <!-- read -->
 
+    <!-- 2023/02/23 // 심규영 // 문의하기 작성 쿼리문 -->
+    <insert id="insertProductQna">
+        INSERT INTO `km_product_qna` SET
+            `pqnaCate` = ${pqnaCate},
+            `pqnaEnUid` = #{pqnaEnUid},
+            `pqnaReUid` = #{pqnaReUid},
+            `pqnaEmail` = #{pqnaEmail},
+            `pqnaTitle` = #{pqnaTitle},
+            `pqnaContent` = #{pqnaContent},
+            `pqnaRdate` = NOW(),
+            `pqnaRegip` = #{pqnaRegip};
+    </insert>
+
+    <!-- read -->
+    <!-- 23/02/21 // 김재준 // 마이페이지 qna 글 목록 불러오기 -->
     <select id="selectQnaArticles" resultType="kr.co.kmarket.vo.Cs_QnaVO">
         select a.*, b.cate1Name from `km_cs_qna` as a
         join `km_cs_cate1` as b
@@ -18,12 +32,15 @@
         limit #{start}, 10;
     </select>
 
+    <!-- 23/02/21 // 김재준 // 마이페이지 qna 글 갯수 count -->
     <select id="selectCountTotal" resultType="int">
         select count(`qnaNo`) from `km_cs_qna` as a
         join `km_cs_cate1` as b
         on a.qnaCate1 = b.cate1
+        where a.uid =#{uid};
     </select>
 
+    <!-- 23/02/21 // 김재준 // 마이페이지 리뷰 글 목록 불러오기 -->
     <select id="selectReviews" resultType="kr.co.kmarket.vo.product_reviewVO">
         SELECT a.*, b.prodName, b.prodCate1, b.prodCate2 FROM `km_product_review` as a
         join `km_product` as b
@@ -32,10 +49,12 @@
         ORDER BY `revNo` DESC LIMIT #{start}, 5;
     </select>
 
+    <!-- 23/02/21 // 김재준 // 마이페이지 리뷰 글 갯수 count -->
     <select id="getCountTotalForReview" resultType="int">
-        SELECT COUNT(`revNo`) FROM `km_product_review` WHERE `revNo` = `revNo`;
+        SELECT COUNT(`revNo`) FROM `km_product_review` WHERE `uid` =#{uid};
     </select>
 
+    <!-- 23/02/21 // 김재준 // 리뷰글 상품명 태그 클릭 시 해당 product/view로 이동 -->
     <select id="selectProducts" resultType="kr.co.kmarket.vo.productVO">
     SELECT a.* FROM `km_product` as a
         join `km_product_review` as b
@@ -43,6 +62,62 @@
         WHERE a.prodCate1=a.prodCate1 and
         a.prodCate2=a.prodCate2 and
         a.prodNo = b.prodNo LIMIT #{start}, 5;
+    </select>
+
+    <!-- 2023/02/22 // 김재준 // 전체 주문 내역 불러오기 -->
+    <select id="selectMyOrdered" resultType="kr.co.kmarket.vo.product_orderVO">
+        SELECT
+        a.ordDate,
+        c.company,
+        c.prodName,
+        b.`count`,
+        a.ordNo,
+        b.total,
+        a.ordComplete,
+        c.prodCate1,
+        c.prodCate2,
+        c.thumb1,
+        c.uid
+        FROM km_product_order AS a
+        JOIN km_product_order_item AS b ON a.ordNo =b.ordNo
+        JOIN km_product AS c ON c.prodNo = b.prodNo
+        WHERE a.ordUid = #{uid}
+        <if test="date != null">
+            AND DATE_FORMAT(a.ordDate, '%Y-%m-%d') = #{date}
+        </if>
+        ORDER BY a.ordDate DESC
+        LIMIT #{start}, 10;
+    </select>
+
+    <!-- 23/02/22 // 김재준 // 전체 주문 내역 count -->
+    <select id="getCountTotalForOrder" resultType="int">
+        SELECT COUNT(`ordNo`) FROM `km_product_order` WHERE `ordUid` = #{uid};
+    </select>
+
+    <!-- 23/02/22 // 김재준 // 포인트 내역 불러오기 -->
+    <select id="selectMyPoint" resultType="kr.co.kmarket.vo.member_pointVO">
+        SELECT * FROM `km_member_point` WHERE `uid` = #{uid} ORDER BY `pointNo` DESC LIMIT #{start}, 10;
+    </select>
+
+    <!-- 23/02/22 // 김재준 // 전체 주문 포인트 내역 count -->
+    <select id="getCountTotalForPoint" resultType="int">
+        SELECT COUNT(`pointNo`) FROM `km_member_point` WHERE `uid` = #{uid};
+    </select>
+
+    <!-- 23/02/22 // 김재준 // 기간별 조회 통합 map -->
+    <!-- 전체주문내역 -->
+    <select id="selectMyOrderedByDate" resultType="kr.co.kmarket.vo.product_orderVO">
+        select a.*, b.prodNo, b.prodName, b.prodCate1,
+        b.prodCate2, b.thumb2, b.company, c.ordDate
+        from `km_product_order_item` as a
+        join `km_product` as b on a.prodNo = b.prodNo
+        join `km_product_order` as c on a.ordNo = c.ordNo
+        where `uid` = #{uid}
+        limit #{start}, 10;
+    </select>
+    
+    <!-- 포인트내역 -->
+    <select id="searchDatePoint" resultType="kr.co.kmarket.vo.member_pointVO">
     </select>
 
     <!-- 2023/02/21 // 심규영 // 최근 주문 내역 불러오기 -->
@@ -58,7 +133,8 @@
             c.prodCate1,
             c.prodCate2,
             c.thumb1,
-            c.uid
+            c.uid,
+            c.prodNo
         FROM km_product_order AS a
         JOIN km_product_order_item AS b ON a.ordNo =b.ordNo
         JOIN km_product AS c ON c.prodNo = b.prodNo
@@ -135,6 +211,7 @@
 
     <!-- upload -->
 
+
     <!-- 2023/02/23 // 이해빈 // 회원정보 업데이트 -->
     <update id="updateMember">
         UPDATE `km_member`
@@ -146,5 +223,15 @@
         `addr2` = #{addr2}
         WHERE `uid` = #{uid}
     </update>
+
+    <!-- 2023/02/22 // 심규영 // 상품 수취 업테이트 및 포인트 적립 -->
+    <update id="updateProductOrderAndPoint">
+        UPDATE km_product_order AS a, km_member AS b
+        SET
+            a.ordComplete = 5,
+            b.`point` = b.`point` + a.`savePoint`
+        WHERE a.ordNo = #{ordNo} AND a.ordUid = #{ordUid} AND b.uid = a.ordUid;
+    </update>
+
     <!-- delete -->
 </mapper>
