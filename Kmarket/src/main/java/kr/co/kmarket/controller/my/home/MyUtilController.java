@@ -1,15 +1,16 @@
 package kr.co.kmarket.controller.my.home;
 
+import kr.co.kmarket.security.MyUserDetails;
 import kr.co.kmarket.service.MyService;
+import kr.co.kmarket.vo.Product_qnaVO;
 import kr.co.kmarket.vo.memberVO;
 import kr.co.kmarket.vo.product_orderVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,5 +77,26 @@ public class MyUtilController {
         return resultMap;
     }
 
+    @ResponseBody
+    @PostMapping("my/home/uploadProductQna")
+    public Map<String, Object> uploadProductQna(@RequestBody Product_qnaVO vo,
+                                                HttpServletRequest req,
+                                                @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        // 결과 값 선언
+        int result = 0;
+        
+        // vo에 값 입력
+        vo.setPqnaRegip(req.getRemoteAddr());
+        vo.setPqnaEnUid(myUserDetails.getUser().getUid());
+        
+        // 문의글 업로드
+        result = service.insertProductQna(vo);
 
+        // 리턴 할 맵 선언
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("result", result);
+
+        // 리턴
+        return resultMap;
+    }
 }

@@ -5,6 +5,20 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.kmarket.dao.MyDAO">
     <!-- create -->
+
+    <!-- 2023/02/23 // 심규영 // 문의하기 작성 쿼리문 -->
+    <insert id="insertProductQna">
+        INSERT INTO `km_product_qna` SET
+            `pqnaCate` = ${pqnaCate},
+            `pqnaEnUid` = #{pqnaEnUid},
+            `pqnaReUid` = #{pqnaReUid},
+            `pqnaEmail` = #{pqnaEmail},
+            `pqnaTitle` = #{pqnaTitle},
+            `pqnaContent` = #{pqnaContent},
+            `pqnaRdate` = NOW(),
+            `pqnaRegip` = #{pqnaRegip};
+    </insert>
+
     <!-- read -->
 
     <select id="selectQnaArticles" resultType="kr.co.kmarket.vo.Cs_QnaVO">
@@ -58,7 +72,8 @@
             c.prodCate1,
             c.prodCate2,
             c.thumb1,
-            c.uid
+            c.uid,
+            c.prodNo
         FROM km_product_order AS a
         JOIN km_product_order_item AS b ON a.ordNo =b.ordNo
         JOIN km_product AS c ON c.prodNo = b.prodNo

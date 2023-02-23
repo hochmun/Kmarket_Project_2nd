@@ -15,13 +15,14 @@ $(function(){
                 if(data.vo.level == 2) $('td[class=level]').text('실버 판매자 입니다.');
                 if(data.vo.level == 3) $('td[class=level]').text('골드 판매자 입니다.');
 
+                $('input[name=pqnaReUid]').val(data.vo.uid);
                 $('td[class=company]').text(data.vo.company);
                 $('td[class=ceo]').text(data.vo.ceo);
                 $('td[class=tel]').text(data.vo.tel);
                 $('td[class=fax]').text(data.vo.fax);
-                $('td[class=email]').text(data.vo.email);
+                $('#popSeller td[class=email]').text(data.vo.email);
                 $('td[class=bizNum]').text(data.vo.bizRegNum);
-                $('td[class=address]').text('['+(data.vo.zip).substr(0, 3)+'**] '+data.vo.addr1+' '+data.vo.addr2);
+                $('#popSeller td[class=address]').text('['+(data.vo.zip).substr(0, 3)+'**] '+data.vo.addr1+' '+data.vo.addr2);
 
                 $('#popSeller').addClass('on');
             } else {
@@ -35,6 +36,54 @@ $(function(){
         e.preventDefault();
         $('.popup').removeClass('on');
         $('#popQuestion').addClass('on');
+    });
+
+    // 문의하기 등록 버튼 클릭
+    $('#popQuestion .btnPositive').click(function(e){
+        e.preventDefault();
+
+        const pqnaReUid = $('input[name=pqnaReUid]').val();
+        const pqnaCate = $('input[name=pqnaCate]:checked').val();
+        const pqnaEmail = $('input[name=pqnaEmail]').val();
+        const pqnaTitle = $('input[name=pqnaTitle]').val();
+        const pqnaContent = $('textarea[name=pqnaContent]').val();
+
+        // 빈값 체크
+        if(typeof pqnaCate == 'undefined' || pqnaEmail == '' || pqnaTitle == '' || pqnaContent == '') {
+            alert('내용을 확인하여 주십시오');
+            return;
+        }
+
+        const jsonContent = {"pqnaReUid"    :pqnaReUid,
+                             "pqnaCate"     :pqnaCate,
+                             "pqnaEmail"    :pqnaEmail,
+                             "pqnaTitle"    :pqnaTitle,
+                             "pqnaContent"  :pqnaContent};
+
+        // 전송
+        $.ajax({
+            url: '/Kmarket/my/home/uploadProductQna',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(jsonContent),
+            dataType: 'json',
+            success: (data) => {
+                if(data.result > 0) {
+                    alert('문의 사항 작성 성공');
+                    $('#popQuestion').removeClass('on');
+                } else {
+                    alert('문의 사항 작성 실패');
+                }
+            }
+        });
+    });
+
+    // 문의하기 취소 버튼 클릭
+    // 클릭시 판매자 정보 팝업 출력
+    $('#popQuestion > div > section > form > div > button').click(function(e){
+        e.preventDefault();
+        $('#popQuestion').removeClass('on');
+        $('#popSeller').addClass('on');
     });
 
     // 주문상세 팝업 띄우기
@@ -92,6 +141,17 @@ $(function(){
     $('.latest .confirm > .receive').click(function(e){
         e.preventDefault();
         $('#popReceive').addClass('on');
+    });
+
+    // 수취확인 팝업 닫기
+    $('#popReceive > div > section > div > button.btnNegative.btnCancel').click(function(e){
+        e.preventDefault();
+        $('#popReceive').removeClass('on');
+    });
+
+    // 수취확인 클릭시
+    $('#popReceive > div > section > div > button.btnPositive.btnConfirm').click(function(e){
+        e.preventDefault();
     });
 
     // 상품평 작성 팝업 띄우기
