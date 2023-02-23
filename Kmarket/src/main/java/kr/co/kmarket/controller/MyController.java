@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -115,11 +116,13 @@ public class MyController {
      * @return
      */
     @PostMapping("my/searchDate")
+    @ResponseBody
     public void searchDateMyOrder(Model model, String pg,
                                   @RequestBody Map<String, String> map,
                                   @AuthenticationPrincipal MyUserDetails myUser) {
         // 유저 정보 불러오기
         UserEntity user = myUser.getUser();
+        map.put("uid", myUser.getUser().getUid());
 
         int count = 10;
         int currentPage = service.getCurrentPage(pg);
@@ -177,10 +180,12 @@ public class MyController {
     /**
      * 23/02/22 // 김재준 // 포인트 내역 기간별 검색
      */
+    @PostMapping("my/searchDatePoint")
+    @ResponseBody
     public void searchDatePoint(@RequestBody Map<String, String> map,
                                 @AuthenticationPrincipal MyUserDetails myUser) {
         // 유저 정보 불러오기
-        map.put("user.getUid()", myUser.getUser().getUid());
+        map.put("uid", myUser.getUser().getUid());
 
         service.searchDateMyOrder(map);
     }

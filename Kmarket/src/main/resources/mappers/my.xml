@@ -50,8 +50,8 @@
         a.prodNo = b.prodNo LIMIT #{start}, 5;
     </select>
 
-    <!-- 2023/02/21 // 김재준 // 전체 주문 내역 불러오기 -->
-    <select id="selectMyOrder" resultType="kr.co.kmarket.vo.product_orderVO">
+    <!-- 2023/02/22 // 김재준 // 전체 주문 내역 불러오기 -->
+    <select id="selectMyOrdered" resultType="kr.co.kmarket.vo.product_orderVO">
         SELECT
         a.ordDate,
         c.company,
@@ -72,17 +72,38 @@
             AND DATE_FORMAT(a.ordDate, '%Y-%m-%d') = #{date}
         </if>
         ORDER BY a.ordDate DESC
-        LIMIT #{start}, 5;
+        LIMIT #{start}, 10;
     </select>
 
-    <!-- 23/02/21 // 김재준 // 전체 주문 내역 count -->
+    <!-- 23/02/22 // 김재준 // 전체 주문 내역 count -->
     <select id="getCountTotalForOrder" resultType="int">
         SELECT COUNT(`ordNo`) FROM `km_product_order` WHERE `ordUid` = #{uid};
     </select>
 
-    <!-- 23/02/21 // 김재준 // 전체 주문 포인트 내역 count -->
+    <!-- 23/02/22 // 김재준 // 포인트 내역 불러오기 -->
+    <select id="selectMyPoint" resultType="kr.co.kmarket.vo.member_pointVO">
+        SELECT * FROM `km_member_point` WHERE `uid` = #{uid} ORDER BY `pointNo` DESC LIMIT #{start}, 10;
+    </select>
+
+    <!-- 23/02/22 // 김재준 // 전체 주문 포인트 내역 count -->
     <select id="getCountTotalForPoint" resultType="int">
         SELECT COUNT(`pointNo`) FROM `km_member_point` WHERE `uid` = #{uid};
+    </select>
+
+    <!-- 23/02/22 // 김재준 // 기간별 조회 통합 map -->
+    <!-- 전체주문내역 -->
+    <select id="selectMyOrderedByDate" resultType="kr.co.kmarket.vo.product_orderVO">
+        select a.*, b.prodNo, b.prodName, b.prodCate1,
+        b.prodCate2, b.thumb2, b.company, c.ordDate
+        from `km_product_order_item` as a
+        join `km_product` as b on a.prodNo = b.prodNo
+        join `km_product_order` as c on a.ordNo = c.ordNo
+        where `uid` = #{uid}
+        limit #{start}, 10;
+    </select>
+    
+    <!-- 포인트내역 -->
+    <select id="searchDatePoint" resultType="kr.co.kmarket.vo.member_pointVO">
     </select>
 
     <!-- 2023/02/21 // 심규영 // 최근 주문 내역 불러오기 -->
