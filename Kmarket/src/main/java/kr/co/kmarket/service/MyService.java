@@ -78,8 +78,8 @@ public class MyService {
      * @param uid
      */
     public List<product_orderVO> selectMyOrdered(String uid, int start, String date){
-        LocalDate nowDate = nowDate(date);
-        return dao.selectMyOrdered(uid, start, nowDate);
+        LocalDate now = LocalDate.now();
+        return dao.selectMyOrdered(uid, start, date);
     }
 
     /*============================== 23/02/21 페이징 ==================================*/
@@ -193,55 +193,6 @@ public class MyService {
     }
     /*================================================================*/
 
-    /*============================== 23/02/22 기간별 출력 계산 ==================================*/
-
-    /**
-     * 23/02/22 기간별 출력 계산
-     * @autor 김재준
-     * @param date
-     * @return
-     */
-    public LocalDate nowDate(String date){
-        LocalDate now = LocalDate.now();
-        switch (date){
-            case "week":
-                now = now.plusDays(7);
-                break;
-            case "halfMonth":
-                now = now.plusDays(15);
-                break;
-            case "month":
-                now = now.minusMonths(1);
-                break;
-            case "1":
-                now = now.minusMonths(4);
-                break;
-            case "2":
-                now = now.minusMonths(3);
-                break;
-            case "3":
-                now = now.minusMonths(2);
-                break;
-            case "4":
-                now = now.minusMonths(1);
-                break;
-            case "5":
-                return now;
-            case "none":
-                return null;
-        }
-        return now;
-    }
-
-    /**
-     * 23/02/22 전체주문내역 기간별 출력
-     * @autor 김재준
-     */
-    public List<product_orderVO> searchDateMyOrder(Map<String, String> map){
-        return dao.searchDateMyOrder(map);
-    }
-    /*================================================================*/
-    
     /**
      * 2023/02/21 // 심규영 // 마이페이지 홈 최근 주문 내역 5개 불러오는 기능
      * @param uid
