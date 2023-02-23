@@ -9,7 +9,7 @@ import javax.mail.MessagingException;
 
 @Service
 public class EmailService {
-    /*
+
     @Autowired
     private JavaMailSender javaMailSender;
 
@@ -19,5 +19,6 @@ public class EmailService {
         message.setSubject(subject);
         message.setText(text);
         javaMailSender.send(message);
-    }*/
+    }
+
 }

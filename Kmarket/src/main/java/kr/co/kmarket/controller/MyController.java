@@ -2,6 +2,7 @@ package kr.co.kmarket.controller;
 
 import kr.co.kmarket.entity.UserEntity;
 import kr.co.kmarket.security.MyUserDetails;
+import kr.co.kmarket.service.MemberService;
 import kr.co.kmarket.service.MyService;
 import kr.co.kmarket.service.ProductService;
 import kr.co.kmarket.vo.*;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +37,9 @@ public class MyController {
      */
     @Autowired
     private MyService service;
+
+    @Autowired
+    private MemberService memberservice;
 
     /**
      * 2023/02/20 // 심규영 // 기본 맵핑 생성
@@ -174,10 +179,23 @@ public class MyController {
 
     /**
      * 2023/02/20 // 심규영 // 기본 맵핑 생성
+     * 2023/02/33 // 이해빈 // 쿠폰 목록 가져오기
      * @return
      */
     @GetMapping("my/coupon")
-    public String coupon() {
+    public String coupon(Model model, @AuthenticationPrincipal MyUserDetails myUser) {
+
+        String uid = myUser.getUser().getUid();
+
+        // 전체 쿠폰 가져오기
+        List<CouponVO> coupons = service.selectCoupons(uid);
+
+        // 현재 사용가능한 쿠폰 갯수
+        int count = service.getCouponCount(uid);
+
+        model.addAttribute("coupons", coupons);
+        model.addAttribute("count", count);
+
         return "my/coupon";
     }
 
@@ -262,4 +280,35 @@ public class MyController {
         return "my/qna";
     }
 
+
+    /**
+     * 2023/02/22 // 이해빈 // info 기본 맵핑 생성
+     */
+    @GetMapping("my/info")
+    public String info(Model model, @AuthenticationPrincipal MyUserDetails myUser){
+
+        String uid = myUser.getUser().getUid();
+        
+        // 유저 정보 가져오기
+        memberVO member = memberservice.selectMember(uid);
+
+        model.addAttribute("member", member);
+
+        return "my/info";
+    }
+
+    @ResponseBody
+    @PostMapping("my/info")
+    public Map<String, Integer> info(memberVO vo){
+        int result = 0;
+        
+        // 회원정보 수정
+        result = service.updateMember(vo);
+
+
+        Map<String, Integer> resultMap = new HashMap<>();
+        resultMap.put("result", result);
+
+        return resultMap;
+    }
 }
