@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 
+/*
 @Service
 public class EmailService {
 
@@ -21,4 +22,6 @@ public class EmailService {
         javaMailSender.send(message);
     }
 
+
 }
+ */
