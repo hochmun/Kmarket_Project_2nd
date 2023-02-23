@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MyService {
@@ -54,6 +56,23 @@ public class MyService {
         return dao.selectProducts(cate1, cate2, start);
     }
 
+    /**
+     * 2023/02/22 포인트 내역 불러오기
+     * @autor 김재준
+     */
+    public List<member_pointVO> selectMyPoint(String uid, int start){
+        return dao.selectMyPoint(uid, start);
+    }
+
+    /**
+     * 2023/02/22 // 김재준 // 주문 내역 불러오기
+     * @param uid
+     */
+    public List<product_orderVO> selectMyOrdered(String uid, int start, String date){
+        LocalDate nowDate = nowDate(date);
+        return dao.selectMyOrdered(uid, start, nowDate);
+    }
+
     /*============================== 23/02/21 페이징 ==================================*/
 
     /**
@@ -83,19 +102,33 @@ public class MyService {
     /**
      * 23/02/09 qna 전체 글 갯수 불러오기
      * @autor 김재준
-     * @return
      */
-    public long getTotalCount(Integer cate1){
-        return dao.selectCountTotal(cate1);
+    public long getTotalCount(Integer cate1, String uid){
+        return dao.selectCountTotal(cate1, uid);
     }
 
     /**
      * 23/02/21 상품 리뷰 total 값 불러오기
      * @autor 김재준
-     * @return
      */
-    public long getCountTotalForReview(Integer revNo){
-        return dao.getCountTotalForReview(revNo);
+    public long getCountTotalForReview(String uid){
+        return dao.getCountTotalForReview(uid);
+    }
+
+    /**
+     * 23/02/22 전체 주문내역 갯수 불러오기
+     * @autor 김재준
+     */
+    public long getCountTotalForOrder(String uid){
+        return dao.getCountTotalForOrder(uid);
+    }
+
+    /**
+     * 23/02/22 전체 포인트 내역 갯수 불러오기
+     * @autor 김재준
+     */
+    public long getCountTotalForPoint(String uid){
+        return dao.getCountTotalForPoint(uid);
     }
 
     /**
@@ -148,6 +181,55 @@ public class MyService {
         int[] groups = {groupStart, groupEnd};
 
         return groups;
+    }
+    /*================================================================*/
+
+    /*============================== 23/02/22 기간별 출력 계산 ==================================*/
+
+    /**
+     * 23/02/22 기간별 출력 계산
+     * @autor 김재준
+     * @param date
+     * @return
+     */
+    public LocalDate nowDate(String date){
+        LocalDate now = LocalDate.now();
+        switch (date){
+            case "week":
+                now = now.plusDays(7);
+                break;
+            case "halfMonth":
+                now = now.plusDays(15);
+                break;
+            case "month":
+                now = now.minusMonths(1);
+                break;
+            case "1":
+                now = now.minusMonths(4);
+                break;
+            case "2":
+                now = now.minusMonths(3);
+                break;
+            case "3":
+                now = now.minusMonths(2);
+                break;
+            case "4":
+                now = now.minusMonths(1);
+                break;
+            case "5":
+                return now;
+            case "none":
+                return null;
+        }
+        return now;
+    }
+
+    /**
+     * 23/02/22 전체주문내역 기간별 출력
+     * @autor 김재준
+     */
+    public List<product_orderVO> searchDateMyOrder(Map<String, String> map){
+        return dao.searchDateMyOrder(map);
     }
     /*================================================================*/
     

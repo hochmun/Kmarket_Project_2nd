@@ -9,7 +9,7 @@
 <head>
     <title>케이마켓::대한민국 1등 온라인 쇼핑몰</title>
     <th:block th:replace="~{fragment/head_fragment::basicHead}"></th:block>
-    <link rel="stylesheet" href="../css/my.css">
+    <link rel="stylesheet" th:href="@{/css/my.css}">
 </head>
 <body>
     <div id="wrapper">
@@ -52,75 +52,26 @@
                                 <th>상태</th>
                                 <th>확인/신청</th>
                             </tr>
-                            <tr>
-                                <td class="date">2022-12-13</td>
-                                <td>
-                                    <a href="#" class="thumb"><img src="https://via.placeholder.com/80x80" alt=""></a>
+                            <tr th:each="orderVO:${orderVOs}">
+                                <td class="date" th:text="${#strings.substring(orderVO.ordDate,0,11)}"></td>
+
+                                <td class="info">
+                                    <a href="#" class="thumb"><img th:src="|@{/}thumb/${orderVO.prodCate1}/${orderVO.prodCate2}/${orderVO.thumb1}|" alt="thumb1" style="width: 80px;"></a>
                                     <ul>
-                                        <li class="company">상호명</li>
-                                        <li class="prodName"><a href="#">상품명</a></li>
-                                        <li>수량 : <span class="prodCount">1</span>개 / 주문번호 : <span class="ordNo">1012211341</span></li>
-                                        <li class="prodPrice">34,000</li>
+                                        <li class="productSellerUid" style="display: none;" th:text="${orderVO.uid}"></li>
+                                        <li class="company"><a href="#" th:text="${orderVO.company}">상호명</a></li>
+                                        <li class="prodName"><a href="#" th:text="${orderVO.prodName}">상품명</a></li>
+                                        <li class="orderNo">수량 : <span class="prodCount" th:text="${orderVO.count}"></span>개 / 주문번호 : <a href="#" th:text="${orderVO.ordNo}"></a></li>
+                                        <li class="prodPrice" th:text="${#numbers.formatInteger(orderVO.total, 1, 'COMMA')}"></li>
                                     </ul>
                                 </td>
-                                <td class="status">배송완료</td>
-                                <td class="confirm">
-                                    <a href="#" class="receive">수취확인</a>
-                                    <a href="#" class="review">상품평</a>
-                                    <a href="#" class="refund">반품신청</a>
-                                    <a href="#" class="exchange">교환신청</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="date">2022-12-13</td>
-                                <td>
-                                    <a href="#" class="thumb"><img src="https://via.placeholder.com/80x80" alt=""></a>
-                                    <ul>
-                                        <li class="company">상호명</li>
-                                        <li class="prodName"><a href="#">상품명</a></li>
-                                        <li>수량 : <span class="prodCount">1</span>개 / 주문번호 : <span class="ordNo">1012211341</span></li>
-                                        <li class="prodPrice">34,000</li>
-                                    </ul>
-                                </td>
-                                <td class="status">배송완료</td>
-                                <td class="confirm">
-                                    <a href="#" class="receive">수취확인</a>
-                                    <a href="#" class="review">상품평</a>
-                                    <a href="#" class="refund">반품신청</a>
-                                    <a href="#" class="exchange">교환신청</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="date">2022-12-13</td>
-                                <td>
-                                    <a href="#" class="thumb"><img src="https://via.placeholder.com/80x80" alt=""></a>
-                                    <ul>
-                                        <li class="company">상호명</li>
-                                        <li class="prodName"><a href="#">상품명</a></li>
-                                        <li>수량 : <span class="prodCount">1</span>개 / 주문번호 : <span class="ordNo">1012211341</span></li>
-                                        <li class="prodPrice">34,000</li>
-                                    </ul>
-                                </td>
-                                <td class="status">배송완료</td>
-                                <td class="confirm">
-                                    <a href="#" class="receive">수취확인</a>
-                                    <a href="#" class="review">상품평</a>
-                                    <a href="#" class="refund">반품신청</a>
-                                    <a href="#" class="exchange">교환신청</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="date">2022-12-13</td>
-                                <td>
-                                    <a href="#" class="thumb"><img src="https://via.placeholder.com/80x80" alt=""></a>
-                                    <ul>
-                                        <li class="company">상호명</li>
-                                        <li class="prodName"><a href="#">상품명</a></li>
-                                        <li>수량 : <span class="prodCount">1</span>개 / 주문번호 : <span class="ordNo">1012211341</span></li>
-                                        <li class="prodPrice">34,000</li>
-                                    </ul>
-                                </td>
-                                <td class="status">배송완료</td>
+
+                                <td class="status" th:if="${orderVO.ordComplete == 1}">확인중</td>
+                                <td class="status" th:if="${orderVO.ordComplete == 2}">배송중</td>
+                                <td class="status" th:if="${orderVO.ordComplete == 3}">배송완료</td>
+                                <td class="status" th:if="${orderVO.ordComplete == 4}">기타</td>
+                                <td class="status" th:if="${orderVO.ordComplete == 5}">상품 구매 확정</td>
+
                                 <td class="confirm">
                                     <a href="#" class="receive">수취확인</a>
                                     <a href="#" class="review">상품평</a>
@@ -129,21 +80,9 @@
                                 </td>
                             </tr>
                         </table>
-
-                        <p class="page">
-                            <a href="#" class="prev">이전</a>
-                            <a href="#" class="num on">1</a>
-                            <a href="#" class="num">2</a>
-                            <a href="#" class="num">3</a>
-                            <a href="#" class="next">다음</a>
-                        </p>
-
-                    </article>                  
-
-                    
-
+                        <section th:replace="~{fragment/paging_fragment::myOrderedPaging}"></section>
+                    </article>
                 </section>
-
             </div>
         </div>
         <th:block th:replace="~{fragment/footer_fragment::mainFooter}"></th:block>

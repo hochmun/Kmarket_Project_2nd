@@ -6,7 +6,7 @@
 <mapper namespace="kr.co.kmarket.dao.MyDAO">
     <!-- create -->
     <!-- read -->
-
+    <!-- 23/02/21 // 김재준 // 마이페이지 qna 글 목록 불러오기 -->
     <select id="selectQnaArticles" resultType="kr.co.kmarket.vo.Cs_QnaVO">
         select a.*, b.cate1Name from `km_cs_qna` as a
         join `km_cs_cate1` as b
@@ -18,12 +18,15 @@
         limit #{start}, 10;
     </select>
 
+    <!-- 23/02/21 // 김재준 // 마이페이지 qna 글 갯수 count -->
     <select id="selectCountTotal" resultType="int">
         select count(`qnaNo`) from `km_cs_qna` as a
         join `km_cs_cate1` as b
         on a.qnaCate1 = b.cate1
+        where a.uid =#{uid};
     </select>
 
+    <!-- 23/02/21 // 김재준 // 마이페이지 리뷰 글 목록 불러오기 -->
     <select id="selectReviews" resultType="kr.co.kmarket.vo.product_reviewVO">
         SELECT a.*, b.prodName, b.prodCate1, b.prodCate2 FROM `km_product_review` as a
         join `km_product` as b
@@ -32,10 +35,12 @@
         ORDER BY `revNo` DESC LIMIT #{start}, 5;
     </select>
 
+    <!-- 23/02/21 // 김재준 // 마이페이지 리뷰 글 갯수 count -->
     <select id="getCountTotalForReview" resultType="int">
-        SELECT COUNT(`revNo`) FROM `km_product_review` WHERE `revNo` = `revNo`;
+        SELECT COUNT(`revNo`) FROM `km_product_review` WHERE `uid` =#{uid};
     </select>
 
+    <!-- 23/02/21 // 김재준 // 리뷰글 상품명 태그 클릭 시 해당 product/view로 이동 -->
     <select id="selectProducts" resultType="kr.co.kmarket.vo.productVO">
     SELECT a.* FROM `km_product` as a
         join `km_product_review` as b
@@ -43,6 +48,41 @@
         WHERE a.prodCate1=a.prodCate1 and
         a.prodCate2=a.prodCate2 and
         a.prodNo = b.prodNo LIMIT #{start}, 5;
+    </select>
+
+    <!-- 2023/02/21 // 김재준 // 전체 주문 내역 불러오기 -->
+    <select id="selectMyOrder" resultType="kr.co.kmarket.vo.product_orderVO">
+        SELECT
+        a.ordDate,
+        c.company,
+        c.prodName,
+        b.`count`,
+        a.ordNo,
+        b.total,
+        a.ordComplete,
+        c.prodCate1,
+        c.prodCate2,
+        c.thumb1,
+        c.uid
+        FROM km_product_order AS a
+        JOIN km_product_order_item AS b ON a.ordNo =b.ordNo
+        JOIN km_product AS c ON c.prodNo = b.prodNo
+        WHERE a.ordUid = #{uid}
+        <if test="date != null">
+            AND DATE_FORMAT(a.ordDate, '%Y-%m-%d') = #{date}
+        </if>
+        ORDER BY a.ordDate DESC
+        LIMIT #{start}, 5;
+    </select>
+
+    <!-- 23/02/21 // 김재준 // 전체 주문 내역 count -->
+    <select id="getCountTotalForOrder" resultType="int">
+        SELECT COUNT(`ordNo`) FROM `km_product_order` WHERE `ordUid` = #{uid};
+    </select>
+
+    <!-- 23/02/21 // 김재준 // 전체 주문 포인트 내역 count -->
+    <select id="getCountTotalForPoint" resultType="int">
+        SELECT COUNT(`pointNo`) FROM `km_member_point` WHERE `uid` = #{uid};
     </select>
 
     <!-- 2023/02/21 // 심규영 // 최근 주문 내역 불러오기 -->

@@ -5,7 +5,9 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @Mapper
@@ -27,7 +29,7 @@ public interface MyDAO {
      * @autor 김재준
      * @param cate1
      */
-    public int selectCountTotal(@Param("cate1") Integer cate1);
+    public int selectCountTotal(@Param("cate1") Integer cate1, @Param("uid") String uid);
 
     /**
      * 23/02/21 상품 리뷰 가져오기
@@ -41,9 +43,38 @@ public interface MyDAO {
     /**
      * 23/02/21 상품 리뷰 total 값 가져오기
      * @author 김재준
-     * @param revNo
      * */
-    public int getCountTotalForReview(@Param("revNo") Integer revNo);
+    public int getCountTotalForReview(@Param("uid") String uid);
+
+    /**
+     * 2023/02/22 포인트 내역 불러오기
+     * @autor 김재준
+     */
+    public List<member_pointVO> selectMyPoint(@Param("uid") String uid, @Param("start") int start);
+
+    /**
+     * 23/02/22 전체 포인트 내역 갯수 불러오기
+     * @autor 김재준
+     */
+    public int getCountTotalForPoint(@Param("uid") String uid);
+
+    /**
+     * 2023/02/22 // 김재준 // 주문 내역 불러오기
+     * @param uid
+     */
+    public List<product_orderVO> selectMyOrdered(@Param("uid") String uid, @Param("start") int start, @Param(value = "date") LocalDate date);
+
+    /**
+     * 23/02/22 전체주문내역 기간별 출력
+     * @autor 김재준
+     */
+    public List<product_orderVO> searchDateMyOrder(Map<String, String> map);
+
+    /**
+     * 23/02/22 전체 주문내역 갯수 불러오기
+     * @autor 김재준
+     */
+    public int getCountTotalForOrder(@Param("uid") String uid);
 
     /**
      * 23/02/21 리뷰란 상품명 클릭 시 product/view 하이퍼링크를 위한 상품 list
