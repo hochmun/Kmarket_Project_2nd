@@ -10,6 +10,7 @@
     <title>케이마켓::대한민국 1등 온라인 쇼핑몰</title>
     <th:block th:replace="~{fragment/head_fragment::basicHead}"></th:block>
     <link rel="stylesheet" href="../css/my.css">
+    <script th:src="@{/js/my/coupon.js}"></script>
 </head>
 <body>
     <div id="wrapper">
@@ -30,7 +31,7 @@
                             <dl>
                                 <dt>· 나의 보유쿠폰</dt>
                                 <dd>
-                                    <strong>2</strong>
+                                    <strong>[[${count}]]</strong>
                                     <span>장</span>
                                 </dd>
                             </dl>
@@ -40,23 +41,19 @@
                             <tr>
                                 <th>쿠폰명</th>
                                 <th>할인금액</th>
-                                <th>적용기준/제한조건</th>               
+                                <th>적용기준/제한조건</th>
                                 <th>유효기간</th>
                                 <th>상태</th>
                             </tr>
-                            <tr>
-                                <td class="tit">1만원 할인 중복쿠폰</td>
-                                <td class="discount"><span>10,000</span>원</td>
-                                <td class="condition"><span>10,100</span>원 이상 구매시</td>
-                                <td class="expire">~12/29</td>
-                                <td class="status">사용가능</td>
+                            <tr th:each="coupon, i:${coupons}">
+                                <td class="tit">[[${coupon.couponName}]]</td>
+                                <td class="discount"><span>[[${#numbers.formatInteger(coupon.couponDisprice, 1, 'COMMA')}]]</span>원</td>
+                                <td class="condition"><span>[[${#numbers.formatInteger(coupon.couponUsePriceCondition, 1, 'COMMA')}]]</span>원 이상 구매시</td>
+                                <td class="expire" th:attr="data-edate=${coupon.couponEdate}">~ [[${coupon.couponEdate.substring(5,7) + '/' + coupon.couponEdate.substring(8,10)}]]</td>
+                                <td class="status" th:attr="data-status=${coupon.couponStatus}"></td>
                             </tr>
-                            <tr>
-                                <td class="tit">회원가입 축하 5천원 할인쿠폰</td>
-                                <td class="discount"><span>5,000</span>원</td>
-                                <td class="condition"><span>5,100</span>원 이상 구매시</td>
-                                <td class="expire">~12/29</td>
-                                <td class="status">사용가능</td>
+                            <tr th:if="${coupons.size == 0}">
+                                <td colspan="5" align="center">보유중인 쿠폰이 없습니다. </td>
                             </tr>
                         </table>
                         
@@ -67,10 +64,7 @@
                             <li>항공 할인은 항공권 전용 할인으로 결제시점에 할인 혜택을 받을 수 있습니다.</li>
                             <li>항공권 예약취소 또는 환불시 적용했던 항공할인은 id당 1회 한하여 다시 발급됩니다.</li>
                         </ul>                        
-                    </article>                  
-
-                    
-
+                    </article>
                 </section>
 
             </div>

@@ -1,63 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">    
-    <title>케이마켓::대한민국 1등 온라인 쇼핑몰</title>    
-    <link rel="shortcut icon" type="image/x-icon" href="../img/favicon.ico" />    
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script src="https://kit.fontawesome.com/20962f3e4b.js" crossorigin="anonymous"></script>    
-    <link rel="stylesheet" href="../css/my.css">
-    <style>
-        
-    </style>
+    <title>케이마켓::대한민국 1등 온라인 쇼핑몰</title>
+    <th:block th:replace="~{fragment/head_fragment::basicHead}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/my.css}">
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script th:src="@{/js/zipcode.js}"></script>
+    <script th:src="@{/js/my/info.js}"></script>
 </head>
 <body>
     <div id="wrapper">
-        <header>
-            <div class="top">
-                <div>
-                    <a href="./member/login.html">로그인</a>
-                    <a href="#">회원가입</a>
-                    <a href="#">마이페이지</a>
-                    <a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;장바구니</a>
-                </div>
-            </div>
-            <div class="logo">
-                <div>
-                    <a href="../index.html"><img src="../img/header_logo.png" alt="로고"/></a>
-                    <form action="#">
-                        <input type="text" name="search"/>
-                        <button><i class="fa fa-search"></i></button>
-                    </form>
-                </div>
-            </div>
-        </header>
+        <header th:replace="~{fragment/header_fragment::myHeader}"></header>
         <div id="my">
-            <nav>
-                <div>
-                    <a href="./home.html"><img src="../img/my_logo.jpg" alt="나의쇼핑정보"></a>
-                    <ol>
-                        <li><a href="#">주문·배송<span class="delivery">1</span></a></li>
-                        <li><a href="#">할인쿠폰<span class="coupon">1</span></a></li>
-                        <li><a href="#">포인트<span class="point">1,000</span></a></li>
-                        <li><a href="#">문의내역<span class="qna">1</span></a></li>
-                    </ol>
-                </div>
-            </nav>
+            <nav th:replace="~{fragment/my_fragment::my_nav}"></nav>
 
             <div class="info">
-				<ul>
-                    <span class="menu_else"></span>
-                    <li class="on"><a href="#">전체주문내역</a></li>
-                    <!--<li><a href="#">관심상품</a></li>-->
-                    <li><a href="#">포인트내역</a></li>
-                    <li><a href="#">쿠폰</a></li>
-                    <li><a href="#">나의리뷰</a></li>
-                    <li><a href="#">문의하기</a></li>
-                    <li><a href="#">나의설정</a></li>
-                </ul>
+                <ul th:replace="~{fragment/my_fragment::menu_else}"></ul>
 
                 <section>
                     <a href="#"><img src="../img/my_banner2.png" alt="패션, 타운 하나로 끝" class="banner"></a>
@@ -67,7 +25,8 @@
                         <table border="0">
                             <tr>
                                 <td>사용자 ID</td>
-                                <td>chh****</td>
+                                <td>[[${member.uid.substring(0,3) + '*' * (member.uid.length()-3)}]]</td>
+                                <input type="hidden" name="uid" th:value="${member.uid}">
                             </tr>
                             <tr>
                                 <td>비밀번호</td>
@@ -77,18 +36,20 @@
                             </tr>
                             <tr>
                                 <td>이름</td>
-                                <td>김*학</td>
+                                <td>[[${member.name.substring(0,1)+ '*' * (member.name.length()-2) +member.name.substring(member.name.length() - 1)}]]</td>
                             </tr>
+                            <!-- 생년월일이 회원정보에 존재하지 않아서 주석처리함
                             <tr>
                                 <td>생년월일</td>
                                 <td>1983년 05월 03일</td>
                             </tr>
+                            -->
                             <tr>
                                 <td>E-mail</td>
                                 <td>
-                                    <input type="text" name="email1" value="chakh101">@
-                                    <input type="text" name="email2" value="naver.com">
-                                    <select>
+                                    <input type="text" name="email1" th:value="${member.email.substring(0, member.email.indexOf('@'))}" readonly>@
+                                    <input type="text" name="email2" th:value="${member.email.substring(member.email.indexOf('@')+1)}" readonly>
+                                    <select id="domain">
                                         <option>직접입력</option>
                                         <option>naver.com</option>
                                         <option>daum.net</option>
@@ -103,9 +64,9 @@
                                 <td>휴대폰</td>
                                 <td>
                                     <p class="hp">
-                                        <input type="text" name="hp1" value="010"/>-
-                                        <input type="text" name="hp2" value="1234"/>-
-                                        <input type="text" name="hp3" value="1001"/>
+                                        <input type="text" name="hp1" th:value="${member.hp.substring(0,3)}" readonly/>-
+                                        <input type="text" name="hp2" th:value="${member.hp.substring(4,8)}" readonly/>-
+                                        <input type="text" name="hp3" th:value="${member.hp.substring(9,13)}" readonly/>
                                         <button id="btnChangeHp">수정하기</button>
                                     </p>
                                 </td>
@@ -113,11 +74,11 @@
                             <tr>
                                 <td>주소</td>
                                 <td>
-                                    <input type="text" name="zip"/>
-                                    <button id="btnFindZip">주소검색</button>
+                                    <input type="text" name="zip" id="zip" th:value="${member.zip}" readonly/>
+                                    <button id="btnFindZip" onclick="zipcode()">주소검색</button>
                                     <p class="address">
-                                        <input type="text" name="addr1"/>
-                                        <input type="text" name="addr2"/>
+                                        <input type="text" name="addr1" id="addr1" th:value="${member.addr1}" readonly/>
+                                        <input type="text" name="addr2" id="addr2" th:value="${member.addr2}" />
                                     </p>
                                 </td>
                             </tr>
@@ -133,32 +94,8 @@
                 </section>
 
             </div>
-        </div>        
-        <footer>
-            <ul>
-                <li><a href="#">회사소개</a></li>
-                <li><a href="#">서비스이용약관</a></li>
-                <li><a href="#">개인정보처리방침</a></li>
-                <li><a href="#">전자금융거래약관</a></li>
-            </ul>
-            <div>
-                <p><img src="../img/footer_logo.png" alt="로고"></p>
-                <p>
-                  <strong>(주)KMARKET</strong><br />
-                  부산시 강남구 테헤란로 152 (역삼동 강남파이낸스센터)<br />
-                  대표이사 : 홍길동<br />
-                  사업자등록번호 : 220-81-83676 사업자정보확인<br />
-                  통신판매업신고 : 강남 10630호 Fax : 02-589-8842
-                </p>
-                <p>
-                  <strong>고객센터</strong><br />
-                  Tel : 1234-5678 (평일 09:00~18:00)<br />
-                  스마일클럽/SVIP 전용 : 1522-5700 (365일 09:00~18:00)<br />
-                  경기도 부천시 원미구 부일로 223(상동) 투나빌딩 6층<br />
-                  Fax : 051-123-4567 | Mail : kmarket@kmarket.co.kr<br />
-                </p>
-            </div>              
-        </footer>
+        </div>
+        <th:block th:replace="~{fragment/footer_fragment::mainFooter}"></th:block>
     </div>    
 </body>
 </html>

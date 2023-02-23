@@ -322,7 +322,27 @@ public class MyService {
         return dao.selectGetOrderStatus(ordNo);
     }
 
+    /**
+     * 23/02/22 // 이해빈 // 쿠폰 가져오기
+     */
+    public List<CouponVO> selectCoupons(String uid){
+        return dao.selectCoupons(uid);
+    };
+
+    /**
+     * 23/02/22 // 이해빈 // 사용 가능한 쿠폰 갯수
+     */
+    public int getCouponCount(String uid){
+        return dao.getCouponCount(uid);
+    };
+
     // upload
+    /**
+     * 2023/02/22  // 이해빈 // 회원정보 수정
+     * */
+    public int updateMember(memberVO vo){
+        return dao.updateMember(vo);
+    }
 
     /**
      * 2023/02/22 // 심규영 // 마이페이지 수취 확인시 상품 주문 과 멤버 포인트 적립

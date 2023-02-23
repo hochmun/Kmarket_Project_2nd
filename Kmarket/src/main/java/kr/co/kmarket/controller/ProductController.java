@@ -390,7 +390,6 @@ public class ProductController {
         // 페이지 시작값
         int start = service.getLimitStart(currentPage, count);
 
-
         if(keywords == null || keywords.equals("")){ // 1차 검색일때
             // 전체 게시물 갯수
             total = service.getCountTotalForSearch(keyword);
@@ -415,17 +414,6 @@ public class ProductController {
             products = service.selectProductsForSearch2(sort, start, dto);
         }
 
-        /*
-        log.info("keyword: " + keyword);
-        log.info("keywords: " + keywords);
-        log.info("chk1: " + dto.isChk1());
-        log.info("chk2: " + dto.isChk2());
-        log.info("chk3: " + dto.isChk3());
-        log.info("min: " + dto.getMin());
-        log.info("max: " + dto.getMax());
-        log.info("sort: " + sort);
-        log.info("total: " + total);
-        */
 
         model.addAttribute("products", products);
         model.addAttribute("currentPage", currentPage);
@@ -445,61 +433,4 @@ public class ProductController {
         return "product/search";
     }
 
-
-    /**
-     * 상품 2차 검색
-     * @since 23/02/21
-     * @author 이해빈
-     *
-     * map에 들어있는 값
-     * keyword : 1차 검색 키워드
-     * keywords : 2차 검색 키워드
-     * min : 최소가격
-     * max : 최대가격
-     * chk1 : 상품명 check 여부
-     * chk2 : 상품설명 check 여부
-     * chk3 : 상품가격 check 여부
-     */
-    /*
-    @ResponseBody
-    @PostMapping("product/search")
-    public List<productVO> search(@RequestBody HashMap<String, Object> map) {
-
-        int result = 0;
-
-        log.info("전달받은 map :" + map);
-
-        // 상품 가져오기
-        List<productVO> products = service.selectProductsForSearch2(map);
-
-        log.info("검색결과 : " + products);
-        log.info("product size" + products.size());
-
-
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("result", result);
-
-        return products;
-    }
-    */
-    @PostMapping("product/search")
-    public String search(@RequestBody HashMap<String, Object> map, Model model) {
-
-        int result = 0;
-
-        log.info("전달받은 map :" + map);
-
-
-        // 상품 가져오기
-        List<productVO> products = service.selectProductsForSearch2(map);
-
-        log.info("검색결과 : " + products);
-        log.info("product size" + products.size());
-
-        model.addAttribute("products", products);
-
-
-
-        return "product/search";
-    }
 }

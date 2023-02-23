@@ -224,7 +224,30 @@
         WHERE a.ordNo = #{ordNo};
     </select>
 
+    <!-- 2023/02/23 // 이해빈 // 쿠폰 목록 가져오기 -->
+    <select id="selectCoupons" resultType="kr.co.kmarket.vo.CouponVO">
+        select * from `km_coupon` where `uid` = #{uid};
+    </select>
+
+    <!-- 2023/02/23 // 이해빈 // 사용가능한 쿠폰 갯수 가져오기 -->
+    <select id="getCouponCount" resultType="int">
+        SELECT COUNT(`couponId`) FROM `km_coupon` WHERE `uid`=#{uid} AND `couponStatus` = 1 AND `couponEdate` > NOW();
+    </select>
+
     <!-- upload -->
+
+
+    <!-- 2023/02/23 // 이해빈 // 회원정보 업데이트 -->
+    <update id="updateMember">
+        UPDATE `km_member`
+        SET
+        `email` = #{email},
+        `hp` = #{hp},
+        `zip` = #{zip},
+        `addr1` = #{addr1},
+        `addr2` = #{addr2}
+        WHERE `uid` = #{uid}
+    </update>
 
     <!-- 2023/02/22 // 심규영 // 상품 수취 업테이트 및 포인트 적립 -->
     <update id="updateProductOrderAndPoint">
