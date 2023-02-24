@@ -57,7 +57,7 @@ public class SecurityConfig {
 		.failureUrl("/member/login?success=100")
 		.usernameParameter("uid")
 		.passwordParameter("pass");
-		
+
 		// 로그아웃 설정
 		http.logout()
 		.invalidateHttpSession(true)
@@ -73,7 +73,6 @@ public class SecurityConfig {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-
 
 	//자동로그인할때 필요한 토큰?
 	@Bean

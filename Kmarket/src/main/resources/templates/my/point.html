@@ -68,7 +68,10 @@
 
                                 <td th:text="${pointVO.ordNo}"></td>
                                 <td th:text="${pointVO.point}"></td>
-                                <td>상품 구매</td>
+
+                                <td th:if="${pointVO.point gt 0}">상품 구매 확정</td>
+                                <td th:if="${pointVO.point lt 0}">상품 구매</td>
+
                                 <td th:text="${pointVO.lastDateString}"></td>
                             </tr>
                         </table>
