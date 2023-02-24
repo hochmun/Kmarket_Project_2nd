@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -36,6 +37,24 @@ public class AdminConfigService {
 
         List<BannerVO> banners = dao.selectBanners();
         return banners.stream().collect(Collectors.groupingBy(BannerVO::getBannerPosition));
+    }
+
+    /**
+     * 2023/02/23
+     * 배너 선택삭제하기
+     * @author 이해빈
+     * */
+    public int deleteBanner(HashMap<String, Object> checkboxArr){
+        return dao.deleteBanner(checkboxArr);
+    }
+
+    /**
+     * 2023/02/23
+     * 배너 활성화/비활성화 상태변경
+     * @author 이해빈
+     * */
+    public int changeBannerStatus(int no, int status){
+        return dao.changeBannerStatus(no, status);
     }
 
 }

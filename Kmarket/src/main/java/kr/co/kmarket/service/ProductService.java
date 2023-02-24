@@ -145,7 +145,7 @@ public class ProductService {
      */
     public int deleteCarts(HashMap<String, Object> checkboxArr){
         return dao.deleteCarts(checkboxArr);
-    };
+    }
 
 
     /**

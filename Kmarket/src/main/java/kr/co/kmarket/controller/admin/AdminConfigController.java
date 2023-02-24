@@ -9,9 +9,9 @@ import org.springframework.boot.Banner;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -63,4 +63,44 @@ public class AdminConfigController {
 
     }
 
+    /**
+     * 2023/02/23 // 이해빈 // banner 삭제
+     * * */
+    @ResponseBody
+    @PostMapping("admin/config/deleteBanner")
+    public Map<String, Integer> deleteBanner(@RequestBody HashMap<String, Object> checkboxArr){
+
+        int result = 0;
+
+        log.info("배너 checkboxArr : " + checkboxArr);
+
+        result = service.deleteBanner(checkboxArr);
+
+        log.info("배너 삭제 result : " + result);
+
+        Map<String, Integer> resultMap = new HashMap<>();
+        resultMap.put("result", result);
+
+        return resultMap;
+    }
+
+    /**
+     * 2023/02/23 // 이해빈 // banner 활성화/비활성화
+     * * */
+    @ResponseBody
+    @PostMapping("admin/config/changeBannerStatus")
+    public Map<String, Integer> changeBannerStatus(int no, int status){
+
+        int result = 0;
+
+        result = service.changeBannerStatus(no, status);
+
+        Map<String, Integer> resultMap = new HashMap<>();
+        resultMap.put("result", result);
+
+        return resultMap;
+    }
+
+    
+    
 }
