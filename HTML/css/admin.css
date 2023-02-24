@@ -464,3 +464,73 @@ button[type=submit] {
 #admin-product-list > section > form > table tr > td:nth-child(1) {width: 15%;}
 
 #admin-product-list > section > form > table img.thumb {width: 60px;}
+
+
+/* 배너관리 config-banner */
+#admin-config-banner {}
+#admin-config-banner > article > section {
+    overflow: hidden;
+}
+#admin-config-banner > section > div  {
+    margin-bottom: 10px;
+}
+
+#admin-config-banner section > table  {
+    border-top: 2px solid #8798a3;
+}
+#admin-config-banner section > table  tr > th{
+    padding: 10px 0;
+    background: #f6f6f6;
+}
+#admin-config-banner section > table  tr > td {
+    background: #fff;
+    text-align: center;
+    box-sizing: border-box;
+}
+#admin-config-banner section > table  tr > td:nth-child(1) {width: 20px;}
+#admin-config-banner section > table  tr > td:nth-child(2) {width: 80px;}
+#admin-config-banner section > table  tr > td:nth-child(3) {width: 80px;}
+#admin-config-banner section > table  tr > td:nth-child(4) {width: auto; text-align: left;}
+#admin-config-banner section > table  tr > td:nth-child(5) {width: 240px;}
+#admin-config-banner section > table  tr > td:nth-child(6) {width: 80px;}
+#admin-config-banner section > table  tr > td:nth-child(7) {width: 80px;}
+#admin-config-banner section > table  tr > td:nth-child(8) {width: 80px;}
+#admin-config-banner section > table  tr > td:nth-child(9) {width: 80px;}
+#admin-config-banner section > table  tr > td:nth-child(10) {width: 80px;}
+#admin-config-banner section > table  tr > td:nth-child(11) {width: 100px;}
+
+#admin-config-banner section > table img.thumb {width: 60px;}
+#admin-config-banner section > table ul > li {line-height: 19px;}
+
+#admin-config-banner section input[type=button] {
+    width: 100px;
+    margin-top: 10px;
+}
+
+#admin-config-banner .btnPositive {
+    float: right;
+    width: 100px;
+    padding: 6px;
+    margin-top: 10px;
+    border: 1px solid #8798a3;
+    font-size: 13px;
+    background-color: #fefefe;
+    color: #333;
+    vertical-align: middle;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+#admin-config-banner .btnNegative {
+    float: left;
+    width: 100px;
+    padding: 6px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    font-size: 13px;
+    background-color: #eaeaea;
+    color: #333;
+    vertical-align: middle;
+    box-sizing: border-box;
+    cursor: pointer;
+}
