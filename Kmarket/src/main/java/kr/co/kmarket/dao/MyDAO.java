@@ -76,7 +76,7 @@ public interface MyDAO {
      * 2023/02/22 포인트 내역 불러오기
      * @autor 김재준
      */
-    public List<member_pointVO> selectMyPoint(@Param("uid") String uid, @Param("start") int start);
+    public List<member_pointVO> selectMyPoint(@Param("uid") String uid, @Param("start") int start, @Param("date") String date);
 
     /**
      * 23/02/22 전체 포인트 내역 갯수 불러오기

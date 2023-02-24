@@ -26,18 +26,24 @@
                         <h3>포인트내역</h3>
 
                         <div class="byDate">
-                            <span class="tit">기간별조회</span>                            
+                            <span class="tit">기간별조회</span>
                             <ul class="date_3ea">
-                                <li><a href="#"><em>1</em>주일</a></li>
-                                <li><a href="#"><em>15</em>일</a></li>
-                                <li><a href="#" class="on"><em>1</em>개월</a></li>
+                                <li><a th:href="@{/my/point(date='week')}" th:classappend="${date == 'week' ? 'on' : ''}"><em>1</em>주일</a></li>
+                                <li><a th:href="@{/my/point(date='halfMonth')}" th:classappend="${date == 'halfMonth' ? 'on' : ''}"><em>15</em>일</a></li>
+                                <li><a th:href="@{/my/point(date='month')}" th:classappend="${date == 'month' ? 'on' : ''}"><em>1</em>개월</a></li>
                             </ul>
                             <ul class="date_5ea">
-                                <li><a href="#"><em>11</em>월</a></li>
-                                <li><a href="#"><em>10</em>월</a></li>
-                                <li><a href="#"><em>9</em>월</a></li>
-                                <li><a href="#"><em>8</em>월</a></li>
-                                <li><a href="#"><em>7</em>월</a></li>
+                                <li th:each="num, i:${#numbers.sequence(month-4, month)}">
+                                    <th:block th:if="${num <= 0}">
+                                        <a th:href="@{/my/point(date=${monthNames[num+2]})}" th:classappend="${date == monthNames[num+2]} ? 'on' : ''"><em>[[${num+12}]]</em>월</a>
+                                    </th:block>
+                                    <th:block th:if="${num > 0} and ${num > 12}">
+                                        <a th:href="@{/my/point(date=${monthNames[num+2]})}" th:classappend="${date == monthNames[num+2]} ? 'on' : ''"><em>[[${num}]]</em>월</a>
+                                    </th:block>
+                                    <th:block th:if="${num > 0} and ${num <= 12}">
+                                        <a th:href="@{/my/point(date=${monthNames[num+2]})}" th:classappend="${date == monthNames[num+2]} ? 'on' : ''"><em>[[${num}]]</em>월</a>
+                                    </th:block>
+                                </li>
                             </ul>
                             <p>
                                 <input type="date" name="begin"><span>~</span><input type="date" name="end">

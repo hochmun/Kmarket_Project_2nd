@@ -91,8 +91,8 @@ public class MyService {
      * 2023/02/22 포인트 내역 불러오기
      * @autor 김재준
      */
-    public List<member_pointVO> selectMyPoint(String uid, int start){
-        return dao.selectMyPoint(uid, start);
+    public List<member_pointVO> selectMyPoint(String uid, int start, String date){
+        return dao.selectMyPoint(uid, start, date);
     }
 
     /**
@@ -100,7 +100,6 @@ public class MyService {
      * @param uid
      */
     public List<product_orderVO> selectMyOrdered(String uid, int start, String date){
-        LocalDate now = LocalDate.now();
         return dao.selectMyOrdered(uid, start, date);
     }
 
