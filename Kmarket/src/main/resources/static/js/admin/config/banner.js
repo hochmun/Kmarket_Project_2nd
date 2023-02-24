@@ -190,7 +190,7 @@ function deleteBanner(tab){
         return false;
     }
 
-    // 선택된 상품들만 배열에 넣기
+    // 선택된 배너들만 배열에 넣기
     let checkboxArr = [];
     for(let i=0; i < checkboxes.length; i++){
 
@@ -207,7 +207,7 @@ function deleteBanner(tab){
     console.log(checkboxArr);
 
     if(checkboxArr == ''){
-        alert('선택된 상품이 없습니다!')
+        alert('선택된 배너가 없습니다!')
         return false;
     }
 
