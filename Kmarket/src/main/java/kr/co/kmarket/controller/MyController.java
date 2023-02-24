@@ -88,6 +88,8 @@ public class MyController {
         // 현재 월
         int month = now.getMonthValue();
 
+        String[] monthNames = {"fourMonth", "threeMonth", "twoMonth", "aMonth", "thisMonth"};
+
         // 날짜가 없을 경우
         if(date == null) {
             date = "none";
@@ -100,19 +102,19 @@ public class MyController {
         }else if(date.equals("month")) {
             // 1개월
             now.minusMonths(1);
-        }else if(date.equals("1")) {
+        }else if(date.equals("fourMonth")) {
             // 4달전
             now.minusMonths(4);
-        }else if(date.equals("2")) {
+        }else if(date.equals("threeMonth")) {
             // 3달전
             now.minusMonths(3);
-        }else if(date.equals("3")) {
+        }else if(date.equals("twoMonth")) {
             // 2달전
             now.minusMonths(2);
-        }else if(date.equals("4")) {
+        }else if(date.equals("aMonth")) {
             // 1달전
             now.minusMonths(1);
-        }else if(date.equals("5")) {
+        }else if(date.equals("thisMonth")) {
             // 이번달
             now.minusMonths(0);
         }
@@ -137,9 +139,9 @@ public class MyController {
         model.addAttribute("pageStartNum", pageStartNum);
         model.addAttribute("groups", groups);
         model.addAttribute("month", month);
+        model.addAttribute("monthNames", monthNames);
+        model.addAttribute("date", date);
 
-        log.info("orderVOs : {}", orderVOs);
-        log.info("date : {}", date);
         return "my/ordered";
     }
 
@@ -149,10 +151,46 @@ public class MyController {
      * @return
      */
     @GetMapping("my/point")
-    public String point(Model model, String pg,
+    public String point(Model model, String pg, String date,
                         @AuthenticationPrincipal MyUserDetails myUser) {
         // 유저 정보 불러오기
         UserEntity user = myUser.getUser();
+
+        // 현재 날짜
+        LocalDate now = LocalDate.now();
+        // 현재 월
+        int month = now.getMonthValue();
+
+        String[] monthNames = {"fourMonth", "threeMonth", "twoMonth", "aMonth", "thisMonth"};
+
+        // 날짜가 없을 경우
+        if(date == null) {
+            date = "none";
+        }else if(date.equals("week")) {
+            // 1주일
+            now.minusWeeks(1);
+        }else if(date.equals("halfMonth")) {
+            // 보름
+            now.minusDays(15);
+        }else if(date.equals("month")) {
+            // 1개월
+            now.minusMonths(1);
+        }else if(date.equals("fourMonth")) {
+            // 4달전
+            now.minusMonths(4);
+        }else if(date.equals("threeMonth")) {
+            // 3달전
+            now.minusMonths(3);
+        }else if(date.equals("twoMonth")) {
+            // 2달전
+            now.minusMonths(2);
+        }else if(date.equals("aMonth")) {
+            // 1달전
+            now.minusMonths(1);
+        }else if(date.equals("thisMonth")) {
+            // 이번달
+            now.minusMonths(0);
+        }
 
         // 페이지 번호가 없을 경우 1로 초기화
         pg = (pg == null) ? "1" : pg;
@@ -166,13 +204,16 @@ public class MyController {
         int groups[] = service.getPageGroup(currentPage, lastPage);
 
         // 포인트 적립 내역
-        List<member_pointVO> pointVOs = service.selectMyPoint(user.getUid(), start);
+        List<member_pointVO> pointVOs = service.selectMyPoint(user.getUid(), start, date);
 
         model.addAttribute("pointVOs", pointVOs);
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("lastPage", lastPage);
         model.addAttribute("pageStartNum", pageStartNum);
         model.addAttribute("groups", groups);
+        model.addAttribute("month", month);
+        model.addAttribute("monthNames", monthNames);
+        model.addAttribute("date", date);
 
         return "my/point";
     }
