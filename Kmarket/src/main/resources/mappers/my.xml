@@ -214,6 +214,18 @@
         LIMIT 5;
     </select>
 
+    <!-- 2023/02/24 // 심규영 // 최근 리뷰 내역 5개 불러오는 쿼리문 -->
+    <select id="selectMyReviewList5" resultType="kr.co.kmarket.vo.product_reviewVO">
+        SELECT
+            a.*,
+            b.`prodName`
+        FROM `km_product_review` AS a
+        JOIN `km_product` AS b ON a.`prodNo` = b.`prodNo`
+        WHERE a.`uid` = #{uid}
+        ORDER BY `rdate` DESC
+        LIMIT 5;
+    </select>
+
     <!-- 2023/02/21 // 심규영 // 최근 문의내역 5개 불러오는 쿼리문 -->
     <select id="selectMyQnaList5" resultType="kr.co.kmarket.vo.Cs_QnaVO">
         SELECT

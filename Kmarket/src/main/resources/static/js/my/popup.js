@@ -195,16 +195,18 @@ $(function(){
     $('.latest .confirm > .review').click(function(e){
         e.preventDefault();
 
-        // 상품 번호 받기, 주문 번호 받기
+        // 상품 번호 받기, 주문 번호 받기, 상품 명 받기
         const productNo = $(this).parent().parent().find('input[name=productNo]').val()
         const orderNo = $(this).parent().parent().find('.orderNo > a').text();
+        const productName = $(this).parent().parent().find('.prodName > a').text();
         $('#popReview').find('input[name=reviewProdNo]').val(productNo);
         $('#popReview').find('input[name=reviewordNo]').val(orderNo);
+        $('#popReview').find('td[class=productName]').text(productName);
 
         // 별점 초기화
-        $(".my-rating").remove();
-        $('.rating').html('<div class="my-rating"></div>');
-        $(".my-rating").starRating({
+        $("#popReview .my-rating").remove();
+        $('#popReview .rating').html('<div class="my-rating"></div>');
+        $("#popReview .my-rating").starRating({
             starSize: 20,
             useFullStars: true,
             strokeWidth: 0,

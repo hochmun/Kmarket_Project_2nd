@@ -16,10 +16,11 @@ import lombok.*;
 public class product_reviewVO {
     private int revNo;
     private int prodNo;
+    private int ordNo;
     private String content;
     private String uid;
     private int rating;
-    private String varchar;
+    private String regip;
     private String rdate;
 
     // 추가필드
