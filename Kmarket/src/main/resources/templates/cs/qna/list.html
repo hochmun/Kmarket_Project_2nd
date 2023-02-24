@@ -38,6 +38,9 @@
                     <td>[[${(arts.uid).substring(0, 4)}]]***</td>
                     <td>[[${arts.qnaRdate}]]</td>
                   </tr>
+                  <tr th:if="${QnaArts.size() == 0}">
+                    <td colspan="4">문의글이 없습니다.</td>
+                  </tr>
                 </table>
 
                 <section th:replace="~{fragment/paging_fragment::csPaging}"></section>
