@@ -38,6 +38,8 @@ public class product_orderVO {
     private String name;
     private String hp;
     private String prodNo;
+    private int countPrice; // 갯수 * 가격
+    private int disPrice; // (갯수 * 가격) * (discount / 100) // 할인되는 가격
 
     // 추가 필드 km_product
     private int prodCate1;
@@ -45,6 +47,8 @@ public class product_orderVO {
     private String thumb1;
     private String company;
     private String prodName;
+    private String uid;
+    private int price;
 
     // 추가 필드 km_product_order_item
     private int count;

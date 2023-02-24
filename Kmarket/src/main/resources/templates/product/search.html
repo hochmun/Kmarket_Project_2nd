@@ -20,21 +20,22 @@
             <nav>
             <h1>상품 검색 결과</h1>
             <p>
-                HOME > <span>상품검색</span> > <strong>[[${keyword}]]</strong>
+                HOME > <span>상품검색</span> > <strong id="keyword">[[${keyword}]]</strong>
             </p>
             </nav>
 
             <!-- 검색결과 그룹박스 -->
             <div class="group">
             <h3><strong>[[${keyword}]]</strong>검색결과 <em>(총&nbsp;:&nbsp;<span>[[${total}]]</span>&nbsp;건)</em></h3>
-            <form action="#">
-                <input type="text" name="search"/>
+            <form action="/Kmarket/product/search" method="get">
+                <input type="hidden" name="keyword" th:value="${keyword}"/>
+                <input type="text" name="keywords" th:value="${keywords != null ? keywords : ''}"/>
                 <input type="submit" value="검색"/>
                 <span>
-                    <label><input type="checkbox" name="chk" value="상품명" checked>상품명</label>
-                    <label><input type="checkbox" name="chk" value="상품설명">상품설명</label>
-                    <label><input type="checkbox" name="chk" value="상품가격">상품가격</label>
-                    <input type="text" name="min"/>원&nbsp;~&nbsp;<input type="text" name="max"/>원
+                    <label><input type="checkbox" name="chk1" th:value="true" th:checked="${chk1 == true || chk1 == '' || chk1 == null}">상품명</label>
+                    <label><input type="checkbox" name="chk2" th:value="true" th:checked="${chk2 == true}">상품설명</label>
+                    <label><input type="checkbox" name="chk3" th:value="true" th:checked="${chk3 == true}">상품가격</label>
+                    <input type="text" name="min" th:value="${min != null ? min : 0}"/>원&nbsp;~&nbsp;<input type="text" name="max" th:value="${max != null ? max : ''}"/>원
                 </span>
             </form>
             <p class="info">
@@ -45,12 +46,12 @@
 
             <!-- 정렬 메뉴 -->
             <ul class="sort">
-                <li><a th:href="@{/product/search(sort=sold,keyword=${keyword})}" th:class="${sort eq 'sold'?'on':'off'}">판매많은순</a></li>
-                <li><a th:href="@{/product/search(sort=lowprice,keyword=${keyword})}" th:class="${sort eq 'lowprice'?'on':'off'}">낮은가격순</a></li>
-                <li><a th:href="@{/product/search(sort=highprice,keyword=${keyword})}" th:class="${sort eq 'highprice'?'on':'off'}">높은가격순</a></li>
-                <li><a th:href="@{/product/search(sort=score,keyword=${keyword})}" th:class="${sort eq 'score'?'on':'off'}">평점높은순</a></li>
-                <li><a th:href="@{/product/search(sort=review,keyword=${keyword})}" th:class="${sort eq 'review'?'on':'off'}">후기많은순</a></li>
-                <li><a th:href="@{/product/search(sort=rdate,keyword=${keyword})}" th:class="${sort eq 'rdate'?'on':'off'}">최근등록순</a></li>
+                <li><a th:href="@{/product/search(sort=sold,keyword=${keyword},keywords=${keywords},chk1=${chk1}, chk2=${chk2}, chk3=${chk3},min=${min},max=${max})}" th:class="${sort eq 'sold'?'on':'off'}">판매많은순</a></li>
+                <li><a th:href="@{/product/search(sort=lowprice,keyword=${keyword},keywords=${keywords},chk1=${chk1}, chk2=${chk2}, chk3=${chk3},min=${min},max=${max})}" th:class="${sort eq 'lowprice'?'on':'off'}">낮은가격순</a></li>
+                <li><a th:href="@{/product/search(sort=highprice,keyword=${keyword},keywords=${keywords},chk1=${chk1}, chk2=${chk2}, chk3=${chk3},min=${min},max=${max})}" th:class="${sort eq 'highprice'?'on':'off'}">높은가격순</a></li>
+                <li><a th:href="@{/product/search(sort=score,keyword=${keyword},keywords=${keywords},chk1=${chk1}, chk2=${chk2}, chk3=${chk3},min=${min},max=${max})}" th:class="${sort eq 'score'?'on':'off'}">평점높은순</a></li>
+                <li><a th:href="@{/product/search(sort=review,keyword=${keyword},keywords=${keywords},chk1=${chk1}, chk2=${chk2}, chk3=${chk3},min=${min},max=${max})}" th:class="${sort eq 'review'?'on':'off'}">후기많은순</a></li>
+                <li><a th:href="@{/product/search(sort=rdate,keyword=${keyword},keywords=${keywords},chk1=${chk1}, chk2=${chk2}, chk3=${chk3},min=${min},max=${max})}" th:class="${sort eq 'rdate'?'on':'off'}">최근등록순</a></li>
             </ul>
 
             <!-- 검색목록 -->
@@ -88,18 +89,18 @@
             <div class="paging">
                 <th:block th:if="${pageGroup[0]>1}">
                         <span class="prev">
-                            <a th:href="@{/product/search(sort=${sort},pg=${pageGroup[0]-1},keyword=${keyword})}"><&nbsp;이전</a>
+                            <a th:href="@{/product/search(sort=${sort},pg=${pageGroup[0]-1},keyword=${keyword},keywords=${keywords},chk1=${chk1}, chk2=${chk2}, chk3=${chk3},min=${min},max=${max})}"><&nbsp;이전</a>
                         </span>
                 </th:block>
                 <span class="num">
                         <th:block th:each="num:${#numbers.sequence(pageGroup[0], pageGroup[1])}">
-                            <a th:href="@{/product/search(sort=${sort},pg=${num},keyword=${keyword})}"
+                            <a th:href="@{/product/search(sort=${sort},pg=${num},keyword=${keyword},keywords=${keywords},chk1=${chk1}, chk2=${chk2}, chk3=${chk3},min=${min},max=${max})}"
                                th:class="${num == currentPage ? 'on':'off'}">[[${num}]]</a>
                         </th:block>
                     </span>
                 <th:block th:if="${pageGroup[1]<lastPageNum}">
                         <span class="next">
-                            <a th:href="@{/product/search(sort=${sort},pg=${pageGroup[1]+1},keyword=${keyword})}">다음&nbsp;></a>
+                            <a th:href="@{/product/search(sort=${sort},pg=${pageGroup[1]+1},keyword=${keyword},keywords=${keywords},chk1=${chk1}, chk2=${chk2}, chk3=${chk3},min=${min},max=${max})}">다음&nbsp;></a>
                         </span>
                 </th:block>
             </div>
@@ -109,7 +110,7 @@
 
         </main>
         <th:block th:replace="~{fragment/footer_fragment::mainFooter}"></th:block>
-        <button type="button" id="top">상단이동</button>
+        <th:block th:replace="~{fragment/main_fragment::scrollToTop}"></th:block>
     </div>
     </body>
 </html>

@@ -5,7 +5,8 @@
 -->
 <!-- 2023/02/20 // 심규영 // 마이페이지 헤더,푸터 등등 중복 처리 -->
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <title>케이마켓::대한민국 1등 온라인 쇼핑몰</title>
     <th:block th:replace="~{fragment/head_fragment::basicHead}"></th:block>
@@ -37,13 +38,15 @@
                                 <th>확인/신청</th>
                             </tr>
                             <tr th:each="orderVO:${orderVOs}">
+                                <input type="hidden" name="productNo" th:value="${orderVO.prodNo}">
                                 <td class="date" th:text="${#strings.substring(orderVO.ordDate,0,11)}">2022-12-13</td>
 
                                 <td class="info">
-                                    <a href="#" class="thumb"><img th:src="|@{/}thumb/${orderVO.prodCate1}/${orderVO.prodCate2}/${orderVO.thumb1}|" alt=""></a>
+                                    <a href="#" class="thumb"><img th:src="|@{/}thumb/${orderVO.prodCate1}/${orderVO.prodCate2}/${orderVO.thumb1}|" alt="thumb1" style="width: 80px;"></a>
                                     <ul>
+                                        <li class="productSellerUid" style="display: none;" th:text="${orderVO.uid}"></li>
                                         <li class="company"><a href="#" th:text="${orderVO.company}">상호명</a></li>
-                                        <li class="prodName"><a href="#" th:text="${orderVO.prodName}">상품명</a></li>
+                                        <li class="prodName"><a th:href="@{/product/view(cate1=${orderVO.prodCate1},cate2=${orderVO.prodCate2},prodNo=${orderVO.prodNo})}" th:text="${orderVO.prodName}">상품명</a></li>
                                         <li class="orderNo">수량 : <span class="prodCount" th:text="${orderVO.count}">1</span>개 / 주문번호 : <a href="#" th:text="${orderVO.ordNo}"></a></li>
                                         <li class="prodPrice" th:text="${#numbers.formatInteger(orderVO.total, 1, 'COMMA')}">34,000</li>
                                     </ul>
@@ -85,7 +88,10 @@
 
                                 <td th:text="${pointVO.ordNo}">2022121001</td>
                                 <td th:text="${pointVO.point}">340</td>
-                                <td>상품 구매</td>
+
+                                <td th:if="${pointVO.point gt 0}">상품 구매 확정</td>
+                                <td th:if="${pointVO.point lt 0}">상품 구매</td>
+
                                 <td th:text="${pointVO.lastDateString}">2024-12-10</td>
                             </tr>
                         </table>
@@ -93,7 +99,7 @@
 
                     <article class="review">
                         <h3>상품평</h3>
-                        <a href="#" class="more">더보기</a>
+                        <a th:href="@{/my/review}" class="more">더보기</a>
                         <table>
                             <tr>
                                 <th>번호</th>
@@ -102,47 +108,19 @@
                                 <th>평점</th>
                                 <th>작성일</th>
                             </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>상품명</td>
-                                <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
-                                <td><span class="rating star1">상품평</span></td>
-                                <td>2022-12-10</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>상품명</td>
-                                <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
-                                <td><span class="rating star2">상품평</span></td>
-                                <td>2022-12-10</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>상품명</td>
-                                <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
-                                <td><span class="rating star3">상품평</span></td>
-                                <td>2022-12-10</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>상품명</td>
-                                <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
-                                <td><span class="rating star4">상품평</span></td>
-                                <td>2022-12-10</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>상품명</td>
-                                <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
-                                <td><span class="rating star5">상품평</span></td>
-                                <td>2022-12-10</td>
+                            <tr th:each="reviewVO:${reviewVOs}">
+                                <td th:text="${reviewVO.revNo}">1</td>
+                                <td th:text="${reviewVO.prodName}">상품명</td>
+                                <td th:text="${reviewVO.content}">배송이 빠릅니다. 잘 사용하겠습니다.</td>
+                                <td><span class="rating" th:classappend="${'star' + reviewVO.rating}">상품평</span></td>
+                                <td th:text="${#strings.substring(reviewVO.rdate, 0, 11)}">2022-12-10</td>
                             </tr>
                         </table>
                     </article>
 
                     <article class="qna">
                         <h3>문의내역</h3>
-                        <a href="#" class="more">더보기</a>
+                        <a th:href="@{/my/qna}" class="more">더보기</a>
                         <table>
                             <tr>
                                 <th>번호</th>
@@ -207,7 +185,7 @@
                     <button class="btnClose">X</button>
                 </nav>
                 <section>
-                    <table border="0">
+                    <table>
                         <tr>
                             <th>판매자 등급</th>
                             <td class="level">파워딜러</td>
@@ -264,10 +242,10 @@
                     <h1>주문상세</h1>
                     <button class="btnClose">X</button>
                 </nav>
-                <section>
+                <section style="height:700px;overflow:auto;">
                     <article class="order">
                         <h3>주문정보</h3>
-                        <table border="0">
+                        <table>
                             <tr>
                                 <th>날짜</th>
                                 <th>상품정보</th>
@@ -343,33 +321,34 @@
                 </nav>
                 <section>
                     <form action="#">
-                        <table border="0">
+                        <input type="hidden" name="pqnaReUid">
+                        <table>
                             <tr>
                                 <th>문의종류</th>
-                                <td class="kind">
-                                    <label><input type="radio" name="kind"/>상품</label>
-                                    <label><input type="radio" name="kind"/>배송</label>
-                                    <label><input type="radio" name="kind"/>반품/취소</label>
-                                    <label><input type="radio" name="kind"/>교환</label>
-                                    <label><input type="radio" name="kind"/>기타</label>
+                                <td class="pqnaCate">
+                                    <label><input type="radio" name="pqnaCate" value="10"/>상품</label>
+                                    <label><input type="radio" name="pqnaCate" value="11"/>배송</label>
+                                    <label><input type="radio" name="pqnaCate" value="12"/>반품/취소</label>
+                                    <label><input type="radio" name="pqnaCate" value="13"/>교환</label>
+                                    <label><input type="radio" name="pqnaCate" value="14"/>기타</label>
                                 </td>
                             </tr>
                             <tr>
                                 <th>Email</th>
                                 <td class="email">
-                                    <input type="text" name="email" value="chh**@gmail.com"/>
+                                    <input type="text" name="pqnaEmail" th:value="${user.email}"/>
                                 </td>
                             </tr>
                             <tr>
                                 <th>제목</th>
                                 <td class="title">
-                                    <input type="text" name="title" placeholder="제목입력"/>
+                                    <input type="text" name="pqnaTitle" placeholder="제목입력"/>
                                 </td>
                             </tr>
                             <tr>
                                 <th>내용</th>
                                 <td class="content">
-                                    <textarea name="content" placeholder="내용입력"></textarea>
+                                    <textarea name="pqnaContent" placeholder="내용입력"></textarea>
                                 </td>
                             </tr>
                         </table>
@@ -389,6 +368,7 @@
 
         <!-- 수취확인 팝업 -->
         <div id="popReceive" class="popup">
+            <input type="hidden" name="ordNo">
             <div>
                 <nav>
                     <h1>수취확인</h1>
@@ -419,6 +399,8 @@
                 </nav>
                 <section>
                     <form action="#">
+                        <input type="hidden" name="reviewProdNo">
+                        <input type="hidden" name="reviewordNo">
                         <table border="0">
                             <tr>
                                 <th>상품명</th>
@@ -426,6 +408,7 @@
                             </tr>
                             <tr>
                                 <th>만족도</th>
+                                <input type="hidden" name="starRating">
                                 <td class="rating">
                                     <div class="my-rating"></div>
                                 </td>

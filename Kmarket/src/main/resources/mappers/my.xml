@@ -5,44 +5,181 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.kmarket.dao.MyDAO">
     <!-- create -->
-    <!-- read -->
 
+    <!-- 2023/02/23 // 심규영 // 문의하기 작성 쿼리문 -->
+    <insert id="insertProductQna">
+        INSERT INTO `km_product_qna` SET
+            `pqnaCate` = ${pqnaCate},
+            `pqnaEnUid` = #{pqnaEnUid},
+            `pqnaReUid` = #{pqnaReUid},
+            `pqnaEmail` = #{pqnaEmail},
+            `pqnaTitle` = #{pqnaTitle},
+            `pqnaContent` = #{pqnaContent},
+            `pqnaRdate` = NOW(),
+            `pqnaRegip` = #{pqnaRegip};
+    </insert>
+
+    <!-- 2023/02/23 // 심규영 // 수취확인 포인트 적립 기록 쿼리문 -->
+    <insert id="insertSaveMemberPoint">
+        INSERT INTO km_member_point(uid, ordNo, `point`, pointDate)
+        SELECT
+            b.ordUid AS uid,
+            b.ordNo AS ordNo,
+            b.`savePoint` AS `point`,
+            NOW()
+        FROM km_product_order AS b WHERE b.ordNo = #{ordNo} AND b.ordUid = #{uid};
+    </insert>
+
+    <!-- 2023/02/23 // 심규영 // 리뷰 작성 쿼리문 -->
+    <insert id="insertProductReview">
+        INSERT INTO km_product_review(prodNo, ordNo, uid, content, rating, regip, rdate)
+        SELECT
+            b.prodNo,
+            b.ordNo,
+            #{uid},
+            #{review},
+            ${starRating},
+            #{regip},
+            NOW()
+        FROM km_product_order_item AS b WHERE b.ordNo = ${ordNo} AND b.prodNo = ${prodNo};
+    </insert>
+
+    <!-- read -->
+    <!-- 23/02/21 // 김재준 // 마이페이지 qna 글 목록 불러오기 -->
     <select id="selectQnaArticles" resultType="kr.co.kmarket.vo.Cs_QnaVO">
         select a.*, b.cate1Name from `km_cs_qna` as a
         join `km_cs_cate1` as b
         on a.qnaCate1 = b.cate1
         JOIN `km_cs_cate2` AS c
         ON a.qnaCate2 = c.cate2 and b.cate1 = c.cate1
+        where a.uid = #{uid}
         order by `qnaNo` desc
         limit #{start}, 10;
     </select>
 
+    <!-- 23/02/21 // 김재준 // 마이페이지 qna 글 갯수 count -->
     <select id="selectCountTotal" resultType="int">
         select count(`qnaNo`) from `km_cs_qna` as a
         join `km_cs_cate1` as b
         on a.qnaCate1 = b.cate1
+        where a.uid =#{uid};
     </select>
 
+    <!-- 23/02/21 // 김재준 // 마이페이지 리뷰 글 목록 불러오기 -->
     <select id="selectReviews" resultType="kr.co.kmarket.vo.product_reviewVO">
-        SELECT a.*, b.prodName FROM `km_product_review` as a
+        SELECT a.*, b.prodName, b.prodCate1, b.prodCate2 FROM `km_product_review` as a
         join `km_product` as b
         on a.prodNo = b.prodNo
+        where a.uid = #{uid}
         ORDER BY `revNo` DESC LIMIT #{start}, 5;
     </select>
 
+    <!-- 23/02/21 // 김재준 // 마이페이지 리뷰 글 갯수 count -->
     <select id="getCountTotalForReview" resultType="int">
-        SELECT COUNT(`revNo`) FROM `km_product_review` WHERE `revNo` = `revNo`;
+        SELECT COUNT(`revNo`) FROM `km_product_review` WHERE `uid` =#{uid};
     </select>
 
-    <!-- 2023/02/21 // 김재준 // 상품 view 가져오기 -->
-    <select id="selectProduct" resultType="kr.co.kmarket.vo.productVO">
-        select * from `km_product` where `prodNo`=#{prodNo};
+    <!-- 23/02/21 // 김재준 // 리뷰글 상품명 태그 클릭 시 해당 product/view로 이동 -->
+    <select id="selectProducts" resultType="kr.co.kmarket.vo.productVO">
+    SELECT a.* FROM `km_product` as a
+        join `km_product_review` as b
+        on a.prodNo = b.prodNo
+        WHERE a.prodCate1=a.prodCate1 and
+        a.prodCate2=a.prodCate2 and
+        a.prodNo = b.prodNo LIMIT #{start}, 5;
     </select>
 
-    <!-- 2023/02/22 // 김재준 // 상품 조회수 + 1 -->
-    <update id="updateProductHit">
-        UPDATE `km_product` SET `hit` = `hit`+ 1 WHERE `prodNo`=#{prodNo};
-    </update>
+    <!-- 2023/02/22 // 김재준 // 전체 주문 내역 불러오기 -->
+    <select id="selectMyOrdered" resultType="kr.co.kmarket.vo.product_orderVO">
+        SELECT
+        a.ordDate,
+        c.company,
+        c.prodName,
+        b.`count`,
+        a.ordNo,
+        b.total,
+        a.ordComplete,
+        c.prodCate1,
+        c.prodCate2,
+        c.thumb1,
+        c.uid
+        FROM km_product_order AS a
+        JOIN km_product_order_item AS b ON a.ordNo =b.ordNo
+        JOIN km_product AS c ON c.prodNo = b.prodNo
+        WHERE a.ordUid = #{uid}
+        <if test="date == null">
+            AND DATE_FORMAT(a.ordDate, '%Y-%m-%d') = #{date}
+        </if>
+        <if test="date == 'week'">
+            AND DATE_FORMAT(a.ordDate, '%Y-%m-%d') BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW()
+        </if>
+        <if test="date == 'halfMonth'">
+            AND DATE_FORMAT(a.ordDate, '%Y-%m-%d') BETWEEN DATE_ADD(NOW(), INTERVAL -15 DAY) AND NOW()
+        </if>
+        <if test="date == 'month'">
+            AND DATE_FORMAT(a.ordDate, '%Y-%m-%d') BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH) AND NOW()
+        </if>
+        <if test="date == 'fourMonth'">
+            AND DATE_FORMAT(a.ordDate, '%Y-%m-%d') BETWEEN DATE_ADD(DATE_ADD(NOW(), INTERVAL -3 MONTH), INTERVAL -1 MONTH) AND DATE_ADD(NOW(), INTERVAL -3 MONTH)
+        </if>
+        <if test="date == 'threeMonth'">
+            AND DATE_FORMAT(a.ordDate, '%Y-%m-%d') BETWEEN DATE_ADD(DATE_ADD(NOW(), INTERVAL -2 MONTH), INTERVAL -1 MONTH) AND DATE_ADD(NOW(), INTERVAL -2 MONTH)
+        </if>
+        <if test="date == 'twoMonth'">
+            AND DATE_FORMAT(a.ordDate, '%Y-%m-%d') BETWEEN DATE_ADD(DATE_ADD(NOW(), INTERVAL -1 MONTH), INTERVAL -1 MONTH) AND DATE_ADD(NOW(), INTERVAL -1 MONTH)
+        </if>
+        <if test="date == 'aMonth'">
+            AND DATE_FORMAT(a.ordDate, '%Y-%m') = DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 MONTH), '%Y-%m')
+        </if>
+        <if test="date == 'thisMonth'">
+            AND DATE_FORMAT(a.ordDate, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m')
+        </if>
+        ORDER BY a.ordDate DESC
+        LIMIT #{start}, 10;
+    </select>
+
+    <!-- 23/02/22 // 김재준 // 전체 주문 내역 count -->
+    <select id="getCountTotalForOrder" resultType="int">
+        SELECT COUNT(`ordNo`) FROM `km_product_order` WHERE `ordUid` = #{uid};
+    </select>
+
+    <!-- 23/02/22 // 김재준 // 포인트 내역 불러오기 -->
+    <select id="selectMyPoint" resultType="kr.co.kmarket.vo.member_pointVO">
+        SELECT * FROM `km_member_point` WHERE `uid` = #{uid}
+        <if test="date == null">
+            AND DATE_FORMAT(`pointDate`, '%Y-%m-%d') = #{date}
+        </if>
+        <if test="date == 'week'">
+            AND DATE_FORMAT(`pointDate`, '%Y-%m-%d') BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW()
+        </if>
+        <if test="date == 'halfMonth'">
+            AND DATE_FORMAT(`pointDate`, '%Y-%m-%d') BETWEEN DATE_ADD(NOW(), INTERVAL -15 DAY) AND NOW()
+        </if>
+        <if test="date == 'month'">
+            AND DATE_FORMAT(`pointDate`, '%Y-%m-%d') BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH) AND NOW()
+        </if>
+        <if test="date == 'fourMonth'">
+            AND DATE_FORMAT(`pointDate`, '%Y-%m-%d') BETWEEN DATE_ADD(DATE_ADD(NOW(), INTERVAL -3 MONTH), INTERVAL -1 MONTH) AND DATE_ADD(NOW(), INTERVAL -3 MONTH)
+        </if>
+        <if test="date == 'threeMonth'">
+            AND DATE_FORMAT(`pointDate`, '%Y-%m-%d') BETWEEN DATE_ADD(DATE_ADD(NOW(), INTERVAL -2 MONTH), INTERVAL -1 MONTH) AND DATE_ADD(NOW(), INTERVAL -2 MONTH)
+        </if>
+        <if test="date == 'twoMonth'">
+            AND DATE_FORMAT(`pointDate`, '%Y-%m-%d') BETWEEN DATE_ADD(DATE_ADD(NOW(), INTERVAL -1 MONTH), INTERVAL -1 MONTH) AND DATE_ADD(NOW(), INTERVAL -1 MONTH)
+        </if>
+        <if test="date == 'aMonth'">
+            AND DATE_FORMAT(`pointDate`, '%Y-%m') = DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 MONTH), '%Y-%m')
+        </if>
+        <if test="date == 'thisMonth'">
+            AND DATE_FORMAT(`pointDate`, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m')
+        </if>
+        ORDER BY `pointNo` DESC LIMIT #{start}, 10;
+    </select>
+
+    <!-- 23/02/22 // 김재준 // 전체 주문 포인트 내역 count -->
+    <select id="getCountTotalForPoint" resultType="int">
+        SELECT COUNT(`pointNo`) FROM `km_member_point` WHERE `uid` = #{uid};
+    </select>
 
     <!-- 2023/02/21 // 심규영 // 최근 주문 내역 불러오기 -->
     <select id="selectMyOrder" resultType="kr.co.kmarket.vo.product_orderVO">
@@ -56,7 +193,9 @@
             a.ordComplete,
             c.prodCate1,
             c.prodCate2,
-            c.thumb1
+            c.thumb1,
+            c.uid,
+            c.prodNo
         FROM km_product_order AS a
         JOIN km_product_order_item AS b ON a.ordNo =b.ordNo
         JOIN km_product AS c ON c.prodNo = b.prodNo
@@ -75,6 +214,18 @@
         LIMIT 5;
     </select>
 
+    <!-- 2023/02/24 // 심규영 // 최근 리뷰 내역 5개 불러오는 쿼리문 -->
+    <select id="selectMyReviewList5" resultType="kr.co.kmarket.vo.product_reviewVO">
+        SELECT
+            a.*,
+            b.`prodName`
+        FROM `km_product_review` AS a
+        JOIN `km_product` AS b ON a.`prodNo` = b.`prodNo`
+        WHERE a.`uid` = #{uid}
+        ORDER BY `rdate` DESC
+        LIMIT 5;
+    </select>
+
     <!-- 2023/02/21 // 심규영 // 최근 문의내역 5개 불러오는 쿼리문 -->
     <select id="selectMyQnaList5" resultType="kr.co.kmarket.vo.Cs_QnaVO">
         SELECT
@@ -89,6 +240,79 @@
         LIMIT 5;
     </select>
 
+    <!-- 2023/02/22 // 심규영 // 판매자 정보 가져오는 쿼리문 -->
+    <select id="selectGetCompanyStatus" resultType="kr.co.kmarket.vo.memberVO">
+        SELECT * FROM km_member AS a
+        WHERE a.uid = #{uid};
+    </select>
+
+    <!-- 2023/02/22 // 심규영 // 주문 정보 가져오는 쿼리문 -->
+    <select id="selectGetOrderStatus" resultType="kr.co.kmarket.vo.product_orderVO">
+        SELECT
+            a.ordDate,
+            a.ordNo,
+            c.prodCate1,
+            c.prodCate2,
+            c.thumb1,
+            c.prodName,
+            b.`count`,
+            c.price,
+            FLOOR(b.`count` * b.price) AS countPrice,
+            FLOOR((b.`count` * b.price) * (b.discount / 100)) AS disPrice,
+            b.total,
+            a.ordComplete,
+            a.recipName,
+            a.recipHp,
+            a.recipZip,
+            a.recipAddr1,
+            a.recipAddr2
+        FROM km_product_order AS a
+        JOIN km_product_order_item AS b ON a.ordNo = b.ordNo
+        JOIN km_product AS c ON b.prodNo = c.prodNo
+        WHERE a.ordNo = #{ordNo};
+    </select>
+
+    <!-- 2023/02/23 // 이해빈 // 쿠폰 목록 가져오기 -->
+    <select id="selectCoupons" resultType="kr.co.kmarket.vo.CouponVO">
+        select * from `km_coupon` where `uid` = #{uid};
+    </select>
+
+    <!-- 2023/02/23 // 이해빈 // 사용가능한 쿠폰 갯수 가져오기 -->
+    <select id="getCouponCount" resultType="int">
+        SELECT COUNT(`couponId`) FROM `km_coupon` WHERE `uid`=#{uid} AND `couponStatus` = 1 AND `couponEdate` > NOW();
+    </select>
+
     <!-- upload -->
+
+
+    <!-- 2023/02/23 // 이해빈 // 회원정보 업데이트 -->
+    <update id="updateMember">
+        UPDATE `km_member`
+        SET
+        `email` = #{email},
+        `hp` = #{hp},
+        `zip` = #{zip},
+        `addr1` = #{addr1},
+        `addr2` = #{addr2}
+        WHERE `uid` = #{uid}
+    </update>
+
+    <!-- 2023/02/22 // 심규영 // 상품 수취 업테이트 및 포인트 적립 -->
+    <update id="updateProductOrderAndPoint">
+        UPDATE km_product_order AS a, km_member AS b
+        SET
+            a.ordComplete = 5,
+            b.`point` = b.`point` + a.`savePoint`
+        WHERE a.ordNo = #{ordNo} AND a.ordUid = #{uid} AND a.ordComplete != 5 AND b.uid = a.ordUid;
+    </update>
+
+    <!-- 2023/02/23 // 심규영 // 상품 리뷰 점수 및 리뷰 갯수 수정 -->
+    <update id="updateProductScoreAndReivew">
+        UPDATE km_product SET
+            score = score + ${starRating},
+            review = review + 1
+        WHERE prodNo = ${prodNo}
+    </update>
+
     <!-- delete -->
 </mapper>

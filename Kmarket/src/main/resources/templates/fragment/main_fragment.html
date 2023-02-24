@@ -119,5 +119,16 @@
 
     </section>
 
+    <!-- 2023/02/24 // 이해빈 상단이동 fragment -->
+    <th:block th:fragment="scrollToTop">
+        <button type="button" id="top">상단이동</button>
+        <script>
+            $('#top').click(function(){
+                window.scrollTo({top: 0, behavior: "smooth"});
+            });
+        </script>
+    </th:block>
+
+
 </body>
 </html>

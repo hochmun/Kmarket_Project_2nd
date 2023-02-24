@@ -2,6 +2,7 @@ package kr.co.kmarket.service;
 
 import kr.co.kmarket.dao.ProductDAO;
 import kr.co.kmarket.dto.CartDTO;
+import kr.co.kmarket.dto.SearchDTO;
 import kr.co.kmarket.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
@@ -41,6 +42,24 @@ public class ProductService {
     }
 
     /**
+     * 상품 2차 검색 list
+     * @since 23/02/21
+     * @author 이해빈
+     */
+    public List<productVO> selectProductsForSearch2(String sort, int start, SearchDTO dto){
+        return dao.selectProductsForSearch2(sort, start, dto);
+    }
+
+    /**
+     * 상품 검색 list
+     * @since 23/02/21
+     * @author 이해빈
+     */
+    public List<productVO> selectProductsForSearch2(HashMap<String, Object> map){
+        return dao.selectProductsForSearch2(map);
+    }
+
+    /**
      * 상품 카테고리명 가져오기 service
      * @since 23/02/09
      * @author 이해빈
@@ -65,9 +84,17 @@ public class ProductService {
     public int getCountTotalForSearch(String keyword) {
         return dao.getCountTotalForSearch(keyword);
     }
+
+    /**
+     * 상품 2차 검색결과 갯수
+     * @since 23/02/22
+     * @author 이해빈
+     */
+    public int getCountTotalForSearch2(SearchDTO dto) {
+        return dao.getCountTotalForSearch2(dto);
+    }
     
-    
-    
+
 
     /**
      * 상품 가져오기
@@ -118,7 +145,7 @@ public class ProductService {
      */
     public int deleteCarts(HashMap<String, Object> checkboxArr){
         return dao.deleteCarts(checkboxArr);
-    };
+    }
 
 
     /**
@@ -146,7 +173,7 @@ public class ProductService {
         orderinfo.put("ordNo", ordNo);
 
         // 포인트 테이블 업데이트
-        result += dao.insertSavePoint(orderinfo);
+        // result += dao.insertSavePoint(orderinfo);
 
         // 사용한 포인트가 있을 경우
         if(usedPoint > 0){
@@ -182,9 +209,9 @@ public class ProductService {
 
 
         // 모든 테이블 업데이트가 정상적으로 실행되었을 경우 주문번호를 리턴, 그렇지 않으면 0 리텅
-        if(size > 0 && result == size * 2 + 3){ // 장바구니 -> 주문
+        if(size > 0 && result == size * 2 + 2){ // 장바구니 -> 주문
             return ordNo;
-        }else if(size == 1 && result == 4){ // view -> 주문
+        }else if(size == 1 && result == 3){ // view -> 주문
             return ordNo;
         }else{
             return 0;

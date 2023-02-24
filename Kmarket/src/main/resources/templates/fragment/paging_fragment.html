@@ -76,6 +76,30 @@
             <a th:href="@{/my/review(pg=${groups[1] + 1})}" class="next">다음</a>
         </th:block>
     </p>
+    <!-- 2023/02/21 // 김재준 // my/ordered 페이징 -->
+    <p class="page" th:fragment="myOrderedPaging">
+        <th:block th:if="${groups[0] > 1}">
+            <a th:href="@{/my/ordered(pg=${groups[0]- 1})}" class="prev">이전</a>
+        </th:block>
+        <th:block th:each="num:${#numbers.sequence(groups[0], groups[1])}">
+            <a th:href="@{/my/ordered(pg=${num})}" th:class="${num == currentPage ? 'on' : 'off'}">[[${num}]]</a>
+        </th:block>
+        <th:block th:if="${groups[1] < lastPage}">
+            <a th:href="@{/my/ordered(pg=${groups[1] + 1})}" class="next">다음</a>
+        </th:block>
+    </p>
+    <!-- 2023/02/21 // 김재준 // my/point 페이징 -->
+    <p class="page" th:fragment="myPointPaging">
+        <th:block th:if="${groups[0] > 1}">
+            <a th:href="@{/my/point(pg=${groups[0]- 1})}" class="prev">이전</a>
+        </th:block>
+        <th:block th:each="num:${#numbers.sequence(groups[0], groups[1])}">
+            <a th:href="@{/my/point(pg=${num})}" th:class="${num == currentPage ? 'on' : 'off'}">[[${num}]]</a>
+        </th:block>
+        <th:block th:if="${groups[1] < lastPage}">
+            <a th:href="@{/my/point(pg=${groups[1] + 1})}" class="next">다음</a>
+        </th:block>
+    </p>
 
 </body>
 </html>

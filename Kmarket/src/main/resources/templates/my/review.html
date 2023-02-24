@@ -1,6 +1,7 @@
 <!-- 2023/02/21 // 김재준 // 마이페이지 헤더,푸터 등등 중복 처리 -->
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <title>케이마켓::대한민국 1등 온라인 쇼핑몰</title>
     <th:block th:replace="~{fragment/head_fragment::basicHead}"></th:block>
@@ -30,7 +31,7 @@
                             </tr>
                             <tr th:each="rev:${reviews}">
                                 <td class="no">[[${rev.revNo}]]</td>
-                                <td class="prodName"><a href="#">[[${(rev.prodName).substring(0, 8)}]]...</a></td>
+                                <td class="prodName"><a th:href="@{/product/view(cate1=${rev.prodCate1},cate2=${rev.prodCate2},prodNo=${rev.prodNo})}" target="_blank">[[${(rev.prodName).substring(0, 8)}]]...</a></td>
                                 <td class="content">[[${rev.content}]]</td>
                                 <td class="score"><span th:class="'rating star'+${rev.rating}"></span></td>
                                 <td class="date">[[${rev.rdate}]]</td>

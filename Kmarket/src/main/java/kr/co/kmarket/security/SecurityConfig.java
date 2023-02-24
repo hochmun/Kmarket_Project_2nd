@@ -28,6 +28,11 @@ public class SecurityConfig {
 		// 인가(접근권한) 설정
 		// 전체 접근 가능
 		http.authorizeHttpRequests().antMatchers("/", "/index").permitAll();
+
+		// 일반 회원, 판매자 회원, 관리자 접근 가능
+		// 모든 마이 페이지
+		http.authorizeHttpRequests().antMatchers("/my/**").hasAnyRole("1", "2", "5");
+
 		// 판매자 회원, 관리자 만 접근 가능
 		http.authorizeHttpRequests()
 				.antMatchers("/admin/product/**","/admin/index")
@@ -68,7 +73,6 @@ public class SecurityConfig {
 
 		return http.build();
 	}
-	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();

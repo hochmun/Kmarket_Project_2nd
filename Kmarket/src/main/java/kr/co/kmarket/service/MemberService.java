@@ -55,6 +55,7 @@ public class MemberService {
         return dao.search_pw(vo);
     }
 
+
     public member_termsVO selectTerms(){
         return dao.selectTerms();
     }

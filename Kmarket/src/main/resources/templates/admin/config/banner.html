@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{fragment/head_fragment::basicHead}"></th:block>
+    <th:block th:replace="~{fragment/head_fragment::adminHead}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+    <script th:src="@{/js/admin/config/banner.js}"></script>
+</head>
+<body>
+    <div id="admin-wrapper">
+        <header th:replace="~{fragment/header_fragment::adminHeader}"></header>
+        <main>
+            <aside th:replace="~{fragment/aside_fragment::adminAside}"></aside>
+            <section id="admin-config-banner">
+                <nav>
+                    <h3>배너관리</h3>
+                    <p>
+                        HOME > 환경설정 > <strong>배너관리</strong>
+                    </p>
+                </nav>
+                
+                <article id="tabs">
+                    <ul>
+                        <li><a href="#tabs1">메인 상단 배너</a></li>
+                        <li><a href="#tabs2">메인 슬라이더 배너</a></li>
+                        <li><a href="#tabs3">상품 상세보기 배너</a></li>
+                        <li><a href="#tabs4">회원 로그인 배너</a></li>
+                        <li><a href="#tabs5">마이페이지 배너</a></li>
+                    </ul>
+
+                    <!-- 메인 상단 배너-->
+                    <section id="tabs1">
+                        <h4>메인 상단배너</h4>
+                        <p>
+                            쇼핑몰 메인 상단에 출력되는 배너입니다.
+                        </p>                    
+                        <table>
+                            <tr>
+                                <th><input type="checkbox" name="all"/></th>
+                                <th>배너번호</th>
+                                <th>이미지</th>                            
+                                <th>배너정보</th>
+                                <th>배너위치</th>
+                                <th>시작날짜</th>
+                                <th>종료날짜</th>
+                                <th>시작시간</th>
+                                <th>종료시간</th>
+                                <th>조회</th>
+                                <th>관리</th>
+                            </tr>
+
+                            <tr th:each="banner, i:${map.MAIN1}">
+                                <td><input type="checkbox" name="배너번호" th:value="${banner.bannerNo}"/></td>
+                                <td>[[${banner.bannerNo}]]</td>
+                                <td><img src="/img/topBanner1.png" class="thumb"></td>                            
+                                <td>
+                                    <ul>
+                                        <li class="name">[[${banner.bannerName}]]</li>
+                                        <li class="size">크기 : [[${banner.bannerSize}]]</li>
+                                        <li class="color">배경색 : [[${banner.bannerColor}]]</li>
+                                        <li class="link"><a th:href="${banner.bannerLink}">배너링크</a></li>
+                                    </ul>
+                                </td>
+                                <td>메인 - 상단</td>
+                                <td>[[${banner.bannerSdate}]]</td>
+                                <td>[[${banner.bannerEdate}]]</td>
+                                <td>[[${banner.bannerStime.substring(0,5)}]]</td>
+                                <td>[[${banner.bannerEtime.substring(0,5)}]]</td>
+                                <td>[[${banner.bannerHit}]]</td>
+                                <td>
+                                    <input type="hidden" name="bannerStatus" th:value="${banner.bannerStatus}">
+                                    <a href="#" th:onclick="'bannerStatus(' + ${banner.bannerNo} + ', 0)'">[비활성]</a>
+                                    <a href="#" th:onclick="'bannerStatus(' + ${banner.bannerNo} + ', 1)'">[활성]</a>
+                                </td>
+                            </tr>
+                        </table>
+                        <input type="button" class="btnNegative" value="선택삭제"/>
+                        <input type="button" class="btnPositive btnRegister" value="등록하기"/>
+                    
+                    </section>
+
+                    <!-- 메인 슬라이더 배너-->
+                    <section id="tabs2">
+                        <h4>메인 슬라이더배너</h4>
+                        <p>
+                            쇼핑몰 메인 슬라이더 영역에 노출되는 배너입니다.
+                        </p>                    
+                        <table>
+                            <tr>
+                                <th><input type="checkbox" name="all"/></th>
+                                <th>배너번호</th>
+                                <th>이미지</th>                            
+                                <th>배너정보</th>
+                                <th>배너위치</th>
+                                <th>시작날짜</th>
+                                <th>종료날짜</th>
+                                <th>시작시간</th>
+                                <th>종료시간</th>
+                                <th>조회</th>
+                                <th>관리</th>
+                            </tr>
+                            <tr th:each="banner, i:${map.MAIN2}">
+                                <td><input type="checkbox" name="배너번호" th:value="${banner.bannerNo}"/></td>
+                                <td>[[${banner.bannerNo}]]</td>
+                                <td><img src="/img/slider_item1.jpg" class="thumb"></td>                            
+                                <td>
+                                    <ul>
+                                        <li class="name">[[${banner.bannerName}]]</li>
+                                        <li class="size">크기 : [[${banner.bannerSize}]]</li>
+                                        <li class="color">배경색 : [[${banner.bannerColor}]]</li>
+                                        <li class="link"><a th:href="${banner.bannerLink}">배너링크</a></li>
+                                    </ul>                                
+                                </td>
+                                <td>메인 - 슬라이더</td>
+                                <td>[[${banner.bannerSdate}]]</td>
+                                <td>[[${banner.bannerEdate}]]</td>
+                                <td>[[${banner.bannerStime.substring(0,5)}]]</td>
+                                <td>[[${banner.bannerEtime.substring(0,5)}]]</td>
+                                <td>[[${banner.bannerHit}]]</td>
+                                <td>
+                                    <a href="#" th:onclick="'bannerStatus(' + ${banner.bannerNo} + ', 0)'">[비활성]</a>
+                                    <a href="#" th:onclick="'bannerStatus(' + ${banner.bannerNo} + ', 1)'">[활성]</a>
+                                </td>
+                            </tr>
+                        </table>
+                        <input type="button" class="btnNegative" value="선택삭제"/>
+                        <input type="button" class="btnPositive btnRegister" value="등록하기"/>
+                    </section>
+
+                    <!-- 상품 상세보기 배너-->
+                    <section id="tabs3">
+                        <h4>상품 상세보기 배너</h4>
+                        <p>
+                            상품 상세보기 상품수량 입력 상단부에 노출되는 배너입니다.
+                        </p>                    
+                        <table>
+                            <tr>
+                                <th><input type="checkbox" name="all"/></th>
+                                <th>배너번호</th>
+                                <th>이미지</th>                            
+                                <th>배너정보</th>
+                                <th>배너위치</th>
+                                <th>시작날짜</th>
+                                <th>종료날짜</th>
+                                <th>시작시간</th>
+                                <th>종료시간</th>
+                                <th>조회</th>
+                                <th>관리</th>
+                            </tr>
+                            <tr th:each="banner, i:${map.PRODUCT1}">
+                                <td><input type="checkbox" name="배너번호" th:value="${banner.bannerNo}"/></td>
+                                <td>[[${banner.bannerNo}]]</td>
+                                <td><img src="/img/vip_plcc_banner.png" class="thumb"></td>                            
+                                <td>
+                                    <ul>
+                                        <li class="name">[[${banner.bannerName}]]</li>
+                                        <li class="size">크기 : [[${banner.bannerSize}]]</li>
+                                        <li class="color">배경색 : [[${banner.bannerColor}]]</li>
+                                        <li class="link"><a th:href="${banner.bannerLink}">배너링크</a></li>
+                                    </ul>                                
+                                </td>
+                                <td>상품 - 상세보기</td>
+                                <td>[[${banner.bannerSdate}]]</td>
+                                <td>[[${banner.bannerEdate}]]</td>
+                                <td>[[${banner.bannerStime.substring(0,5)}]]</td>
+                                <td>[[${banner.bannerEtime.substring(0,5)}]]</td>
+                                <td>[[${banner.bannerHit}]]</td>
+                                <td>
+                                    <a href="#" th:onclick="'bannerStatus(' + ${banner.bannerNo} + ', 0)'">[비활성]</a>
+                                    <a href="#" th:onclick="'bannerStatus(' + ${banner.bannerNo} + ', 1)'">[활성]</a>
+                                </td>
+                            </tr>
+                        </table>
+                        <input type="button" class="btnNegative" value="선택삭제"/>
+                        <input type="button" class="btnPositive btnRegister" value="등록하기"/>
+                    </section>
+
+                    <!-- 회원 로그인 배너-->
+                    <section id="tabs4">
+                        <h4>회원 로그인 배너</h4>
+                        <p>
+                            회원 로그인 폼 오른쪽에 노출되는 배너입니다.
+                        </p>                    
+                        <table>
+                            <tr>
+                                <th><input type="checkbox" name="all"/></th>
+                                <th>배너번호</th>
+                                <th>이미지</th>                            
+                                <th>배너정보</th>
+                                <th>배너위치</th>
+                                <th>시작날짜</th>
+                                <th>종료날짜</th>
+                                <th>시작시간</th>
+                                <th>종료시간</th>
+                                <th>조회</th>
+                                <th>관리</th>
+                            </tr>
+                            <tr th:each="banner, i:${map.MEMBER1}">
+                                <td><input type="checkbox" name="배너번호" th:value="${banner.bannerNo}"/></td>
+                                <td>[[${banner.bannerNo}]]</td>
+                                <td><img src="/member/img/member_login_banner.jpg" class="thumb"></td>                            
+                                <td>
+                                    <ul>
+                                        <li class="name">[[${banner.bannerName}]]</li>
+                                        <li class="size">크기 : [[${banner.bannerSize}]]</li>
+                                        <li class="color">배경색 : [[${banner.bannerColor}]]</li>
+                                        <li class="link"><a th:href="${banner.bannerLink}">배너링크</a></li>
+                                    </ul>                                
+                                </td>
+                                <td>회원 - 로그인</td>
+                                <td>[[${banner.bannerSdate}]]</td>
+                                <td>[[${banner.bannerEdate}]]</td>
+                                <td>[[${banner.bannerStime.substring(0,5)}]]</td>
+                                <td>[[${banner.bannerEtime.substring(0,5)}]]</td>
+                                <td>[[${banner.bannerHit}]]</td>
+                                <td>
+                                    <a href="#" th:onclick="'bannerStatus(' + ${banner.bannerNo} + ', 0)'">[비활성]</a>
+                                    <a href="#" th:onclick="'bannerStatus(' + ${banner.bannerNo} + ', 1)'">[활성]</a>
+                                </td>
+                            </tr>
+                        </table>
+                        <input type="button" class="btnNegative" value="선택삭제"/>
+                        <input type="button" class="btnPositive btnRegister" value="등록하기"/>
+                    </section>
+
+                    <!-- 마이페이지 배너-->
+                    <section id="tabs5">
+                        <h4>마이페이지 배너</h4>
+                        <p>
+                            마이페이지 하위 모든 페이지에서 노출되는 배너입니다.
+                        </p>                    
+                        <table>
+                            <tr>
+                                <th><input type="checkbox" name="all"/></th>
+                                <th>배너번호</th>
+                                <th>이미지</th>                            
+                                <th>배너정보</th>
+                                <th>배너위치</th>
+                                <th>시작날짜</th>
+                                <th>종료날짜</th>
+                                <th>시작시간</th>
+                                <th>종료시간</th>
+                                <th>조회</th>
+                                <th>관리</th>
+                            </tr>
+                            <tr th:each="banner, i:${map.MY1}">
+                                <td><input type="checkbox" name="배너번호" th:value="${banner.bannerNo}"/></td>
+                                <td>[[${banner.bannerNo}]]</td>
+                                <td><img src="/my/img/my_banner1.jpg" class="thumb"></td>                            
+                                <td>
+                                    <ul>
+                                        <li class="name">[[${banner.bannerName}]]</li>
+                                        <li class="size">크기 : [[${banner.bannerSize}]]</li>
+                                        <li class="color">배경색 : [[${banner.bannerColor}]]</li>
+                                        <li class="link"><a th:href="${banner.bannerLink}">배너링크</a></li>
+                                    </ul>                                
+                                </td>
+                                <td>마이페이지</td>
+                                <td>[[${banner.bannerSdate}]]</td>
+                                <td>[[${banner.bannerEdate}]]</td>
+                                <td>[[${banner.bannerStime.substring(0,5)}]]</td>
+                                <td>[[${banner.bannerEtime.substring(0,5)}]]</td>
+                                <td>[[${banner.bannerHit}]]</td>
+                                <td>
+                                    <a href="#" th:onclick="'bannerStatus(' + ${banner.bannerNo} + ', 0)'">[비활성]</a>
+                                    <a href="#" th:onclick="'bannerStatus(' + ${banner.bannerNo} + ', 1)'">[활성]</a>
+                                </td>
+                            </tr>
+                        </table>
+                        <input type="button" class="btnNegative" value="선택삭제"/>
+                        <input type="button" class="btnPositive btnRegister" value="등록하기"/>
+                    </section>
+                </article>
+                <p class="ico info">
+                    <strong>Tip!</strong>
+                    전자상거래 등에서의 상품 등의 정보제공에 관한 고시에 따라 총 35개 상품군에 대해 상품 특성 등을 양식에 따라 입력할 수 있습니다.
+                </p>
+            </section>
+        </main>
+        <footer th:replace="~{fragment/footer_fragment::adminFooter}"></footer>
+    </div>
+    <div id="bannerRegister" class="popup">
+        <div>
+            <nav>
+                <h1>배너등록</h1>
+                <button class="btnClose">X</button>
+            </nav>
+            <section>
+                <article>
+                    <h3>배너 정보입력</h3>
+                    <form th:action="@{/admin/config/banner}" method="post">
+                        <table border="0">
+                            <tr>
+                                <td>배너이름</td>
+                                <td>
+                                    <p>배너명을 입력하세요.</p>
+                                    <input type="text" name="bannerName" placeholder="배너명 입력"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>배너크기</td>
+                                <td>
+                                    <p>배너의 크기를 입력하세요.</p>
+                                    <input type="text" name="bannerSize"
+                                           placeholder="배너크기" readonly/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>배경색</td>
+                                <td>                                    
+                                    <p>메인 상단 배너에 적용되는 배너 배경색입니다. ex) #ffff00</p>
+                                    <input type="text" name="bannerColor" placeholder="배너 배경색 입력"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>배너링크</td>
+                                <td>
+                                    <p>배너를 클릭했을 떄 이동할 페이지 링크주소를 입력하세요.</p>
+                                    <input type="text" name="bannerLink" placeholder="링크주소 입력"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>배너위치</td>
+                                <td>                                    
+                                    <p>배너가 노출되는 위치를 선택하십시요.</p>
+                                    <select name="bannerPosition">
+                                        <option value="0">선택</option>
+                                        <option value="MAIN1">메인-상단</option>
+                                        <option value="MAIN2">메인-슬라이더</option>
+                                        <option value="PRODUCT1">상품-상세보기</option>
+                                        <option value="MEMBER1">회원-로그인</option>
+                                        <option value="MY1">마이페이지</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>배너 노출날짜</td>
+                                <td>                                    
+                                    <p>배너가 노출되는 기간을 선택하십시요.</p>
+                                    <input type="date" name="bannerSdate"/>
+                                    <span>~</span>
+                                    <input type="date" name="bannerEdate"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>배너 노출시간</td>
+                                <td>                                    
+                                    <p>배너가 노출되는 시간을 선택하십시요.</p>
+                                    <input type="time" name="bannerStime"/>
+                                    <span>~</span>
+                                    <input type="time" name="bannerEtime"/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div>                            
+                            <input type="submit" class="btnPositive" value="등록하기"/>
+                        </div>
+                        
+                    </form>
+                </article>
+            </section>
+        </div>
+    </div>
+</body>
+</html>

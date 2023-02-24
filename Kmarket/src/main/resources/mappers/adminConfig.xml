@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 2023/02/09 // 심규영 // 관리자 상품 xml 생성 -->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.kmarket.dao.admin.AdminConfigDAO">
+    <insert id="insertBanner" useGeneratedKeys="true" keyProperty="bannerNo">
+
+        INSERT INTO `km_banner`
+        SET
+        `bannerName` = #{bannerName},
+        `bannerSize` = #{bannerSize},
+        `bannerColor` = #{bannerColor},
+        `bannerLink` = #{bannerLink},
+        `bannerPosition` = #{bannerPosition},
+        `bannerSdate` = #{bannerSdate},
+        `bannerEdate` = #{bannerEdate},
+        `bannerStime` = #{bannerStime},
+        `bannerEtime` = #{bannerEtime}
+
+    </insert>
+
+    <select id="selectBanners" resultType="kr.co.kmarket.vo.BannerVO">
+        SELECT * FROM `km_banner`;
+    </select>
+
+    <update id="changeBannerStatus">
+        update `km_banner` set `bannerStatus` = #{status} where `bannerNo` = #{no};
+    </update>
+
+    <delete id="deleteBanner" parameterType="java.util.Map">
+        DELETE FROM `km_banner`
+        WHERE `bannerNo` IN
+        <foreach collection="checkboxArr" item="bannerNo" open="(" separator="," close=")">
+            #{bannerNo}
+        </foreach>
+    </delete>
+</mapper>

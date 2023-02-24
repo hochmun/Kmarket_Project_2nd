@@ -1,6 +1,7 @@
 package kr.co.kmarket.controller;
 
 import kr.co.kmarket.dto.CartDTO;
+import kr.co.kmarket.dto.SearchDTO;
 import kr.co.kmarket.entity.UserEntity;
 import kr.co.kmarket.security.MyUserDetails;
 import kr.co.kmarket.service.MemberService;
@@ -366,11 +367,19 @@ public class ProductController {
      */
 
     @GetMapping("product/search")
-    public String search(Model model, String keyword, String pg, String sort){
+    public String search(Model model, String pg, String sort, SearchDTO dto){
 
         if(sort == null){
             sort = "sold";
         }
+
+        String keyword = dto.getKeyword();
+        String keywords = dto.getKeywords();
+
+        int total = 0;
+        List<productVO> products = null;
+
+        log.info("dto :" + dto);
 
         // 게시글 출력 갯수
         int count = 10;
@@ -381,8 +390,15 @@ public class ProductController {
         // 페이지 시작값
         int start = service.getLimitStart(currentPage, count);
 
-        // 전체 게시물 갯수
-        int total = service.getCountTotalForSearch(keyword);
+        if(keywords == null || keywords.equals("")){ // 1차 검색일때
+            // 전체 게시물 갯수
+            total = service.getCountTotalForSearch(keyword);
+        }else{ //2차 검색일 때
+            total = service.getCountTotalForSearch2(dto);
+        }
+
+        log.info("total값 :" + total);
+
 
         // 페이지 마지막 번호
         int lastPageNum = service.getLastPageNum(total, count);
@@ -391,7 +407,13 @@ public class ProductController {
         int[] pageGroup = service.getPageGroupNum(currentPage, lastPageNum);
 
         // 현재 페이지 상품 가져오기
-        List<productVO> products = service.selectProductsForSearch(sort, start, keyword);
+        if(keywords == null || keywords.equals("")){ // 1차 검색일때
+            // 전체 게시물 갯수
+            products = service.selectProductsForSearch(sort, start, keyword);
+        }else{ //2차 검색일 때
+            products = service.selectProductsForSearch2(sort, start, dto);
+        }
+
 
         model.addAttribute("products", products);
         model.addAttribute("currentPage", currentPage);
@@ -399,14 +421,14 @@ public class ProductController {
         model.addAttribute("pageGroup", pageGroup);
 
         model.addAttribute("keyword", keyword);
+        model.addAttribute("keywords", dto.getKeywords());
+        model.addAttribute("chk1", dto.isChk1());
+        model.addAttribute("chk2", dto.isChk2());
+        model.addAttribute("chk3", dto.isChk3());
+        model.addAttribute("min", dto.getMin());
+        model.addAttribute("max", dto.getMax());
         model.addAttribute("sort", sort);
         model.addAttribute("total", total);
-
-        log.info("products :" + products);
-        log.info("keyword :" + keyword);
-        log.info("total :" + total);
-        log.info("sort :" + sort);
-
 
         return "product/search";
     }

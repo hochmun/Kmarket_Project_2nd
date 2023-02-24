@@ -1,7 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <th:block th:replace="~{member/_header}"></th:block>
-
     <main id="member">
         <div class="login">
             <nav>
@@ -9,10 +8,6 @@
             </nav>
             <form th:action="@{/member/search_pw}" method="post" id="searchpw">
                 <table border="0">
-                    <tr>
-                        <td>아이디</td>
-                        <td><input type="text" name="uid" id="uid" placeholder="아이디 입력"></td>
-                    </tr>
                     <tr>
                         <td>Email</td>
                         <td>
