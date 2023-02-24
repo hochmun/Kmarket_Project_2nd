@@ -48,7 +48,7 @@ public class SecurityConfig {
 		.alwaysRemember(false)
 		.userDetailsService(service)
 		.tokenRepository(tokenRepository());
-		
+
 		// 로그인 페이지 설정
 		http.formLogin()
 		.loginPage("/member/login")
