@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -19,6 +20,7 @@
 
     <!-- 2023/02/20 // 심규영 // 마이페이지 중복 처리, nav 메뉴 -->
     <nav th:fragment="my_nav">
+        <!--<script th:src="@{/js/my/my_nav.js}"></script>-->
         <div>
             <a href="./home.html"><img src="../img/my_logo.jpg" alt="나의쇼핑정보"></a>
 

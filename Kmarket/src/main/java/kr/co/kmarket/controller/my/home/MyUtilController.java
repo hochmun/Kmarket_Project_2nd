@@ -177,4 +177,19 @@ public class MyUtilController {
 
     }
 
+    @ResponseBody
+    @PostMapping("/my/myShoppingStatus")
+    public void myShoppingStatus(@AuthenticationPrincipal MyUserDetails myUserDetails) {
+        // 아이디 받아오기
+        String uid = myUserDetails.getUser().getUid();
+
+        //주문. 배송 갯수
+        
+        // 할인 쿠폰 갯수'
+        
+        // 포인트 량
+        
+        // 문의 내역 갯수
+    }
+
 }
