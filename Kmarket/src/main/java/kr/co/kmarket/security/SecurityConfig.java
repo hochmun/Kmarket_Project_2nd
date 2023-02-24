@@ -1,6 +1,7 @@
 package kr.co.kmarket.security;
 
 import kr.co.kmarket.entity.PersistentLogins;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -28,7 +29,6 @@ public class SecurityConfig {
 		// 전체 접근 가능
 		http.authorizeHttpRequests().antMatchers("/", "/index").permitAll();
 
-
 		// 일반 회원, 판매자 회원, 관리자 접근 가능
 		// 모든 마이 페이지
 		http.authorizeHttpRequests().antMatchers("/my/**").hasAnyRole("1", "2", "5");
@@ -37,7 +37,6 @@ public class SecurityConfig {
 		http.authorizeHttpRequests()
 				.antMatchers("/admin/product/**","/admin/index")
 				.hasAnyRole("2", "5");
-		
 		// 관리자만 접근 가능
 		http.authorizeHttpRequests().antMatchers("/admin/cs/**").hasAnyRole("5");
 

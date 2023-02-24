@@ -42,10 +42,15 @@ public class MemberController {
     }
 
     @GetMapping("member/search_pw")
-    public String search_pw(){
+    public String search_pwd(){
         return "member/search_pw";
     }
 
+    /*
+    @PostMapping("member/search_pw")
+    public String search_pwd(){
+        return "member/search_pw";
+    }*/
     @GetMapping("member/register")
     public String register(){
         return "member/register";

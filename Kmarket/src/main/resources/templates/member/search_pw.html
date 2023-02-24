@@ -1,29 +1,12 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <th:block th:replace="~{member/_header}"></th:block>
-<script>
-function fb() {
-let email = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-
-if ($("#email").val() == null || $("#email").val() == "") {
-alert("이메일을 입력해주세요.");
-$("#email").focus();
-return false;
-}
-
-if(!email.test($("#email").val())){
-alert("이메일 형식에 맞게 입력해주세요.");
-return false;
-}
-}
-
-</script>
     <main id="member">
         <div class="login">
             <nav>
                 <h1>비밀번호찾기</h1>
             </nav>
-            <form action="#" id="searchpw">
+            <form th:action="@{/member/search_pw}" method="post" id="searchpw">
                 <table border="0">
                     <tr>
                         <td>Email</td>
@@ -32,7 +15,7 @@ return false;
                         </td>
                     </tr>
                 </table>
-                <input type="button" value="ok" id="ok" onclick="fb()"/>
+                <input type="button" value="ok" id="ok"/>
                 <span>
                     <a th:href="@{/member/login}">로그인</a>
                     <a th:href="@{/member/search_id}">아이디 찾기</a>
