@@ -8,13 +8,13 @@
     <!-- 2023/02/20 // 심규영 // 마이페이지 중복 처리, 사이드 메뉴 -->
     <ul th:fragment="menu_else">
         <span class="menu_else"></span>
-        <li class="on"><a href="#">전체주문내역</a></li>
+        <li th:class="${cate == 'home' ? 'on':''}"><a th:href="@{/my/home?cate=1}">전체주문내역</a></li>
         <!--<li><a href="#">관심상품</a></li>-->
-        <li><a href="#">포인트내역</a></li>
-        <li><a href="#">쿠폰</a></li>
-        <li><a href="#">나의리뷰</a></li>
-        <li><a href="#">문의하기</a></li>
-        <li><a href="#">나의설정</a></li>
+        <li th:class="${cate == 'point' ? 'on':''}"><a th:href="@{/my/point?cate=2}">포인트내역</a></li>
+        <li th:class="${cate == 'coupon' ? 'on':''}"><a th:href="@{/my/coupon?cate=3}">쿠폰</a></li>
+        <li th:class="${cate == 'qna' ? 'on':''}"><a th:href="@{/my/qna?cate=4}">문의하기</a></li>
+        <li th:class="${cate == 'review' ? 'on':''}"><a th:href="@{/my/review?cate=5}">나의리뷰</a></li>
+        <li th:class="${cate == 'info' ? 'on':''}"><a th:href="@{/my/info?cate=6}">나의설정</a></li>
     </ul>
 
     <!-- 2023/02/20 // 심규영 // 마이페이지 중복 처리, nav 메뉴 -->

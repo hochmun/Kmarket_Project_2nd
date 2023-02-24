@@ -47,7 +47,7 @@ public class MyController {
      */
     @GetMapping("my/home")
     public String home(Model model,
-                       @AuthenticationPrincipal MyUserDetails myUserDetails) {
+                       @AuthenticationPrincipal MyUserDetails myUserDetails, String cate) {
         // 유저 정보 불러오기
         UserEntity user = myUserDetails.getUser();
         
@@ -69,6 +69,11 @@ public class MyController {
         model.addAttribute("reviewVOs", reviewVOs);
         model.addAttribute("qnaVOs", qnaVOs);
         model.addAttribute("user", user);
+        
+        // aside 용
+        model.addAttribute("cate", cate);
+
+
 
         // 리턴
         return "my/home";
@@ -81,7 +86,7 @@ public class MyController {
      */
     @GetMapping("my/ordered")
     public String ordered(Model model, String pg, String date,
-                          @AuthenticationPrincipal MyUserDetails myUser) {
+                          @AuthenticationPrincipal MyUserDetails myUser, String cate) {
         // 유저 정보 불러오기
         UserEntity user = myUser.getUser();
 
@@ -144,6 +149,9 @@ public class MyController {
         model.addAttribute("monthNames", monthNames);
         model.addAttribute("date", date);
 
+        // aside 용
+        model.addAttribute("cate", cate);
+
         return "my/ordered";
     }
 
@@ -153,8 +161,8 @@ public class MyController {
      * @return
      */
     @GetMapping("my/point")
-    public String point(Model model, String pg, String date,
-                        @AuthenticationPrincipal MyUserDetails myUser) {
+    public String point(Model model, String pg,
+                        @AuthenticationPrincipal MyUserDetails myUser, String cate) {
         // 유저 정보 불러오기
         UserEntity user = myUser.getUser();
 
@@ -217,6 +225,9 @@ public class MyController {
         model.addAttribute("monthNames", monthNames);
         model.addAttribute("date", date);
 
+        // aside 용
+        model.addAttribute("cate", cate);
+
         return "my/point";
     }
 
@@ -226,7 +237,7 @@ public class MyController {
      * @return
      */
     @GetMapping("my/coupon")
-    public String coupon(Model model, @AuthenticationPrincipal MyUserDetails myUser) {
+    public String coupon(Model model, @AuthenticationPrincipal MyUserDetails myUser, String cate) {
 
         String uid = myUser.getUser().getUid();
 
@@ -239,6 +250,9 @@ public class MyController {
         model.addAttribute("coupons", coupons);
         model.addAttribute("count", count);
 
+        // aside 용
+        model.addAttribute("cate", cate);
+
         return "my/coupon";
     }
 
@@ -248,7 +262,7 @@ public class MyController {
      * @return
      */
     @GetMapping("my/review")
-    public String review(Model model, String pg, Integer revNo, Integer cate1, Integer cate2, @AuthenticationPrincipal MyUserDetails myUser) {
+    public String review(Model model, String pg, Integer revNo, Integer cate1, Integer cate2, @AuthenticationPrincipal MyUserDetails myUser , String cate) {
         // 유저 정보 불러오기
         UserEntity user = myUser.getUser();
 
@@ -286,6 +300,9 @@ public class MyController {
         model.addAttribute("cate1", cate1);
         model.addAttribute("cate2", cate2);
 
+        // aside 용
+        model.addAttribute("cate", cate);
+
         return "my/review";
     }
 
@@ -295,7 +312,7 @@ public class MyController {
      * @return
      */
     @GetMapping("my/qna")
-    public String qna(Model model, String pg, Integer cate1, @AuthenticationPrincipal MyUserDetails myUser){
+    public String qna(Model model, String pg, Integer cate1, @AuthenticationPrincipal MyUserDetails myUser, String cate){
         // 유저 정보 불러오기
         UserEntity user = myUser.getUser();
 
@@ -320,6 +337,9 @@ public class MyController {
         model.addAttribute("groups", groups);
         model.addAttribute("cate1", cate1);
 
+        // aside 용
+        model.addAttribute("cate", cate);
+
         return "my/qna";
     }
 
@@ -328,7 +348,7 @@ public class MyController {
      * 2023/02/22 // 이해빈 // info 기본 맵핑 생성
      */
     @GetMapping("my/info")
-    public String info(Model model, @AuthenticationPrincipal MyUserDetails myUser){
+    public String info(Model model, @AuthenticationPrincipal MyUserDetails myUser, String cate){
 
         String uid = myUser.getUser().getUid();
         
@@ -336,6 +356,7 @@ public class MyController {
         memberVO member = memberservice.selectMember(uid);
 
         model.addAttribute("member", member);
+        model.addAttribute("cate", cate);
 
         return "my/info";
     }
