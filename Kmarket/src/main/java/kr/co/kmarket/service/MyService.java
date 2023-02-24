@@ -91,8 +91,8 @@ public class MyService {
      * 2023/02/22 포인트 내역 불러오기
      * @autor 김재준
      */
-    public List<member_pointVO> selectMyPoint(String uid, int start){
-        return dao.selectMyPoint(uid, start);
+    public List<member_pointVO> selectMyPoint(String uid, int start, String date){
+        return dao.selectMyPoint(uid, start, date);
     }
 
     /**
@@ -100,7 +100,6 @@ public class MyService {
      * @param uid
      */
     public List<product_orderVO> selectMyOrdered(String uid, int start, String date){
-        LocalDate now = LocalDate.now();
         return dao.selectMyOrdered(uid, start, date);
     }
 
@@ -228,6 +227,14 @@ public class MyService {
      */
     public List<member_pointVO> selectMyPointList5(String uid) {
         return dao.selectMyPointList5(uid);
+    }
+
+    /**
+     * 2023/02/24 // 심규영 // 마이페이지 홈 최근 리뷰 내역 5개 불러오는 기능
+     * @param uid
+     */
+    public List<product_reviewVO> selectMyReviewList5(String uid) {
+        return dao.selectMyReviewList5(uid);
     }
 
     /**

@@ -107,40 +107,12 @@
                                 <th>평점</th>
                                 <th>작성일</th>
                             </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>상품명</td>
-                                <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
-                                <td><span class="rating star1">상품평</span></td>
-                                <td>2022-12-10</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>상품명</td>
-                                <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
-                                <td><span class="rating star2">상품평</span></td>
-                                <td>2022-12-10</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>상품명</td>
-                                <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
-                                <td><span class="rating star3">상품평</span></td>
-                                <td>2022-12-10</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>상품명</td>
-                                <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
-                                <td><span class="rating star4">상품평</span></td>
-                                <td>2022-12-10</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>상품명</td>
-                                <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
-                                <td><span class="rating star5">상품평</span></td>
-                                <td>2022-12-10</td>
+                            <tr th:each="reviewVO:${reviewVOs}">
+                                <td th:text="${reviewVO.revNo}">1</td>
+                                <td th:text="${reviewVO.prodName}">상품명</td>
+                                <td th:text="${reviewVO.content}">배송이 빠릅니다. 잘 사용하겠습니다.</td>
+                                <td><span class="rating" th:classappend="${'star' + reviewVO.rating}">상품평</span></td>
+                                <td th:text="${#strings.substring(reviewVO.rdate, 0, 11)}">2022-12-10</td>
                             </tr>
                         </table>
                     </article>

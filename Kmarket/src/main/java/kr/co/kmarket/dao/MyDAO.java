@@ -76,7 +76,7 @@ public interface MyDAO {
      * 2023/02/22 포인트 내역 불러오기
      * @autor 김재준
      */
-    public List<member_pointVO> selectMyPoint(@Param("uid") String uid, @Param("start") int start);
+    public List<member_pointVO> selectMyPoint(@Param("uid") String uid, @Param("start") int start, @Param("date") String date);
 
     /**
      * 23/02/22 전체 포인트 내역 갯수 불러오기
@@ -125,6 +125,12 @@ public interface MyDAO {
      * 2023/02/21 // 심규영 // 마이페이지 홈 최근 포인트 적립 내역 5개 불러오는 기능
      */
     public List<member_pointVO> selectMyPointList5(@Param("uid") String uid);
+
+    /**
+     * 2023/02/24 // 심규영 // 마이페이지 홈 최근 리뷰 내역 5개 불러오는 기능
+     * @param uid
+     */
+    public List<product_reviewVO> selectMyReviewList5(@Param("uid") String uid);
 
     /**
      * 2023/02/21 // 심규영 // 마이페이지 홈 최근 문의 내역 5개 불러오는 기능
