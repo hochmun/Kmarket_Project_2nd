@@ -58,6 +58,7 @@ public class MyController {
         List<member_pointVO> pointVOs = service.selectMyPointList5(user.getUid());
 
         // 상품평 내역
+        List<product_reviewVO> reviewVOs = service.selectMyReviewList5(user.getUid());
 
         // 문의 내역 내림 차순
         List<Cs_QnaVO> qnaVOs = service.selectMyQnaList5(user.getUid());
@@ -65,6 +66,7 @@ public class MyController {
         // 전송 모델
         model.addAttribute("orderVOs", orderVOs);
         model.addAttribute("pointVOs", pointVOs);
+        model.addAttribute("reviewVOs", reviewVOs);
         model.addAttribute("qnaVOs", qnaVOs);
         model.addAttribute("user", user);
 
