@@ -20,8 +20,10 @@
     <header>
         <div class="top">
             <div>
+                <th:block sec:authorize="!isAuthenticated()">
                 <a th:href="@{/member/login}">로그인</a>
                 <a th:href="@{/member/join}">회원가입</a>
+                </th:block>
                 <a href="#">마이페이지</a>
                 <a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;장바구니</a>
             </div>

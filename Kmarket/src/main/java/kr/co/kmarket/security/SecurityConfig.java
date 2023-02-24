@@ -1,6 +1,7 @@
 package kr.co.kmarket.security;
 
 import kr.co.kmarket.entity.PersistentLogins;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -27,12 +28,10 @@ public class SecurityConfig {
 		// 인가(접근권한) 설정
 		// 전체 접근 가능
 		http.authorizeHttpRequests().antMatchers("/", "/index").permitAll();
-
 		// 판매자 회원, 관리자 만 접근 가능
 		http.authorizeHttpRequests()
 				.antMatchers("/admin/product/**","/admin/index")
 				.hasAnyRole("2", "5");
-		
 		// 관리자만 접근 가능
 		http.authorizeHttpRequests().antMatchers("/admin/cs/**").hasAnyRole("5");
 
@@ -49,7 +48,7 @@ public class SecurityConfig {
 		.alwaysRemember(false)
 		.userDetailsService(service)
 		.tokenRepository(tokenRepository());
-
+		
 		// 로그인 페이지 설정
 		http.formLogin()
 		.loginPage("/member/login")
@@ -57,7 +56,7 @@ public class SecurityConfig {
 		.failureUrl("/member/login?success=100")
 		.usernameParameter("uid")
 		.passwordParameter("pass");
-		
+
 		// 로그아웃 설정
 		http.logout()
 		.invalidateHttpSession(true)

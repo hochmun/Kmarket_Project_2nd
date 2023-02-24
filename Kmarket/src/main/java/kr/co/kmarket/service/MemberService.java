@@ -4,8 +4,9 @@ import kr.co.kmarket.dao.MemberDAO;
 import kr.co.kmarket.repository.UserRepo;
 import kr.co.kmarket.vo.member_termsVO;
 import kr.co.kmarket.vo.memberVO;
-import org.apache.catalina.Manager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
