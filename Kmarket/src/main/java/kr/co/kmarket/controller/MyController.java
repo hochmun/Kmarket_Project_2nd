@@ -6,6 +6,7 @@ import kr.co.kmarket.service.MemberService;
 import kr.co.kmarket.service.MyService;
 import kr.co.kmarket.service.ProductService;
 import kr.co.kmarket.vo.*;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -161,7 +162,7 @@ public class MyController {
      * @return
      */
     @GetMapping("my/point")
-    public String point(Model model, String pg,
+    public String point(Model model, String pg, String date,
                         @AuthenticationPrincipal MyUserDetails myUser, String cate) {
         // 유저 정보 불러오기
         UserEntity user = myUser.getUser();
